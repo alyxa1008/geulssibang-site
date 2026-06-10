@@ -47,6 +47,7 @@ gtag("config", "G-86X82MNHC8");
     <a href="./" class="here">한글 따라쓰기</a>
     <a href="../badaseugi/">받아쓰기</a>
     <a href="../math/">수학 연산</a>
+    <a href="../maze/">미로 찾기</a>
   </nav>
 
   <header class="no-print">
@@ -135,9 +136,19 @@ gtag("config", "G-86X82MNHC8");
           </div>
         </div>
 
-        <div class="field">
-          <label for="title">학습지 제목</label>
-          <input type="text" id="title" placeholder="한글 따라쓰기 연습" maxlength="20">
+        <div class="two field">
+          <div>
+            <label for="fade">흐린 글자 농도</label>
+            <select id="fade">
+              <option value="light">연하게</option>
+              <option value="mid" selected>보통</option>
+              <option value="dark">진하게</option>
+            </select>
+          </div>
+          <div>
+            <label for="title">학습지 제목</label>
+            <input type="text" id="title" placeholder="한글 따라쓰기 연습" maxlength="20">
+          </div>
         </div>
 
         <div class="field">
@@ -215,9 +226,11 @@ var state = {
   traceRows: 2,
   emptyRows: 1,
   guide: true,
+  fade: "mid",           // light | mid | dark — 흐린 글자 농도
   title: ""
 };
 var SIZES = { big:{cell:22, cols:8, rows:9}, mid:{cell:18, cols:10, rows:11}, small:{cell:15, cols:12, rows:13} };
+var FADE = { light:"#d6dade", mid:"#c3c8ce", dark:"#9aa2ac" };
 
 /* ---------- helpers ---------- */
 /* 공백을 뺀 글자들을 입력 순서대로, 중복 없이 */
@@ -325,6 +338,7 @@ function makeSheet(pageRows, cfg, pageNo, pageTotal){
   var sheet=el("div","sheet "+state.font);
   sheet.style.setProperty("--cell", cfg.cell+"mm");
   sheet.style.setProperty("--rowgap", "4mm");
+  sheet.style.setProperty("--trace", FADE[state.fade]||FADE.mid);
 
   var head=el("div","sheet-head");
   var title=el("div","sheet-title");
@@ -360,15 +374,17 @@ function makeSheet(pageRows, cfg, pageNo, pageTotal){
 
 /* ---------- share url ---------- */
 function encodeState(){
-  return b64e(JSON.stringify([state.text,state.mode,state.font,state.size,state.emptyCells,state.traceRows,state.emptyRows,state.guide?1:0,state.title]));
+  return b64e(JSON.stringify([state.text,state.mode,state.font,state.size,state.emptyCells,state.traceRows,state.emptyRows,state.guide?1:0,state.title,state.fade]));
 }
 function loadFromHash(){
   try{
     var m=location.hash.match(/s=([^&]+)/); if(!m) return false;
     var a=JSON.parse(b64d(decodeURIComponent(m[1])));
+    if(!SIZES[a[3]] || (a[1]!=="char" && a[1]!=="line")) return false;   /* 형식이 다른 해시는 무시 */
     state.text=a[0]; state.mode=a[1]; state.font=a[2]; state.size=a[3];
     state.emptyCells=+a[4]; state.traceRows=+a[5]; state.emptyRows=+a[6];
     state.guide=!!a[7]; state.title=a[8]||"";
+    state.fade=FADE[a[9]] ? a[9] : "mid";   /* 농도 추가 전에 만든 링크는 보통으로 */
     return true;
   }catch(e){ return false; }
 }
@@ -382,6 +398,7 @@ function syncControls(){
   document.getElementById("traceRows").value=String(state.traceRows);
   document.getElementById("emptyRows").value=String(state.emptyRows);
   document.getElementById("guide").checked=state.guide;
+  document.getElementById("fade").value=state.fade;
   document.getElementById("title").value=state.title;
   document.querySelectorAll("#modeSeg button").forEach(function(b){
     b.classList.toggle("on", b.dataset.mode===state.mode);
@@ -408,11 +425,12 @@ document.getElementById("emptyCells").addEventListener("change",function(e){ sta
 document.getElementById("traceRows").addEventListener("change",function(e){ state.traceRows=+e.target.value; render(); });
 document.getElementById("emptyRows").addEventListener("change",function(e){ state.emptyRows=+e.target.value; render(); });
 document.getElementById("guide").addEventListener("change",function(e){ state.guide=e.target.checked; render(); });
+document.getElementById("fade").addEventListener("change",function(e){ state.fade=e.target.value; render(); });
 document.getElementById("title").addEventListener("input",function(e){ state.title=e.target.value; render(); });
 
 document.getElementById("btnPrint").addEventListener("click",function(){ track("print_sheet",{tool:"hangul"}); window.print(); });
 document.getElementById("btnReset").addEventListener("click",function(){
-  state={text:"가나다라마바사",mode:"char",font:"f-gowun",size:"mid",emptyCells:3,traceRows:2,emptyRows:1,guide:true,title:""};
+  state={text:"가나다라마바사",mode:"char",font:"f-gowun",size:"mid",emptyCells:3,traceRows:2,emptyRows:1,guide:true,fade:"mid",title:""};
   history.replaceState(null,"",location.pathname);
   syncControls(); render();
 });
