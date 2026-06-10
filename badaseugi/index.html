@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-86X82MNHC8"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "G-86X82MNHC8");
+</script>
 <title>받아쓰기 불러주기 — 1·2학년 급수 단어 시험지 무료 출력 | 글씨방</title>
 <meta name="description" content="초등 1·2학년 받아쓰기 급수 단어를 입력하면 컴퓨터가 또박또박 불러주고, 시험지와 정답지를 무료로 출력합니다. 부모님이 안 불러줘도 혼자 받아쓰기 연습. 회원가입 없음.">
 <meta name="robots" content="index, follow">
@@ -364,6 +372,7 @@ document.getElementById("btnExam").addEventListener("click",function(){
 });
 document.getElementById("examStart").addEventListener("click",function(){
   stopExam();
+  track("exam_start",{words:state.words.length});
   exam.idx=0; exam.running=true;
   this.textContent="시작";
   playCurrent();
@@ -419,7 +428,7 @@ document.getElementById("rate").addEventListener("change",function(e){ state.rat
 document.getElementById("title").addEventListener("input",function(e){ state.title=e.target.value; render(); });
 document.getElementById("answers").addEventListener("change",function(e){ state.answers=e.target.checked; render(); });
 
-document.getElementById("btnPrint").addEventListener("click",function(){ window.print(); });
+document.getElementById("btnPrint").addEventListener("click",function(){ track("print_sheet",{tool:"badaseugi"}); window.print(); });
 document.getElementById("btnReset").addEventListener("click",function(){
   stopExam();
   document.getElementById("words").value="";
