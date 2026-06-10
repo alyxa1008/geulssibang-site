@@ -46,6 +46,7 @@ gtag("config", "G-86X82MNHC8");
     <a href="../hangul/">한글 따라쓰기</a>
     <a href="./" class="here">받아쓰기</a>
     <a href="../math/">수학 연산</a>
+    <a href="../maze/">미로 찾기</a>
   </nav>
 
   <header class="no-print">
@@ -120,6 +121,7 @@ gtag("config", "G-86X82MNHC8");
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6z"/></svg>
             시험지 인쇄 · PDF
           </button>
+          <button class="act sub" id="btnPreview">🔉 음성 미리 듣기</button>
           <button class="act sub" id="btnShare">🔗 링크 복사</button>
           <button class="act sub" id="btnReset">처음부터</button>
         </div>
@@ -354,6 +356,14 @@ function stopExam(){
 /* 시험 중 페이지를 떠나면 음성이 계속 나오는 브라우저가 있어 정리 */
 window.addEventListener("pagehide", stopExam);
 
+/* 한국어 음성이 설치되지 않은 기기 감지 — 음성 목록이 로드됐는데 ko 음성이 없을 때만 true */
+function noKoVoice(){
+  return window.speechSynthesis && speechSynthesis.getVoices().length > 0 && !exam.koVoice;
+}
+function warnIfNoKoVoice(){
+  if(noKoVoice()) showToast("이 기기에 한국어 음성이 없어요. 기기 설정에서 한국어 TTS 음성을 설치해 주세요");
+}
+
 document.getElementById("btnExam").addEventListener("click",function(){
   state.words=parseWords(document.getElementById("words").value);
   if(!state.words.length){
@@ -365,6 +375,7 @@ document.getElementById("btnExam").addEventListener("click",function(){
     showToast("이 브라우저는 음성을 지원하지 않아요");
     return;
   }
+  warnIfNoKoVoice();
   exam.idx=0; exam.running=false;
   document.getElementById("examStart").textContent="시작";
   document.getElementById("examStatus").textContent="준비되면 시작을 눌러 주세요";
@@ -431,6 +442,14 @@ document.getElementById("title").addEventListener("input",function(e){ state.tit
 document.getElementById("answers").addEventListener("change",function(e){ state.answers=e.target.checked; render(); });
 
 document.getElementById("btnPrint").addEventListener("click",function(){ track("print_sheet",{tool:"badaseugi"}); window.print(); });
+document.getElementById("btnPreview").addEventListener("click",function(){
+  if(!window.speechSynthesis){ showToast("이 브라우저는 음성을 지원하지 않아요"); return; }
+  warnIfNoKoVoice();
+  stopExam();
+  var ws=parseWords(document.getElementById("words").value);
+  speak(ws[0] || "안녕하세요. 받아쓰기 연습을 시작해 볼까요?", null);
+  track("tts_preview",{});
+});
 document.getElementById("btnReset").addEventListener("click",function(){
   stopExam();
   document.getElementById("words").value="";

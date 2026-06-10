@@ -16,6 +16,14 @@ function b64d(str){ return decodeURIComponent(escape(atob(str))); }
 function track(name, params){
   if(typeof gtag==="function") gtag("event", name, params||{});
 }
+
+/* 실사용 기기에서 나는 JS 에러를 GA4로 보고 — 기기별 문제 파악용 */
+window.addEventListener("error", function(e){
+  track("js_error", {
+    message: String(e.message||"").slice(0,140),
+    where: (e.filename||"").split("/").slice(-2).join("/")+":"+(e.lineno||0)
+  });
+});
 /* 현재 페이지의 도구 이름 (이벤트 라벨용): /hangul/ → "hangul", 홈 → "home" */
 function toolName(){
   return location.pathname.split("/").filter(Boolean)[0]||"home";

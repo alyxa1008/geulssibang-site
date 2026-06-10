@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="naver-site-verification" content="5a80c95ca3675833b5faac38af43702f204a7b69" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-86X82MNHC8"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "G-86X82MNHC8");
+</script>
+<title>미로 찾기 도안 무료 출력 — 유아·초등 난이도별 미로 활동지 프린트 | 글씨방</title>
+<meta name="description" content="미로 찾기 활동지를 난이도별로 무한 생성해 무료로 인쇄하세요. 버튼 한 번에 새로운 미로가 만들어지고, 정답 경로지도 함께 출력됩니다. 유아·초등 두뇌 활동지, 회원가입 없음.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="미로 찾기 도안 무료 출력 — 난이도별 미로 활동지 | 글씨방">
+<meta property="og:description" content="버튼 한 번에 새로운 미로. 쉬움·보통·어려움 난이도와 정답지 지원. 무료 A4 인쇄.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://geulssibang.com/maze/">
+
+<!-- ===== GOOGLE ADSENSE: 승인 후 publisher 스크립트를 여기에 붙여넣기 ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+/* 미로 시트 (이 페이지 전용) */
+.mazebody{flex:1; display:flex; align-items:center; justify-content:center; padding:3mm 0}
+.mazebody svg{width:168mm; height:auto; max-height:225mm}
+</style>
+<meta property="og:url" content="https://geulssibang.com/maze/">
+<meta property="og:site_name" content="글씨방">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://geulssibang.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "미로 찾기 활동지 생성기", "url": "https://geulssibang.com/maze/", "description": "난이도별 미로 찾기 활동지를 무한 생성하고 정답 경로지와 함께 인쇄할 수 있는 무료 도구", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "미로가 매번 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 새 미로 만들기를 누를 때마다 완전히 새로운 미로가 생성됩니다. 링크 복사로 만든 주소를 열면 그 순간의 미로가 그대로 복원됩니다."}}, {"@type": "Question", "name": "몇 살부터 풀 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "쉬움 난이도는 5세부터, 보통은 6~7세, 어려움은 초등학생에게 적당합니다. 미로 찾기는 소근육과 집중력, 공간 지각력 발달에 도움이 됩니다."}}, {"@type": "Question", "name": "정답도 인쇄되나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. '정답 경로 함께 인쇄'를 켜면 출발부터 도착까지의 길이 빨간 선으로 표시된 정답지가 뒤에 함께 인쇄됩니다."}}]}</script>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topnav no-print">
+    <a href="../">글씨방 홈</a>
+    <a href="../hangul/">한글 따라쓰기</a>
+    <a href="../badaseugi/">받아쓰기</a>
+    <a href="../math/">수학 연산</a>
+    <a href="./" class="here">미로 찾기</a>
+  </nav>
+
+  <header class="no-print">
+    <div class="logo">미로 찾기 활동지 <span class="pen">🌀</span></div>
+    <h1 class="tagline">미로 찾기 도안 무료 출력 — 유아·초등 난이도별 미로 프린트</h1>
+    <div class="chalk-line"></div>
+  </header>
+
+  <div class="app">
+    <!-- ============ CONTROLS ============ -->
+    <aside class="panel no-print">
+      <div class="panel-head">활동지 만들기</div>
+      <div class="panel-body">
+
+        <div class="field">
+          <label>난이도</label>
+          <div class="seg" id="levelSeg" role="group" aria-label="난이도">
+            <button data-level="easy">쉬움</button>
+            <button data-level="mid" class="on">보통</button>
+            <button data-level="hard">어려움</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="pages">분량</label>
+          <select id="pages">
+            <option value="1" selected>미로 1개</option>
+            <option value="2">미로 2개</option>
+            <option value="3">미로 3개</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="title">활동지 제목 <span class="hint">비우면 자동</span></label>
+          <input type="text" id="title" placeholder="예) 미로 찾기 놀이" maxlength="20">
+          <label class="check"><input type="checkbox" id="answers" checked> 정답 경로 함께 인쇄</label>
+        </div>
+
+        <div class="actions">
+          <button class="act shuffle" id="btnShuffle">🎲 새 미로 만들기</button>
+          <button class="act print" id="btnPrint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6z"/></svg>
+            인쇄 · PDF 저장
+          </button>
+          <button class="act sub" id="btnShare">🔗 링크 복사</button>
+          <button class="act sub" id="btnReset">처음부터</button>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- ============ PREVIEW ============ -->
+    <section class="preview-zone">
+      <div class="preview-bar no-print">
+        <b>미리보기</b>
+        <span id="pageInfo">A4 · 1장</span>
+      </div>
+      <div id="sheets"></div>
+    </section>
+  </div>
+
+  <!-- AD SLOT (애드센스 유닛으로 교체) -->
+  <div class="adslot no-print" aria-hidden="true">광고 영역</div>
+
+  <!-- ============ SEO CONTENT ============ -->
+  <div class="content no-print">
+    <h2>매번 새로운 미로, 무한으로</h2>
+    <p>미로 찾기는 재미있는 놀이이면서 <strong>소근육 조절, 집중력, 공간 지각력</strong>을 기르는 좋은 활동이에요. 글씨방 미로 생성기는 '새 미로 만들기'를 누를 때마다 완전히 새로운 미로를 만들어 줍니다. 같은 미로를 두 번 풀 일이 없어요. 회원가입도 비용도 없습니다.</p>
+
+    <h2>이렇게 활용해 보세요</h2>
+    <p><strong>쉬움</strong>은 연필 잡기 시작한 5세부터, <strong>보통</strong>은 6~7세, <strong>어려움</strong>은 초등학생에게 적당해요. 한 장에 미로 1개가 큼직하게 인쇄되니, 분량을 2~3개로 늘려 형제·자매가 시합을 해도 재미있습니다. '정답 경로 함께 인쇄'를 켜면 빨간 길이 그려진 정답지가 뒤에 붙어 나와 채점이 쉬워요. <a href="../hangul/">한글 따라쓰기</a>나 <a href="../math/">수학 연산</a> 학습지 사이에 쉬는 활동으로 끼워 주면 학습 리듬 만들기에 좋습니다.</p>
+
+    <div class="adslot" aria-hidden="true">광고 영역</div>
+
+    <h2>자주 묻는 질문</h2>
+    <dl class="faq">
+      <dt>미로가 매번 다른가요?</dt>
+      <dd>네. '새 미로 만들기'를 누를 때마다 무작위로 새 미로가 생성됩니다. '링크 복사'로 만든 주소를 열면 그 순간의 미로가 그대로 복원돼요.</dd>
+      <dt>몇 살부터 풀 수 있나요?</dt>
+      <dd>쉬움은 5세부터, 보통은 6~7세, 어려움은 초등학생 수준이에요. 아이가 너무 쉽게 풀면 한 단계 올려 주세요.</dd>
+      <dt>길이 없는 미로가 나올 수도 있나요?</dt>
+      <dd>아니요. 모든 미로는 출발에서 도착까지 정확히 하나의 길이 있도록 만들어집니다.</dd>
+      <dt>PDF로 저장하려면?</dt>
+      <dd>'인쇄 · PDF 저장' 버튼을 누른 뒤 인쇄 대화상자에서 'PDF로 저장'을 선택하면 됩니다.</dd>
+    </dl>
+  </div>
+
+  <footer class="no-print">
+    <span>글씨방 — 무료 학습지 생성기</span>
+    <span><a href="../about/">사이트 소개</a> · <a href="../privacy/">개인정보처리방침</a></span>
+  </footer>
+</div>
+
+<div class="toast" id="toast">링크가 복사되었습니다</div>
+
+<script src="../assets/common.js"></script>
+<script>
+"use strict";
+/* ---------- 시드 난수 (같은 시드 → 같은 미로, 공유 링크용) ---------- */
+function mulberry32(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+
+/* ---------- 미로 생성: 재귀 백트래커 ----------
+   각 칸의 벽을 비트로 저장 (1=위, 2=오른쪽, 4=아래, 8=왼쪽).
+   모든 칸을 한 번씩 방문하며 벽을 허물기 때문에
+   출발→도착 경로가 정확히 하나 존재한다. */
+var DX=[0,1,0,-1], DY=[-1,0,1,0], OPP=[2,3,0,1];
+function genMaze(seed, cols, rows){
+  var rnd=mulberry32(seed), n=cols*rows;
+  var W=[], visited=[];
+  for(var i=0;i<n;i++){ W.push(15); visited.push(false); }
+  var stack=[0]; visited[0]=true;
+  while(stack.length){
+    var cur=stack[stack.length-1], x=cur%cols, y=(cur-x)/cols, dirs=[];
+    for(var d=0;d<4;d++){
+      var nx=x+DX[d], ny=y+DY[d];
+      if(nx>=0&&nx<cols&&ny>=0&&ny<rows&&!visited[ny*cols+nx]) dirs.push(d);
+    }
+    if(!dirs.length){ stack.pop(); continue; }
+    var pick=dirs[Math.floor(rnd()*dirs.length)];
+    var nxt=(y+DY[pick])*cols+(x+DX[pick]);
+    W[cur]&=~(1<<pick); W[nxt]&=~(1<<OPP[pick]);
+    visited[nxt]=true; stack.push(nxt);
+  }
+  W[0]&=~1;        /* 입구: 첫 칸 위쪽 벽 열기 */
+  W[n-1]&=~4;      /* 출구: 마지막 칸 아래쪽 벽 열기 */
+  return W;
+}
+/* 너비 우선 탐색으로 정답 경로 찾기 */
+function solveMaze(W, cols, rows){
+  var n=cols*rows, prev=[], q=[0];
+  for(var i=0;i<n;i++) prev.push(-1);
+  prev[0]=0;
+  while(q.length){
+    var c=q.shift();
+    if(c===n-1) break;
+    var x=c%cols, y=(c-x)/cols;
+    for(var d=0;d<4;d++){
+      if(W[c]&(1<<d)) continue;
+      var ny=y+DY[d], nx=x+DX[d];
+      if(nx<0||nx>=cols||ny<0||ny>=rows) continue;   /* 입구·출구로 새는 것 방지 */
+      var nb=ny*cols+nx;
+      if(prev[nb]===-1){ prev[nb]=c; q.push(nb); }
+    }
+  }
+  var path=[], c2=n-1;
+  while(c2!==0){ path.push(c2); c2=prev[c2]; }
+  path.push(0);
+  return path.reverse();
+}
+
+/* ---------- SVG 그리기 ---------- */
+function mazeSVG(W, cols, rows, path){
+  var u=10, w=cols*u, h=rows*u, seg=[];
+  for(var y=0;y<rows;y++)for(var x=0;x<cols;x++){
+    var c=W[y*cols+x], X=x*u, Y=y*u;
+    if(c&1) seg.push("M"+X+" "+Y+"h"+u);
+    if(c&8) seg.push("M"+X+" "+Y+"v"+u);
+    if(x===cols-1&&(c&2)) seg.push("M"+(X+u)+" "+Y+"v"+u);
+    if(y===rows-1&&(c&4)) seg.push("M"+X+" "+(Y+u)+"h"+u);
+  }
+  var s='<svg viewBox="-2 -11 '+(w+4)+' '+(h+22)+'" xmlns="http://www.w3.org/2000/svg">';
+  s+='<text x="'+(u/2)+'" y="-4" font-size="5.5" text-anchor="middle" fill="#2b3038">▼ 출발</text>';
+  s+='<text x="'+((cols-1)*u+u/2)+'" y="'+(h+8)+'" font-size="5.5" text-anchor="middle" fill="#e4573d">도착 ★</text>';
+  if(path){
+    var pts=[(u/2)+",-2"];
+    for(var i=0;i<path.length;i++){
+      var px=path[i]%cols, py=(path[i]-px)/cols;
+      pts.push((px*u+u/2)+","+(py*u+u/2));
+    }
+    pts.push(((cols-1)*u+u/2)+","+(h+2));
+    s+='<polyline points="'+pts.join(" ")+'" fill="none" stroke="#e4573d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>';
+  }
+  s+='<path d="'+seg.join("")+'" stroke="#2b3038" stroke-width="1.7" stroke-linecap="round" fill="none"/>';
+  return s+'</svg>';
+}
+
+/* ---------- state ---------- */
+var LEVELS={
+  easy:{cols:8,  rows:10, name:"쉬움"},
+  mid: {cols:12, rows:15, name:"보통"},
+  hard:{cols:17, rows:21, name:"어려움"}
+};
+var state={ level:"mid", pages:1, answers:true, title:"", seed:newSeed() };
+function newSeed(){ return Math.floor(Math.random()*1e8)+1; }
+function autoTitle(){ return "미로 찾기 — "+LEVELS[state.level].name; }
+
+/* ---------- render ---------- */
+function makeSheet(title, svg, pageNo, pageTotal, isAnswer){
+  var sheet=el("div","sheet");
+  var head=el("div","sheet-head");
+  var t=el("div","sheet-title");
+  var deco=el("span","deco"); deco.textContent=isAnswer?"✔":"🌀";
+  t.appendChild(deco); t.appendChild(document.createTextNode(title));
+  var meta=el("div","sheet-meta");
+  meta.innerHTML = isAnswer ? '' : '이름 <span class="blank"></span>';
+  head.appendChild(t); head.appendChild(meta);
+  sheet.appendChild(head);
+  var body=el("div","mazebody");
+  body.innerHTML=svg;   /* 내부에서 만든 SVG 문자열만 들어간다 */
+  sheet.appendChild(body);
+  var foot=el("div","sheet-foot");
+  var l=el("span"); l.textContent="글씨방 · 무료 미로 활동지 생성기";
+  var r=el("span"); r.textContent=pageNo+" / "+pageTotal;
+  foot.appendChild(l); foot.appendChild(r);
+  sheet.appendChild(foot);
+  return sheet;
+}
+function render(){
+  var lv=LEVELS[state.level];
+  var container=document.getElementById("sheets");
+  container.innerHTML="";
+  var title=state.title||autoTitle();
+  var total=state.pages*(state.answers?2:1);
+  var no=0;
+  var mazes=[];
+  for(var i=0;i<state.pages;i++) mazes.push(genMaze(state.seed+i, lv.cols, lv.rows));
+  mazes.forEach(function(W,i){
+    no++;
+    var scale=el("div","sheet-scale");
+    scale.appendChild(makeSheet(title+(state.pages>1?" ("+(i+1)+")":""), mazeSVG(W,lv.cols,lv.rows,null), no, total, false));
+    container.appendChild(scale);
+  });
+  if(state.answers) mazes.forEach(function(W,i){
+    no++;
+    var path=solveMaze(W,lv.cols,lv.rows);
+    var scale=el("div","sheet-scale");
+    scale.appendChild(makeSheet(title+(state.pages>1?" ("+(i+1)+")":"")+" — 정답", mazeSVG(W,lv.cols,lv.rows,path), no, total, true));
+    container.appendChild(scale);
+  });
+  fitScale();
+  document.getElementById("pageInfo").textContent="A4 · "+total+"장"+(state.answers?" (정답지 포함)":"");
+}
+
+/* ---------- share ---------- */
+function encodeState(){
+  return b64e(JSON.stringify([state.level,state.pages,state.answers?1:0,state.title,state.seed]));
+}
+function loadFromHash(){
+  try{
+    var m=location.hash.match(/s=([^&]+)/); if(!m) return false;
+    var a=JSON.parse(b64d(decodeURIComponent(m[1])));
+    state.level=LEVELS[a[0]]?a[0]:"mid"; state.pages=+a[1]||1;
+    state.answers=!!a[2]; state.title=a[3]||""; state.seed=+a[4]||newSeed();
+    return true;
+  }catch(e){ return false; }
+}
+
+/* ---------- controls ---------- */
+function syncControls(){
+  document.querySelectorAll("#levelSeg button").forEach(function(b){ b.classList.toggle("on", b.dataset.level===state.level); });
+  document.getElementById("pages").value=String(state.pages);
+  document.getElementById("answers").checked=state.answers;
+  document.getElementById("title").value=state.title;
+  document.getElementById("title").placeholder=autoTitle();
+}
+document.getElementById("levelSeg").addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b)return;
+  state.level=b.dataset.level; syncControls(); render();
+});
+document.getElementById("pages").addEventListener("change",function(e){ state.pages=+e.target.value; render(); });
+document.getElementById("answers").addEventListener("change",function(e){ state.answers=e.target.checked; render(); });
+document.getElementById("title").addEventListener("input",function(e){ state.title=e.target.value; render(); });
+document.getElementById("btnShuffle").addEventListener("click",function(){ state.seed=newSeed(); render(); });
+document.getElementById("btnPrint").addEventListener("click",function(){ track("print_sheet",{tool:"maze",level:state.level}); window.print(); });
+document.getElementById("btnShare").addEventListener("click",function(){ copyShareLink(encodeState()); });
+document.getElementById("btnReset").addEventListener("click",function(){
+  state={level:"mid",pages:1,answers:true,title:"",seed:newSeed()};
+  history.replaceState(null,"",location.pathname);
+  syncControls(); render();
+});
+window.addEventListener("resize",fitScale);
+
+/* ---------- init ---------- */
+loadFromHash();
+syncControls();
+render();
+</script>
+</body>
+</html>
