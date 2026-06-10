@@ -228,7 +228,7 @@ function makeSheet(title, startIdx, count, answerWords, pageNo, pageTotal){
   sheet.appendChild(head);
 
   var rows=el("div","qrows");
-  // answer sheet may exceed 10 rows visually; cap rows height by using all words but smaller? keep <=20 on one page: two columns not needed for MVP — answers wrap fine up to 20 with smaller min-height
+  /* 정답지는 최대 20문제를 한 장에 담도록 줄 간격·높이를 줄인다 */
   if(answerWords && answerWords.length>PER_PAGE){ rows.style.setProperty("row-gap","0"); }
   for(var i=0;i<count;i++){
     var row=el("div","qrow");
@@ -250,7 +250,13 @@ function makeSheet(title, startIdx, count, answerWords, pageNo, pageTotal){
 
 
 /* ---------- TTS exam mode ---------- */
-var exam={ idx:0, running:false, timer:null, koVoice:null };
+var exam={ idx:0, running:false, timer:null, koVoice:null, session:0, utter:null };
+/* session: 취소된 음성의 콜백이 뒤늦게 도착해 새 재생과 겹치는 것을 막는 세대 번호.
+   재생을 새로 시작하거나 멈출 때마다 증가하고, 콜백은 자기 번호가 최신일 때만 동작한다. */
+function aliveGuard(){
+  var s=++exam.session;
+  return function(){ return exam.running && s===exam.session; };
+}
 
 function pickVoice(){
   var vs=window.speechSynthesis ? speechSynthesis.getVoices() : [];
@@ -269,6 +275,7 @@ function speak(text, cb){
   u.rate=state.rate;
   u.onend=function(){ if(cb) cb(); };
   u.onerror=function(){ if(cb) cb(); };
+  exam.utter=u;   /* 크롬은 참조가 없는 utterance를 GC해 onend가 안 오는 경우가 있다 */
   speechSynthesis.speak(u);
 }
 function clearExamTimer(){ if(exam.timer){ clearTimeout(exam.timer); exam.timer=null; } }
@@ -283,15 +290,16 @@ function playCurrent(){
   if(!exam.running) return;
   clearExamTimer();
   examUpdateUI();
+  var alive=aliveGuard();
   var word=state.words[exam.idx];
   var status=document.getElementById("examStatus");
   status.textContent="문제를 읽고 있어요…";
   var reads=0;
   function readOnce(){
-    if(!exam.running) return;
+    if(!alive()) return;
     reads++;
     speak(word, function(){
-      if(!exam.running) return;
+      if(!alive()) return;
       if(reads<state.repeat){
         exam.timer=setTimeout(readOnce, 1200);
       } else {
@@ -301,12 +309,13 @@ function playCurrent(){
     });
   }
   speak((exam.idx+1)+"번", function(){
-    if(!exam.running) return;
+    if(!alive()) return;
     exam.timer=setTimeout(readOnce, 700);
   });
 }
 function nextQuestion(){
   if(!exam.running) return;
+  exam.session++;
   clearExamTimer();
   speechSynthesis.cancel();
   if(exam.idx >= state.words.length-1){
@@ -321,9 +330,12 @@ function nextQuestion(){
 }
 function stopExam(){
   exam.running=false;
+  exam.session++;
   clearExamTimer();
   if(window.speechSynthesis) speechSynthesis.cancel();
 }
+/* 시험 중 페이지를 떠나면 음성이 계속 나오는 브라우저가 있어 정리 */
+window.addEventListener("pagehide", stopExam);
 
 document.getElementById("btnExam").addEventListener("click",function(){
   state.words=parseWords(document.getElementById("words").value);
@@ -411,11 +423,7 @@ document.getElementById("btnReset").addEventListener("click",function(){
 document.getElementById("btnShare").addEventListener("click",function(){
   state.words=parseWords(document.getElementById("words").value);
   if(!state.words.length){ showToast("먼저 문제를 입력해 주세요"); return; }
-  var url=location.origin+location.pathname+"#s="+encodeURIComponent(encodeState());
-  navigator.clipboard.writeText(url).then(function(){
-    location.hash="s="+encodeURIComponent(encodeState());
-    showToast("링크가 복사되었습니다");
-  }).catch(function(){ prompt("이 링크를 복사하세요:",url); });
+  copyShareLink(encodeState());
 });
 window.addEventListener("resize",fitScale);
 

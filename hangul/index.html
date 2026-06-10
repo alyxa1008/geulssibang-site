@@ -205,13 +205,10 @@ var state = {
 var SIZES = { big:{cell:22, cols:8, rows:9}, mid:{cell:18, cols:10, rows:11}, small:{cell:15, cols:12, rows:13} };
 
 /* ---------- helpers ---------- */
-function chars(text){
-  // split into characters, keep spaces for line mode, drop newlines
-  return Array.from(text.replace(/\r?\n/g," ").replace(/\s+/g," ").trim());
-}
+/* 공백을 뺀 글자들을 입력 순서대로, 중복 없이 */
 function uniqueChars(text){
   var seen={}, out=[];
-  chars(text).forEach(function(c){ if(c===" ")return; if(!seen[c]){seen[c]=1; out.push(c);} });
+  Array.from(text.replace(/\s+/g,"")).forEach(function(c){ if(!seen[c]){seen[c]=1; out.push(c);} });
   return out;
 }
 
@@ -230,10 +227,10 @@ function buildRowsChar(){
   return rows;
 }
 function buildRowsLine(){
-  var cfg=SIZES[state.size], cs=chars(state.text);
-  if(!cs.length) return [];
-  // chunk text into lines word by word so a word never breaks across lines
+  var cfg=SIZES[state.size];
+  // 단어 단위로 줄을 채워서, 단어가 줄 끝에서 잘리지 않게 한다
   var words=state.text.replace(/\r?\n/g," ").trim().split(/\s+/).filter(Boolean);
+  if(!words.length) return [];
   var lines=[], cur=[];
   words.forEach(function(w){
     var wc=Array.from(w);
@@ -389,13 +386,7 @@ document.getElementById("btnReset").addEventListener("click",function(){
   history.replaceState(null,"",location.pathname);
   syncControls(); render();
 });
-document.getElementById("btnShare").addEventListener("click",function(){
-  var url=location.origin+location.pathname+"#s="+encodeURIComponent(encodeState());
-  navigator.clipboard.writeText(url).then(function(){
-    location.hash="s="+encodeURIComponent(encodeState());
-    showToast("링크가 복사되었습니다");
-  }).catch(function(){ prompt("이 링크를 복사하세요:",url); });
-});
+document.getElementById("btnShare").addEventListener("click",function(){ copyShareLink(encodeState()); });
 window.addEventListener("resize",fitScale);
 
 /* ---------- init ---------- */
