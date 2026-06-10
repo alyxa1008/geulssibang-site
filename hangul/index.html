@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한글 따라쓰기 프린트 — 이름·단어·문장 무료 학습지 출력 | 글씨방</title>
+<meta name="description" content="한글 따라쓰기 프린트 무료 출력. 아이 이름, 받아쓰기 단어, 문장을 입력하면 십자 안내선·흐린 글씨 학습지가 바로 만들어집니다. 유아·초등 1학년, 회원가입 없이 A4 인쇄.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="한글 따라쓰기 프린트 — 무료 학습지 출력 | 글씨방">
+<meta property="og:description" content="우리 아이 이름, 받아쓰기 단어로 나만의 한글 따라쓰기 학습지를 무료로 만들어 인쇄하세요.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://example.com/">
+
+<!-- ===== GOOGLE ADSENSE: 승인 후 publisher 스크립트를 여기에 붙여넣기 =====
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+================================================================== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Gaegu:wght@400;700&family=Gowun+Batang&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<meta property="og:url" content="https://example.com/hangul/">
+<meta property="og:site_name" content="글씨방">
+<meta property="og:locale" content="ko_KR">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "한글 따라쓰기 학습지 생성기", "url": "https://example.com/hangul/", "description": "원하는 글자, 단어, 문장을 입력하면 십자 안내선 격자의 따라쓰기 학습지를 무료로 만들어 인쇄할 수 있는 도구", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "정말 무료인가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 학습지 생성과 인쇄 모두 무료이고 횟수 제한도 없습니다. 가정과 교실에서 자유롭게 사용하세요."}}, {"@type": "Question", "name": "PDF로 저장하려면 어떻게 하나요?", "acceptedAnswer": {"@type": "Answer", "text": "인쇄 버튼을 누른 뒤 인쇄 대화상자에서 프린터 대신 'PDF로 저장'을 선택하면 됩니다. 휴대폰에서도 같은 방법으로 저장할 수 있습니다."}}, {"@type": "Question", "name": "만든 학습지를 다른 사람과 공유할 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "링크 복사 버튼을 누르면 지금 만든 학습지가 그대로 담긴 주소가 복사됩니다. 링크를 받은 사람은 똑같은 학습지를 바로 열어 인쇄할 수 있습니다."}}, {"@type": "Question", "name": "몇 살부터 사용하기 좋은가요?", "acceptedAnswer": {"@type": "Answer", "text": "연필을 잡기 시작하는 5세부터 초등 저학년까지 적합합니다. 어린아이는 칸 크기를 크게, 익숙해지면 작게 줄여 주세요."}}]}</script>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topnav no-print">
+    <a href="../">글씨방 홈</a>
+    <a href="./" class="here">한글 따라쓰기</a>
+    <a href="../badaseugi/">받아쓰기</a>
+    <a href="../math/">수학 연산</a>
+  </nav>
+
+  <header class="no-print">
+    <div class="logo">글씨방 <span class="pen">✎</span></div>
+    <h1 class="tagline">한글 따라쓰기 프린트 — 이름·단어·문장 무료 학습지 출력</h1>
+    <div class="chalk-line"></div>
+  </header>
+
+  <div class="app">
+    <!-- ============ CONTROLS ============ -->
+    <aside class="panel no-print">
+      <div class="panel-head">학습지 만들기</div>
+      <div class="panel-body">
+
+        <div class="field">
+          <label for="txt">연습할 글자·단어·문장</label>
+          <textarea id="txt" placeholder="예) 김하준&#10;예) 가나다라마바사&#10;예) 토끼가 깡충깡충 뛰어요"></textarea>
+          <div class="chips" id="chips">
+            <button class="chip" data-t="가나다라마바사아자차카타파하" data-mode="char">가나다</button>
+            <button class="chip" data-t="ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ" data-mode="char">자음</button>
+            <button class="chip" data-t="ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣ" data-mode="char">모음</button>
+            <button class="chip" data-t="하나 둘 셋 넷 다섯 여섯 일곱 여덟 아홉 열" data-mode="line">숫자</button>
+            <button class="chip" data-t="엄마 아빠 누나 형 동생 할머니 할아버지" data-mode="line">가족</button>
+            <button class="chip" data-t="강아지 고양이 토끼 사자 코끼리 기린" data-mode="line">동물</button>
+            <button class="chip" data-t="월요일 화요일 수요일 목요일 금요일 토요일 일요일" data-mode="line">요일</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>연습 방식</label>
+          <div class="seg" id="modeSeg" role="group" aria-label="연습 방식">
+            <button data-mode="char" class="on">한 글자씩</button>
+            <button data-mode="line">단어·문장 반복</button>
+          </div>
+        </div>
+
+        <div class="two field">
+          <div>
+            <label for="font">글씨체</label>
+            <select id="font">
+              <option value="f-gowun">또박체 (고딕)</option>
+              <option value="f-gaegu">손글씨체</option>
+              <option value="f-batang">바탕체</option>
+            </select>
+          </div>
+          <div>
+            <label for="size">칸 크기</label>
+            <select id="size">
+              <option value="big">크게 (8칸)</option>
+              <option value="mid" selected>보통 (10칸)</option>
+              <option value="small">작게 (12칸)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="two field" id="charOpts">
+          <div>
+            <label for="emptyCells">혼자 쓰는 칸 <span class="hint">줄 끝 빈칸</span></label>
+            <select id="emptyCells">
+              <option value="0">없음</option>
+              <option value="2">2칸</option>
+              <option value="3" selected>3칸</option>
+              <option value="4">4칸</option>
+            </select>
+          </div>
+          <div></div>
+        </div>
+
+        <div class="two field" id="lineOpts" style="display:none">
+          <div>
+            <label for="traceRows">따라쓰기 줄</label>
+            <select id="traceRows">
+              <option value="1">1줄</option>
+              <option value="2" selected>2줄</option>
+              <option value="3">3줄</option>
+            </select>
+          </div>
+          <div>
+            <label for="emptyRows">혼자쓰기 줄</label>
+            <select id="emptyRows">
+              <option value="0">없음</option>
+              <option value="1" selected>1줄</option>
+              <option value="2">2줄</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="title">학습지 제목</label>
+          <input type="text" id="title" placeholder="한글 따라쓰기 연습" maxlength="20">
+        </div>
+
+        <div class="field">
+          <label class="check"><input type="checkbox" id="guide" checked> 십자 안내선 표시</label>
+        </div>
+
+        <div class="actions">
+          <button class="act print" id="btnPrint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6z"/></svg>
+            인쇄 · PDF 저장
+          </button>
+          <button class="act sub" id="btnShare">🔗 링크 복사</button>
+          <button class="act sub" id="btnReset">처음부터</button>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- ============ PREVIEW ============ -->
+    <section class="preview-zone">
+      <div class="preview-bar no-print">
+        <b>미리보기</b>
+        <span id="pageInfo">A4 · 1장</span>
+      </div>
+      <div id="sheets"></div>
+    </section>
+  </div>
+
+  <!-- AD SLOT (애드센스 유닛으로 교체) -->
+  <div class="adslot no-print" aria-hidden="true">광고 영역</div>
+
+  <!-- ============ SEO CONTENT ============ -->
+  <div class="content no-print">
+    <h2>우리 아이만을 위한 한글 학습지</h2>
+    <p>글씨방은 입력한 내용 그대로 따라쓰기 학습지를 만들어 주는 무료 생성기입니다. 시중 학습지와 달리 <strong>아이 이름, 이번 주 받아쓰기 단어, 좋아하는 동물 이름</strong>처럼 우리 아이에게 딱 맞는 내용으로 연습장을 만들 수 있어요. 회원가입도, 다운로드 제한도 없습니다. 인쇄 버튼을 누르면 프린터로 바로 출력하거나 PDF 파일로 저장할 수 있습니다.</p>
+
+    <h2>이렇게 활용해 보세요</h2>
+    <p><strong>한글 떼기 시작 단계</strong>라면 자음·모음·가나다 버튼으로 기본 글자부터, <strong>이름 쓰기 연습</strong>은 아이 이름을 입력하고 '한 글자씩' 방식으로, <strong>받아쓰기 대비</strong>는 시험 범위 단어를 입력하고 '단어·문장 반복' 방식으로 만들면 좋아요. 본보기 글자 → 흐린 글자 따라쓰기 → 빈칸에 혼자 쓰기 순서로 구성되어 자연스럽게 글씨가 손에 익습니다. 십자 안내선은 글자의 중심을 잡는 데 도움을 줘요.</p>
+
+    <div class="adslot" aria-hidden="true">광고 영역</div>
+
+    <h2>자주 묻는 질문</h2>
+    <dl class="faq">
+      <dt>정말 무료인가요?</dt>
+      <dd>네. 학습지 생성과 인쇄 모두 무료이고 횟수 제한도 없습니다. 가정과 교실에서 자유롭게 사용하세요.</dd>
+      <dt>PDF로 저장하려면 어떻게 하나요?</dt>
+      <dd>'인쇄 · PDF 저장' 버튼을 누른 뒤 인쇄 대화상자에서 프린터 대신 'PDF로 저장'을 선택하면 됩니다. 휴대폰에서도 같은 방법으로 저장할 수 있어요.</dd>
+      <dt>만든 학습지를 다른 사람과 공유할 수 있나요?</dt>
+      <dd>'링크 복사' 버튼을 누르면 지금 만든 학습지가 그대로 담긴 주소가 복사됩니다. 가족이나 같은 반 학부모에게 링크를 보내면 똑같은 학습지를 바로 열어 인쇄할 수 있어요.</dd>
+      <dt>몇 살부터 사용하기 좋은가요?</dt>
+      <dd>연필을 잡기 시작하는 5세부터 초등 저학년까지 적합합니다. 어린아이는 칸 크기를 '크게'로, 글씨가 익숙해지면 '작게'로 줄여 주세요.</dd>
+      <dt>인쇄했는데 흐린 글자가 안 보여요.</dt>
+      <dd>프린터 설정에서 인쇄 품질을 '높음'으로 바꾸거나, 절약 모드(토너 절약)를 꺼 주세요.</dd>
+    </dl>
+  </div>
+
+  <footer class="no-print">
+    <span>글씨방 — 무료 학습지 생성기</span>
+    <span><a href="../about/">사이트 소개</a> · <a href="../privacy/">개인정보처리방침</a></span>
+  </footer>
+</div>
+
+<div class="toast" id="toast">링크가 복사되었습니다</div>
+
+<script src="../assets/common.js"></script>
+<script>
+"use strict";
+/* ---------- state ---------- */
+var state = {
+  text: "가나다라마바사",
+  mode: "char",          // char | line
+  font: "f-gowun",
+  size: "mid",           // big | mid | small
+  emptyCells: 3,
+  traceRows: 2,
+  emptyRows: 1,
+  guide: true,
+  title: ""
+};
+var SIZES = { big:{cell:22, cols:8, rows:9}, mid:{cell:18, cols:10, rows:11}, small:{cell:15, cols:12, rows:13} };
+
+/* ---------- helpers ---------- */
+function chars(text){
+  // split into characters, keep spaces for line mode, drop newlines
+  return Array.from(text.replace(/\r?\n/g," ").replace(/\s+/g," ").trim());
+}
+function uniqueChars(text){
+  var seen={}, out=[];
+  chars(text).forEach(function(c){ if(c===" ")return; if(!seen[c]){seen[c]=1; out.push(c);} });
+  return out;
+}
+
+/* ---------- row builders : each row = array of {ch, kind} ---------- */
+/* kind: solid | trace | empty | gap */
+function buildRowsChar(){
+  var cfg=SIZES[state.size], rows=[];
+  uniqueChars(state.text).forEach(function(c){
+    var row=[], traceCount = cfg.cols - 1 - state.emptyCells;
+    if(traceCount < 1) traceCount = 1;
+    row.push({ch:c, kind:"solid"});
+    for(var i=0;i<traceCount;i++) row.push({ch:c, kind:"trace"});
+    for(var j=0;j<state.emptyCells && row.length<cfg.cols;j++) row.push({ch:"", kind:"empty"});
+    rows.push(row);
+  });
+  return rows;
+}
+function buildRowsLine(){
+  var cfg=SIZES[state.size], cs=chars(state.text);
+  if(!cs.length) return [];
+  // chunk text into lines word by word so a word never breaks across lines
+  var words=state.text.replace(/\r?\n/g," ").trim().split(/\s+/).filter(Boolean);
+  var lines=[], cur=[];
+  words.forEach(function(w){
+    var wc=Array.from(w);
+    // a word longer than one line has to be split anyway
+    while(wc.length>cfg.cols){
+      if(cur.length){ lines.push(cur); cur=[]; }
+      lines.push(wc.slice(0,cfg.cols));
+      wc=wc.slice(cfg.cols);
+    }
+    if(!wc.length) return;
+    if(cur.length && cur.length+1+wc.length>cfg.cols){ lines.push(cur); cur=[]; }
+    if(cur.length) cur.push(" ");
+    cur=cur.concat(wc);
+  });
+  if(cur.length) lines.push(cur);
+  // one block = solid lines + trace lines + empty lines
+  function makeBlock(){
+    var block=[];
+    lines.forEach(function(L){ block.push(L.map(function(c){return {ch:c, kind:c===" "?"gap":"solid"};})); });
+    for(var t=0;t<state.traceRows;t++)
+      lines.forEach(function(L){ block.push(L.map(function(c){return {ch:c, kind:c===" "?"gap":"trace"};})); });
+    for(var e=0;e<state.emptyRows;e++)
+      lines.forEach(function(L){ block.push(L.map(function(c){return {ch:"", kind:c===" "?"gap":"empty"};})); });
+    return block;
+  }
+  // repeat blocks to fill one page (at least one block)
+  var rows=[], block=makeBlock();
+  if(!block.length) return [];
+  rows = rows.concat(block);
+  while(rows.length + block.length <= cfg.rows) rows = rows.concat(block);
+  return rows;
+}
+
+/* ---------- render sheets ---------- */
+function render(){
+  var cfg=SIZES[state.size];
+  var rows = state.mode==="char" ? buildRowsChar() : buildRowsLine();
+  var container=document.getElementById("sheets");
+  container.innerHTML="";
+
+  if(!rows.length){
+    var empty=el("div","sheet-scale");
+    empty.appendChild(makeSheet([], cfg, 1, 1));
+    container.appendChild(empty);
+    fitScale();
+    document.getElementById("pageInfo").textContent="A4 · 1장";
+    return;
+  }
+  // paginate
+  var pages=[];
+  for(var i=0;i<rows.length;i+=cfg.rows) pages.push(rows.slice(i,i+cfg.rows));
+  pages.forEach(function(pageRows, idx){
+    var scale=el("div","sheet-scale");
+    scale.appendChild(makeSheet(pageRows, cfg, idx+1, pages.length));
+    container.appendChild(scale);
+  });
+  fitScale();
+  document.getElementById("pageInfo").textContent="A4 · "+pages.length+"장";
+}
+
+function makeSheet(pageRows, cfg, pageNo, pageTotal){
+  var sheet=el("div","sheet "+state.font);
+  sheet.style.setProperty("--cell", cfg.cell+"mm");
+  sheet.style.setProperty("--rowgap", "4mm");
+
+  var head=el("div","sheet-head");
+  var title=el("div","sheet-title");
+  var deco=el("span","deco"); deco.textContent="✎";
+  title.appendChild(deco);
+  title.appendChild(document.createTextNode(state.title || "한글 따라쓰기 연습"));
+  var meta=el("div","sheet-meta");
+  meta.innerHTML='이름 <span class="blank"></span><br>날짜 <span class="blank"></span>';
+  head.appendChild(title); head.appendChild(meta);
+  sheet.appendChild(head);
+
+  var rowsBox=el("div","rows");
+  pageRows.forEach(function(r){
+    var row=el("div","row");
+    r.forEach(function(c){
+      var cell=el("div","cell "+c.kind+(state.guide && c.kind!=="gap" ? " guide":""));
+      if(c.kind==="gap"){ cell.style.border="1px solid transparent"; }
+      if(c.ch && c.kind!=="empty"){ var s=el("span"); s.textContent=c.ch; cell.appendChild(s); }
+      row.appendChild(cell);
+    });
+    rowsBox.appendChild(row);
+  });
+  sheet.appendChild(rowsBox);
+
+  var foot=el("div","sheet-foot");
+  var l=el("span"); l.textContent="글씨방 · 무료 한글 학습지 생성기";
+  var r=el("span"); r.textContent=pageNo+" / "+pageTotal;
+  foot.appendChild(l); foot.appendChild(r);
+  sheet.appendChild(foot);
+  return sheet;
+}
+
+
+/* ---------- share url ---------- */
+function encodeState(){
+  return b64e(JSON.stringify([state.text,state.mode,state.font,state.size,state.emptyCells,state.traceRows,state.emptyRows,state.guide?1:0,state.title]));
+}
+function loadFromHash(){
+  try{
+    var m=location.hash.match(/s=([^&]+)/); if(!m) return false;
+    var a=JSON.parse(b64d(decodeURIComponent(m[1])));
+    state.text=a[0]; state.mode=a[1]; state.font=a[2]; state.size=a[3];
+    state.emptyCells=+a[4]; state.traceRows=+a[5]; state.emptyRows=+a[6];
+    state.guide=!!a[7]; state.title=a[8]||"";
+    return true;
+  }catch(e){ return false; }
+}
+
+/* ---------- wire controls ---------- */
+function syncControls(){
+  document.getElementById("txt").value=state.text;
+  document.getElementById("font").value=state.font;
+  document.getElementById("size").value=state.size;
+  document.getElementById("emptyCells").value=String(state.emptyCells);
+  document.getElementById("traceRows").value=String(state.traceRows);
+  document.getElementById("emptyRows").value=String(state.emptyRows);
+  document.getElementById("guide").checked=state.guide;
+  document.getElementById("title").value=state.title;
+  document.querySelectorAll("#modeSeg button").forEach(function(b){
+    b.classList.toggle("on", b.dataset.mode===state.mode);
+  });
+  document.getElementById("charOpts").style.display = state.mode==="char" ? "" : "none";
+  document.getElementById("lineOpts").style.display = state.mode==="line" ? "" : "none";
+}
+
+document.getElementById("txt").addEventListener("input",function(e){ state.text=e.target.value; render(); });
+document.getElementById("chips").addEventListener("click",function(e){
+  var c=e.target.closest(".chip"); if(!c)return;
+  state.text=c.dataset.t;
+  if(c.dataset.mode) state.mode=c.dataset.mode;
+  syncControls(); render();
+});
+document.getElementById("modeSeg").addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b)return;
+  state.mode=b.dataset.mode; syncControls(); render();
+});
+["font","size"].forEach(function(id){
+  document.getElementById(id).addEventListener("change",function(e){ state[id]=e.target.value; render(); });
+});
+document.getElementById("emptyCells").addEventListener("change",function(e){ state.emptyCells=+e.target.value; render(); });
+document.getElementById("traceRows").addEventListener("change",function(e){ state.traceRows=+e.target.value; render(); });
+document.getElementById("emptyRows").addEventListener("change",function(e){ state.emptyRows=+e.target.value; render(); });
+document.getElementById("guide").addEventListener("change",function(e){ state.guide=e.target.checked; render(); });
+document.getElementById("title").addEventListener("input",function(e){ state.title=e.target.value; render(); });
+
+document.getElementById("btnPrint").addEventListener("click",function(){ window.print(); });
+document.getElementById("btnReset").addEventListener("click",function(){
+  state={text:"가나다라마바사",mode:"char",font:"f-gowun",size:"mid",emptyCells:3,traceRows:2,emptyRows:1,guide:true,title:""};
+  history.replaceState(null,"",location.pathname);
+  syncControls(); render();
+});
+document.getElementById("btnShare").addEventListener("click",function(){
+  var url=location.origin+location.pathname+"#s="+encodeURIComponent(encodeState());
+  navigator.clipboard.writeText(url).then(function(){
+    location.hash="s="+encodeURIComponent(encodeState());
+    showToast("링크가 복사되었습니다");
+  }).catch(function(){ prompt("이 링크를 복사하세요:",url); });
+});
+window.addEventListener("resize",fitScale);
+
+/* ---------- init ---------- */
+loadFromHash();
+syncControls();
+render();
+</script>
+</body>
+</html>
