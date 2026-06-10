@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-86X82MNHC8"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "G-86X82MNHC8");
+</script>
 <title>덧셈 뺄셈 구구단 문제지 무료 출력 — 초등 수학 학습지 프린트 | 글씨방</title>
 <meta name="description" content="초등 수학 문제지 무료 프린트. 덧셈·뺄셈·구구단부터 곱셈·나눗셈·분수·소수·혼합 계산까지 학년별 문제를 버튼 한 번에 새로 만들어 출력하세요. 정답지 포함, 회원가입 없음.">
 <meta name="robots" content="index, follow">
@@ -392,7 +400,7 @@ document.getElementById("answers").addEventListener("change",function(e){ state.
 document.getElementById("title").addEventListener("input",function(e){ state.title=e.target.value; render(); });
 
 document.getElementById("btnShuffle").addEventListener("click",function(){ state.seed=newSeed(); render(); });
-document.getElementById("btnPrint").addEventListener("click",function(){ window.print(); });
+document.getElementById("btnPrint").addEventListener("click",function(){ track("print_sheet",{tool:"math",topic:state.topic}); window.print(); });
 document.getElementById("btnReset").addEventListener("click",function(){
   state={topic:"add",level:1,noCarry:false,dan:0,form:"v",pages:1,answers:true,title:"",seed:newSeed()};
   history.replaceState(null,"",location.pathname);

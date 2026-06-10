@@ -12,8 +12,18 @@ function el(tag, cls){ var d=document.createElement(tag); if(cls) d.className=cl
 function b64e(str){ return btoa(unescape(encodeURIComponent(str))); }
 function b64d(str){ return decodeURIComponent(escape(atob(str))); }
 
+/* GA4 이벤트 전송 (분석 스크립트가 없거나 차단되면 조용히 무시) */
+function track(name, params){
+  if(typeof gtag==="function") gtag("event", name, params||{});
+}
+/* 현재 페이지의 도구 이름 (이벤트 라벨용): /hangul/ → "hangul", 홈 → "home" */
+function toolName(){
+  return location.pathname.split("/").filter(Boolean)[0]||"home";
+}
+
 /* 현재 상태가 담긴 공유 링크를 클립보드에 복사 (실패 시 수동 복사 안내) */
 function copyShareLink(encoded){
+  track("share_link", {tool: toolName()});
   var hash="s="+encodeURIComponent(encoded);
   var url=location.origin+location.pathname+"#"+hash;
   navigator.clipboard.writeText(url).then(function(){
