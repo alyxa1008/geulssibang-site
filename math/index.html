@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>덧셈 뺄셈 구구단 문제지 무료 출력 — 초등 수학 학습지 프린트 | 글씨방</title>
+<meta name="description" content="초등 수학 문제지 무료 프린트. 덧셈·뺄셈·구구단부터 곱셈·나눗셈·분수·소수·혼합 계산까지 학년별 문제를 버튼 한 번에 새로 만들어 출력하세요. 정답지 포함, 회원가입 없음.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="덧셈 뺄셈 구구단 문제지 무료 출력 | 글씨방">
+<meta property="og:description" content="1~6학년 덧셈·뺄셈·곱셈·나눗셈·분수·소수 학습지를 버튼 한 번으로 무한 생성. 무료 A4 인쇄.">
+<meta property="og:type" content="website">
+<!-- 배포 후 실제 주소로 변경하세요 -->
+<link rel="canonical" href="https://example.com/math/">
+
+<!-- ===== GOOGLE ADSENSE: 승인 후 publisher 스크립트를 여기에 붙여넣기 ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+/* 유형 버튼이 많은 학년군은 두 줄로 */
+#topicSeg{flex-wrap:wrap}
+#topicSeg button{flex:1 1 30%; border-bottom:1px solid #e3e6ea}
+/* 분수·혼합식 표기 (수학 페이지 전용) */
+.qline{display:inline-flex; align-items:center; gap:1.6mm}
+.hp{align-items:center}
+.fr{display:inline-flex; align-items:center; gap:.6mm}
+.fst{display:inline-flex; flex-direction:column; align-items:center; line-height:1.05; font-size:.72em}
+.fst .fn{padding:0 1mm}
+.fst .fd{border-top:.45mm solid currentColor; padding:0 1mm}
+.ak b{display:inline-flex; align-items:center; gap:1mm; vertical-align:middle}
+.ak .fst{font-size:.8em}
+</style>
+<meta property="og:url" content="https://example.com/math/">
+<meta property="og:site_name" content="글씨방">
+<meta property="og:locale" content="ko_KR">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "수학 연산 학습지 생성기", "url": "https://example.com/math/", "description": "덧셈, 뺄셈, 구구단, 곱셈, 나눗셈, 분수, 소수, 혼합 계산 학습지를 학년·단계별로 무한 생성하고 정답지와 함께 인쇄할 수 있는 무료 도구", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "문제가 매번 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 새 문제로 섞기를 누를 때마다 무작위로 새 문제가 생성됩니다. 링크 복사로 만든 주소를 열면 그 순간의 문제가 그대로 복원됩니다."}}, {"@type": "Question", "name": "몇 학년용인가요?", "acceptedAnswer": {"@type": "Answer", "text": "2022 개정 교육과정 단원 기준으로 1~2학년 덧셈·뺄셈·구구단, 3~4학년 세 자리 덧셈·뺄셈과 곱셈·나눗셈·분수·소수, 5~6학년 혼합 계산과 분수·소수의 곱셈·나눗셈까지 초등 전 학년 과정을 다룹니다."}}, {"@type": "Question", "name": "뺄셈에서 답이 음수가 나오나요?", "acceptedAnswer": {"@type": "Answer", "text": "아니요. 모든 뺄셈 문제는 답이 0 이상이 되도록 만들어집니다."}}]}</script>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topnav no-print">
+    <a href="../">글씨방 홈</a>
+    <a href="../hangul/">한글 따라쓰기</a>
+    <a href="../badaseugi/">받아쓰기</a>
+    <a href="./" class="here">수학 연산</a>
+  </nav>
+
+  <header class="no-print">
+    <div class="logo">수학 연산 학습지 <span class="pen">✚</span></div>
+    <h1 class="tagline">덧셈 뺄셈 구구단 문제지 무료 출력 — 초등 수학 학습지 프린트</h1>
+    <div class="chalk-line"></div>
+  </header>
+
+  <div class="app">
+    <!-- ============ CONTROLS ============ -->
+    <aside class="panel no-print">
+      <div class="panel-head">학습지 만들기</div>
+      <div class="panel-body">
+
+        <div class="field">
+          <label>학년</label>
+          <div class="seg" id="gradeSeg" role="group" aria-label="학년"></div>
+        </div>
+
+        <div class="field">
+          <label>연산 종류</label>
+          <div class="seg" id="topicSeg" role="group" aria-label="연산 종류"></div>
+        </div>
+
+        <div class="field" id="levelField">
+          <label for="level">난이도</label>
+          <select id="level"></select>
+          <label class="check" id="carryWrap"><input type="checkbox" id="noCarry"> 받아올림·받아내림 없는 문제만</label>
+        </div>
+
+        <div class="field" id="danField" style="display:none">
+          <label for="dan">구구단 선택</label>
+          <select id="dan">
+            <option value="0">2~9단 섞어서</option>
+            <option value="2">2단</option><option value="3">3단</option>
+            <option value="4">4단</option><option value="5">5단</option>
+            <option value="6">6단</option><option value="7">7단</option>
+            <option value="8">8단</option><option value="9">9단</option>
+          </select>
+        </div>
+
+        <div class="two field">
+          <div>
+            <label>문제 형식</label>
+            <div class="seg" id="formSeg" role="group" aria-label="문제 형식">
+              <button data-form="v" class="on">세로셈</button>
+              <button data-form="h">가로셈</button>
+            </div>
+          </div>
+          <div>
+            <label for="pages">분량</label>
+            <select id="pages">
+              <option value="1" selected>1장 (20문제)</option>
+              <option value="2">2장 (40문제)</option>
+              <option value="3">3장 (60문제)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="title">학습지 제목 <span class="hint">비우면 자동</span></label>
+          <input type="text" id="title" placeholder="예) 2단계 덧셈 연습" maxlength="20">
+          <label class="check"><input type="checkbox" id="answers" checked> 정답지 함께 인쇄</label>
+        </div>
+
+        <div class="actions">
+          <button class="act shuffle" id="btnShuffle">🎲 새 문제로 섞기</button>
+          <button class="act print" id="btnPrint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6z"/></svg>
+            인쇄 · PDF 저장
+          </button>
+          <button class="act sub" id="btnShare">🔗 링크 복사</button>
+          <button class="act sub" id="btnReset">처음부터</button>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- ============ PREVIEW ============ -->
+    <section class="preview-zone">
+      <div class="preview-bar no-print">
+        <b>미리보기</b>
+        <span id="pageInfo">A4 · 1장</span>
+      </div>
+      <div id="sheets"></div>
+    </section>
+  </div>
+
+  <!-- AD SLOT (애드센스 유닛으로 교체) -->
+  <div class="adslot no-print" aria-hidden="true">광고 영역</div>
+
+  <!-- ============ SEO CONTENT ============ -->
+  <div class="content no-print">
+    <h2>매일 새로운 연산 학습지, 무한으로</h2>
+    <p>연산 실력은 매일 조금씩 푸는 게 답인데, 학습지를 매번 사거나 찾아다니긴 번거롭죠. 글씨방 수학 연산 생성기는 <strong>'새 문제로 섞기' 버튼을 누를 때마다 완전히 새로운 문제</strong>를 만들어 줍니다. 어제 푼 학습지와 같은 단계, 다른 문제로 오늘 또 출력하세요. 회원가입도 비용도 없습니다.</p>
+
+    <h2>이렇게 활용해 보세요</h2>
+    <p>연산을 처음 시작하면 <strong>1단계 + 받아올림 없는 문제</strong>로 자신감부터, 익숙해지면 단계를 올리고 받아올림을 켜 주세요. <strong>구구단</strong>은 외우는 중인 단만 골라 집중 연습할 수 있어요. 학년 버튼을 누르면 <strong>3~4학년 곱셈·나눗셈·분수·소수, 5~6학년 혼합 계산과 분수·소수의 곱셈·나눗셈</strong>까지 학년에 맞는 유형이 나옵니다. 난이도 이름의 (3-1) 같은 표기는 2022 개정 교육과정의 <strong>3학년 1학기 단원</strong>이라는 뜻이에요. 정답지를 함께 인쇄하면 채점도 간편합니다. '링크 복사'를 누르면 지금 화면의 문제가 그대로 담긴 주소가 복사돼서, 같은 학습지를 형제나 친구와 똑같이 풀 수도 있어요.</p>
+
+    <div class="adslot" aria-hidden="true">광고 영역</div>
+
+    <h2>자주 묻는 질문</h2>
+    <dl class="faq">
+      <dt>문제가 매번 다른가요?</dt>
+      <dd>네. '새 문제로 섞기'를 누를 때마다 무작위로 새 문제가 생성됩니다. 단, '링크 복사'로 만든 주소를 열면 그 순간의 문제가 그대로 복원돼요.</dd>
+      <dt>몇 학년용인가요?</dt>
+      <dd>2022 개정 교육과정 단원 기준으로 1~2학년 덧셈·뺄셈·구구단, 3~4학년 세 자리 덧셈·뺄셈과 곱셈·나눗셈·분수·소수, 5~6학년 혼합 계산과 분수·소수의 곱셈·나눗셈까지 초등 전 학년 과정을 다룹니다. 난이도 이름의 (3-1)은 3학년 1학기 단원이라는 뜻이에요.</dd>
+      <dt>뺄셈에서 답이 음수가 나오나요?</dt>
+      <dd>아니요. 모든 뺄셈 문제는 답이 0 이상이 되도록 만들어집니다.</dd>
+      <dt>PDF로 저장하려면?</dt>
+      <dd>'인쇄 · PDF 저장' 버튼을 누른 뒤 인쇄 대화상자에서 'PDF로 저장'을 선택하면 됩니다.</dd>
+    </dl>
+  </div>
+
+  <footer class="no-print">
+    <span>글씨방 — 무료 학습지 생성기</span>
+    <span><a href="../about/">사이트 소개</a> · <a href="../privacy/">개인정보처리방침</a></span>
+  </footer>
+</div>
+
+<div class="toast" id="toast">링크가 복사되었습니다</div>
+
+<script src="../assets/common.js"></script>
+<script src="./generators.js"></script>
+<script>
+"use strict";
+/* 문제 생성 로직은 ./generators.js (유형 등록부)에 있다.
+   이 스크립트는 화면 구성·렌더링·공유 링크만 담당한다. */
+
+/* ---------- state ---------- */
+var state={ topic:"add", level:1, noCarry:false, dan:0, form:"v", pages:1, answers:true, title:"", seed:newSeed() };
+function newSeed(){ return Math.floor(Math.random()*1e8)+1; }
+function curTopic(){ return findTopic(state.topic).topic; }
+function curLevel(){ var t=curTopic(); return t.levels[state.level] || t.levels[0]; }
+function perPage(){ return curLevel().per || 20; }
+
+function autoTitle(){
+  if(curTopic().dan) return (state.dan>0? state.dan+"단" : "구구단")+" 연습";
+  return curLevel().t;
+}
+
+/* ---------- 문제 토큰 → DOM ---------- */
+function tokNode(tok){
+  if(tok.t==="f"){
+    var f=el("span","fr");
+    if(tok.w){ var w=el("span","fw"); w.textContent=tok.w; f.appendChild(w); }
+    var st=el("span","fst"), n=el("span","fn"), d=el("span","fd");
+    n.textContent=tok.n; d.textContent=tok.d;
+    st.appendChild(n); st.appendChild(d); f.appendChild(st);
+    return f;
+  }
+  var s=el("span", tok.t==="op" ? "qop" : "");
+  s.textContent=tok.v;
+  return s;
+}
+function renderToks(parent,toks){ toks.forEach(function(tk){ parent.appendChild(tokNode(tk)); }); }
+
+/* ---------- render ---------- */
+
+function render(){
+  var per=perPage(), total=state.pages*per;
+  var probs=genAll(state.seed, state.topic, state.level, {noCarry:state.noCarry, dan:state.dan}, total);
+  var vertical = state.form==="v" && !!curLevel().v;
+  var container=document.getElementById("sheets");
+  container.innerHTML="";
+  var title=state.title || autoTitle();
+  var sheetCount=state.pages + (state.answers?1:0);
+  var sheetNo=0;
+
+  for(var pg=0; pg<state.pages; pg++){
+    sheetNo++;
+    var slice=probs.slice(pg*per,(pg+1)*per);
+    var scale=el("div","sheet-scale");
+    scale.appendChild(makeSheet(title, slice, pg*per, false, sheetNo, sheetCount, vertical));
+    container.appendChild(scale);
+  }
+  if(state.answers){
+    sheetNo++;
+    var scale2=el("div","sheet-scale");
+    scale2.appendChild(makeSheet(title+" — 정답", probs, 0, true, sheetNo, sheetCount, vertical));
+    container.appendChild(scale2);
+  }
+  fitScale();
+  document.getElementById("pageInfo").textContent="A4 · "+sheetCount+"장"+(state.answers?" (정답지 포함)":"");
+}
+
+function makeSheet(title, probs, startIdx, isAnswerKey, pageNo, pageTotal, vertical){
+  var sheet=el("div","sheet");
+  var head=el("div","sheet-head");
+  var t=el("div","sheet-title");
+  var deco=el("span","deco"); deco.textContent= isAnswerKey ? "✔" : "✚";
+  t.appendChild(deco); t.appendChild(document.createTextNode(title));
+  var meta=el("div","sheet-meta");
+  meta.innerHTML = isAnswerKey ? '채점일 <span class="blank"></span>' : '이름 <span class="blank"></span><br>날짜 <span class="blank"></span>';
+  head.appendChild(t); head.appendChild(meta);
+  sheet.appendChild(head);
+
+  var body;
+  if(isAnswerKey){
+    body=el("div","anskey");
+    probs.forEach(function(p,i){
+      var d=el("div","ak");
+      d.textContent=(i+1)+")";
+      var b=el("b"); renderToks(b,p.ans);
+      d.appendChild(b);
+      body.appendChild(d);
+    });
+  } else if(vertical){
+    body=el("div","probs-v");
+    probs.forEach(function(p,i){
+      var vp=el("div","vp");
+      var no=el("span","pno"); no.textContent=(startIdx+i+1);
+      var calc=el("div","calc");
+      var top=el("div"); top.textContent=p.v.a;
+      var bot=el("div","bot");
+      var op=el("span","op"); op.textContent=p.v.op;
+      var bn=el("span"); bn.textContent=p.v.b;
+      bot.appendChild(op); bot.appendChild(bn);
+      var ans=el("div","answer");
+      calc.appendChild(top); calc.appendChild(bot); calc.appendChild(ans);
+      vp.appendChild(no); vp.appendChild(calc);
+      body.appendChild(vp);
+    });
+  } else {
+    body=el("div","probs-h");
+    probs.forEach(function(p,i){
+      var hp=el("div","hp");
+      var no=el("span","pno"); no.textContent=(startIdx+i+1)+")";
+      hp.appendChild(no);
+      var q=el("span","qline");
+      renderToks(q,p.q);
+      var eq=el("span"); eq.textContent="=";
+      q.appendChild(eq);
+      hp.appendChild(q);
+      hp.appendChild(el("span","blankline"));
+      body.appendChild(hp);
+    });
+  }
+  sheet.appendChild(body);
+
+  var foot=el("div","sheet-foot");
+  var l=el("span"); l.textContent="글씨방 · 무료 수학 학습지 생성기";
+  var r=el("span"); r.textContent=pageNo+" / "+pageTotal;
+  foot.appendChild(l); foot.appendChild(r);
+  sheet.appendChild(foot);
+  return sheet;
+}
+
+
+/* ---------- share ---------- */
+function encodeState(){
+  return b64e(JSON.stringify([2,state.topic,state.level,state.noCarry?1:0,state.dan,state.form,state.pages,state.answers?1:0,state.title,state.seed]));
+}
+function loadFromHash(){
+  try{
+    var m=location.hash.match(/s=([^&]+)/); if(!m) return false;
+    var a=JSON.parse(b64d(decodeURIComponent(m[1])));
+    if(a[0]===2){
+      state.topic=a[1]; state.level=+a[2]; state.noCarry=!!a[3]; state.dan=+a[4];
+      state.form=a[5]; state.pages=+a[6]; state.answers=!!a[7]; state.title=a[8]||""; state.seed=+a[9]||newSeed();
+    } else {
+      /* 구버전 링크: [op, level, noCarry, dan, form, pages, answers, title, seed] */
+      var MAP={add:"add", sub:"sub", mix:"addsub", mul:"gugudan"};
+      state.topic=MAP[a[0]]||"add";
+      state.level=state.topic==="gugudan" ? 0 : Math.max(0,(+a[1]||1)-1);
+      state.noCarry=!!a[2]; state.dan=+a[3]; state.form=a[4]||"v";
+      state.pages=+a[5]||1; state.answers=!!a[6]; state.title=a[7]||""; state.seed=+a[8]||newSeed();
+    }
+    return true;
+  }catch(e){ return false; }
+}
+
+/* ---------- controls ---------- */
+function syncControls(){
+  var ft=findTopic(state.topic), t=ft.topic;
+
+  /* 학년 → 유형 (등록부에서 자동 구성) */
+  var gseg=document.getElementById("gradeSeg");
+  gseg.innerHTML="";
+  MATH_GRADES.forEach(function(g,i){
+    var b=el("button");
+    b.textContent=g.name; b.dataset.grade=i;
+    b.classList.toggle("on", i===ft.grade);
+    gseg.appendChild(b);
+  });
+  var tseg=document.getElementById("topicSeg");
+  tseg.innerHTML="";
+  MATH_GRADES[ft.grade].topics.forEach(function(tp){
+    var b=el("button");
+    b.textContent=tp.name; b.dataset.topic=tp.id;
+    b.classList.toggle("on", tp.id===state.topic);
+    tseg.appendChild(b);
+  });
+
+  /* 난이도 */
+  if(state.level>=t.levels.length) state.level=0;
+  var sel=document.getElementById("level");
+  sel.innerHTML="";
+  t.levels.forEach(function(l,i){
+    var o=el("option");
+    o.value=i; o.textContent=l.label; sel.appendChild(o);
+  });
+  sel.value=String(state.level);
+  document.getElementById("levelField").style.display = t.levels.length>1 ? "" : "none";
+  document.getElementById("carryWrap").style.display = t.carry ? "" : "none";
+  document.getElementById("danField").style.display = t.dan ? "" : "none";
+  document.getElementById("noCarry").checked=state.noCarry;
+  document.getElementById("dan").value=String(state.dan);
+
+  /* 세로셈을 지원하지 않는 유형은 가로셈만 */
+  var lvl=curLevel();
+  document.querySelectorAll("#formSeg button").forEach(function(b){
+    if(b.dataset.form==="v"){ b.disabled=!lvl.v; b.style.opacity=lvl.v?"":"0.35"; }
+    b.classList.toggle("on", b.dataset.form===(lvl.v? state.form : "h"));
+  });
+
+  /* 분량 라벨 (유형별 한 장당 문제 수 반영) */
+  var per=perPage();
+  document.querySelectorAll("#pages option").forEach(function(o){
+    o.textContent=o.value+"장 ("+(+o.value*per)+"문제)";
+  });
+  document.getElementById("pages").value=String(state.pages);
+  document.getElementById("answers").checked=state.answers;
+  document.getElementById("title").value=state.title;
+  document.getElementById("title").placeholder=autoTitle();
+}
+
+document.getElementById("gradeSeg").addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b)return;
+  state.topic=MATH_GRADES[+b.dataset.grade].topics[0].id; state.level=0;
+  syncControls(); render();
+});
+document.getElementById("topicSeg").addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b)return;
+  state.topic=b.dataset.topic; state.level=0;
+  syncControls(); render();
+});
+document.getElementById("formSeg").addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b||b.disabled)return;
+  state.form=b.dataset.form; syncControls(); render();
+});
+document.getElementById("level").addEventListener("change",function(e){ state.level=+e.target.value; syncControls(); render(); });
+document.getElementById("noCarry").addEventListener("change",function(e){ state.noCarry=e.target.checked; render(); });
+document.getElementById("dan").addEventListener("change",function(e){ state.dan=+e.target.value; syncControls(); render(); });
+document.getElementById("pages").addEventListener("change",function(e){ state.pages=+e.target.value; render(); });
+document.getElementById("answers").addEventListener("change",function(e){ state.answers=e.target.checked; render(); });
+document.getElementById("title").addEventListener("input",function(e){ state.title=e.target.value; render(); });
+
+document.getElementById("btnShuffle").addEventListener("click",function(){ state.seed=newSeed(); render(); });
+document.getElementById("btnPrint").addEventListener("click",function(){ window.print(); });
+document.getElementById("btnReset").addEventListener("click",function(){
+  state={topic:"add",level:1,noCarry:false,dan:0,form:"v",pages:1,answers:true,title:"",seed:newSeed()};
+  history.replaceState(null,"",location.pathname);
+  syncControls(); render();
+});
+document.getElementById("btnShare").addEventListener("click",function(){
+  var url=location.origin+location.pathname+"#s="+encodeURIComponent(encodeState());
+  navigator.clipboard.writeText(url).then(function(){
+    location.hash="s="+encodeURIComponent(encodeState());
+    showToast("링크가 복사되었습니다");
+  }).catch(function(){ prompt("이 링크를 복사하세요:",url); });
+});
+window.addEventListener("resize",fitScale);
+
+/* ---------- init ---------- */
+loadFromHash();
+syncControls();
+render();
+</script>
+</body>
+</html>

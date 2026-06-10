@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>받아쓰기 불러주기 — 1·2학년 급수 단어 시험지 무료 출력 | 글씨방</title>
+<meta name="description" content="초등 1·2학년 받아쓰기 급수 단어를 입력하면 컴퓨터가 또박또박 불러주고, 시험지와 정답지를 무료로 출력합니다. 부모님이 안 불러줘도 혼자 받아쓰기 연습. 회원가입 없음.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="받아쓰기 불러주기 — 시험지 무료 출력 | 글씨방">
+<meta property="og:description" content="이번 주 받아쓰기 급수 단어를 입력하면 자동으로 불러주고 시험지까지 인쇄. 무료.">
+<meta property="og:type" content="website">
+<!-- 배포 후 실제 주소로 변경하세요 -->
+<link rel="canonical" href="https://example.com/badaseugi/">
+
+<!-- ===== GOOGLE ADSENSE: 승인 후 publisher 스크립트를 여기에 붙여넣기 ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<meta property="og:url" content="https://example.com/badaseugi/">
+<meta property="og:site_name" content="글씨방">
+<meta property="og:locale" content="ko_KR">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "받아쓰기 불러주기 & 시험지 생성기", "url": "https://example.com/badaseugi/", "description": "받아쓰기 단어를 입력하면 컴퓨터가 번호와 함께 또박또박 불러주고, 시험지와 정답지도 인쇄할 수 있는 무료 도구", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "목소리는 어떻게 나오는 건가요?", "acceptedAnswer": {"@type": "Answer", "text": "휴대폰과 컴퓨터에 내장된 한국어 음성을 사용합니다. 별도 설치나 비용 없이 바로 작동합니다."}}, {"@type": "Question", "name": "학교 급수표와 똑같은 문제가 들어있나요?", "acceptedAnswer": {"@type": "Answer", "text": "급수표는 학교와 교과서마다 달라서, 학교에서 받은 급수표의 단어를 직접 입력하는 방식입니다. 예시 버튼의 문제는 1~2학년 수준 참고용입니다."}}, {"@type": "Question", "name": "휴대폰에서도 되나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 불러주기 시험은 휴대폰에서 특히 편리합니다. 무음 모드만 해제해 주세요."}}, {"@type": "Question", "name": "문장도 가능한가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 낱말과 문장 모두 가능합니다. 띄어쓰기 연습이 필요한 문장을 넣으면 더 효과적입니다."}}]}</script>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topnav no-print">
+    <a href="../">글씨방 홈</a>
+    <a href="../hangul/">한글 따라쓰기</a>
+    <a href="./" class="here">받아쓰기</a>
+    <a href="../math/">수학 연산</a>
+  </nav>
+
+  <header class="no-print">
+    <div class="logo">받아쓰기 연습 <span class="pen">🔊</span></div>
+    <h1 class="tagline">받아쓰기 불러주기 — 1·2학년 급수 단어 시험지 무료 출력</h1>
+    <div class="chalk-line"></div>
+  </header>
+
+  <div class="app">
+    <!-- ============ CONTROLS ============ -->
+    <aside class="panel no-print">
+      <div class="panel-head">받아쓰기 만들기</div>
+      <div class="panel-body">
+
+        <div class="field">
+          <label for="words">문제 입력 <span class="hint">한 줄에 한 문제 (최대 20개)</span></label>
+          <textarea id="words" placeholder="구름&#10;바다&#10;꽃이 활짝 피었습니다&#10;토끼가 깡충깡충 뜁니다"></textarea>
+          <div class="chips" id="chips">
+            <button class="chip" data-set="w1">예시 · 낱말 ①</button>
+            <button class="chip" data-set="w2">예시 · 받침 낱말</button>
+            <button class="chip" data-set="s1">예시 · 짧은 문장</button>
+            <button class="chip" data-set="s2">예시 · 띄어쓰기 문장</button>
+          </div>
+        </div>
+
+        <div class="two field">
+          <div>
+            <label for="repeat">읽어주는 횟수</label>
+            <select id="repeat">
+              <option value="1">1번</option>
+              <option value="2" selected>2번</option>
+              <option value="3">3번</option>
+            </select>
+          </div>
+          <div>
+            <label for="gap">문제 사이 시간</label>
+            <select id="gap">
+              <option value="8">8초</option>
+              <option value="12" selected>12초</option>
+              <option value="18">18초</option>
+              <option value="25">25초</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="two field">
+          <div>
+            <label for="rate">읽기 속도</label>
+            <select id="rate">
+              <option value="0.7">천천히</option>
+              <option value="0.85" selected>보통</option>
+              <option value="1">빠르게</option>
+            </select>
+          </div>
+          <div>
+            <label for="title">시험지 제목</label>
+            <input type="text" id="title" placeholder="받아쓰기 시험" maxlength="18">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="check"><input type="checkbox" id="answers" checked> 정답지 함께 인쇄</label>
+        </div>
+
+        <div class="actions">
+          <button class="act tts" id="btnExam">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 010 7M19 5a9 9 0 010 14"/></svg>
+            시험 시작 — 자동으로 불러주기
+          </button>
+          <button class="act print" id="btnPrint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6z"/></svg>
+            시험지 인쇄 · PDF
+          </button>
+          <button class="act sub" id="btnShare">🔗 링크 복사</button>
+          <button class="act sub" id="btnReset">처음부터</button>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- ============ PREVIEW ============ -->
+    <section class="preview-zone">
+      <div class="preview-bar no-print">
+        <b>시험지 미리보기</b>
+        <span id="pageInfo">A4 · 1장</span>
+      </div>
+      <div id="sheets"></div>
+    </section>
+  </div>
+
+  <!-- ============ TTS EXAM OVERLAY ============ -->
+  <div class="exam" id="exam">
+    <button class="close" id="examClose" aria-label="시험 닫기">✕</button>
+    <div class="qno"><span id="examNo">1</span>번<small id="examProg">1 / 10</small></div>
+    <div class="status" id="examStatus">준비되면 시작을 눌러 주세요</div>
+    <div class="bar"><i id="examBar"></i></div>
+    <div class="ctrl">
+      <button class="main" id="examStart">시작</button>
+      <button id="examAgain">다시 듣기</button>
+      <button id="examNext">다음 문제</button>
+    </div>
+    <p class="tip">소리가 안 나오면 휴대폰 무음 모드를 해제해 주세요. 문제를 다 쓰면 '다음 문제'를 눌러 바로 넘어갈 수도 있어요.</p>
+  </div>
+
+  <!-- AD SLOT (애드센스 유닛으로 교체) -->
+  <div class="adslot no-print" aria-hidden="true">광고 영역</div>
+
+  <!-- ============ SEO CONTENT ============ -->
+  <div class="content no-print">
+    <h2>부모님이 불러주지 않아도 되는 받아쓰기</h2>
+    <p>받아쓰기 연습의 가장 큰 숙제는 <strong>옆에서 한 문제씩 불러줄 사람</strong>이 필요하다는 것이죠. 글씨방 받아쓰기는 이번 주 급수표 단어를 입력하면 컴퓨터가 "1번, 꽃이 활짝 피었습니다"처럼 번호와 함께 또박또박 읽어줍니다. 읽는 횟수, 문제 사이 시간, 속도를 아이 수준에 맞게 정할 수 있어서, 아이 혼자서도 실전처럼 연습할 수 있어요.</p>
+
+    <h2>이렇게 활용해 보세요</h2>
+    <p>학교에서 받아온 <strong>급수표 단어를 그대로 입력</strong>하고 '시험지 인쇄'로 답안지를 뽑은 뒤, '시험 시작'을 누르면 진짜 받아쓰기 시험이 시작됩니다. 정답지를 함께 인쇄하면 채점도 간단해요. 같은 반 학부모나 선생님이라면 '링크 복사'로 이번 주 문제가 그대로 담긴 주소를 단체 채팅방에 공유해 보세요 — 링크를 여는 누구나 같은 문제로 바로 연습할 수 있습니다.</p>
+
+    <div class="adslot" aria-hidden="true">광고 영역</div>
+
+    <h2>자주 묻는 질문</h2>
+    <dl class="faq">
+      <dt>목소리는 어떻게 나오는 건가요?</dt>
+      <dd>휴대폰과 컴퓨터에 내장된 한국어 음성을 사용합니다. 별도 설치나 비용 없이 바로 작동하고, 기기에 따라 목소리가 조금씩 다를 수 있어요.</dd>
+      <dt>학교 급수표와 똑같은 문제가 들어있나요?</dt>
+      <dd>급수표는 학교와 교과서마다 달라서, 학교에서 받은 급수표의 단어를 직접 입력하는 방식입니다. 예시 버튼의 문제는 1~2학년 수준에 맞춘 참고용이에요.</dd>
+      <dt>휴대폰에서도 되나요?</dt>
+      <dd>네. 불러주기 시험은 휴대폰에서 특히 편리합니다. 무음 모드만 해제해 주세요. 시험지 인쇄는 휴대폰에서 'PDF로 저장' 후 출력하면 됩니다.</dd>
+      <dt>문장도 가능한가요?</dt>
+      <dd>네. 낱말과 문장 모두 가능합니다. 띄어쓰기 연습이 필요한 문장을 넣으면 더 효과적이에요.</dd>
+    </dl>
+  </div>
+
+  <footer class="no-print">
+    <span>글씨방 — 무료 학습지 생성기</span>
+    <span><a href="../about/">사이트 소개</a> · <a href="../privacy/">개인정보처리방침</a></span>
+  </footer>
+</div>
+
+<div class="toast" id="toast">링크가 복사되었습니다</div>
+
+<script src="../assets/common.js"></script>
+<script>
+"use strict";
+/* ---------- state ---------- */
+var state={ words:[], repeat:2, gap:12, rate:0.85, title:"", answers:true };
+var MAXQ=20, PER_PAGE=10;
+var PRESETS={
+  w1:["나무","바다","하늘","구름","친구","학교","연필","가방","토끼","무지개"],
+  w2:["꽃밭","부엌","무릎","숲속","낚시","돋보기","숯불","팥죽","닭장","흙탕물"],
+  s1:["해가 떴습니다","비가 옵니다","친구와 놀아요","밥을 먹어요","학교에 갑니다","꽃이 피었습니다","바람이 붑니다","눈이 내립니다"],
+  s2:["토끼가 깡충깡충 뜁니다","꽃이 활짝 피었습니다","아기가 방긋 웃어요","구름이 둥실둥실 떠가요","낙엽이 우수수 떨어집니다","별이 반짝반짝 빛나요"]
+};
+
+function parseWords(text){
+  return text.split(/\r?\n/).map(function(s){return s.trim();}).filter(Boolean).slice(0,MAXQ);
+}
+
+/* ---------- render sheets ---------- */
+function render(){
+  state.words=parseWords(document.getElementById("words").value);
+  var container=document.getElementById("sheets");
+  container.innerHTML="";
+  var title=state.title||"받아쓰기 시험";
+  var n=state.words.length||10;
+  var qPages=Math.max(1, Math.ceil(n/PER_PAGE));
+  var total=qPages + (state.answers && state.words.length ? 1 : 0);
+  var no=0;
+  for(var pg=0; pg<qPages; pg++){
+    no++;
+    var count=Math.min(PER_PAGE, n - pg*PER_PAGE);
+    var scale=el("div","sheet-scale");
+    scale.appendChild(makeSheet(title, pg*PER_PAGE, count, null, no, total));
+    container.appendChild(scale);
+  }
+  if(state.answers && state.words.length){
+    no++;
+    var scale2=el("div","sheet-scale");
+    scale2.appendChild(makeSheet(title+" — 정답", 0, state.words.length, state.words, no, total));
+    container.appendChild(scale2);
+  }
+  fitScale();
+  document.getElementById("pageInfo").textContent="A4 · "+total+"장"+(state.answers&&state.words.length?" (정답지 포함)":"");
+}
+
+function makeSheet(title, startIdx, count, answerWords, pageNo, pageTotal){
+  var sheet=el("div","sheet");
+  var head=el("div","sheet-head");
+  var t=el("div","sheet-title");
+  var deco=el("span","deco"); deco.textContent= answerWords ? "✔" : "🔊";
+  t.appendChild(deco); t.appendChild(document.createTextNode(title));
+  var meta=el("div","sheet-meta");
+  meta.innerHTML = answerWords
+    ? '채점일 <span class="blank"></span>'
+    : '이름 <span class="blank"></span><br>점수 <span class="score"></span> / '+(state.words.length||10);
+  head.appendChild(t); head.appendChild(meta);
+  sheet.appendChild(head);
+
+  var rows=el("div","qrows");
+  // answer sheet may exceed 10 rows visually; cap rows height by using all words but smaller? keep <=20 on one page: two columns not needed for MVP — answers wrap fine up to 20 with smaller min-height
+  if(answerWords && answerWords.length>PER_PAGE){ rows.style.setProperty("row-gap","0"); }
+  for(var i=0;i<count;i++){
+    var row=el("div","qrow");
+    if(answerWords && answerWords.length>PER_PAGE){ row.style.minHeight=(190/answerWords.length)+"mm"; }
+    var qn=el("span","qn"); qn.textContent=(startIdx+i+1)+".";
+    row.appendChild(qn);
+    if(answerWords){ var qa=el("span","qa"); qa.textContent=answerWords[startIdx+i]; row.appendChild(qa); }
+    rows.appendChild(row);
+  }
+  sheet.appendChild(rows);
+
+  var foot=el("div","sheet-foot");
+  var l=el("span"); l.textContent="글씨방 · 받아쓰기 불러주기 & 시험지 생성기";
+  var r=el("span"); r.textContent=pageNo+" / "+pageTotal;
+  foot.appendChild(l); foot.appendChild(r);
+  sheet.appendChild(foot);
+  return sheet;
+}
+
+
+/* ---------- TTS exam mode ---------- */
+var exam={ idx:0, running:false, timer:null, koVoice:null };
+
+function pickVoice(){
+  var vs=window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  var ko=vs.filter(function(v){return /^ko/i.test(v.lang);});
+  exam.koVoice = ko[0] || null;
+}
+if(window.speechSynthesis){
+  pickVoice();
+  speechSynthesis.onvoiceschanged=pickVoice;
+}
+
+function speak(text, cb){
+  var u=new SpeechSynthesisUtterance(text);
+  u.lang="ko-KR";
+  if(exam.koVoice) u.voice=exam.koVoice;
+  u.rate=state.rate;
+  u.onend=function(){ if(cb) cb(); };
+  u.onerror=function(){ if(cb) cb(); };
+  speechSynthesis.speak(u);
+}
+function clearExamTimer(){ if(exam.timer){ clearTimeout(exam.timer); exam.timer=null; } }
+
+function examUpdateUI(){
+  document.getElementById("examNo").textContent=exam.idx+1;
+  document.getElementById("examProg").textContent=(exam.idx+1)+" / "+state.words.length;
+  document.getElementById("examBar").style.width=((exam.idx)/state.words.length*100)+"%";
+}
+
+function playCurrent(){
+  if(!exam.running) return;
+  clearExamTimer();
+  examUpdateUI();
+  var word=state.words[exam.idx];
+  var status=document.getElementById("examStatus");
+  status.textContent="문제를 읽고 있어요…";
+  var reads=0;
+  function readOnce(){
+    if(!exam.running) return;
+    reads++;
+    speak(word, function(){
+      if(!exam.running) return;
+      if(reads<state.repeat){
+        exam.timer=setTimeout(readOnce, 1200);
+      } else {
+        status.textContent="받아쓰는 시간이에요 ✏️";
+        exam.timer=setTimeout(nextQuestion, state.gap*1000);
+      }
+    });
+  }
+  speak((exam.idx+1)+"번", function(){
+    if(!exam.running) return;
+    exam.timer=setTimeout(readOnce, 700);
+  });
+}
+function nextQuestion(){
+  if(!exam.running) return;
+  clearExamTimer();
+  speechSynthesis.cancel();
+  if(exam.idx >= state.words.length-1){
+    document.getElementById("examBar").style.width="100%";
+    document.getElementById("examStatus").textContent="시험 끝! 수고했어요 🎉";
+    exam.running=false;
+    document.getElementById("examStart").textContent="처음부터 다시";
+    return;
+  }
+  exam.idx++;
+  playCurrent();
+}
+function stopExam(){
+  exam.running=false;
+  clearExamTimer();
+  if(window.speechSynthesis) speechSynthesis.cancel();
+}
+
+document.getElementById("btnExam").addEventListener("click",function(){
+  state.words=parseWords(document.getElementById("words").value);
+  if(!state.words.length){
+    document.getElementById("words").focus();
+    showToast("먼저 문제를 입력해 주세요");
+    return;
+  }
+  if(!window.speechSynthesis){
+    showToast("이 브라우저는 음성을 지원하지 않아요");
+    return;
+  }
+  exam.idx=0; exam.running=false;
+  document.getElementById("examStart").textContent="시작";
+  document.getElementById("examStatus").textContent="준비되면 시작을 눌러 주세요";
+  document.getElementById("examBar").style.width="0%";
+  examUpdateUI();
+  document.getElementById("exam").classList.add("show");
+});
+document.getElementById("examStart").addEventListener("click",function(){
+  stopExam();
+  exam.idx=0; exam.running=true;
+  this.textContent="시작";
+  playCurrent();
+});
+document.getElementById("examAgain").addEventListener("click",function(){
+  if(!state.words.length) return;
+  clearExamTimer(); speechSynthesis.cancel();
+  if(!exam.running){ exam.running=true; }
+  playCurrent();
+});
+document.getElementById("examNext").addEventListener("click",function(){
+  if(!state.words.length) return;
+  if(!exam.running){ exam.running=true; }
+  nextQuestion();
+});
+document.getElementById("examClose").addEventListener("click",function(){
+  stopExam();
+  document.getElementById("exam").classList.remove("show");
+});
+
+/* ---------- share ---------- */
+function encodeState(){
+  return b64e(JSON.stringify([state.words.join("\n"),state.repeat,state.gap,state.rate,state.title,state.answers?1:0]));
+}
+function loadFromHash(){
+  try{
+    var m=location.hash.match(/s=([^&]+)/); if(!m) return false;
+    var a=JSON.parse(b64d(decodeURIComponent(m[1])));
+    document.getElementById("words").value=a[0]||"";
+    state.repeat=+a[1]||2; state.gap=+a[2]||12; state.rate=+a[3]||0.85;
+    state.title=a[4]||""; state.answers=!!a[5];
+    return true;
+  }catch(e){ return false; }
+}
+
+/* ---------- controls ---------- */
+function syncControls(){
+  document.getElementById("repeat").value=String(state.repeat);
+  document.getElementById("gap").value=String(state.gap);
+  document.getElementById("rate").value=String(state.rate);
+  document.getElementById("title").value=state.title;
+  document.getElementById("answers").checked=state.answers;
+}
+document.getElementById("words").addEventListener("input",render);
+document.getElementById("chips").addEventListener("click",function(e){
+  var c=e.target.closest(".chip"); if(!c)return;
+  document.getElementById("words").value=PRESETS[c.dataset.set].join("\n");
+  render();
+});
+document.getElementById("repeat").addEventListener("change",function(e){ state.repeat=+e.target.value; });
+document.getElementById("gap").addEventListener("change",function(e){ state.gap=+e.target.value; });
+document.getElementById("rate").addEventListener("change",function(e){ state.rate=+e.target.value; });
+document.getElementById("title").addEventListener("input",function(e){ state.title=e.target.value; render(); });
+document.getElementById("answers").addEventListener("change",function(e){ state.answers=e.target.checked; render(); });
+
+document.getElementById("btnPrint").addEventListener("click",function(){ window.print(); });
+document.getElementById("btnReset").addEventListener("click",function(){
+  stopExam();
+  document.getElementById("words").value="";
+  state={words:[],repeat:2,gap:12,rate:0.85,title:"",answers:true};
+  history.replaceState(null,"",location.pathname);
+  syncControls(); render();
+});
+document.getElementById("btnShare").addEventListener("click",function(){
+  state.words=parseWords(document.getElementById("words").value);
+  if(!state.words.length){ showToast("먼저 문제를 입력해 주세요"); return; }
+  var url=location.origin+location.pathname+"#s="+encodeURIComponent(encodeState());
+  navigator.clipboard.writeText(url).then(function(){
+    location.hash="s="+encodeURIComponent(encodeState());
+    showToast("링크가 복사되었습니다");
+  }).catch(function(){ prompt("이 링크를 복사하세요:",url); });
+});
+window.addEventListener("resize",fitScale);
+
+/* ---------- init ---------- */
+loadFromHash();
+syncControls();
+render();
+</script>
+</body>
+</html>
