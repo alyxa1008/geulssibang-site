@@ -13,6 +13,7 @@ badaseugi/index.html  받아쓰기 불러주기 & 시험지
 badaseugi/geupsu/     학기별 받아쓰기 급수표 (검색 유입용 콘텐츠, 도구로 연결)
 math/index.html       수학 연산 생성기 (화면·인쇄)
 math/generators.js    수학 문제 생성기 등록부 — 유형 추가는 이 파일에
+math/roadmap/         학년별 수학 연산 로드맵 (검색 유입용 콘텐츠, 도구로 연결)
 maze/index.html       미로 찾기 활동지 생성기
 404.html              잘못된 주소 안내 페이지 (Cloudflare Pages가 자동 사용)
 
