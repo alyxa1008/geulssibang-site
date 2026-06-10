@@ -213,24 +213,45 @@ function uniqueChars(text){
 }
 
 /* ---------- row builders : each row = array of {ch, kind} ---------- */
-/* kind: solid | trace | empty | gap */
+/* kind: solid | trace | empty | gap
+   실제 학습지처럼 격자가 항상 페이지 전체를 채우도록,
+   모든 빌더는 (페이지 줄 수의 배수)만큼 줄을 만들어 돌려준다.
+   남는 줄은 십자선만 있는 '혼자 쓰기' 빈 줄. */
+function charRow(c,cfg){
+  var row=[], traceCount = cfg.cols - 1 - state.emptyCells;
+  if(traceCount < 1) traceCount = 1;
+  row.push({ch:c, kind:"solid"});
+  for(var i=0;i<traceCount;i++) row.push({ch:c, kind:"trace"});
+  while(row.length<cfg.cols) row.push({ch:"", kind:"empty"});
+  return row;
+}
+function blankRow(cfg){
+  var row=[];
+  for(var i=0;i<cfg.cols;i++) row.push({ch:"", kind:"empty"});
+  return row;
+}
+function blankPage(cfg){
+  var rows=[];
+  for(var i=0;i<cfg.rows;i++) rows.push(blankRow(cfg));
+  return rows;
+}
 function buildRowsChar(){
-  var cfg=SIZES[state.size], rows=[];
-  uniqueChars(state.text).forEach(function(c){
-    var row=[], traceCount = cfg.cols - 1 - state.emptyCells;
-    if(traceCount < 1) traceCount = 1;
-    row.push({ch:c, kind:"solid"});
-    for(var i=0;i<traceCount;i++) row.push({ch:c, kind:"trace"});
-    for(var j=0;j<state.emptyCells && row.length<cfg.cols;j++) row.push({ch:"", kind:"empty"});
-    rows.push(row);
+  var cfg=SIZES[state.size], cs=uniqueChars(state.text), rows=[];
+  if(!cs.length) return blankPage(cfg);
+  /* 필요한 페이지 수를 먼저 정하고, 글자마다 같은 줄 수(per)를 배분 */
+  var total=Math.ceil(cs.length/cfg.rows)*cfg.rows;
+  var per=Math.max(1, Math.floor(total/cs.length));
+  cs.forEach(function(c){
+    for(var k=0;k<per;k++) rows.push(charRow(c,cfg));
   });
+  while(rows.length<total) rows.push(blankRow(cfg));
   return rows;
 }
 function buildRowsLine(){
   var cfg=SIZES[state.size];
   // 단어 단위로 줄을 채워서, 단어가 줄 끝에서 잘리지 않게 한다
   var words=state.text.replace(/\r?\n/g," ").trim().split(/\s+/).filter(Boolean);
-  if(!words.length) return [];
+  if(!words.length) return blankPage(cfg);
   var lines=[], cur=[];
   words.forEach(function(w){
     var wc=Array.from(w);
@@ -256,11 +277,13 @@ function buildRowsLine(){
       lines.forEach(function(L){ block.push(L.map(function(c){return {ch:"", kind:c===" "?"gap":"empty"};})); });
     return block;
   }
-  // repeat blocks to fill one page (at least one block)
-  var rows=[], block=makeBlock();
-  if(!block.length) return [];
-  rows = rows.concat(block);
-  while(rows.length + block.length <= cfg.rows) rows = rows.concat(block);
+  /* 필요한 페이지 수만큼 블록을 반복하고, 남는 줄은 빈 연습 줄로 채운다 */
+  var block=makeBlock();
+  if(!block.length) return blankPage(cfg);
+  var total=Math.ceil(block.length/cfg.rows)*cfg.rows;
+  var rows=block.slice();
+  while(rows.length + block.length <= total) rows = rows.concat(block);
+  while(rows.length < total) rows.push(blankRow(cfg));
   return rows;
 }
 
@@ -271,15 +294,7 @@ function render(){
   var container=document.getElementById("sheets");
   container.innerHTML="";
 
-  if(!rows.length){
-    var empty=el("div","sheet-scale");
-    empty.appendChild(makeSheet([], cfg, 1, 1));
-    container.appendChild(empty);
-    fitScale();
-    document.getElementById("pageInfo").textContent="A4 · 1장";
-    return;
-  }
-  // paginate
+  // paginate — 빌더가 항상 페이지 줄 수의 배수를 돌려주므로 모든 페이지가 꽉 찬다
   var pages=[];
   for(var i=0;i<rows.length;i+=cfg.rows) pages.push(rows.slice(i,i+cfg.rows));
   pages.forEach(function(pageRows, idx){
