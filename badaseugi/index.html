@@ -195,13 +195,15 @@ function render(){
   var title=state.title||"받아쓰기 시험";
   var n=state.words.length||10;
   var qPages=Math.max(1, Math.ceil(n/PER_PAGE));
+  /* 마지막 장에 한두 줄만 남지 않도록 문제를 페이지에 균등 배분 (예: 11문제 → 6+5) */
+  var perPage=Math.ceil(n/qPages);
   var total=qPages + (state.answers && state.words.length ? 1 : 0);
   var no=0;
   for(var pg=0; pg<qPages; pg++){
     no++;
-    var count=Math.min(PER_PAGE, n - pg*PER_PAGE);
+    var count=Math.min(perPage, n - pg*perPage);
     var scale=el("div","sheet-scale");
-    scale.appendChild(makeSheet(title, pg*PER_PAGE, count, null, no, total));
+    scale.appendChild(makeSheet(title, pg*perPage, count, null, no, total));
     container.appendChild(scale);
   }
   if(state.answers && state.words.length){
