@@ -27,14 +27,15 @@ gtag("config", "G-86X82MNHC8");
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/style.css">
 <style>
-/* 급수 카드 (이 페이지 전용) */
-.gset{background:#fff; border:2px solid #e3e6ea; border-radius:10px; padding:16px 20px; margin:14px 0}
-.gset h3{margin:0 0 4px; font-size:17px}
+/* 급수 카드 (이 페이지 전용) — 흰 카드 안은 잉크색 글자로 */
+.gset{background:#fff; border:2px solid #e3e6ea; border-radius:10px; padding:16px 20px; margin:14px 0; color:var(--ink)}
+.content .gset h3{margin:0 0 4px; font-size:17px; color:var(--ink)}
+.content .gset strong{color:var(--ink)}
 .gset .glabel{color:var(--ink-soft); font-size:13px; margin:0 0 10px}
 .gset ol{margin:0 0 14px; padding-left:24px; columns:2; column-gap:28px}
 .gset li{margin:3px 0; font-size:15px; break-inside:avoid}
-.golink{display:inline-block; background:var(--redpen); color:#fff; border-radius:8px; padding:9px 16px; text-decoration:none; font-weight:700; font-size:14px}
-.golink:hover{background:var(--redpen-deep)}
+.content .golink{display:inline-block; background:var(--redpen); color:#fff; border-radius:8px; padding:9px 16px; text-decoration:none; font-weight:700; font-size:14px}
+.content .golink:hover{background:var(--redpen-deep)}
 @media (max-width:560px){ .gset ol{columns:1} }
 </style>
 <meta property="og:url" content="https://geulssibang.com/badaseugi/geupsu/">
