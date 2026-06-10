@@ -8,6 +8,7 @@ index.html            허브 홈 (도구 카드)
 assets/style.css      공통 디자인 시스템 (모든 페이지가 공유)
 assets/common.js      공통 유틸 (el, b64e/b64d, showToast, fitScale)
 hangul/index.html     한글 따라쓰기 생성기
+hangul/guide/         한글 떼기 순서 가이드 (검색 유입용 콘텐츠, 도구로 연결)
 badaseugi/index.html  받아쓰기 불러주기 & 시험지
 badaseugi/geupsu/     학기별 받아쓰기 급수표 (검색 유입용 콘텐츠, 도구로 연결)
 math/index.html       수학 연산 생성기 (화면·인쇄)
