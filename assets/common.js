@@ -12,6 +12,16 @@ function el(tag, cls){ var d=document.createElement(tag); if(cls) d.className=cl
 function b64e(str){ return btoa(unescape(encodeURIComponent(str))); }
 function b64d(str){ return decodeURIComponent(escape(atob(str))); }
 
+/* 현재 상태가 담긴 공유 링크를 클립보드에 복사 (실패 시 수동 복사 안내) */
+function copyShareLink(encoded){
+  var hash="s="+encodeURIComponent(encoded);
+  var url=location.origin+location.pathname+"#"+hash;
+  navigator.clipboard.writeText(url).then(function(){
+    location.hash=hash;
+    showToast("링크가 복사되었습니다");
+  }).catch(function(){ prompt("이 링크를 복사하세요:",url); });
+}
+
 /* 하단 토스트 알림 */
 function showToast(msg){
   var t=document.getElementById("toast");
