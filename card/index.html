@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="naver-site-verification" content="5a80c95ca3675833b5faac38af43702f204a7b69" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-86X82MNHC8"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "G-86X82MNHC8");
+</script>
+<title>우리 아이 이름 한글 카드 만들기 — 이름 캘리그래피 이미지 무료 저장 | 글씨방</title>
+<meta name="description" content="아이 이름을 입력하면 예쁜 한글 이름 카드 이미지가 바로 만들어져요. 백일·돌·입학 기념이나 인스타·카톡 공유에. 그 이름으로 따라쓰기 학습지까지 연결. 무료, 회원가입 없음.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="우리 아이 이름 한글 카드 만들기 | 글씨방">
+<meta property="og:description" content="아이 이름으로 예쁜 한글 카드 이미지를 무료로 만들어 공유하세요. 따라쓰기 연결까지.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://geulssibang.com/card/">
+
+<!-- ===== GOOGLE ADSENSE: 승인 후 publisher 스크립트를 여기에 붙여넣기 ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+/* 이름 카드 (이 페이지 전용) */
+.card-wrap{max-width:520px; margin:0 auto}
+.card-preview{max-width:330px; margin:16px auto 0}
+.card-preview canvas{width:100%; height:auto; display:block; border-radius:14px; box-shadow:0 12px 30px var(--paper-shadow)}
+.card-actions{display:flex; gap:10px; margin-top:14px}
+.card-actions .act{flex:1}
+.theme-seg{display:flex; gap:8px}
+.theme-seg button{flex:1; font-family:var(--kr); font-size:13.5px; padding:9px 4px; border:2px solid #e3e6ea; border-radius:8px; background:#fff; color:var(--ink-soft); cursor:pointer}
+.theme-seg button.on{border-color:var(--redpen); color:var(--redpen-deep); font-weight:700}
+.card-links{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:14px}
+.card-links a{color:var(--chalk-dim); border:1.5px solid rgba(243,239,228,.25); border-radius:20px; padding:7px 14px; font-size:13.5px; text-decoration:none}
+.card-links a:hover{color:var(--chalk); border-color:rgba(243,239,228,.55)}
+</style>
+<meta property="og:url" content="https://geulssibang.com/card/">
+<meta property="og:site_name" content="글씨방">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://geulssibang.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"한글 이름 카드 만들기","url":"https://geulssibang.com/card/","description":"아이 이름으로 예쁜 한글 카드 이미지를 만들어 저장·공유하는 무료 도구","applicationCategory":"EducationalApplication","operatingSystem":"Web","inLanguage":"ko","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
+</head>
+<body>
+<div class="wrap narrow">
+
+  <nav class="topnav">
+    <a href="../">글씨방 홈</a>
+    <a href="../hangul/">한글 따라쓰기</a>
+    <a href="../badaseugi/">받아쓰기</a>
+    <a href="../math/">수학 연산</a>
+    <a href="../maze/">미로 찾기</a>
+  </nav>
+
+  <header>
+    <div class="logo">이름 카드 <span class="pen">🎨</span></div>
+    <h1 class="tagline">우리 아이 이름 한글 카드 — 예쁜 이미지로 저장하고 공유하세요</h1>
+    <div class="chalk-line"></div>
+  </header>
+
+  <div class="card-wrap">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="field">
+          <label for="nameIn">아이 이름 (또는 짧은 글)</label>
+          <input type="text" id="nameIn" maxlength="12" autocomplete="off" placeholder="예) 김하준" style="font-family:var(--kr)">
+        </div>
+        <div class="field">
+          <label for="subIn">위에 들어갈 문구</label>
+          <input type="text" id="subIn" maxlength="16" autocomplete="off" placeholder="예) 우리 아이 한글" style="font-family:var(--kr)">
+          <div class="chips" id="subChips">
+            <button class="chip" data-t="우리 아이 한글">우리 아이 한글</button>
+            <button class="chip" data-t="사랑하는">♡ 사랑하는</button>
+            <button class="chip" data-t="처음 쓰는 내 이름">처음 쓰는 내 이름</button>
+            <button class="chip" data-t="">문구 없음</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>카드 배경</label>
+          <div class="theme-seg" id="themeSeg" role="group" aria-label="카드 배경">
+            <button data-theme="board" class="on">칠판</button>
+            <button data-theme="paper">크림 종이</button>
+            <button data-theme="sky">하늘</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-preview"><canvas id="cardCanvas" width="1080" height="1350"></canvas></div>
+
+    <div class="card-actions">
+      <button class="act print" id="btnSave">💾 이미지 저장</button>
+      <button class="act sub" id="btnShare">🔗 링크 복사</button>
+    </div>
+
+    <div class="card-links">
+      <a id="lnkTrace" href="../hangul/trace/">🖐️ 이 이름 화면에 써보기</a>
+      <a id="lnkWrite" href="../hangul/">✎ 이 이름 따라쓰기 학습지</a>
+    </div>
+  </div>
+
+  <!-- AD SLOT (애드센스 유닛으로 교체) -->
+  <div class="adslot" aria-hidden="true">광고 영역</div>
+
+  <div class="content">
+    <h2>아이 이름으로 만드는 세상에 하나뿐인 카드</h2>
+    <p>아이 이름을 입력하면 <strong>예쁜 한글 이름 카드</strong>가 그 자리에서 만들어져요. 백일·돌·입학 같은 기념일에 사진과 함께 올리거나, 인스타·카톡 프로필, 가족 단톡방에 공유하기 좋아요. 칠판·크림 종이·하늘 세 가지 배경 중에 고르고 '이미지 저장'을 누르면 휴대폰에 바로 담깁니다. 회원가입도, 비용도 없어요.</p>
+    <p>카드를 만든 김에 그 이름으로 <a href="../hangul/trace/">화면 손글씨</a>나 <a href="../hangul/">따라쓰기 학습지</a>를 만들어, 아이가 자기 이름을 직접 써보게 해주세요. 자기 이름은 아이가 가장 좋아하고 빨리 익히는 글자예요.</p>
+  </div>
+
+  <footer>
+    <span>글씨방 — 무료 학습지 생성기</span>
+    <span><a href="../about/">사이트 소개</a> · <a href="../privacy/">개인정보처리방침</a></span>
+  </footer>
+</div>
+
+<div class="toast" id="toast">링크가 복사되었습니다</div>
+
+<script src="../assets/common.js"></script>
+<script>
+"use strict";
+var canvas=document.getElementById("cardCanvas"), ctx=canvas.getContext("2d");
+var state={ name:"김하준", sub:"우리 아이 한글", theme:"board" };
+
+var THEMES={
+  board:{ bg1:"#356b58", bg2:"#22463a", border:"#f3efe4", sub:"#c9d6cd", name:"#f3efe4", line:"#e4573d", foot:"#9fb3a8", dots:"rgba(255,255,255,.5)" },
+  paper:{ bg1:"#fdf6e8", bg2:"#f3e7cf", border:"#caa86b", sub:"#9a7b3f", name:"#3b3026", line:"#e4573d", foot:"#b09a6f", dots:null },
+  sky:{ bg1:"#3e6fb0", bg2:"#274e86", border:"#ffffff", sub:"#cfe0f5", name:"#ffffff", line:"#ffd9a8", foot:"#aac3e6", dots:"rgba(255,255,255,.6)" }
+};
+
+function fitFont(text, family, max, maxW){
+  var size=max;
+  do{ ctx.font="400 "+size+'px "'+family+'"'; size-=6; }
+  while(ctx.measureText(text).width>maxW && size>56);
+  return size+6;
+}
+function draw(){
+  var t=THEMES[state.theme], W=1080, H=1350;
+  /* 배경 */
+  var g=ctx.createRadialGradient(W/2,H*0.28,120,W/2,H,1300);
+  g.addColorStop(0,t.bg1); g.addColorStop(1,t.bg2);
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  /* 분필 점 텍스처 */
+  if(t.dots){
+    ctx.fillStyle=t.dots;
+    for(var i=0;i<70;i++){
+      var sx=(i*733)%W, sy=(i*911)%H, r=(i%3===0)?2.4:1.2;
+      ctx.globalAlpha=.10+(i%5)*.04;
+      ctx.beginPath(); ctx.arc(sx,sy,r,0,7); ctx.fill();
+    }
+    ctx.globalAlpha=1;
+  }
+  /* 테두리 */
+  ctx.strokeStyle=t.border; ctx.lineWidth=4;
+  ctx.strokeRect(48,48,W-96,H-96);
+  ctx.textAlign="center";
+  /* 윗 문구 */
+  if(state.sub){
+    ctx.fillStyle=t.sub; ctx.font='400 46px "Gowun Dodum"';
+    ctx.fillText(state.sub, W/2, 360);
+  }
+  /* 이름 */
+  var nm=state.name||"이름";
+  var nmSize=fitFont(nm,"Jua",260,W-220);
+  ctx.fillStyle=t.name; ctx.font='400 '+nmSize+'px "Jua"';
+  ctx.fillText(nm, W/2, H/2+nmSize*0.34);
+  /* 밑줄 */
+  var lw=Math.min(W-260, ctx.measureText(nm).width+80);
+  ctx.strokeStyle=t.line; ctx.lineWidth=10; ctx.lineCap="round";
+  ctx.beginPath(); ctx.moveTo((W-lw)/2, H/2+nmSize*0.34+70); ctx.lineTo((W+lw)/2, H/2+nmSize*0.34+70); ctx.stroke();
+  ctx.lineCap="butt";
+  /* 하단 워터마크 */
+  ctx.fillStyle=t.foot; ctx.font='400 34px "Gowun Dodum"';
+  ctx.fillText("글씨방 · geulssibang.com", W/2, H-150);
+}
+function redraw(){
+  if(document.fonts && document.fonts.load){
+    Promise.all([document.fonts.load('400 200px "Jua"'), document.fonts.load('400 46px "Gowun Dodum"')])
+      .then(draw).catch(draw);
+  } else draw();
+}
+
+/* 링크: 이 이름으로 따라쓰기 / 화면 손글씨 */
+function syncLinks(){
+  var nm=(state.name||"").trim();
+  var enc=encodeURIComponent(b64e(nm));
+  document.getElementById("lnkTrace").href="../hangul/trace/#t="+enc;
+  var payload=[nm,"char","f-gowun","big",3,2,1,1,nm+" 따라쓰기","mid"];
+  document.getElementById("lnkWrite").href="../hangul/#s="+encodeURIComponent(b64e(JSON.stringify(payload)));
+}
+
+/* 컨트롤 */
+var nameIn=document.getElementById("nameIn"), subIn=document.getElementById("subIn");
+nameIn.value=state.name; subIn.value=state.sub;
+nameIn.addEventListener("input",function(){ state.name=nameIn.value; redraw(); syncLinks(); });
+subIn.addEventListener("input",function(){ state.sub=subIn.value; redraw(); });
+document.getElementById("subChips").addEventListener("click",function(e){
+  var c=e.target.closest(".chip"); if(!c) return;
+  state.sub=c.dataset.t; subIn.value=c.dataset.t; redraw();
+});
+document.getElementById("themeSeg").addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b) return;
+  state.theme=b.dataset.theme;
+  document.querySelectorAll("#themeSeg button").forEach(function(x){ x.classList.toggle("on",x===b); });
+  redraw();
+});
+document.getElementById("btnSave").addEventListener("click",function(){
+  if(!(state.name||"").trim()){ showToast("아이 이름을 입력해 주세요"); return; }
+  track("save_png",{tool:"card",theme:state.theme});
+  draw();  /* 저장 직전 최신 상태로 한 번 더 */
+  savePNG(canvas, "이름카드-"+(state.name||"글씨방")+".png");
+  showToast("이미지 저장 ✓ 인스타·카톡에 공유해 보세요");
+});
+function encodeState(){ return b64e(JSON.stringify([state.name,state.sub,state.theme])); }
+document.getElementById("btnShare").addEventListener("click",function(){ copyShareLink(encodeState()); });
+
+/* init (공유 링크 복원) */
+(function(){
+  try{
+    var m=location.hash.match(/s=([^&]+)/);
+    if(m){ var a=JSON.parse(b64d(decodeURIComponent(m[1])));
+      state.name=a[0]||state.name; state.sub=a[1]||""; state.theme=THEMES[a[2]]?a[2]:"board";
+      nameIn.value=state.name; subIn.value=state.sub;
+      document.querySelectorAll("#themeSeg button").forEach(function(x){ x.classList.toggle("on",x.dataset.theme===state.theme); });
+    }
+  }catch(e){}
+  redraw(); syncLinks();
+})();
+</script>
+</body>
+</html>
