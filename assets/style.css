@@ -203,6 +203,18 @@ footer a:hover{color:var(--chalk)}
 .toast{position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(80px); background:var(--ink); color:#fff; font-size:13.5px; padding:11px 20px; border-radius:999px; box-shadow:0 8px 20px rgba(0,0,0,.35); transition:transform .25s; z-index:150}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
+/* ===== 화면 손글씨 (trace 페이지) ===== */
+.trace-wrap{max-width:520px; margin:0 auto}
+.trace-board{background:var(--paper); color:var(--ink); border-radius:14px; box-shadow:0 10px 28px var(--paper-shadow); padding:14px 14px 16px}
+.trace-top{display:flex; justify-content:space-between; align-items:center; font-size:13.5px; color:var(--ink-soft); margin-bottom:10px}
+.trace-top b{font-family:var(--disp); font-size:20px; color:var(--ink)}
+#traceCanvas{display:block; width:100%; touch-action:none; border:2px solid #e3e6ea; border-radius:10px; background:#fff; cursor:crosshair}
+.trace-ctrl{display:flex; gap:7px; justify-content:center; flex-wrap:wrap; margin-top:12px}
+.trace-ctrl button{font-family:var(--kr); font-size:13px; color:var(--ink-soft); background:#f2f4f6; border:1px solid #e1e5e9; border-radius:999px; padding:7px 14px; cursor:pointer}
+.trace-ctrl button:hover{background:#fdeef0; border-color:var(--redpen); color:var(--redpen-deep)}
+.trace-nav{display:flex; gap:10px; margin-top:12px}
+.trace-nav .act{flex:1}
+
 /* ===== 인쇄 ===== */
 @media print{
   @page{size:A4; margin:0}
