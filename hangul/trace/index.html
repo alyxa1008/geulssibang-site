@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="naver-site-verification" content="5a80c95ca3675833b5faac38af43702f204a7b69" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-86X82MNHC8"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "G-86X82MNHC8");
+</script>
+<title>한글 화면 따라쓰기 — 손가락으로 쓰는 한글 연습 (프린터 불필요) | 글씨방</title>
+<meta name="description" content="휴대폰·태블릿 화면에 손가락이나 펜으로 한글을 따라쓰는 무료 연습. 흐린 글자를 따라 쓰고, 본보기를 가려 스스로 테스트하세요. 프린터·종이 없이 바로, 회원가입 없음.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="한글 화면 따라쓰기 — 손가락으로 쓰는 한글 연습 | 글씨방">
+<meta property="og:description" content="휴대폰·태블릿에 손가락으로 한글을 따라쓰는 무료 연습. 프린터 없이 바로.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://geulssibang.com/hangul/trace/">
+
+<!-- ===== GOOGLE ADSENSE: 승인 후 publisher 스크립트를 여기에 붙여넣기 ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<meta property="og:url" content="https://geulssibang.com/hangul/trace/">
+<meta property="og:site_name" content="글씨방">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://geulssibang.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="../../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"한글 화면 따라쓰기","url":"https://geulssibang.com/hangul/trace/","description":"휴대폰·태블릿 화면에 손가락이나 펜으로 한글을 따라쓰는 무료 연습 도구. 프린터 없이 바로 사용.","applicationCategory":"EducationalApplication","operatingSystem":"Web","inLanguage":"ko","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"프린터가 없어도 되나요?","acceptedAnswer":{"@type":"Answer","text":"네. 화면 따라쓰기는 인쇄가 필요 없습니다. 휴대폰이나 태블릿 화면에 손가락이나 터치펜으로 바로 따라 쓰면 됩니다."}},{"@type":"Question","name":"태블릿과 터치펜으로도 되나요?","acceptedAnswer":{"@type":"Answer","text":"네. 아이패드·갤럭시탭 등 태블릿과 스타일러스 펜에서 특히 잘 작동합니다. 실제 연필처럼 또박또박 쓰는 연습이 됩니다."}},{"@type":"Question","name":"종이에 인쇄해서 연습하고 싶어요.","acceptedAnswer":{"@type":"Answer","text":"한글 따라쓰기 생성기에서 학습지를 만들어 인쇄하거나 PDF로 저장할 수 있습니다."}}]}</script>
+</head>
+<body>
+<div class="wrap narrow">
+
+  <nav class="topnav">
+    <a href="../../">글씨방 홈</a>
+    <a href="../" class="here">한글 따라쓰기</a>
+    <a href="../../badaseugi/">받아쓰기</a>
+    <a href="../../math/">수학 연산</a>
+    <a href="../../maze/">미로 찾기</a>
+  </nav>
+
+  <header>
+    <div class="logo">화면 손글씨 <span class="pen">🖐️</span></div>
+    <h1 class="tagline">한글 화면 따라쓰기 — 손가락·터치펜으로, 프린터 없이 바로</h1>
+    <div class="chalk-line"></div>
+  </header>
+
+  <div class="trace-wrap">
+
+    <div class="panel" style="margin-bottom:14px">
+      <div class="panel-body" style="padding:14px 16px">
+        <div class="field" style="margin-bottom:0">
+          <label for="txtIn">연습할 글자·단어</label>
+          <input type="text" id="txtIn" maxlength="40" autocomplete="off" style="font-family:var(--kr)">
+          <div class="chips" id="chips">
+            <button class="chip" data-t="가나다라마바사">가나다</button>
+            <button class="chip" data-t="ㄱㄴㄷㄹㅁㅂㅅㅇ">자음</button>
+            <button class="chip" data-t="ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣ">모음</button>
+            <button class="chip" data-t="사랑해">사랑해</button>
+            <button class="chip" data-t="엄마 아빠">엄마 아빠</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trace-board">
+      <div class="trace-top">
+        <span><b id="posInfo">1/6</b></span>
+        <b id="curChar" style="font-size:24px">가</b>
+        <span id="hintTxt">흐린 글자를 따라 쓰세요</span>
+      </div>
+      <canvas id="traceCanvas"></canvas>
+      <div class="trace-ctrl">
+        <button type="button" id="btnSpeak">🔊 소리 듣기</button>
+        <button type="button" id="btnUndo">↩️ 한 획 취소</button>
+        <button type="button" id="btnClear">🧽 지우기</button>
+        <button type="button" id="btnGuide">🙈 본보기 가리고 혼자 쓰기</button>
+      </div>
+      <div class="trace-nav">
+        <button class="act sub" id="btnPrev">◀ 이전 글자</button>
+        <button class="act print" id="btnNext">다음 글자 ▶</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- AD SLOT (애드센스 유닛으로 교체) -->
+  <div class="adslot" aria-hidden="true">광고 영역</div>
+
+  <div class="content">
+    <h2>프린터 없이, 휴대폰만 있으면 한글 쓰기 연습</h2>
+    <p>종이도 프린터도 필요 없어요. 연습할 글자나 단어를 입력하면 <strong>화면에 흐린 본보기 글자</strong>가 나오고, 그 위를 손가락이나 터치펜으로 따라 쓰면 됩니다. 태블릿과 스타일러스를 쓰면 실제 연필처럼 또박또박 쓰는 연습이 돼요. 글자에 익숙해지면 <strong>🙈 본보기 가리기</strong>를 눌러 혼자 쓸 수 있는지 스스로 테스트해 보세요.</p>
+    <p>종이에 인쇄해서 반복 연습하고 싶다면 <a href="../">한글 따라쓰기 생성기</a>에서 학습지를 만들어 출력하거나 PDF로 저장하세요. 한글을 처음 배운다면 <a href="../guide/">한글 떼기 순서 가이드</a>부터 단계별로 따라가면 좋아요.</p>
+
+    <h2>자주 묻는 질문</h2>
+    <dl class="faq">
+      <dt>프린터가 없어도 되나요?</dt>
+      <dd>네. 화면 따라쓰기는 인쇄가 필요 없어요. 휴대폰이나 태블릿 화면에 손가락이나 터치펜으로 바로 따라 쓰면 됩니다.</dd>
+      <dt>태블릿과 터치펜으로도 되나요?</dt>
+      <dd>네. 아이패드·갤럭시탭 등 태블릿과 스타일러스 펜에서 특히 잘 작동해서, 실제 연필처럼 쓰는 연습이 됩니다.</dd>
+      <dt>소리 듣기는 뭔가요?</dt>
+      <dd>지금 글자를 기기에 내장된 한국어 음성으로 읽어줍니다. 글자 모양과 소리를 함께 익힐 수 있어요. (기기에 한국어 음성이 없으면 작동하지 않을 수 있습니다.)</dd>
+      <dt>종이에 인쇄해서 연습하고 싶어요.</dt>
+      <dd><a href="../">한글 따라쓰기 생성기</a>에서 학습지를 만들어 인쇄하거나 PDF로 저장할 수 있습니다.</dd>
+    </dl>
+  </div>
+
+  <footer>
+    <span>글씨방 — 무료 학습지 생성기</span>
+    <span><a href="../../about/">사이트 소개</a> · <a href="../../privacy/">개인정보처리방침</a></span>
+  </footer>
+</div>
+
+<div class="toast" id="toast">​</div>
+
+<script src="../../assets/common.js"></script>
+<script>
+"use strict";
+/* ===== 한국어 TTS (이 페이지 전용 — 글자 소리 듣기) ===== */
+var __koVoice=null;
+function __pickKo(){
+  if(!window.speechSynthesis) return;
+  var vs=speechSynthesis.getVoices().filter(function(v){return /^ko/i.test(v.lang);});
+  __koVoice=vs[0]||null;
+}
+if(window.speechSynthesis){ __pickKo(); speechSynthesis.onvoiceschanged=__pickKo; }
+function speakKo(text, rate){
+  if(!window.speechSynthesis) return false;
+  speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(text);
+  u.lang="ko-KR"; if(__koVoice) u.voice=__koVoice; u.rate=rate||0.8;
+  speechSynthesis.speak(u);
+  return true;
+}
+
+/* ===== 화면 따라쓰기 (캔버스 + 포인터) ===== */
+var canvas=document.getElementById("traceCanvas"), ctx=canvas.getContext("2d");
+var text="가나다라마바사", pos=0, strokes=[], cur=null, hideGuide=false, cssSize=0;
+
+function charsOf(t){ return Array.from((t||"").replace(/\s+/g,"")); }
+function curChar(){ var cs=charsOf(text); return cs[pos]||""; }
+
+function setupCanvas(){
+  var dpr=window.devicePixelRatio||1;
+  cssSize=canvas.clientWidth;
+  canvas.style.height=cssSize+"px";
+  canvas.width=Math.round(cssSize*dpr);
+  canvas.height=Math.round(cssSize*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  redraw();
+}
+function redraw(){
+  ctx.clearRect(0,0,cssSize,cssSize);
+  /* 가이드 십자선 */
+  ctx.save();
+  ctx.strokeStyle="#d8e4dc"; ctx.lineWidth=1; ctx.setLineDash([6,6]);
+  ctx.beginPath(); ctx.moveTo(cssSize/2,cssSize*.04); ctx.lineTo(cssSize/2,cssSize*.96);
+  ctx.moveTo(cssSize*.04,cssSize/2); ctx.lineTo(cssSize*.96,cssSize/2); ctx.stroke();
+  ctx.restore();
+  /* 흐린 본보기 글자 */
+  if(!hideGuide && curChar()){
+    ctx.save();
+    ctx.fillStyle="#d4d8de";
+    ctx.font='400 '+Math.round(cssSize*.62)+'px "Gowun Dodum"';
+    ctx.textAlign="center"; ctx.textBaseline="middle";
+    ctx.fillText(curChar(),cssSize/2,cssSize*.54);
+    ctx.restore();
+  }
+  /* 사용자 획 (정규화 좌표 0..1) */
+  ctx.save();
+  ctx.strokeStyle="#e4573d"; ctx.lineWidth=Math.max(6,cssSize*.022);
+  ctx.lineCap="round"; ctx.lineJoin="round";
+  strokes.concat(cur?[cur]:[]).forEach(function(st){
+    if(st.length<2) return;
+    ctx.beginPath();
+    ctx.moveTo(st[0].x*cssSize,st[0].y*cssSize);
+    for(var i=1;i<st.length;i++) ctx.lineTo(st[i].x*cssSize,st[i].y*cssSize);
+    ctx.stroke();
+  });
+  ctx.restore();
+}
+function syncUI(){
+  var cs=charsOf(text);
+  if(pos>=cs.length) pos=Math.max(0,cs.length-1);
+  document.getElementById("posInfo").textContent=(cs.length?pos+1:0)+"/"+cs.length;
+  document.getElementById("curChar").textContent=curChar()||"–";
+  document.getElementById("btnPrev").disabled=pos<=0;
+  document.getElementById("btnNext").textContent=(pos>=cs.length-1)?"처음부터 ↺":"다음 글자 ▶";
+  redraw();
+}
+function goto(p,speak){
+  strokes=[]; cur=null; pos=p; syncUI();
+  if(speak && curChar()) speakKo(curChar(),0.75);
+}
+
+/* ----- 그리기 (포인터 이벤트) ----- */
+function pt(e){
+  var r=canvas.getBoundingClientRect();
+  return {x:(e.clientX-r.left)/r.width, y:(e.clientY-r.top)/r.height};
+}
+canvas.addEventListener("pointerdown",function(e){
+  e.preventDefault();
+  canvas.setPointerCapture(e.pointerId);
+  cur=[pt(e)];
+});
+canvas.addEventListener("pointermove",function(e){
+  if(!cur) return;
+  cur.push(pt(e)); redraw();
+});
+function endStroke(){
+  if(cur){ if(cur.length>1) strokes.push(cur); cur=null; redraw(); }
+}
+canvas.addEventListener("pointerup",endStroke);
+canvas.addEventListener("pointercancel",endStroke);
+
+/* ----- 컨트롤 ----- */
+document.getElementById("btnSpeak").addEventListener("click",function(){
+  if(curChar() && !speakKo(curChar(),0.75)) showToast("이 기기는 음성을 지원하지 않아요");
+});
+document.getElementById("btnUndo").addEventListener("click",function(){ strokes.pop(); redraw(); });
+document.getElementById("btnClear").addEventListener("click",function(){ strokes=[]; redraw(); });
+document.getElementById("btnGuide").addEventListener("click",function(){
+  hideGuide=!hideGuide;
+  this.textContent=hideGuide?"👀 본보기 보이기":"🙈 본보기 가리고 혼자 쓰기";
+  document.getElementById("hintTxt").textContent=hideGuide?"본보기 없이 직접 써 보세요!":"흐린 글자를 따라 쓰세요";
+  redraw();
+});
+document.getElementById("btnPrev").addEventListener("click",function(){ if(pos>0) goto(pos-1,true); });
+document.getElementById("btnNext").addEventListener("click",function(){
+  var cs=charsOf(text);
+  goto(pos>=cs.length-1?0:pos+1,true);
+});
+
+var input=document.getElementById("txtIn");
+input.addEventListener("change",function(){ setText(input.value); });
+input.addEventListener("keydown",function(e){ if(e.key==="Enter"){ setText(input.value); input.blur(); } });
+document.getElementById("chips").addEventListener("click",function(e){
+  var c=e.target.closest(".chip"); if(!c) return;
+  input.value=c.dataset.t; setText(c.dataset.t);
+});
+function setText(t){
+  t=(t||"").trim();
+  if(!charsOf(t).length){ showToast("연습할 글자를 입력해 주세요"); return; }
+  text=t; goto(0,true);
+}
+
+/* ----- init ----- */
+(function(){
+  try{
+    var m=location.hash.match(/t=([^&]+)/);
+    if(m) text=b64d(decodeURIComponent(m[1])).trim()||text;
+  }catch(e){}
+  input.value=text;
+  if(document.fonts && document.fonts.load){
+    document.fonts.load('400 100px "Gowun Dodum"').then(function(){ setupCanvas(); syncUI(); });
+  }
+  setupCanvas(); syncUI();
+})();
+window.addEventListener("resize",setupCanvas);
+</script>
+</body>
+</html>
