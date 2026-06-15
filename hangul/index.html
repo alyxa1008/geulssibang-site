@@ -161,6 +161,7 @@ gtag("config", "G-86X82MNHC8");
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6z"/></svg>
             인쇄 · PDF 저장
           </button>
+          <button class="act sub" id="btnImage">💾 이미지로 저장</button>
           <button class="act sub" id="btnShare">🔗 링크 복사</button>
           <button class="act sub" id="btnReset">처음부터</button>
         </div>
@@ -430,6 +431,87 @@ document.getElementById("fade").addEventListener("change",function(e){ state.fad
 document.getElementById("title").addEventListener("input",function(e){ state.title=e.target.value; render(); });
 
 document.getElementById("btnPrint").addEventListener("click",function(){ track("print_sheet",{tool:"hangul"}); window.print(); });
+
+/* ---------- 연습지 → PNG (프린터 없는 사용자용) ---------- */
+var PXMM=1240/210;  // A4 가로 1240px 기준 px/mm
+var FONTMAP={ "f-gowun":"Gowun Dodum", "f-gaegu":"Gaegu", "f-batang":"Gowun Batang" };
+function drawSheetPNG(pageRows,cfg,pageNo,pageTotal,fam){
+  var W=1240,H=Math.round(297*PXMM),c=el("canvas");
+  c.width=W; c.height=H;
+  var x=c.getContext("2d");
+  x.fillStyle="#fff"; x.fillRect(0,0,W,H);
+  var L=14*PXMM,R=W-14*PXMM,T=14*PXMM;
+  /* 머리글 */
+  x.fillStyle="#2b3038"; x.textBaseline="alphabetic"; x.textAlign="left";
+  x.font='400 '+Math.round(8*PXMM)+'px "Jua"';
+  x.fillText("✎ "+(state.title||"한글 따라쓰기 연습"),L,T+8*PXMM);
+  x.font='400 '+Math.round(3.6*PXMM)+'px "Gowun Dodum"';
+  x.fillStyle="#5b6470"; x.textAlign="right";
+  x.fillText("이름 __________",R,T+3.4*PXMM);
+  x.fillText("날짜 __________",R,T+8.2*PXMM);
+  x.textAlign="left";
+  var headY=T+11*PXMM;
+  x.strokeStyle="#2b3038"; x.lineWidth=2.5;
+  x.beginPath(); x.moveTo(L,headY); x.lineTo(R,headY); x.stroke();
+  /* 격자 */
+  var cell=cfg.cell*PXMM, gap=4*PXMM, y=headY+5*PXMM;
+  var traceCol=FADE[state.fade]||FADE.mid;
+  pageRows.forEach(function(row){
+    var cx=L;
+    row.forEach(function(ci){
+      if(ci.kind!=="gap"){
+        x.strokeStyle="#b9cdc0"; x.lineWidth=1.2; x.strokeRect(cx,y,cell,cell);
+        if(state.guide){
+          x.save(); x.strokeStyle="#d8e4dc"; x.setLineDash([4,4]);
+          x.beginPath();
+          x.moveTo(cx+cell*.06,y+cell/2); x.lineTo(cx+cell*.94,y+cell/2);
+          x.moveTo(cx+cell/2,y+cell*.06); x.lineTo(cx+cell/2,y+cell*.94);
+          x.stroke(); x.restore();
+        }
+        if(ci.ch && ci.kind!=="empty"){
+          x.fillStyle=ci.kind==="solid"?"#2b3038":traceCol;
+          x.font='400 '+Math.round(cell*.62)+'px "'+fam+'"';
+          x.textAlign="center"; x.textBaseline="middle";
+          x.fillText(ci.ch,cx+cell/2,y+cell*.56);
+          x.textAlign="left"; x.textBaseline="alphabetic";
+        }
+      }
+      cx+=cell;
+    });
+    y+=cell+gap;
+  });
+  /* 바닥글 */
+  var footY=H-9*PXMM;
+  x.strokeStyle="#e3e6ea"; x.lineWidth=1;
+  x.beginPath(); x.moveTo(L,footY); x.lineTo(R,footY); x.stroke();
+  x.fillStyle="#9aa1a9"; x.font='400 '+Math.round(3*PXMM)+'px "Gowun Dodum"';
+  x.fillText("글씨방 · 무료 한글 학습지",L,footY+4.5*PXMM);
+  x.textAlign="right"; x.fillText(pageNo+" / "+pageTotal,R,footY+4.5*PXMM);
+  x.textAlign="left";
+  return c;
+}
+document.getElementById("btnImage").addEventListener("click",function(){
+  var cfg=SIZES[state.size];
+  var rows=state.mode==="char"?buildRowsChar():buildRowsLine();
+  if(!rows.length){ showToast("연습할 글자를 입력해 주세요"); return; }
+  var pages=[];
+  for(var i=0;i<rows.length;i+=cfg.rows) pages.push(rows.slice(i,i+cfg.rows));
+  track("save_png",{tool:"hangul"});
+  var fam=FONTMAP[state.font]||"Gowun Dodum";
+  var fin=function(){
+    pages.forEach(function(pageRows,idx){
+      setTimeout(function(){
+        savePNG(drawSheetPNG(pageRows,cfg,idx+1,pages.length,fam),"한글따라쓰기-"+(idx+1)+".png");
+      }, idx*450);
+    });
+    showToast("이미지 "+pages.length+"장 저장 ✓ 복사집에서 출력할 수 있어요");
+  };
+  if(document.fonts && document.fonts.load){
+    document.fonts.load('400 80px "'+fam+'"').then(function(){
+      return document.fonts.load('400 60px "Jua"');
+    }).then(fin).catch(fin);
+  } else fin();
+});
 document.getElementById("btnReset").addEventListener("click",function(){
   state={text:"가나다라마바사",mode:"char",font:"f-gowun",size:"mid",emptyCells:3,traceRows:2,emptyRows:1,guide:true,fade:"mid",title:""};
   history.replaceState(null,"",location.pathname);
