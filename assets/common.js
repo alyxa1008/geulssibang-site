@@ -40,6 +40,38 @@ function copyShareLink(encoded){
   }).catch(function(){ prompt("이 링크를 복사하세요:",url); });
 }
 
+/* ===== PNG 저장 (프린터 없는 모바일 사용자용) ===== */
+/* canvas를 PNG 파일로 내려받기 */
+function savePNG(canvas, name){
+  canvas.toBlob(function(blob){
+    if(!blob){ showToast("저장에 실패했어요. 다시 시도해 주세요"); return; }
+    var a=el("a");
+    a.href=URL.createObjectURL(blob); a.download=name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000);
+  }, "image/png");
+}
+/* SVG 요소를 PNG로 저장 (미로처럼 SVG로 그린 시트용).
+   outW = 출력 가로 px, 세로는 viewBox 비율로 자동. 흰 배경을 깔아 저장한다. */
+function svgToPNG(svgEl, outW, name, done){
+  var vb=(svgEl.getAttribute("viewBox")||"0 0 1 1").split(/[\s,]+/).map(Number);
+  var ratio=(vb[3]||1)/(vb[2]||1), outH=Math.round(outW*ratio);
+  var clone=svgEl.cloneNode(true);
+  clone.setAttribute("width",outW); clone.setAttribute("height",outH);
+  var xml=new XMLSerializer().serializeToString(clone);
+  var url="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(xml);
+  var img=new Image();
+  img.onload=function(){
+    var c=el("canvas"); c.width=outW; c.height=outH;
+    var x=c.getContext("2d");
+    x.fillStyle="#fff"; x.fillRect(0,0,outW,outH);
+    x.drawImage(img,0,0,outW,outH);
+    savePNG(c,name); if(done) done();
+  };
+  img.onerror=function(){ if(done) done(true); else showToast("저장에 실패했어요"); };
+  img.src=url;
+}
+
 /* 하단 토스트 알림 */
 function showToast(msg){
   var t=document.getElementById("toast");

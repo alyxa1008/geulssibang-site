@@ -95,6 +95,7 @@ gtag("config", "G-86X82MNHC8");
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6z"/></svg>
             인쇄 · PDF 저장
           </button>
+          <button class="act sub" id="btnImage">💾 이미지로 저장</button>
           <button class="act sub" id="btnShare">🔗 링크 복사</button>
           <button class="act sub" id="btnReset">처음부터</button>
         </div>
@@ -326,6 +327,15 @@ document.getElementById("answers").addEventListener("change",function(e){ state.
 document.getElementById("title").addEventListener("input",function(e){ state.title=e.target.value; render(); });
 document.getElementById("btnShuffle").addEventListener("click",function(){ state.seed=newSeed(); render(); });
 document.getElementById("btnPrint").addEventListener("click",function(){ track("print_sheet",{tool:"maze",level:state.level}); window.print(); });
+document.getElementById("btnImage").addEventListener("click",function(){
+  var svgs=document.querySelectorAll("#sheets svg");
+  if(!svgs.length){ showToast("먼저 미로를 만들어 주세요"); return; }
+  track("save_png",{tool:"maze",level:state.level});
+  svgs.forEach(function(svg,i){
+    setTimeout(function(){ svgToPNG(svg,1000,"미로찾기-"+(i+1)+".png"); }, i*450);
+  });
+  showToast("이미지 "+svgs.length+"장 저장 ✓ 복사집에서 출력할 수 있어요");
+});
 document.getElementById("btnShare").addEventListener("click",function(){ copyShareLink(encodeState()); });
 document.getElementById("btnReset").addEventListener("click",function(){
   state={level:"mid",pages:1,answers:true,title:"",seed:newSeed()};
