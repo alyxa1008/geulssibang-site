@@ -125,22 +125,7 @@ gtag("config", "G-86X82MNHC8");
 <script src="../../assets/common.js"></script>
 <script>
 "use strict";
-/* ===== 한국어 TTS (이 페이지 전용 — 글자 소리 듣기) ===== */
-var __koVoice=null;
-function __pickKo(){
-  if(!window.speechSynthesis) return;
-  var vs=speechSynthesis.getVoices().filter(function(v){return /^ko/i.test(v.lang);});
-  __koVoice=vs[0]||null;
-}
-if(window.speechSynthesis){ __pickKo(); speechSynthesis.onvoiceschanged=__pickKo; }
-function speakKo(text, rate){
-  if(!window.speechSynthesis) return false;
-  speechSynthesis.cancel();
-  var u=new SpeechSynthesisUtterance(text);
-  u.lang="ko-KR"; if(__koVoice) u.voice=__koVoice; u.rate=rate||0.8;
-  speechSynthesis.speak(u);
-  return true;
-}
+/* 한국어 음성(speakKo)은 common.js에 공통 정의됨 */
 
 /* ===== 화면 따라쓰기 (캔버스 + 포인터) ===== */
 var canvas=document.getElementById("traceCanvas"), ctx=canvas.getContext("2d");

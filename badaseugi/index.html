@@ -270,7 +270,9 @@ function makeSheet(title, startIdx, count, answerWords, pageNo, pageTotal){
 
 
 /* ---------- TTS exam mode ---------- */
-var exam={ idx:0, running:false, timer:null, koVoice:null, session:0, utter:null };
+/* 한국어 음성 선택은 common.js(koVoice/koVoiceMissing)에 공통. 받아쓰기는
+   콜백·세션 처리가 필요해 speak()만 자체로 둔다. */
+var exam={ idx:0, running:false, timer:null, session:0, utter:null };
 /* session: 취소된 음성의 콜백이 뒤늦게 도착해 새 재생과 겹치는 것을 막는 세대 번호.
    재생을 새로 시작하거나 멈출 때마다 증가하고, 콜백은 자기 번호가 최신일 때만 동작한다. */
 function aliveGuard(){
@@ -278,20 +280,10 @@ function aliveGuard(){
   return function(){ return exam.running && s===exam.session; };
 }
 
-function pickVoice(){
-  var vs=window.speechSynthesis ? speechSynthesis.getVoices() : [];
-  var ko=vs.filter(function(v){return /^ko/i.test(v.lang);});
-  exam.koVoice = ko[0] || null;
-}
-if(window.speechSynthesis){
-  pickVoice();
-  speechSynthesis.onvoiceschanged=pickVoice;
-}
-
 function speak(text, cb){
   var u=new SpeechSynthesisUtterance(text);
   u.lang="ko-KR";
-  if(exam.koVoice) u.voice=exam.koVoice;
+  if(koVoice()) u.voice=koVoice();
   u.rate=state.rate;
   u.onend=function(){ if(cb) cb(); };
   u.onerror=function(){ if(cb) cb(); };
@@ -357,12 +349,9 @@ function stopExam(){
 /* 시험 중 페이지를 떠나면 음성이 계속 나오는 브라우저가 있어 정리 */
 window.addEventListener("pagehide", stopExam);
 
-/* 한국어 음성이 설치되지 않은 기기 감지 — 음성 목록이 로드됐는데 ko 음성이 없을 때만 true */
-function noKoVoice(){
-  return window.speechSynthesis && speechSynthesis.getVoices().length > 0 && !exam.koVoice;
-}
+/* 한국어 음성이 설치되지 않은 기기 안내 (감지는 common.js koVoiceMissing) */
 function warnIfNoKoVoice(){
-  if(noKoVoice()) showToast("이 기기에 한국어 음성이 없어요. 기기 설정에서 한국어 TTS 음성을 설치해 주세요");
+  if(koVoiceMissing()) showToast("이 기기에 한국어 음성이 없어요. 기기 설정에서 한국어 TTS 음성을 설치해 주세요");
 }
 
 document.getElementById("btnExam").addEventListener("click",function(){
@@ -444,54 +433,28 @@ document.getElementById("answers").addEventListener("change",function(e){ state.
 
 document.getElementById("btnPrint").addEventListener("click",function(){ track("print_sheet",{tool:"badaseugi"}); window.print(); });
 
-/* ---------- 시험지 → PNG (프린터 없는 사용자용) ---------- */
-var PXMM=1240/210;
+/* ---------- 시험지 → PNG (프린터 없는 사용자용. 시트 틀은 common.js) ---------- */
 function drawSheetPNG(title, startIdx, count, answerWords, pageNo, pageTotal){
-  var W=1240,H=Math.round(297*PXMM),c=el("canvas");
-  c.width=W; c.height=H;
-  var x=c.getContext("2d");
-  x.fillStyle="#fff"; x.fillRect(0,0,W,H);
-  var L=16*PXMM,R=W-16*PXMM,T=16*PXMM;
-  /* 머리글 */
-  x.fillStyle="#2b3038"; x.textBaseline="alphabetic"; x.textAlign="left";
-  x.font='400 '+Math.round(8*PXMM)+'px "Jua"';
-  x.fillText((answerWords?"✔ ":"🔊 ")+title,L,T+8*PXMM);
-  x.font='400 '+Math.round(3.6*PXMM)+'px "Gowun Dodum"';
-  x.fillStyle="#5b6470"; x.textAlign="right";
-  if(answerWords){
-    x.fillText("채점일 __________",R,T+6*PXMM);
-  } else {
-    x.fillText("이름 __________",R,T+3.4*PXMM);
-    x.fillText("점수 ______ / "+(state.words.length||10),R,T+8.2*PXMM);
-  }
-  x.textAlign="left";
-  var headY=T+11*PXMM;
-  x.strokeStyle="#2b3038"; x.lineWidth=2.5;
-  x.beginPath(); x.moveTo(L,headY); x.lineTo(R,headY); x.stroke();
+  var M=PNG_MM, s=pngSheet(), x=s.x, W=s.W, H=s.H, L=16*M, R=W-16*M;
+  var headY=pngHeader({x:x,L:L,R:R,T:16*M,deco:(answerWords?"✔":"🔊"),title:title,
+    meta: answerWords ? ["채점일 __________"] : ["이름 __________","점수 ______ / "+(state.words.length||10)]});
   /* 문제 줄 — 남은 높이를 count줄로 균등 분배 (최대 32mm) */
-  var top=headY+8*PXMM, bottom=H-14*PXMM;
-  var rowH=Math.min(32*PXMM,(bottom-top)/count);
+  var top=headY+8*M, bottom=H-14*M;
+  var rowH=Math.min(32*M,(bottom-top)/count);
   for(var i=0;i<count;i++){
-    var y=top+rowH*i, base=y+rowH-6*PXMM;
-    x.fillStyle="#5b6470"; x.font='400 '+Math.round(5*PXMM)+'px "Jua"';
+    var y=top+rowH*i, base=y+rowH-6*M;
+    x.fillStyle="#5b6470"; x.font='400 '+Math.round(5*M)+'px "Jua"';
     x.textAlign="left"; x.fillText((startIdx+i+1)+".",L,base);
     if(answerWords){
-      x.fillStyle="#e4573d"; x.font='400 '+Math.round(5.5*PXMM)+'px "Gowun Dodum"';
-      x.fillText(answerWords[startIdx+i],L+12*PXMM,base);
+      x.fillStyle="#e4573d"; x.font='400 '+Math.round(5.5*M)+'px "Gowun Dodum"';
+      x.fillText(answerWords[startIdx+i],L+12*M,base);
     } else {
       x.strokeStyle="#c9cdd2"; x.lineWidth=1.2;
-      x.beginPath(); x.moveTo(L+12*PXMM,base+1.5*PXMM); x.lineTo(R,base+1.5*PXMM); x.stroke();
+      x.beginPath(); x.moveTo(L+12*M,base+1.5*M); x.lineTo(R,base+1.5*M); x.stroke();
     }
   }
-  /* 바닥글 */
-  var footY=H-9*PXMM;
-  x.strokeStyle="#e3e6ea"; x.lineWidth=1;
-  x.beginPath(); x.moveTo(L,footY); x.lineTo(R,footY); x.stroke();
-  x.fillStyle="#9aa1a9"; x.font='400 '+Math.round(3*PXMM)+'px "Gowun Dodum"';
-  x.textAlign="left"; x.fillText("글씨방 · 받아쓰기 시험지",L,footY+4.5*PXMM);
-  x.textAlign="right"; x.fillText(pageNo+" / "+pageTotal,R,footY+4.5*PXMM);
-  x.textAlign="left";
-  return c;
+  pngFooter({x:x,L:L,R:R,H:H,left:"글씨방 · 받아쓰기 시험지",pageNo:pageNo,pageTotal:pageTotal});
+  return s.canvas;
 }
 document.getElementById("btnImage").addEventListener("click",function(){
   state.words=parseWords(document.getElementById("words").value);
