@@ -51,6 +51,41 @@ function savePNG(canvas, name){
     setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000);
   }, "image/png");
 }
+/* ----- A4 PNG 시트 공통 틀 (한글·수학·받아쓰기가 공유) ----- */
+var PNG_MM=1240/210;  // A4 가로 1240px 기준 px/mm
+/* 흰 A4 캔버스 + 컨텍스트 생성 */
+function pngSheet(){
+  var W=1240,H=Math.round(297*PNG_MM),c=el("canvas"); c.width=W; c.height=H;
+  var x=c.getContext("2d"); x.fillStyle="#fff"; x.fillRect(0,0,W,H);
+  return {canvas:c, x:x, W:W, H:H};
+}
+/* 머리글: 제목 + 우측 메타(이름/날짜 등) + 구분선. 본문 시작 y(headY) 반환.
+   o = {x, L, R, T, deco, title, meta:[문자열…]} (meta 1개면 중앙, 2개면 위아래) */
+function pngHeader(o){
+  var x=o.x, M=PNG_MM;
+  x.fillStyle="#2b3038"; x.textBaseline="alphabetic"; x.textAlign="left";
+  x.font='400 '+Math.round(8*M)+'px "Jua"';
+  x.fillText(o.deco+" "+o.title, o.L, o.T+8*M);
+  x.font='400 '+Math.round(3.6*M)+'px "Gowun Dodum"'; x.fillStyle="#5b6470"; x.textAlign="right";
+  var meta=o.meta||[];
+  meta.forEach(function(line,i){
+    var y = meta.length===1 ? o.T+6*M : o.T+(3.4+i*4.8)*M;
+    x.fillText(line, o.R, y);
+  });
+  x.textAlign="left";
+  var headY=o.T+11*M;
+  x.strokeStyle="#2b3038"; x.lineWidth=2.5; x.beginPath(); x.moveTo(o.L,headY); x.lineTo(o.R,headY); x.stroke();
+  return headY;
+}
+/* 바닥글: 구분선 + 좌측 워터마크 + 우측 페이지번호. o={x,L,R,H,left,pageNo,pageTotal} */
+function pngFooter(o){
+  var x=o.x, M=PNG_MM, footY=o.H-9*M;
+  x.strokeStyle="#e3e6ea"; x.lineWidth=1; x.beginPath(); x.moveTo(o.L,footY); x.lineTo(o.R,footY); x.stroke();
+  x.fillStyle="#9aa1a9"; x.font='400 '+Math.round(3*M)+'px "Gowun Dodum"'; x.textAlign="left";
+  x.fillText(o.left, o.L, footY+4.5*M);
+  x.textAlign="right"; x.fillText(o.pageNo+" / "+o.pageTotal, o.R, footY+4.5*M); x.textAlign="left";
+}
+
 /* SVG 요소를 PNG로 저장 (미로처럼 SVG로 그린 시트용).
    outW = 출력 가로 px, 세로는 viewBox 비율로 자동. 흰 배경을 깔아 저장한다. */
 function svgToPNG(svgEl, outW, name, done){
@@ -70,6 +105,27 @@ function svgToPNG(svgEl, outW, name, done){
   };
   img.onerror=function(){ if(done) done(true); else showToast("저장에 실패했어요"); };
   img.src=url;
+}
+
+/* ===== 한국어 음성(TTS) — 받아쓰기·화면 손글씨 공유 ===== */
+var __koVoice=null;
+function __pickKoVoice(){
+  if(!window.speechSynthesis) return;
+  var vs=speechSynthesis.getVoices().filter(function(v){return /^ko/i.test(v.lang);});
+  __koVoice=vs[0]||null;
+}
+if(typeof window!=="undefined" && window.speechSynthesis){ __pickKoVoice(); speechSynthesis.onvoiceschanged=__pickKoVoice; }
+function koVoice(){ return __koVoice; }
+/* 음성 목록은 로드됐는데 한국어 음성만 없는 기기인지 (조용히 실패하는 경우 대비) */
+function koVoiceMissing(){ return !!(window.speechSynthesis && speechSynthesis.getVoices().length>0 && !__koVoice); }
+/* 한 번 읽기 (단순 버전). 성공 시 true */
+function speakKo(text, rate){
+  if(!window.speechSynthesis) return false;
+  speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(text);
+  u.lang="ko-KR"; if(__koVoice) u.voice=__koVoice; u.rate=rate||0.85;
+  speechSynthesis.speak(u);
+  return true;
 }
 
 /* 하단 토스트 알림 */

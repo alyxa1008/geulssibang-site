@@ -405,8 +405,7 @@ document.getElementById("title").addEventListener("input",function(e){ state.tit
 document.getElementById("btnShuffle").addEventListener("click",function(){ state.seed=newSeed(); render(); });
 document.getElementById("btnPrint").addEventListener("click",function(){ track("print_sheet",{tool:"math",topic:state.topic}); window.print(); });
 
-/* ---------- 학습지 → PNG (프린터 없는 사용자용) ---------- */
-var PXMM=1240/210;
+/* ---------- 학습지 → PNG (프린터 없는 사용자용. 시트 틀은 common.js) ---------- */
 /* 토큰 한 개의 폭 측정 (분수 포함) */
 function tokW(x,tok,size){
   if(tok.t==="f"){
@@ -448,20 +447,10 @@ function drawTokens(x,toks,left,midY,size,gap){
   var cur=left; toks.forEach(function(t){ drawTok(x,t,cur,midY,size); cur+=tokW(x,t,size)+gap; });
 }
 function drawMathPNG(probs, startIdx, isAnswer, pageNo, pageTotal, vertical){
-  var W=1240,H=Math.round(297*PXMM),c=el("canvas"); c.width=W; c.height=H;
-  var x=c.getContext("2d");
-  x.fillStyle="#fff"; x.fillRect(0,0,W,H);
-  var L=14*PXMM,R=W-14*PXMM,T=14*PXMM;
+  var PXMM=PNG_MM, s=pngSheet(), x=s.x, W=s.W, H=s.H, L=14*PXMM, R=W-14*PXMM;
   var title=(state.title||autoTitle())+(isAnswer?" — 정답":"");
-  x.fillStyle="#2b3038"; x.textBaseline="alphabetic"; x.textAlign="left";
-  x.font='400 '+Math.round(8*PXMM)+'px "Jua"';
-  x.fillText((isAnswer?"✔ ":"✚ ")+title,L,T+8*PXMM);
-  x.font='400 '+Math.round(3.6*PXMM)+'px "Gowun Dodum"'; x.fillStyle="#5b6470"; x.textAlign="right";
-  if(isAnswer){ x.fillText("채점일 __________",R,T+6*PXMM); }
-  else { x.fillText("이름 __________",R,T+3.4*PXMM); x.fillText("날짜 __________",R,T+8.2*PXMM); }
-  x.textAlign="left";
-  var headY=T+11*PXMM;
-  x.strokeStyle="#2b3038"; x.lineWidth=2.5; x.beginPath(); x.moveTo(L,headY); x.lineTo(R,headY); x.stroke();
+  var headY=pngHeader({x:x,L:L,R:R,T:14*PXMM,deco:(isAnswer?"✔":"✚"),title:title,
+    meta: isAnswer ? ["채점일 __________"] : ["이름 __________","날짜 __________"]});
 
   var top=headY+6*PXMM, bottom=H-13*PXMM, areaW=R-L, n=probs.length;
   var cols=isAnswer?5:(vertical?4:2), rowsN=Math.ceil(n/cols), colW=areaW/cols, rowH=(bottom-top)/rowsN;
@@ -500,12 +489,8 @@ function drawMathPNG(probs, startIdx, isAnswer, pageNo, pageTotal, vertical){
       x.textBaseline="alphabetic";
     }
   });
-  var footY=H-9*PXMM;
-  x.strokeStyle="#e3e6ea"; x.lineWidth=1; x.beginPath(); x.moveTo(L,footY); x.lineTo(R,footY); x.stroke();
-  x.fillStyle="#9aa1a9"; x.font='400 '+Math.round(3*PXMM)+'px "Gowun Dodum"'; x.textAlign="left";
-  x.fillText("글씨방 · 무료 수학 학습지",L,footY+4.5*PXMM);
-  x.textAlign="right"; x.fillText(pageNo+" / "+pageTotal,R,footY+4.5*PXMM); x.textAlign="left";
-  return c;
+  pngFooter({x:x,L:L,R:R,H:H,left:"글씨방 · 무료 수학 학습지",pageNo:pageNo,pageTotal:pageTotal});
+  return s.canvas;
 }
 document.getElementById("btnImage").addEventListener("click",function(){
   var per=perPage(), total=state.pages*per;

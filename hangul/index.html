@@ -432,29 +432,14 @@ document.getElementById("title").addEventListener("input",function(e){ state.tit
 
 document.getElementById("btnPrint").addEventListener("click",function(){ track("print_sheet",{tool:"hangul"}); window.print(); });
 
-/* ---------- 연습지 → PNG (프린터 없는 사용자용) ---------- */
-var PXMM=1240/210;  // A4 가로 1240px 기준 px/mm
+/* ---------- 연습지 → PNG (프린터 없는 사용자용. 시트 틀은 common.js) ---------- */
 var FONTMAP={ "f-gowun":"Gowun Dodum", "f-gaegu":"Gaegu", "f-batang":"Gowun Batang" };
 function drawSheetPNG(pageRows,cfg,pageNo,pageTotal,fam){
-  var W=1240,H=Math.round(297*PXMM),c=el("canvas");
-  c.width=W; c.height=H;
-  var x=c.getContext("2d");
-  x.fillStyle="#fff"; x.fillRect(0,0,W,H);
-  var L=14*PXMM,R=W-14*PXMM,T=14*PXMM;
-  /* 머리글 */
-  x.fillStyle="#2b3038"; x.textBaseline="alphabetic"; x.textAlign="left";
-  x.font='400 '+Math.round(8*PXMM)+'px "Jua"';
-  x.fillText("✎ "+(state.title||"한글 따라쓰기 연습"),L,T+8*PXMM);
-  x.font='400 '+Math.round(3.6*PXMM)+'px "Gowun Dodum"';
-  x.fillStyle="#5b6470"; x.textAlign="right";
-  x.fillText("이름 __________",R,T+3.4*PXMM);
-  x.fillText("날짜 __________",R,T+8.2*PXMM);
-  x.textAlign="left";
-  var headY=T+11*PXMM;
-  x.strokeStyle="#2b3038"; x.lineWidth=2.5;
-  x.beginPath(); x.moveTo(L,headY); x.lineTo(R,headY); x.stroke();
+  var M=PNG_MM, s=pngSheet(), x=s.x, W=s.W, H=s.H, L=14*M, R=W-14*M;
+  var headY=pngHeader({x:x,L:L,R:R,T:14*M,deco:"✎",title:(state.title||"한글 따라쓰기 연습"),
+                       meta:["이름 __________","날짜 __________"]});
   /* 격자 */
-  var cell=cfg.cell*PXMM, gap=4*PXMM, y=headY+5*PXMM;
+  var cell=cfg.cell*M, gap=4*M, y=headY+5*M;
   var traceCol=FADE[state.fade]||FADE.mid;
   pageRows.forEach(function(row){
     var cx=L;
@@ -480,15 +465,8 @@ function drawSheetPNG(pageRows,cfg,pageNo,pageTotal,fam){
     });
     y+=cell+gap;
   });
-  /* 바닥글 */
-  var footY=H-9*PXMM;
-  x.strokeStyle="#e3e6ea"; x.lineWidth=1;
-  x.beginPath(); x.moveTo(L,footY); x.lineTo(R,footY); x.stroke();
-  x.fillStyle="#9aa1a9"; x.font='400 '+Math.round(3*PXMM)+'px "Gowun Dodum"';
-  x.fillText("글씨방 · 무료 한글 학습지",L,footY+4.5*PXMM);
-  x.textAlign="right"; x.fillText(pageNo+" / "+pageTotal,R,footY+4.5*PXMM);
-  x.textAlign="left";
-  return c;
+  pngFooter({x:x,L:L,R:R,H:H,left:"글씨방 · 무료 한글 학습지",pageNo:pageNo,pageTotal:pageTotal});
+  return s.canvas;
 }
 document.getElementById("btnImage").addEventListener("click",function(){
   var cfg=SIZES[state.size];
