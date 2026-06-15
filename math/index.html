@@ -132,6 +132,7 @@ gtag("config", "G-86X82MNHC8");
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6z"/></svg>
             인쇄 · PDF 저장
           </button>
+          <button class="act sub" id="btnImage">💾 이미지로 저장</button>
           <button class="act sub" id="btnShare">🔗 링크 복사</button>
           <button class="act sub" id="btnReset">처음부터</button>
         </div>
@@ -403,6 +404,132 @@ document.getElementById("title").addEventListener("input",function(e){ state.tit
 
 document.getElementById("btnShuffle").addEventListener("click",function(){ state.seed=newSeed(); render(); });
 document.getElementById("btnPrint").addEventListener("click",function(){ track("print_sheet",{tool:"math",topic:state.topic}); window.print(); });
+
+/* ---------- 학습지 → PNG (프린터 없는 사용자용) ---------- */
+var PXMM=1240/210;
+/* 토큰 한 개의 폭 측정 (분수 포함) */
+function tokW(x,tok,size){
+  if(tok.t==="f"){
+    var fs=size*0.7;
+    x.font='400 '+Math.round(fs)+'px "Gowun Dodum"';
+    var fw=Math.max(x.measureText(""+tok.n).width, x.measureText(""+tok.d).width)+size*0.2;
+    var ww=0;
+    if(tok.w){ x.font='400 '+Math.round(size)+'px "Gowun Dodum"'; ww=x.measureText(""+tok.w).width+size*0.12; }
+    return ww+fw;
+  }
+  x.font='400 '+Math.round(size)+'px "Gowun Dodum"';
+  return x.measureText(""+tok.v).width;
+}
+/* 토큰 한 개를 left,midY에 그림 */
+function drawTok(x,tok,left,midY,size){
+  if(tok.t==="f"){
+    var cur=left;
+    if(tok.w){
+      x.font='400 '+Math.round(size)+'px "Gowun Dodum"'; x.textAlign="left"; x.textBaseline="middle";
+      x.fillText(""+tok.w,cur,midY); cur+=x.measureText(""+tok.w).width+size*0.12;
+    }
+    var fs=size*0.7;
+    x.font='400 '+Math.round(fs)+'px "Gowun Dodum"';
+    var fw=Math.max(x.measureText(""+tok.n).width, x.measureText(""+tok.d).width);
+    var cxf=cur+fw/2+size*0.1;
+    x.textAlign="center";
+    x.textBaseline="bottom"; x.fillText(""+tok.n,cxf,midY-size*0.06);
+    x.textBaseline="top";    x.fillText(""+tok.d,cxf,midY+size*0.06);
+    x.strokeStyle=x.fillStyle; x.lineWidth=Math.max(1,size*0.045);
+    x.beginPath(); x.moveTo(cxf-fw/2-size*0.08,midY); x.lineTo(cxf+fw/2+size*0.08,midY); x.stroke();
+    x.textAlign="left"; x.textBaseline="alphabetic";
+    return;
+  }
+  x.font='400 '+Math.round(size)+'px "Gowun Dodum"'; x.textAlign="left"; x.textBaseline="middle";
+  x.fillText(""+tok.v,left,midY); x.textBaseline="alphabetic";
+}
+function tokensW(x,toks,size,gap){ var w=0; toks.forEach(function(t){ w+=tokW(x,t,size)+gap; }); return w-gap; }
+function drawTokens(x,toks,left,midY,size,gap){
+  var cur=left; toks.forEach(function(t){ drawTok(x,t,cur,midY,size); cur+=tokW(x,t,size)+gap; });
+}
+function drawMathPNG(probs, startIdx, isAnswer, pageNo, pageTotal, vertical){
+  var W=1240,H=Math.round(297*PXMM),c=el("canvas"); c.width=W; c.height=H;
+  var x=c.getContext("2d");
+  x.fillStyle="#fff"; x.fillRect(0,0,W,H);
+  var L=14*PXMM,R=W-14*PXMM,T=14*PXMM;
+  var title=(state.title||autoTitle())+(isAnswer?" — 정답":"");
+  x.fillStyle="#2b3038"; x.textBaseline="alphabetic"; x.textAlign="left";
+  x.font='400 '+Math.round(8*PXMM)+'px "Jua"';
+  x.fillText((isAnswer?"✔ ":"✚ ")+title,L,T+8*PXMM);
+  x.font='400 '+Math.round(3.6*PXMM)+'px "Gowun Dodum"'; x.fillStyle="#5b6470"; x.textAlign="right";
+  if(isAnswer){ x.fillText("채점일 __________",R,T+6*PXMM); }
+  else { x.fillText("이름 __________",R,T+3.4*PXMM); x.fillText("날짜 __________",R,T+8.2*PXMM); }
+  x.textAlign="left";
+  var headY=T+11*PXMM;
+  x.strokeStyle="#2b3038"; x.lineWidth=2.5; x.beginPath(); x.moveTo(L,headY); x.lineTo(R,headY); x.stroke();
+
+  var top=headY+6*PXMM, bottom=H-13*PXMM, areaW=R-L, n=probs.length;
+  var cols=isAnswer?5:(vertical?4:2), rowsN=Math.ceil(n/cols), colW=areaW/cols, rowH=(bottom-top)/rowsN;
+  probs.forEach(function(p,i){
+    var col=i%cols, row=Math.floor(i/cols), cx=L+col*colW, cy=top+row*rowH;
+    var no=(startIdx+i+1);
+    if(isAnswer){
+      var midY=cy+rowH/2;
+      x.fillStyle="#5b6470"; x.font='400 '+Math.round(4.4*PXMM)+'px "Gowun Dodum"'; x.textAlign="left"; x.textBaseline="middle";
+      x.fillText(no+")",cx,midY);
+      x.fillStyle="#e4573d"; drawTokens(x,p.ans,cx+9*PXMM,midY,4.6*PXMM,1.2*PXMM); x.textBaseline="alphabetic";
+    } else if(vertical){
+      /* 세로셈: 우측 정렬 a / op b / 밑줄 / 답칸 */
+      var size=7*PXMM, rx=cx+colW-7*PXMM, y1=cy+rowH*0.30, y2=cy+rowH*0.52;
+      x.fillStyle="#5b6470"; x.font='400 '+Math.round(3.6*PXMM)+'px "Gowun Dodum"'; x.textAlign="left"; x.textBaseline="middle";
+      x.fillText(""+no,cx,cy+rowH*0.30);
+      x.fillStyle="#2b3038"; x.font='400 '+Math.round(size)+'px "Gowun Dodum"'; x.textBaseline="alphabetic";
+      x.textAlign="right"; x.fillText(""+p.v.a,rx,y1);
+      x.fillText(""+p.v.b,rx,y2);
+      x.textAlign="left"; x.fillText(p.v.op,cx+colW-7*PXMM-x.measureText(""+p.v.b).width-5*PXMM,y2);
+      x.strokeStyle="#2b3038"; x.lineWidth=2.2; x.beginPath();
+      x.moveTo(rx-22*PXMM,y2+2.5*PXMM); x.lineTo(rx,y2+2.5*PXMM); x.stroke();
+    } else {
+      /* 가로셈: 번호) q = 밑줄 */
+      var midY=cy+rowH/2, size=5.6*PXMM;
+      x.fillStyle="#5b6470"; x.font='400 '+Math.round(3.6*PXMM)+'px "Gowun Dodum"'; x.textAlign="left"; x.textBaseline="middle";
+      x.fillText(no+")",cx,midY);
+      x.fillStyle="#2b3038";
+      var qx=cx+9*PXMM; drawTokens(x,p.q,qx,midY,size,1.4*PXMM);
+      var qw=tokensW(x,p.q,size,1.4*PXMM);
+      x.font='400 '+Math.round(size)+'px "Gowun Dodum"'; x.textAlign="left"; x.textBaseline="middle";
+      x.fillText("=",qx+qw+2*PXMM,midY);
+      var eqW=x.measureText("=").width;
+      x.strokeStyle="#2b3038"; x.lineWidth=1.6;
+      x.beginPath(); x.moveTo(qx+qw+2*PXMM+eqW+2*PXMM,midY+3*PXMM); x.lineTo(cx+colW-4*PXMM,midY+3*PXMM); x.stroke();
+      x.textBaseline="alphabetic";
+    }
+  });
+  var footY=H-9*PXMM;
+  x.strokeStyle="#e3e6ea"; x.lineWidth=1; x.beginPath(); x.moveTo(L,footY); x.lineTo(R,footY); x.stroke();
+  x.fillStyle="#9aa1a9"; x.font='400 '+Math.round(3*PXMM)+'px "Gowun Dodum"'; x.textAlign="left";
+  x.fillText("글씨방 · 무료 수학 학습지",L,footY+4.5*PXMM);
+  x.textAlign="right"; x.fillText(pageNo+" / "+pageTotal,R,footY+4.5*PXMM); x.textAlign="left";
+  return c;
+}
+document.getElementById("btnImage").addEventListener("click",function(){
+  var per=perPage(), total=state.pages*per;
+  var probs=genAll(state.seed, state.topic, state.level, {noCarry:state.noCarry, dan:state.dan}, total);
+  var vertical = state.form==="v" && !!curLevel().v;
+  track("save_png",{tool:"math",topic:state.topic});
+  var sheetCount=state.pages+(state.answers?1:0), sheets=[], no=0;
+  for(var pg=0; pg<state.pages; pg++){
+    no++;
+    sheets.push({probs:probs.slice(pg*per,(pg+1)*per), start:pg*per, ans:false, no:no});
+  }
+  if(state.answers) sheets.push({probs:probs, start:0, ans:true, no:++no});
+  var fin=function(){
+    sheets.forEach(function(s,idx){
+      setTimeout(function(){
+        savePNG(drawMathPNG(s.probs,s.start,s.ans,s.no,sheetCount,vertical),"수학학습지-"+(idx+1)+".png");
+      }, idx*450);
+    });
+    showToast("이미지 "+sheets.length+"장 저장 ✓ 복사집에서 출력할 수 있어요");
+  };
+  if(document.fonts && document.fonts.load){
+    document.fonts.load('400 80px "Gowun Dodum"').then(function(){ return document.fonts.load('400 60px "Jua"'); }).then(fin).catch(fin);
+  } else fin();
+});
 document.getElementById("btnReset").addEventListener("click",function(){
   state={topic:"add",level:1,noCarry:false,dan:0,form:"v",pages:1,answers:true,title:"",seed:newSeed()};
   history.replaceState(null,"",location.pathname);
