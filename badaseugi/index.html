@@ -121,6 +121,7 @@ gtag("config", "G-86X82MNHC8");
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6z"/></svg>
             시험지 인쇄 · PDF
           </button>
+          <button class="act sub" id="btnImage">💾 이미지로 저장</button>
           <button class="act sub" id="btnPreview">🔉 음성 미리 듣기</button>
           <button class="act sub" id="btnShare">🔗 링크 복사</button>
           <button class="act sub" id="btnReset">처음부터</button>
@@ -442,6 +443,80 @@ document.getElementById("title").addEventListener("input",function(e){ state.tit
 document.getElementById("answers").addEventListener("change",function(e){ state.answers=e.target.checked; render(); });
 
 document.getElementById("btnPrint").addEventListener("click",function(){ track("print_sheet",{tool:"badaseugi"}); window.print(); });
+
+/* ---------- 시험지 → PNG (프린터 없는 사용자용) ---------- */
+var PXMM=1240/210;
+function drawSheetPNG(title, startIdx, count, answerWords, pageNo, pageTotal){
+  var W=1240,H=Math.round(297*PXMM),c=el("canvas");
+  c.width=W; c.height=H;
+  var x=c.getContext("2d");
+  x.fillStyle="#fff"; x.fillRect(0,0,W,H);
+  var L=16*PXMM,R=W-16*PXMM,T=16*PXMM;
+  /* 머리글 */
+  x.fillStyle="#2b3038"; x.textBaseline="alphabetic"; x.textAlign="left";
+  x.font='400 '+Math.round(8*PXMM)+'px "Jua"';
+  x.fillText((answerWords?"✔ ":"🔊 ")+title,L,T+8*PXMM);
+  x.font='400 '+Math.round(3.6*PXMM)+'px "Gowun Dodum"';
+  x.fillStyle="#5b6470"; x.textAlign="right";
+  if(answerWords){
+    x.fillText("채점일 __________",R,T+6*PXMM);
+  } else {
+    x.fillText("이름 __________",R,T+3.4*PXMM);
+    x.fillText("점수 ______ / "+(state.words.length||10),R,T+8.2*PXMM);
+  }
+  x.textAlign="left";
+  var headY=T+11*PXMM;
+  x.strokeStyle="#2b3038"; x.lineWidth=2.5;
+  x.beginPath(); x.moveTo(L,headY); x.lineTo(R,headY); x.stroke();
+  /* 문제 줄 — 남은 높이를 count줄로 균등 분배 (최대 32mm) */
+  var top=headY+8*PXMM, bottom=H-14*PXMM;
+  var rowH=Math.min(32*PXMM,(bottom-top)/count);
+  for(var i=0;i<count;i++){
+    var y=top+rowH*i, base=y+rowH-6*PXMM;
+    x.fillStyle="#5b6470"; x.font='400 '+Math.round(5*PXMM)+'px "Jua"';
+    x.textAlign="left"; x.fillText((startIdx+i+1)+".",L,base);
+    if(answerWords){
+      x.fillStyle="#e4573d"; x.font='400 '+Math.round(5.5*PXMM)+'px "Gowun Dodum"';
+      x.fillText(answerWords[startIdx+i],L+12*PXMM,base);
+    } else {
+      x.strokeStyle="#c9cdd2"; x.lineWidth=1.2;
+      x.beginPath(); x.moveTo(L+12*PXMM,base+1.5*PXMM); x.lineTo(R,base+1.5*PXMM); x.stroke();
+    }
+  }
+  /* 바닥글 */
+  var footY=H-9*PXMM;
+  x.strokeStyle="#e3e6ea"; x.lineWidth=1;
+  x.beginPath(); x.moveTo(L,footY); x.lineTo(R,footY); x.stroke();
+  x.fillStyle="#9aa1a9"; x.font='400 '+Math.round(3*PXMM)+'px "Gowun Dodum"';
+  x.textAlign="left"; x.fillText("글씨방 · 받아쓰기 시험지",L,footY+4.5*PXMM);
+  x.textAlign="right"; x.fillText(pageNo+" / "+pageTotal,R,footY+4.5*PXMM);
+  x.textAlign="left";
+  return c;
+}
+document.getElementById("btnImage").addEventListener("click",function(){
+  state.words=parseWords(document.getElementById("words").value);
+  if(!state.words.length){ showToast("먼저 문제를 입력해 주세요"); return; }
+  track("save_png",{tool:"badaseugi"});
+  var title=state.title||"받아쓰기 시험";
+  var n=state.words.length, qPages=Math.max(1,Math.ceil(n/PER_PAGE)), perPage=Math.ceil(n/qPages);
+  var total=qPages+(state.answers?1:0), sheets=[], no=0;
+  for(var pg=0; pg<qPages; pg++){
+    no++;
+    sheets.push({title:title, start:pg*perPage, count:Math.min(perPage,n-pg*perPage), ans:null, no:no});
+  }
+  if(state.answers) sheets.push({title:title+" — 정답", start:0, count:n, ans:state.words, no:++no});
+  var fin=function(){
+    sheets.forEach(function(s,idx){
+      setTimeout(function(){
+        savePNG(drawSheetPNG(s.title,s.start,s.count,s.ans,s.no,total),"받아쓰기-"+(idx+1)+".png");
+      }, idx*450);
+    });
+    showToast("이미지 "+sheets.length+"장 저장 ✓ 복사집에서 출력할 수 있어요");
+  };
+  if(document.fonts && document.fonts.load){
+    document.fonts.load('400 60px "Jua"').then(fin).catch(fin);
+  } else fin();
+});
 document.getElementById("btnPreview").addEventListener("click",function(){
   if(!window.speechSynthesis){ showToast("이 브라우저는 음성을 지원하지 않아요"); return; }
   warnIfNoKoVoice();
