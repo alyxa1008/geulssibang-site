@@ -324,7 +324,10 @@ function buildRowsLine(){
   var total=Math.ceil(block.length/cfg.rows)*cfg.rows;
   var rows=block.slice();
   while(rows.length + block.length <= total) rows = rows.concat(block);
-  while(rows.length < total) rows.push(blankRow(cfg));
+  /* 남는 줄은 전체 폭(blankRow) 대신 글자 폭에 맞춘 빈 연습 줄로 채운다
+     (이름처럼 짧은 단어일 때 8칸짜리 빈 줄이 어긋나 보이는 문제 방지) */
+  var emptyLines=lines.map(function(L){ return L.map(function(c){ return {ch:"", kind:c===" "?"gap":"empty"}; }); });
+  for(var pi=0; rows.length<total; pi++) rows.push(emptyLines[pi % emptyLines.length]);
   return rows;
 }
 
