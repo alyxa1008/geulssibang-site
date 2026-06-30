@@ -308,6 +308,13 @@ function buildRowsLine(){
     cur=cur.concat(wc);
   });
   if(cur.length) lines.push(cur);
+  /* 한 줄짜리 짧은 입력(이름 등)은 오른쪽이 비지 않도록 줄 폭에 맞춰 반복해 채운다
+     예: "김하준"(3칸) → "김하준 김하준"(7칸). 두 칸 이상 남으면 한 번 더 반복. */
+  if(lines.length===1 && lines[0].length){
+    var unit=lines[0].slice(), filled=unit.slice();
+    while(filled.length + 1 + unit.length <= cfg.cols){ filled.push(" "); filled=filled.concat(unit); }
+    lines=[filled];
+  }
   // one block = solid lines + trace lines + empty lines
   function makeBlock(){
     var block=[];
