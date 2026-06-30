@@ -198,7 +198,7 @@ function syncLinks(){
   var nm=(state.name||"").trim();
   var enc=encodeURIComponent(b64e(nm));
   document.getElementById("lnkTrace").href="../hangul/trace/#t="+enc;
-  var payload=[nm,"char","f-gowun","big",3,2,1,1,nm+" 따라쓰기","mid"];
+  var payload=[nm,"line","f-gowun","big",3,2,1,1,nm+" 따라쓰기","mid"];
   document.getElementById("lnkWrite").href="../hangul/#s="+encodeURIComponent(b64e(JSON.stringify(payload)));
 }
 
