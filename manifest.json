@@ -1,0 +1,31 @@
+{
+  "name": "글씨방 — 무료 학습지 생성기",
+  "short_name": "글씨방",
+  "description": "한글 따라쓰기, 받아쓰기, 수학 문제지, 미로 활동지를 입력 한 번으로 만들어 무료로 인쇄하는 학습지 생성기.",
+  "lang": "ko",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#2f5d4d",
+  "background_color": "#f3efe4",
+  "icons": [
+    {
+      "src": "/assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
