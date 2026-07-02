@@ -78,7 +78,7 @@ var MUL=[
 
 /* ---------- 나눗셈 (나누어떨어짐) ---------- */
 var DIV=[
-  function(r,N){var o=wpick(r,OBJS),per=wpi(r,2,9),q=wpi(r,2,9),tot=per*q;
+  function(r,N){var o=wpick(r,OBJS),per=wpi(r,2,9),q=wpi(r,3,9),tot=per*q;
     return {q:N_sub(N.a)+" "+o.n+" "+J_eul(tot+o.u)+" 친구 "+(q-1)+"명과 똑같이 나누어 가지려고 해요. 한 명이 몇 "+o.u+"씩 가지면 될까요?", a:per, u:o.u};},
   function(r){var o=wpick(r,OBJS),g=wpick(r,GRP),per=wpi(r,2,9),q=wpi(r,2,9),tot=per*q;
     return {q:o.n+" "+J_eul(tot+o.u)+" 한 "+g+"에 "+per+o.u+"씩 담으려고 해요. "+J_eun(g)+" 모두 몇 "+g+" 필요할까요?", a:q, u:g};},
