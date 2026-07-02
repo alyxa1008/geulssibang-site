@@ -233,6 +233,7 @@ footer a:hover{color:var(--chalk)}
   body{background:#fff}
   body::before{display:none}
   .no-print{display:none !important}
+  ins.adsbygoogle{display:none !important}  /* 광고가 학습지 출력물에 찍히지 않게 */
   .wrap{max-width:none; padding:0}
   #sheets{gap:0; display:block}
   .sheet-scale{transform:none !important; height:auto !important}
