@@ -21,7 +21,7 @@
 ## 2단계. 출시 인프라 — 이 순서 그대로 (순서가 돈과 시간을 아낌)
 
 ```
-1. git init → GitHub 저장소 → push          (백업·이력·복구)
+1. git init → GitHub 저장소 → push           (백업·이력·복구)
 2. Cloudflare Pages 배포                     (임시주소 *.pages.dev로 즉시 라이브)
 3. 도메인 구매 (Cloudflare Registrar, .com)  (애드센스는 본인 도메인 필수)
 4. DNS CNAME 연결 + 사이트 내부 주소 일괄 치환 (canonical/og/sitemap/robots)
