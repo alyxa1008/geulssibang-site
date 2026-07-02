@@ -137,6 +137,32 @@ function showToast(msg){
   setTimeout(function(){ t.classList.remove("show"); }, 1800);
 }
 
+/* ===== 랜딩 페이지 딥링크 =====
+   .gobtn의 data 속성으로 도구 상태 해시(#s=)를 만들어 붙인다.
+   버튼에 이미 있는 href(도구 경로)를 그대로 쓰므로 페이지 깊이와 무관.
+   새 랜딩 페이지는 마크업만 만들면 되고 스크립트 복사가 필요 없다. */
+function wireDeepLinks(){
+  /* 한글 도구형: [텍스트, 모드, 폰트, 크기, 빈칸수, 따라쓰기줄, 빈줄, 안내선, 제목, 농도] */
+  document.querySelectorAll(".gobtn[data-text]").forEach(function(b){
+    var st=[b.getAttribute("data-text"), b.getAttribute("data-mode")||"char", "f-gowun",
+            b.getAttribute("data-size")||"big", 3, 2, 1, 1, b.getAttribute("data-title")||"", "mid"];
+    b.href=b.getAttribute("href")+"#s="+encodeURIComponent(b64e(JSON.stringify(st)));
+  });
+  /* 수학 도구형 v2: [2, 유형, 난이도, 받아올림없음, 단, 형식, 장수, 정답지, 제목, 시드0=열 때마다 새 문제] */
+  document.querySelectorAll(".gobtn[data-topic]").forEach(function(b){
+    var st=[2, b.getAttribute("data-topic"), +(b.getAttribute("data-level")||0), 0,
+            +(b.getAttribute("data-dan")||0), "v", 1, 1, b.getAttribute("data-title")||"", 0];
+    b.href=b.getAttribute("href")+"#s="+encodeURIComponent(b64e(JSON.stringify(st)));
+  });
+  /* 받아쓰기 급수 카드형: .gset[data-title]의 li 목록 → [단어들, 읽기횟수, 사이시간, 속도, 제목, 정답지] */
+  document.querySelectorAll(".gset[data-title]").forEach(function(box){
+    var btn=box.querySelector(".gobtn"); if(!btn) return;
+    var words=Array.prototype.map.call(box.querySelectorAll("li"), function(li){ return li.textContent.trim(); });
+    var payload=[words.join("\n"), 2, 12, 0.85, box.getAttribute("data-title"), 1];
+    btn.href=btn.getAttribute("href")+"#s="+encodeURIComponent(b64e(JSON.stringify(payload)));
+  });
+}
+
 /* A4 시트 미리보기를 화면 폭에 맞게 축소 */
 function fitScale(){
   var zone=document.querySelector(".preview-zone");
@@ -149,3 +175,7 @@ function fitScale(){
     w.style.width=(210*mm*s)+"px";
   });
 }
+
+/* 로드 시 자동 실행 — common.js는 body 끝에서 로드되므로 DOM이 준비돼 있다.
+   해당 버튼이 없는 페이지에서는 아무 일도 하지 않는다. */
+wireDeepLinks();

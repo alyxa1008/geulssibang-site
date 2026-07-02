@@ -87,7 +87,6 @@ var DIV=[
 ];
 
 var WP_OPS={add:ADD, sub:SUB, mul:MUL, div:DIV};
-var WP_NAMES={add:"덧셈", sub:"뺄셈", mul:"곱셈", div:"나눗셈", mix:"덧셈·뺄셈·곱셈·나눗셈"};
 
 function genWord(seed, op, count, hero){
   var r=wpRnd(seed), out=[], keys=["add","sub","mul","div"], lastQ="";

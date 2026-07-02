@@ -163,15 +163,5 @@ gtag("config", "G-86X82MNHC8");
 </div>
 
 <script src="../../assets/common.js"></script>
-<script>
-"use strict";
-/* 안내 버튼의 data 속성으로 수학 도구 딥링크(#s=)를 만든다
-   상태 형식: [버전2, 토픽, 난이도, 받아올림, 단, 형식, 장수, 정답지, 제목, 시드] */
-document.querySelectorAll(".gobtn[data-topic]").forEach(function(b){
-  var st=[2, b.getAttribute("data-topic"), +(b.getAttribute("data-level")||0), 0,
-          +(b.getAttribute("data-dan")||0), "v", 1, 1, b.getAttribute("data-title")||"", 0];
-  b.href="../#s="+encodeURIComponent(b64e(JSON.stringify(st)));
-});
-</script>
 </body>
 </html>

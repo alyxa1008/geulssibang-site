@@ -145,15 +145,5 @@ gtag("config", "G-86X82MNHC8");
 </div>
 
 <script src="../../assets/common.js"></script>
-<script>
-"use strict";
-/* 안내 버튼의 data 속성으로 한글 도구 딥링크(#s=)를 만든다
-   상태 형식: [텍스트, 모드, 폰트, 크기, 빈칸수, 따라쓰기줄, 빈줄, 안내선, 제목, 농도] */
-document.querySelectorAll(".gobtn[data-text]").forEach(function(b){
-  var st=[b.getAttribute("data-text"), b.getAttribute("data-mode")||"char", "f-gowun",
-          b.getAttribute("data-size")||"big", 3, 2, 1, 1, b.getAttribute("data-title")||"", "mid"];
-  b.href="../#s="+encodeURIComponent(b64e(JSON.stringify(st)));
-});
-</script>
 </body>
 </html>
