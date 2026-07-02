@@ -33,9 +33,13 @@ function N_uiy(n){return hasJong(n)?n+"이의":n+"의";}
 
 /* ---------- 소재 ---------- */
 var NAMES=["지훈","서연","민준","지아","하준","수아","도윤","예은","시우","유나","준서","서윤","지우","하은","은우","다은","채원","지호"];
-var OBJS=[{n:"사탕",u:"개"},{n:"구슬",u:"개"},{n:"딱지",u:"장"},{n:"색종이",u:"장"},{n:"공책",u:"권"},{n:"연필",u:"자루"},{n:"스티커",u:"장"},{n:"초콜릿",u:"개"},{n:"젤리",u:"개"},{n:"쿠키",u:"개"},{n:"풍선",u:"개"},{n:"색연필",u:"자루"},{n:"블록",u:"개"},{n:"단추",u:"개"}];
+/* k: 사물 종류 — food(먹을 수 있음) / use(문구·소모품) / toy(장난감·물건).
+   '덜어내는' 동사를 종류에 맞게 골라 "연필을 먹었어요" 같은 어색함을 막는다. */
+var OBJS=[{n:"사탕",u:"개",k:"food"},{n:"구슬",u:"개",k:"toy"},{n:"딱지",u:"장",k:"toy"},{n:"색종이",u:"장",k:"use"},{n:"공책",u:"권",k:"use"},{n:"연필",u:"자루",k:"use"},{n:"스티커",u:"장",k:"use"},{n:"초콜릿",u:"개",k:"food"},{n:"젤리",u:"개",k:"food"},{n:"쿠키",u:"개",k:"food"},{n:"풍선",u:"개",k:"toy"},{n:"색연필",u:"자루",k:"use"},{n:"블록",u:"개",k:"toy"},{n:"단추",u:"개",k:"toy"}];
 var FRUITS=[{n:"사과",u:"개"},{n:"배",u:"개"},{n:"귤",u:"개"},{n:"감",u:"개"},{n:"토마토",u:"개"},{n:"키위",u:"개"}];
 var GRP=["봉지","상자","바구니","묶음"];
+/* 종류별 '덜어내는' 동사 (남은 개수 묻는 뺄셈용) */
+var LOSE={food:["먹었어요"], use:["사용했어요","잃어버렸어요"], toy:["잃어버렸어요","친구에게 주었어요"]};
 
 function twoObj(r,arr){var a=wpick(r,arr),b=wpick(r,arr),n=0;while(b.n===a.n&&n++<8)b=wpick(r,arr);return [a,b];}
 function otherName(r,not){var x=wpick(r,NAMES),n=0;while(x===not&&n++<8)x=wpick(r,NAMES);return x;}
@@ -56,7 +60,7 @@ var ADD=[
 var SUB=[
   function(r,N){var o=wpick(r,OBJS),a=wpi(r,12,45),b=wpi(r,3,a-3);
     return {q:N_top(N.a)+" "+o.n+" "+J_eul(a+o.u)+" 가지고 있었어요. 친구에게 "+J_eul(b+o.u)+" 주었어요. 남은 "+J_eun(o.n)+" 몇 "+o.u+"일까요?", a:a-b, u:o.u};},
-  function(r,N){var o=wpick(r,OBJS),a=wpi(r,10,40),b=wpi(r,2,a-2),v=wpick(r,["먹었어요","사용했어요","잃어버렸어요"]);
+  function(r,N){var o=wpick(r,OBJS),a=wpi(r,10,40),b=wpi(r,2,a-2),v=wpick(r,LOSE[o.k]);
     return {q:N_top(N.a)+" "+o.n+" "+a+o.u+" 중에서 "+J_eul(b+o.u)+" "+v+". 남은 "+J_eun(o.n)+" 몇 "+o.u+"일까요?", a:a-b, u:o.u};},
   function(r){var ff=twoObj(r,FRUITS),a=wpi(r,14,40),b=wpi(r,4,a-4);
     return {q:ff[0].n+" "+a+"개, "+ff[1].n+" "+b+"개가 있어요. "+J_eun(ff[0].n)+" "+ff[1].n+"보다 몇 개 더 많을까요?", a:a-b, u:"개"};}
