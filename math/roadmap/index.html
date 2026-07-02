@@ -191,15 +191,5 @@ gtag("config", "G-86X82MNHC8");
 </div>
 
 <script src="../../assets/common.js"></script>
-<script>
-"use strict";
-/* 각 단원 버튼에 수학 도구 링크를 만든다
-   (도구의 공유 링크 형식 v2: [2, 유형, 난이도, 받아올림없음, 단, 형식, 장수, 정답지, 제목, 시드]
-    시드 0 → 도구가 열릴 때마다 새 문제) */
-document.querySelectorAll(".gobtn[data-topic]").forEach(function(a){
-  var payload=[2, a.getAttribute("data-topic"), +a.getAttribute("data-level"), 0, 0, "v", 1, 1, "", 0];
-  a.href="../#s="+encodeURIComponent(b64e(JSON.stringify(payload)));
-});
-</script>
 </body>
 </html>
