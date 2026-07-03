@@ -51,6 +51,8 @@ header{text-align:center; margin-bottom:22px}
 .narrow .logo{font-size:clamp(36px,8vw,54px)}
 .tagline{margin:6px 0 0; color:var(--chalk-dim); font-size:14px}
 .chalk-line{width:120px; height:3px; margin:14px auto 0; border-radius:2px; background:linear-gradient(90deg, transparent, var(--chalk-dim), transparent); opacity:.6}
+/* 홈 히어로 강조 문구 — 경쟁 대비 핵심 차별점 */
+.perks{margin:10px 0 0; text-align:center; color:#ffd9a8; font-size:14px; letter-spacing:.02em}
 
 /* ===== 레이아웃 ===== */
 .app{display:grid; grid-template-columns:340px 1fr; gap:20px; align-items:start}
