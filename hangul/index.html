@@ -24,7 +24,7 @@ gtag("config", "G-86X82MNHC8");
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Gaegu:wght@400;700&family=Gowun+Batang&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Gaegu:wght@400;700&family=Gowun+Batang&family=Nanum+Pen+Script&family=Hi+Melody&family=Gamja+Flower&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 <meta property="og:url" content="https://geulssibang.com/hangul/">
 <meta property="og:site_name" content="글씨방">
@@ -95,6 +95,9 @@ gtag("config", "G-86X82MNHC8");
               <option value="f-gowun">또박체 (고딕)</option>
               <option value="f-gaegu">손글씨체</option>
               <option value="f-batang">바탕체</option>
+              <option value="f-pen">펜글씨체 (예쁜 글씨)</option>
+              <option value="f-himelody">동글체</option>
+              <option value="f-gamja">감자꽃체</option>
             </select>
           </div>
           <div>
@@ -489,7 +492,8 @@ document.getElementById("title").addEventListener("input",function(e){ state.tit
 document.getElementById("btnPrint").addEventListener("click",function(){ track("print_sheet",{tool:"hangul"}); window.print(); });
 
 /* ---------- 연습지 → PNG (프린터 없는 사용자용. 시트 틀은 common.js) ---------- */
-var FONTMAP={ "f-gowun":"Gowun Dodum", "f-gaegu":"Gaegu", "f-batang":"Gowun Batang" };
+var FONTMAP={ "f-gowun":"Gowun Dodum", "f-gaegu":"Gaegu", "f-batang":"Gowun Batang",
+              "f-pen":"Nanum Pen Script", "f-himelody":"Hi Melody", "f-gamja":"Gamja Flower" };
 function drawSheetPNG(pageRows,cfg,pageNo,pageTotal,fam){
   var M=PNG_MM, s=pngSheet(), x=s.x, W=s.W, H=s.H, L=14*M, R=W-14*M;
   var headY=pngHeader({x:x,L:L,R:R,T:14*M,deco:"✎",title:(state.title||"한글 따라쓰기 연습"),
