@@ -126,6 +126,9 @@ select:focus, input[type=text]:focus{border-color:var(--redpen)}
 .f-gowun{font-family:"Gowun Dodum",sans-serif}
 .f-gaegu{font-family:"Gaegu",cursive}
 .f-batang{font-family:"Gowun Batang",serif}
+.f-pen{font-family:"Nanum Pen Script",cursive}
+.f-himelody{font-family:"Hi Melody",cursive}
+.f-gamja{font-family:"Gamja Flower",cursive}
 
 /* ===== 수학 연산 시트 ===== */
 .probs-v{flex:1; display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:min-content; row-gap:13mm; column-gap:4mm; align-content:start; padding-top:2mm}
