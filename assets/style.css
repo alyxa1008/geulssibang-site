@@ -57,6 +57,14 @@ header{text-align:center; margin-bottom:22px}
 /* ===== 레이아웃 ===== */
 .app{display:grid; grid-template-columns:340px 1fr; gap:20px; align-items:start}
 @media (max-width:880px){ .app{grid-template-columns:1fr} }
+/* 넓은 화면: 패널 폭만큼 오른쪽에 균형 칸을 둬서 A4 미리보기를 페이지 정중앙에.
+   (아래 본문·푸터의 중심축과 일치) 1560px 미만은 시트가 작아져서 기존 2열 유지 */
+@media (min-width:1560px){
+  .wrap:not(.narrow){max-width:1520px}
+  .app{grid-template-columns:340px 1fr 340px}
+  .app .panel{grid-column:1}
+  .app .preview-zone{grid-column:2}
+}
 
 /* ===== 패널 & 폼 ===== */
 .panel{background:var(--paper); color:var(--ink); border-radius:var(--radius); box-shadow:0 10px 28px var(--paper-shadow); overflow:hidden}
