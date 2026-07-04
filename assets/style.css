@@ -103,7 +103,9 @@ select:focus, input[type=text]:focus{border-color:var(--redpen)}
 .preview-bar{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; color:var(--chalk-dim); font-size:12.5px}
 .preview-bar b{color:var(--chalk); font-weight:400; font-family:var(--disp); letter-spacing:.05em}
 #sheets{display:flex; flex-direction:column; align-items:center; gap:26px}
-.sheet-scale{transform-origin:top center}
+/* top left 기준: 래퍼 폭은 축소값인데 내용은 원본 폭이라, center 기준이면
+   축소 결과가 오른쪽으로 밀린다(모바일에서 두드러짐). left 기준 + 래퍼 중앙정렬로 해결 */
+.sheet-scale{transform-origin:top left}
 .sheet{width:210mm; height:297mm; background:var(--paper); color:var(--ink); padding:12mm 14mm 10mm; position:relative; box-shadow:0 14px 40px var(--paper-shadow); display:flex; flex-direction:column}
 .sheet-head{display:flex; justify-content:space-between; align-items:flex-end; border-bottom:2.2px solid var(--ink); padding-bottom:3mm; margin-bottom:6mm}
 .sheet-title{font-family:var(--disp); font-size:8mm; line-height:1.1}
