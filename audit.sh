@@ -86,6 +86,11 @@ missing=$(grep -rL 'ca-pub-1834921044404408' $(find . -name '*.html' -not -path 
 expected="404.html about/index.html privacy/index.html "
 if [ "$missing" = "$expected" ]; then echo "  ✅ 정상 (미삽입: $missing)"; else echo "  ⚠️ 미삽입 목록 변화: $missing (기대: $expected)"; FAIL=1; fi
 
+echo "━━━ 10. 브랜드 톤 — 불안 조장 표현 금지 ━━━"
+banned='수포자|뒤처지|뒤쳐지|낙오|망한다|골든타임|늦으면 안|포기하게 됩니다'
+hits=$(grep -rnE "$banned" --include='*.html' . 2>/dev/null | grep -v '.git' | wc -l | tr -d ' ')
+if [ "$hits" -gt 0 ]; then echo "  ❌ ${hits}건 — 사실·응원 톤으로 교체할 것"; grep -rnE "$banned" --include='*.html' . | grep -v '.git' | head -5; FAIL=1; else echo "  ✅ 없음"; fi
+
 echo "━━━━━━━━━━━━━━━━━━━━━━━━"
 if [ "$FAIL" -eq 0 ]; then echo "🟢 전체 통과"; else echo "🔴 실패 항목 있음 — 위 로그 확인"; fi
 exit $FAIL
