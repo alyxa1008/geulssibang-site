@@ -41,6 +41,22 @@ gtag("config", "G-86X82MNHC8");
 .fst .fd{border-top:.45mm solid currentColor; padding:0 1mm}
 .ak b{display:inline-flex; align-items:center; gap:1mm; vertical-align:middle}
 .ak .fst{font-size:.8em}
+/* ===== 개념 설명 시트 (교과서 지도 방식 — CONCEPTS.md 스펙) ===== */
+.concept-body{flex:1; font-family:"Gowun Dodum",sans-serif; color:var(--ink); font-size:4.8mm; line-height:1.75}
+.concept-body h3{font-family:var(--disp); font-weight:400; font-size:6.4mm; margin:5.5mm 0 2.5mm; color:var(--ink)}
+.concept-body p{margin:0 0 2.5mm}
+.cpair{display:inline-block; border:1.5px solid #c9cdd2; border-radius:999px; padding:.8mm 3.5mm; margin:0 1.5mm 2mm 0; font-size:4.4mm; background:#fff}
+.cboard{display:grid; grid-template-columns:repeat(5,8.5mm); grid-auto-rows:8.5mm; gap:1mm; margin:2mm 0}
+.cboard i{border:1.5px solid #8aa39a; border-radius:1.8mm; background:#fff}
+.cboard i.f{background:#7fb1a0}
+.cboard i.n{background:#f2c063}
+.cstep{background:#f6f8f7; border-left:2.5mm solid #2f5d4d; padding:2mm 4mm; margin:1.8mm 0; font-size:4.5mm}
+.cdots{display:flex; gap:5mm; margin:2.5mm 0; align-items:flex-start}
+.cgroup{display:grid; grid-template-columns:repeat(2,6.5mm); gap:1.4mm; padding:2mm; border:1.5px dashed #8aa39a; border-radius:2.5mm}
+.cgroup b{width:6.5mm; height:6.5mm; border-radius:50%; background:#e4573d; display:block}
+.ctip{margin-top:4.5mm; border:1.5px solid #f2c063; background:#fdf6e8; border-radius:2.5mm; padding:2.5mm 4mm; font-size:4.2mm}
+.ctip b{color:#b07b1e}
+.cvert{font-family:"Gowun Dodum",monospace; font-variant-numeric:tabular-nums; background:#fff; border:1.5px solid #e3e6ea; border-radius:2mm; padding:2mm 5mm; display:inline-block; font-size:5mm; line-height:1.5; white-space:pre; letter-spacing:.5mm}
 </style>
 <meta property="og:url" content="https://geulssibang.com/math/">
 <meta property="og:site_name" content="글씨방">
@@ -129,6 +145,7 @@ gtag("config", "G-86X82MNHC8");
           <label for="title">학습지 제목 <span class="hint">비우면 자동</span></label>
           <input type="text" id="title" placeholder="예) 2단계 덧셈 연습" maxlength="20">
           <label class="check"><input type="checkbox" id="answers" checked> 정답지 함께 인쇄</label>
+          <label class="check" id="conceptField" style="display:none"><input type="checkbox" id="concept"> 개념 설명 함께 인쇄 <span class="hint">교과서 방식 1장</span></label>
         </div>
 
         <div class="actions">
@@ -243,7 +260,7 @@ gtag("config", "G-86X82MNHC8");
    이 스크립트는 화면 구성·렌더링·공유 링크만 담당한다. */
 
 /* ---------- state ---------- */
-var state={ topic:"add", level:1, noCarry:false, dan:0, form:"v", pages:1, answers:true, title:"", seed:newSeed() };
+var state={ topic:"add", level:1, noCarry:false, dan:0, form:"v", pages:1, answers:true, concept:false, title:"", seed:newSeed() };
 function newSeed(){ return Math.floor(Math.random()*1e8)+1; }
 function curTopic(){ return findTopic(state.topic).topic; }
 function curLevel(){ var t=curTopic(); return t.levels[state.level] || t.levels[0]; }
@@ -270,6 +287,84 @@ function tokNode(tok){
 }
 function renderToks(parent,toks){ toks.forEach(function(tk){ parent.appendChild(tokNode(tk)); }); }
 
+/* ---------- 개념 설명 시트 (교과서 지도 방식 — 근거: CONCEPTS.md) ---------- */
+/* 토픽별로 붙는 개념 시트. 없는 토픽은 체크박스 자체를 숨긴다 */
+var CONCEPT_FOR={ add:["carry"], sub:["borrow"], addsub:["carry","borrow"], addsub3:["carry","borrow"], gugudan:["mult"], mul:["mult"] };
+function conceptKeys(){ return state.concept ? (CONCEPT_FOR[state.topic]||[]) : []; }
+function boardHTML(fill,extra){ /* 10칸 수판: fill=초록, extra=노랑 */
+  var s='<span class="cboard">';
+  for(var i=0;i<10;i++) s+='<i class="'+(i<fill?"f":(i<fill+extra?"n":""))+'"></i>';
+  return s+'</span>';
+}
+function dotsHTML(per,groups){
+  var s='<span class="cdots">';
+  for(var g=0;g<groups;g++){ s+='<span class="cgroup">'; for(var d=0;d<per;d++) s+='<b></b>'; s+='</span>'; }
+  return s+'</span>';
+}
+var CONCEPT_SHEETS={
+  carry:{ title:"받아올림의 비밀 — 10 만들기", deco:"💡", html:function(){
+    return '<h3>1. 10의 짝꿍부터 기억해요</h3>'
+      +'<p><span class="cpair">1과 9</span><span class="cpair">2와 8</span><span class="cpair">3과 7</span><span class="cpair">4와 6</span><span class="cpair">5와 5</span> — 만나면 10이 되는 짝꿍이에요.</p>'
+      +'<h3>2. 받아올림은 "10 만들기"예요 — 8+5를 해볼까요?</h3>'
+      +boardHTML(8,2)
+      +'<div class="cstep">① 8은 <b>2</b>만 있으면 10이 돼요 (8의 짝꿍은 2!)</div>'
+      +'<div class="cstep">② 그래서 5를 <b>2와 3</b>으로 갈라요</div>'
+      +'<div class="cstep">③ 8+2=<b>10</b>, 남은 3을 더하면 <b>13</b>!</div>'
+      +'<h3>3. 세로셈에서는 이렇게 보여요</h3>'
+      +'<p><span class="cvert">  ¹\n  2 8\n+   5\n─────\n  3 3</span>&nbsp;&nbsp;낱개 8+5=13 → 낱개 10개가 모이면 <b>10개 묶음 1개</b>가 되어 십의 자리로 올라가요. 그게 작게 쓰는 1이에요.</p>'
+      +'<div class="ctip"><b>부모님 팁</b> — "1을 올려 써"보다 <b>"10을 만들었네!"</b>라고 말해 주세요. 교과서는 받아올림을 10 만들기(가르기와 모으기)로 가르쳐요.</div>';
+  }},
+  borrow:{ title:"받아내림의 비밀 — 10에서 빼기", deco:"💡", html:function(){
+    return '<h3>1. 이런 상황이에요</h3>'
+      +'<p>우유가 13병 있어요. 5병을 마시면 몇 병 남을까요? → <b>13−5</b></p>'
+      +'<h3>2. 방법 ① 10에서 빼기 (교과서 기본 방법)</h3>'
+      +boardHTML(10,3)
+      +'<div class="cstep">① 13을 <b>10과 3</b>으로 갈라요</div>'
+      +'<div class="cstep">② 10에서 5를 빼요 → 10−5=<b>5</b></div>'
+      +'<div class="cstep">③ 남겨둔 3을 더해요 → 5+3=<b>8</b>!</div>'
+      +'<h3>3. 방법 ② 하나씩 거꾸로 세기</h3>'
+      +'<p>13에서 다섯 번 거꾸로: <b>12, 11, 10, 9, 8</b> — 손가락으로 세어도 좋아요.</p>'
+      +'<h3>4. 세로셈에서는 이렇게 보여요</h3>'
+      +'<p><span class="cvert"> ²¹⁰\n  3 3\n−   5\n─────\n  2 8</span>&nbsp;&nbsp;낱개 3에서 5를 못 빼니 <b>10개 묶음 1개를 헐어</b> 낱개 10개로 바꿔요. 13−5=8.</p>'
+      +'<div class="ctip"><b>부모님 팁</b> — "빌려온다"보다 <b>"10개 묶음 1개를 헐어서"</b>라고 말해 주세요. 묶음 1개 = 낱개 10개라는 원리가 핵심이에요.</div>';
+  }},
+  mult:{ title:"곱셈의 비밀 — 묶음 세기", deco:"💡", html:function(){
+    return '<h3>1. 하나씩 세면 힘들어요</h3>'
+      +'<p>사탕 12개를 하나, 둘, 셋… 끝까지? 너무 오래 걸려요!</p>'
+      +'<h3>2. 묶어 세면 빨라요 — 4개씩 3묶음</h3>'
+      +dotsHTML(4,3)
+      +'<div class="cstep">① <b>4씩 3묶음</b>이에요 → 4, 8, 12 (뛰어 세기!)</div>'
+      +'<div class="cstep">② 이것을 <b>"4의 3배"</b>라고 해요</div>'
+      +'<div class="cstep">③ 곱셈식으로 쓰면 <b>4×3=12</b></div>'
+      +'<h3>3. 곱셈은 같은 수의 덧셈과 같아요</h3>'
+      +'<p><b>4+4+4=12</b> 와 <b>4×3=12</b> 는 같은 뜻이에요. ×는 "몇씩 몇 묶음"을 나타내는 기호!</p>'
+      +'<h3>4. 구구단은 뛰어 세기예요</h3>'
+      +'<p>7단 = 7씩 뛰어 세기: 7, 14, 21, 28… 외우기 전에 뛰어 세기로 먼저 느껴 보세요.</p>'
+      +'<div class="ctip"><b>부모님 팁</b> — 곱셈을 "빠른 덧셈"보다 <b>"몇씩 몇 묶음"</b>으로 설명해 주세요. 교과서는 묶어 세기 → 몇 배 → 곱셈식 순서로 가르쳐요.</div>';
+  }}
+};
+function makeConceptSheet(key, pageNo, pageTotal){
+  var c=CONCEPT_SHEETS[key];
+  var sheet=el("div","sheet");
+  var head=el("div","sheet-head");
+  var t=el("div","sheet-title");
+  var deco=el("span","deco"); deco.textContent=c.deco;
+  t.appendChild(deco); t.appendChild(document.createTextNode(c.title));
+  var meta=el("div","sheet-meta");
+  meta.innerHTML='개념 설명<br>교과서 방식';
+  head.appendChild(t); head.appendChild(meta);
+  sheet.appendChild(head);
+  var body=el("div","concept-body");
+  body.innerHTML=c.html();
+  sheet.appendChild(body);
+  var foot=el("div","sheet-foot");
+  var l=el("span"); l.textContent="글씨방 · 개념 설명 (2022 개정 교과서 지도 방식)";
+  var r=el("span"); r.textContent=pageNo+" / "+pageTotal;
+  foot.appendChild(l); foot.appendChild(r);
+  sheet.appendChild(foot);
+  return sheet;
+}
+
 /* ---------- render ---------- */
 
 function render(){
@@ -279,8 +374,16 @@ function render(){
   var container=document.getElementById("sheets");
   container.innerHTML="";
   var title=state.title || autoTitle();
-  var sheetCount=state.pages + (state.answers?1:0);
+  var cks=conceptKeys();
+  var sheetCount=cks.length + state.pages + (state.answers?1:0);
   var sheetNo=0;
+
+  cks.forEach(function(k){
+    sheetNo++;
+    var cs=el("div","sheet-scale");
+    cs.appendChild(makeConceptSheet(k, sheetNo, sheetCount));
+    container.appendChild(cs);
+  });
 
   for(var pg=0; pg<state.pages; pg++){
     sheetNo++;
@@ -296,7 +399,8 @@ function render(){
     container.appendChild(scale2);
   }
   fitScale();
-  document.getElementById("pageInfo").textContent="A4 · "+sheetCount+"장"+(state.answers?" (정답지 포함)":"");
+  var extras=[]; if(cks.length) extras.push("개념"); if(state.answers) extras.push("정답지");
+  document.getElementById("pageInfo").textContent="A4 · "+sheetCount+"장"+(extras.length?" ("+extras.join("·")+" 포함)":"");
 }
 
 function makeSheet(title, probs, startIdx, isAnswerKey, pageNo, pageTotal, vertical){
@@ -364,7 +468,7 @@ function makeSheet(title, probs, startIdx, isAnswerKey, pageNo, pageTotal, verti
 
 /* ---------- share ---------- */
 function encodeState(){
-  return b64e(JSON.stringify([2,state.topic,state.level,state.noCarry?1:0,state.dan,state.form,state.pages,state.answers?1:0,state.title,state.seed]));
+  return b64e(JSON.stringify([2,state.topic,state.level,state.noCarry?1:0,state.dan,state.form,state.pages,state.answers?1:0,state.title,state.seed,state.concept?1:0]));
 }
 function loadFromHash(){
   try{
@@ -373,6 +477,7 @@ function loadFromHash(){
     if(a[0]!==2) return false;   /* 링크 형식 버전 — 형식이 바뀌면 번호를 올린다 */
     state.topic=a[1]; state.level=+a[2]; state.noCarry=!!a[3]; state.dan=+a[4];
     state.form=a[5]; state.pages=+a[6]; state.answers=!!a[7]; state.title=a[8]||""; state.seed=+a[9]||newSeed();
+    state.concept=!!a[10];   /* 개념 시트 (구형 링크엔 없음 → 꺼짐) */
     return true;
   }catch(e){ return false; }
 }
@@ -412,6 +517,10 @@ function syncControls(){
   document.getElementById("carryWrap").style.display = t.carry ? "" : "none";
   document.getElementById("danField").style.display = t.dan ? "" : "none";
   document.getElementById("noCarry").checked=state.noCarry;
+  /* 개념 시트 — 준비된 토픽에서만 노출 */
+  document.getElementById("conceptField").style.display = CONCEPT_FOR[state.topic] ? "" : "none";
+  if(!CONCEPT_FOR[state.topic]) state.concept=false;
+  document.getElementById("concept").checked=state.concept;
   document.getElementById("dan").value=String(state.dan);
 
   /* 세로셈을 지원하지 않는 유형은 가로셈만 */
@@ -451,6 +560,7 @@ document.getElementById("noCarry").addEventListener("change",function(e){ state.
 document.getElementById("dan").addEventListener("change",function(e){ state.dan=+e.target.value; syncControls(); render(); });
 document.getElementById("pages").addEventListener("change",function(e){ state.pages=+e.target.value; render(); });
 document.getElementById("answers").addEventListener("change",function(e){ state.answers=e.target.checked; render(); });
+document.getElementById("concept").addEventListener("change",function(e){ state.concept=e.target.checked; render(); });
 document.getElementById("title").addEventListener("input",function(e){ state.title=e.target.value; render(); });
 
 document.getElementById("btnShuffle").addEventListener("click",function(){ state.seed=newSeed(); render(); });
@@ -567,7 +677,7 @@ document.getElementById("btnImage").addEventListener("click",function(){
   } else fin();
 });
 document.getElementById("btnReset").addEventListener("click",function(){
-  state={topic:"add",level:1,noCarry:false,dan:0,form:"v",pages:1,answers:true,title:"",seed:newSeed()};
+  state={topic:"add",level:1,noCarry:false,dan:0,form:"v",pages:1,answers:true,concept:false,title:"",seed:newSeed()};
   history.replaceState(null,"",location.pathname);
   syncControls(); render();
 });
