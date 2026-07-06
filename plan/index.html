@@ -231,10 +231,14 @@ function buildSVG(){
       s+='<text x="'+tp[0].toFixed(1)+'" y="'+(tp[1]+9).toFixed(1)+'" text-anchor="middle" font-family="\'Gowun Dodum\',sans-serif" font-size="24" fill="#5b6470">'+hour+'</text>';
     }
   }
-  /* 조각 라벨 (1시간 이상만 안쪽에) */
+  /* 조각 라벨 (1시간 이상만 안쪽에).
+     위치는 부채꼴 무게중심 반지름 (2/3)·r·sin(θ/2)/(θ/2) — 넓은 조각(잠 등)일수록
+     안쪽에 찍혀야 시각적 가운데가 된다. 좁은 조각은 자연히 0.66r 근처 */
   items.forEach(function(it){
     var sp=span(it[0],it[1]); if(sp<2) return;
-    var mid=it[0]+sp/2, lp=polar(cx,cy,r*0.62,mid);
+    var half=(sp*7.5/2)*Math.PI/180;
+    var lr=r*(2/3)*(Math.sin(half)/half);
+    var mid=it[0]+sp/2, lp=polar(cx,cy,lr,mid);
     var fs=sp>=4?30:24;
     s+='<text x="'+lp[0].toFixed(1)+'" y="'+lp[1].toFixed(1)+'" text-anchor="middle" font-family="\'Gowun Dodum\',sans-serif" font-size="'+fs+'" fill="#2b3038">'+esc(it[2])+'</text>';
   });
