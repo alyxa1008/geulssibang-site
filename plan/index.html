@@ -37,6 +37,8 @@ gtag("config", "G-86X82MNHC8");
 .prow .tilde{color:var(--ink-soft)}
 #addRow{width:100%; padding:9px; border:2px dashed #c9cdd2; border-radius:8px; background:none; color:var(--ink-soft); font-size:14px; cursor:pointer}
 #addRow:hover{border-color:var(--redpen); color:var(--redpen)}
+#themeSeg{flex-wrap:wrap}
+#themeSeg button{flex:1 1 30%; border-bottom:1px solid #e3e6ea}
 #planHint{font-size:12.5px; color:var(--ink-soft); margin:6px 0 0}
 </style>
 <meta property="og:url" content="https://geulssibang.com/plan/">
@@ -88,6 +90,7 @@ gtag("config", "G-86X82MNHC8");
             <button data-theme="sea">여름 바다</button>
             <button data-theme="night">별밤</button>
             <button data-theme="sport">운동회</button>
+            <button data-theme="winter">겨울 눈</button>
           </div>
         </div>
 
@@ -235,11 +238,26 @@ function decoSport(){ /* 상단 만국기 + 하단 잔디·공 */
   s+='<circle cx="72" cy="1382" r="24" fill="#fff" stroke="#e4573d" stroke-width="4"/><path d="M48 1382 h48 M72 1358 v48" stroke="#e4573d" stroke-width="3"/>';
   return s;
 }
+function decoSnow(){ /* 눈송이 흩뿌리기 + 좌하단 눈사람 */
+  var s="";
+  [[90,50,11],[210,95,8],[520,30,9],[700,70,12],[880,45,10],[950,120,8],[60,1360,9],[320,1395,8],[620,1385,10],[900,1370,9]].forEach(function(p){
+    var x=p[0],y=p[1],r=p[2];
+    for(var i=0;i<3;i++){ var a=i*Math.PI/3;
+      s+='<line x1="'+(x-Math.cos(a)*r).toFixed(1)+'" y1="'+(y-Math.sin(a)*r).toFixed(1)+'" x2="'+(x+Math.cos(a)*r).toFixed(1)+'" y2="'+(y+Math.sin(a)*r).toFixed(1)+'" stroke="#a8c6e0" stroke-width="2.5" stroke-linecap="round"/>'; }
+  });
+  /* 눈사람 (좌하단) */
+  s+='<circle cx="80" cy="1385" r="22" fill="#fff" stroke="#a8c6e0" stroke-width="3"/>'
+   +'<circle cx="80" cy="1352" r="15" fill="#fff" stroke="#a8c6e0" stroke-width="3"/>'
+   +'<circle cx="75" cy="1349" r="2" fill="#5b6470"/><circle cx="85" cy="1349" r="2" fill="#5b6470"/>'
+   +'<rect x="68" y="1330" width="24" height="6" rx="2" fill="#e4573d"/><rect x="73" y="1318" width="14" height="14" rx="2" fill="#e4573d"/>';
+  return s;
+}
 var THEMES={
   basic:{ bg:"#ffffff", pal:PALETTE, deco:function(){return "";} },
   sea:{ bg:"#f0f9fd", pal:["#bfe3f2","#ffe3b3","#cdeae4","#f9d5d3","#fbf3c0","#a8d8ea","#e0d5f0","#d6ecc9","#dde8ee","#eadfce"], deco:function(){return decoSun()+decoWaves();} },
   night:{ bg:"#f6f5fc", pal:["#dcd6f0","#f2e2c9","#cfd8f0","#efd9e5","#f5ecd0","#d4e0f5","#e3d1ea","#e6e2f5","#dfe3ee","#e8def0"], deco:decoStars },
-  sport:{ bg:"#f7fbf3", pal:["#d6ecc9","#ffe3b3","#f9d5d3","#cfe0f5","#fbf3c0","#cfe7e3","#f8dcc0","#e0d5f0","#e2eecd","#f3d7ea"], deco:decoSport }
+  sport:{ bg:"#f7fbf3", pal:["#d6ecc9","#ffe3b3","#f9d5d3","#cfe0f5","#fbf3c0","#cfe7e3","#f8dcc0","#e0d5f0","#e2eecd","#f3d7ea"], deco:decoSport },
+  winter:{ bg:"#f4f9fc", pal:["#d3e6f5","#eef4fa","#f9d5d3","#dcd6f0","#cfe7e3","#ffe3b3","#dde8ee","#e6eef7","#f3d7ea","#e0ecf5"], deco:decoSnow }
 };
 
 function fmt(i){ var h=Math.floor(i/2), m=i%2?"30":"00"; return (h<10?"0":"")+h+":"+m; }
