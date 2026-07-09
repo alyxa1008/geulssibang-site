@@ -154,6 +154,11 @@ function wireDeepLinks(){
             +(b.getAttribute("data-dan")||0), "v", 1, 1, b.getAttribute("data-title")||"", 0];
     b.href=b.getAttribute("href")+"#s="+encodeURIComponent(b64e(JSON.stringify(st)));
   });
+  /* 구구단 시험형: [1, 단문자열, 문제수, 순서, 답방식, 생각시간, 소리] */
+  document.querySelectorAll(".gobtn[data-quiz-dan]").forEach(function(b){
+    var st=[1, b.getAttribute("data-quiz-dan"), +(b.getAttribute("data-quiz-n")||10), "mix", "speak", 5, 1];
+    b.href=b.getAttribute("href")+"#s="+encodeURIComponent(b64e(JSON.stringify(st)));
+  });
   /* 받아쓰기 급수 카드형: .gset[data-title]의 li 목록 → [단어들, 읽기횟수, 사이시간, 속도, 제목, 정답지] */
   document.querySelectorAll(".gset[data-title]").forEach(function(box){
     var btn=box.querySelector(".gobtn"); if(!btn) return;

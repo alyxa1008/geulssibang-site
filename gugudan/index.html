@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="naver-site-verification" content="5a80c95ca3675833b5faac38af43702f204a7b69" />
+<meta name="p:domain_verify" content="6e21dcbfb23c20103a0e44fcd76be732"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-86X82MNHC8"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "G-86X82MNHC8");
+</script>
+<title>구구단 외우기 시험 — 문제를 불러주는 구구단 테스트 무료 | 글씨방</title>
+<meta name="description" content="구구단 외우기 시험을 화면에서 바로. 컴퓨터가 '7 곱하기 6은?' 하고 불러주면 아이가 답하고, 점수와 약한 단까지 알려줍니다. 단별 선택·교과서 순서 연습, 숫자 입력 자동 채점, 틀린 단은 학습지로 인쇄. 무료, 회원가입 없음.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="구구단 외우기 시험 — 불러주는 구구단 테스트 | 글씨방">
+<meta property="og:description" content="컴퓨터가 문제를 불러주고 채점까지. 아이 혼자서도 구구단 검사, 틀린 단은 학습지로 이어져요. 무료.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://geulssibang.com/gugudan/">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1834921044404408" crossorigin="anonymous"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+/* ===== 이 페이지 전용 — 시험 화면 확장 (칠판 오버레이 틀은 style.css .exam) ===== */
+.solo{max-width:620px; margin:0 auto 18px}
+/* 단 선택 격자 */
+.dangrid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px}
+.dangrid button{font-family:var(--disp); font-size:16px; padding:10px 0; border:2px solid #e3e6ea; border-radius:8px; background:#fff; color:var(--ink-soft); cursor:pointer}
+.dangrid button.on{background:var(--redpen); border-color:var(--redpen); color:#fff}
+/* 문제 카드 */
+.exam .prob{font-family:var(--disp); font-size:clamp(52px,15vw,104px); color:var(--chalk); line-height:1.15; text-align:center}
+.exam .prob .ans{color:#ffd9a8}
+/* ⭕❌ 채점 버튼 */
+.oxbtns{display:flex; gap:18px}
+.oxbtns button{width:92px; height:92px; border-radius:50%; font-size:40px; cursor:pointer; border:2px solid rgba(243,239,228,.4); background:transparent; color:var(--chalk)}
+.oxbtns button.ok{border-color:#9ed6a8}
+.oxbtns button.no{border-color:#e8a1a1}
+.oxbtns button:active{transform:scale(.95)}
+/* 숫자 키패드 */
+.keypad{display:grid; grid-template-columns:repeat(3,72px); gap:8px}
+.keypad button{height:56px; font-family:var(--disp); font-size:22px; border-radius:10px; border:1.5px solid rgba(243,239,228,.4); background:transparent; color:var(--chalk); cursor:pointer}
+.keypad button:active{background:rgba(243,239,228,.15)}
+.keypad button.go{background:var(--redpen); border-color:var(--redpen)}
+/* 결과 화면 */
+.result{color:var(--chalk); text-align:center; max-width:560px; display:flex; flex-direction:column; gap:14px; align-items:center}
+.result .score{font-family:var(--disp); font-size:clamp(44px,12vw,80px); line-height:1}
+.result .diag{color:#ffd9a8; font-size:16px}
+.result .wrongs{font-size:15px; color:var(--chalk-dim); line-height:1.9}
+.result .plinks{display:flex; gap:8px; flex-wrap:wrap; justify-content:center}
+.result .plinks a{font-family:var(--disp); font-size:15px; padding:12px 20px; border-radius:999px; text-decoration:none; background:var(--redpen); color:#fff; box-shadow:0 3px 0 var(--redpen-deep)}
+</style>
+<meta property="og:url" content="https://geulssibang.com/gugudan/">
+<meta property="og:site_name" content="글씨방">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://geulssibang.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2f5d4d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="글씨방">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "구구단 외우기 시험", "url": "https://geulssibang.com/gugudan/", "description": "컴퓨터가 구구단 문제를 음성으로 불러주고 점수와 약한 단을 진단해 주는 무료 구구단 시험 도구", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "구구단은 어떤 순서로 외우는 게 좋나요?", "acceptedAnswer": {"@type": "Answer", "text": "2022 개정 교육과정 교과서는 묶어 세기 쉬운 2단·5단부터 시작해 3단·6단, 4단·8단, 7단·9단 순서로 배웁니다. 이 도구의 교과서 순서 버튼을 누르면 같은 순서로 연습할 수 있습니다."}}, {"@type": "Question", "name": "아이 혼자서도 시험을 볼 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 답하는 방법을 숫자로 입력으로 바꾸면 화면 키패드로 답을 입력하고 자동으로 채점됩니다. 말로 답하기는 정답 공개 후 맞음/틀림을 터치하는 방식이라 부모님과 함께 하기 좋습니다."}}, {"@type": "Question", "name": "틀린 문제는 어떻게 복습하나요?", "acceptedAnswer": {"@type": "Answer", "text": "시험이 끝나면 어느 단에서 틀렸는지 알려주고, 틀린 문제만 다시 시험을 보거나 그 단의 구구단 학습지를 무료로 인쇄해 종이로 복습할 수 있습니다."}}, {"@type": "Question", "name": "무료인가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 구구단 시험과 학습지 인쇄 모두 무료이고 회원가입도 없습니다."}}]}</script>
+</head>
+<body>
+<div class="wrap narrow">
+
+  <nav class="topnav">
+    <a href="../">글씨방 홈</a>
+    <a href="../hangul/">한글 따라쓰기</a>
+    <a href="../badaseugi/">받아쓰기</a>
+    <a href="../math/">수학 연산</a>
+    <a href="./" class="here">구구단 시험</a>
+  </nav>
+
+  <header>
+    <div class="logo">구구단 시험 <span class="pen">✖</span></div>
+    <h1 class="tagline">구구단 외우기 시험 — 문제를 불러주는 구구단 테스트</h1>
+    <div class="chalk-line"></div>
+  </header>
+
+  <div class="solo">
+    <aside class="panel">
+      <div class="panel-head">시험 만들기</div>
+      <div class="panel-body">
+
+        <div class="field">
+          <label>시험 볼 단 <span class="hint">여러 개 선택 가능</span></label>
+          <div class="dangrid" id="danGrid">
+            <button data-dan="2">2단</button><button data-dan="3">3단</button>
+            <button data-dan="4">4단</button><button data-dan="5">5단</button>
+            <button data-dan="6">6단</button><button data-dan="7">7단</button>
+            <button data-dan="8">8단</button><button data-dan="9">9단</button>
+          </div>
+          <div class="chips" id="danChips">
+            <button class="chip" data-dans="25">교과서 ① 2·5단</button>
+            <button class="chip" data-dans="36">교과서 ② 3·6단</button>
+            <button class="chip" data-dans="48">교과서 ③ 4·8단</button>
+            <button class="chip" data-dans="79">교과서 ④ 7·9단</button>
+            <button class="chip" data-dans="23456789">전체</button>
+          </div>
+        </div>
+
+        <div class="two field">
+          <div>
+            <label for="qcount">문제 수</label>
+            <select id="qcount">
+              <option value="10" selected>10문제</option>
+              <option value="20">20문제</option>
+              <option value="0">선택한 단 전부</option>
+            </select>
+          </div>
+          <div>
+            <label>문제 순서</label>
+            <div class="seg" id="orderSeg" role="group" aria-label="문제 순서">
+              <button data-order="mix" class="on">섞어서</button>
+              <button data-order="seq">차례대로</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>답하는 방법</label>
+          <div class="seg" id="modeSeg" role="group" aria-label="답하는 방법">
+            <button data-mode="speak" class="on">말로 답하기 (같이 채점)</button>
+            <button data-mode="type">숫자로 입력 (혼자 풀기)</button>
+          </div>
+        </div>
+
+        <div class="two field">
+          <div id="thinkField">
+            <label for="think">생각할 시간</label>
+            <select id="think">
+              <option value="3">3초</option>
+              <option value="5" selected>5초</option>
+              <option value="8">8초</option>
+            </select>
+          </div>
+          <div>
+            <label class="check" style="margin-top:26px"><input type="checkbox" id="voice" checked> 문제 읽어주기</label>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="act tts" id="btnStart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 010 7M19 5a9 9 0 010 14"/></svg>
+            시험 시작
+          </button>
+          <button class="act sub" id="btnShare">🔗 링크 복사</button>
+          <button class="act sub" id="btnReset">처음부터</button>
+        </div>
+
+      </div>
+    </aside>
+  </div>
+
+  <!-- ============ QUIZ OVERLAY (칠판 틀은 style.css .exam) ============ -->
+  <div class="exam" id="quiz">
+    <button class="close" id="quizClose" aria-label="시험 닫기">✕</button>
+    <div id="quizBody"></div>
+  </div>
+
+  <!-- AD SLOT (애드센스 유닛으로 교체) -->
+  <div class="adslot" aria-hidden="true">광고 영역</div>
+
+  <!-- ============ SEO CONTENT ============ -->
+  <div class="content">
+    <h2>"7 곱하기 6은?" — 물어봐 주는 사람이 필요 없어요</h2>
+    <p>구구단 외우기의 마지막 관문은 <strong>옆에서 물어봐 주고 채점해 줄 사람</strong>이죠. 이 도구는 컴퓨터가 문제를 또박또박 불러주고, 정답 공개와 채점, 어느 단이 약한지 진단까지 해 줍니다. 시험이 끝나면 <strong>틀린 문제만 다시 시험</strong>을 보거나, 틀린 단의 <a href="../math/gugudan/">구구단 학습지</a>를 무료로 인쇄해 종이로 복습할 수 있어요.</p>
+
+    <h2>교과서 순서로 외우면 쉬워요</h2>
+    <p>2022 개정 교육과정의 2학년 2학기 교과서는 구구단을 2단부터 9단까지 차례로 가르치지 않아요. 묶어 세기 쉬운 <strong>2단·5단</strong>부터 시작해 <strong>3단·6단 → 4단·8단 → 7단·9단</strong> 순서로 배웁니다. 위의 '교과서 ①~④' 버튼이 바로 이 순서예요. 지금 학교에서 배우는 단계에 맞춰 시험 범위를 고르면, 학교 진도와 복습이 정확히 맞물립니다.</p>
+
+    <h2>이렇게 활용해 보세요</h2>
+    <p>처음에는 <strong>'말로 답하기'</strong>로 부모님과 함께 해 보세요 — 문제를 듣고 아이가 소리 내어 답하면, 잠시 뒤 정답이 공개되고 맞음(⭕)/틀림(❌)을 눌러 주면 됩니다. 익숙해지면 <strong>'숫자로 입력'</strong>으로 바꿔 아이 혼자 풀게 해 보세요. 자동으로 채점됩니다. '차례대로'는 2×1부터 순서대로 나와 처음 외울 때 좋고, 다 외운 뒤에는 '섞어서'로 실전처럼 확인하세요. 아직 곱셈 개념이 낯설다면 <a href="../math/gugudan/">구구단 학습지 페이지의 개념 설명</a>부터 보는 걸 추천해요 — 외우기 전에 묶어 세기를 이해하면 훨씬 빨리 외워집니다.</p>
+
+    <div class="adslot" aria-hidden="true">광고 영역</div>
+
+    <h2>자주 묻는 질문</h2>
+    <dl class="faq">
+      <dt>구구단은 어떤 순서로 외우는 게 좋나요?</dt>
+      <dd>교과서는 묶어 세기 쉬운 2단·5단부터 시작해 3단·6단, 4단·8단, 7단·9단 순서로 배웁니다. '교과서 순서' 버튼으로 같은 순서로 연습할 수 있어요.</dd>
+      <dt>아이 혼자서도 시험을 볼 수 있나요?</dt>
+      <dd>네. '숫자로 입력'을 고르면 화면 키패드로 답을 입력하고 자동으로 채점됩니다. '말로 답하기'는 부모님이 옆에서 맞음/틀림을 눌러 주는 방식이에요.</dd>
+      <dt>소리가 안 나와요.</dt>
+      <dd>휴대폰 무음 모드를 해제해 주세요. 기기에 내장된 한국어 음성을 사용하므로 별도 설치는 필요 없어요. 조용한 곳에서는 '문제 읽어주기'를 꺼도 화면으로 시험을 볼 수 있습니다.</dd>
+      <dt>틀린 문제는 어떻게 복습하나요?</dt>
+      <dd>결과 화면에서 '틀린 문제만 다시 시험'을 누르거나, 틀린 단의 학습지를 인쇄해 종이로 복습하세요. 같은 단을 며칠 반복하면 자신감이 붙어요.</dd>
+      <dt>무료인가요?</dt>
+      <dd>네. 시험과 학습지 인쇄 모두 무료이고 회원가입도 없습니다.</dd>
+    </dl>
+  </div>
+
+  <footer>
+  <nav class="foot-map" aria-label="전체 메뉴">
+    <div class="fcol"><b>✎ 한글</b>
+      <a href="/hangul/">따라쓰기 만들기</a>
+      <a href="/hangul/jamo/">자음·모음 따라쓰기</a>
+      <a href="/hangul/natmal/">낱말 따라쓰기</a>
+      <a href="/hangul/ireum/">아이 이름 따라쓰기</a>
+      <a href="/hangul/suja/">숫자 따라쓰기</a>
+      <a href="/hangul/order/">쓰기 순서(획순)</a>
+      <a href="/hangul/trace/">화면 손글씨</a>
+      <a href="/hangul/guide/">한글 떼기 가이드</a>
+      <a href="/hangul/pen/">예쁜 글씨 연습(성인)</a>
+    </div>
+    <div class="fcol"><b>🔊 받아쓰기</b>
+      <a href="/badaseugi/">불러주기·시험지</a>
+      <a href="/badaseugi/geupsu/">학기별 급수표</a>
+      <a href="/badaseugi/geupsu/1-1/">1학년 1학기</a>
+      <a href="/badaseugi/geupsu/1-2/">1학년 2학기</a>
+      <a href="/badaseugi/geupsu/2-1/">2학년 1학기</a>
+      <a href="/badaseugi/geupsu/2-2/">2학년 2학기</a>
+    </div>
+    <div class="fcol"><b>✚ 수학</b>
+      <a href="/math/">문제지 만들기</a>
+      <a href="/math/add-sub/">덧셈·뺄셈</a>
+      <a href="/math/gugudan/">구구단</a>
+      <a href="/math/mul-div/">곱셈·나눗셈</a>
+      <a href="/math/fraction/">분수·소수</a>
+      <a href="/math/word/">문장제</a>
+      <a href="/math/roadmap/">연산 로드맵</a>
+      <a href="/gugudan/">구구단 외우기 시험</a>
+    </div>
+    <div class="fcol"><b>🌀 놀이·활동</b>
+      <a href="/maze/">미로 찾기</a>
+      <a href="/card/">이름 카드</a>
+      <a href="/banghak/">여름방학 학습지</a>
+      <a href="/plan/">방학 생활계획표</a>
+    </div>
+  </nav>
+  <div class="foot-base">
+    <span>글씨방 — 무료 학습지 생성기</span>
+    <span><a href="/about/">사이트 소개</a> · <a href="/privacy/">개인정보처리방침</a></span>
+  </div>
+</footer>
+</div>
+
+<div class="toast" id="toast">링크가 복사되었습니다</div>
+
+<script src="../assets/common.js"></script>
+<script>
+"use strict";
+/* ---------- state ---------- */
+var state={ dans:[2,3,4,5,6,7,8,9], count:10, order:"mix", mode:"speak", think:5, voice:true };
+var quiz={ qs:[], idx:0, timer:null, results:[], typed:"" };
+
+/* ---------- 순수 함수 (문제 생성·채점 — node 테스트 대상) ---------- */
+function buildQuestions(dans, count, order, rnd){
+  var pool=[];
+  dans.forEach(function(d){ for(var b=1;b<=9;b++) pool.push({a:d,b:b,ans:d*b}); });
+  if(order==="mix"){
+    for(var i=pool.length-1;i>0;i--){ var j=Math.floor((rnd?rnd():Math.random())*(i+1)); var t=pool[i]; pool[i]=pool[j]; pool[j]=t; }
+  }
+  return count>0 ? pool.slice(0,count) : pool;
+}
+function grade(results){
+  var wrong=results.filter(function(r){ return !r.ok; });
+  var byDan={};
+  wrong.forEach(function(r){ (byDan[r.a]=byDan[r.a]||[]).push(r); });
+  return { score:results.length-wrong.length, total:results.length, wrong:wrong,
+           wrongDans:Object.keys(byDan).map(Number).sort(function(x,y){return x-y;}) };
+}
+
+/* ---------- 시험 진행 ---------- */
+function stopTimer(){ if(quiz.timer){ clearTimeout(quiz.timer); quiz.timer=null; } }
+function say(text){ if(state.voice) speakKo(text, 0.9); }
+
+function startQuiz(qs){
+  if(!state.dans.length){ showToast("시험 볼 단을 골라 주세요"); return; }
+  quiz.qs=qs||buildQuestions(state.dans, state.count, state.order);
+  quiz.idx=0; quiz.results=[];
+  if(koVoiceMissing() && state.voice) showToast("이 기기에 한국어 음성이 없어요. 화면만으로 진행됩니다");
+  track("exam_start",{tool:"gugudan", dans:state.dans.join(""), n:quiz.qs.length});
+  document.getElementById("quiz").classList.add("show");
+  showQuestion();
+}
+function closeQuiz(){
+  stopTimer();
+  if(window.speechSynthesis) speechSynthesis.cancel();
+  document.getElementById("quiz").classList.remove("show");
+}
+
+function showQuestion(){
+  stopTimer();
+  var q=quiz.qs[quiz.idx], body=document.getElementById("quizBody");
+  var head='<div class="qno"><span>'+(quiz.idx+1)+'</span>번<small>'+(quiz.idx+1)+' / '+quiz.qs.length+'</small></div>'
+          +'<div class="prob">'+q.a+' × '+q.b+' = <span class="ans" id="ansSlot">?</span></div>';
+  if(state.mode==="speak"){
+    body.innerHTML=head
+      +'<div class="bar"><i id="thinkBar"></i></div>'
+      +'<div class="ctrl"><button id="btnAgain">다시 듣기</button><button class="main" id="btnReveal">정답 보기</button></div>'
+      +'<p class="tip">아이가 소리 내어 답하면, 정답이 공개된 뒤 맞음/틀림을 눌러 주세요.</p>';
+    document.getElementById("btnAgain").addEventListener("click",function(){ say(q.a+" 곱하기 "+q.b+"는?"); });
+    document.getElementById("btnReveal").addEventListener("click",reveal);
+    /* 생각할 시간 진행 막대 — CSS transition 하나로 (타이머 중첩 없음) */
+    animateThinkBar(document.getElementById("thinkBar"));
+    quiz.timer=setTimeout(reveal, state.think*1000);
+  }else{
+    quiz.typed="";
+    body.innerHTML=head
+      +'<div class="prob" style="font-size:clamp(30px,8vw,44px); min-height:1.2em" id="typedView">&nbsp;</div>'
+      +'<div class="keypad" id="pad">'
+      +[1,2,3,4,5,6,7,8,9].map(function(n){return '<button data-k="'+n+'">'+n+'</button>';}).join("")
+      +'<button data-k="del">←</button><button data-k="0">0</button><button data-k="go" class="go">확인</button></div>';
+    document.getElementById("pad").addEventListener("click",padTap);
+  }
+  say(q.a+" 곱하기 "+q.b+"는?");
+}
+/* 진행 막대는 CSS transition 하나로 움직인다 (반복 타이머 불필요) */
+function animateThinkBar(bar){
+  bar.style.transition="none"; bar.style.width="0";
+  void bar.offsetWidth;   /* reflow로 초기폭 확정 */
+  bar.style.transition="width "+state.think+"s linear";
+  bar.style.width="100%";
+}
+
+function reveal(){
+  stopTimer();
+  var q=quiz.qs[quiz.idx];
+  document.getElementById("ansSlot").textContent=q.ans;
+  say(String(q.ans));
+  var body=document.getElementById("quizBody");
+  var ctrl=body.querySelector(".ctrl"); if(ctrl) ctrl.remove();
+  var bar=body.querySelector(".bar"); if(bar) bar.remove();
+  var tip=body.querySelector(".tip"); if(tip) tip.remove();
+  var ox=document.createElement("div"); ox.className="oxbtns";
+  ox.innerHTML='<button class="ok" aria-label="맞음">⭕</button><button class="no" aria-label="틀림">❌</button>';
+  body.appendChild(ox);
+  ox.addEventListener("click",function(e){
+    var b=e.target.closest("button"); if(!b)return;
+    mark(b.classList.contains("ok"));
+  });
+}
+function padTap(e){
+  var b=e.target.closest("button"); if(!b)return;
+  var k=b.dataset.k, q=quiz.qs[quiz.idx];
+  if(k==="del") quiz.typed=quiz.typed.slice(0,-1);
+  else if(k==="go"){
+    if(!quiz.typed) return;
+    var ok=+quiz.typed===q.ans;
+    document.getElementById("ansSlot").textContent=q.ans;
+    if(!ok){ say("정답은 "+q.ans); }
+    mark(ok, ok?250:1600);   /* 틀리면 정답을 잠깐 보여주고 넘어간다 */
+    return;
+  }
+  else if(quiz.typed.length<2) quiz.typed+=k;
+  document.getElementById("typedView").textContent=quiz.typed||" ";
+}
+function mark(ok, delay){
+  stopTimer();
+  var q=quiz.qs[quiz.idx];
+  quiz.results.push({a:q.a, b:q.b, ans:q.ans, ok:ok});
+  quiz.timer=setTimeout(function(){
+    quiz.idx++;
+    if(quiz.idx<quiz.qs.length) showQuestion(); else finish();
+  }, delay||250);
+}
+
+function finish(){
+  stopTimer();
+  var g=grade(quiz.results);
+  track("quiz_done",{tool:"gugudan", score:g.score, total:g.total});
+  var body=document.getElementById("quizBody");
+  var diag = g.wrong.length===0
+    ? "완벽해요! 다음 단계로 넘어가도 좋겠어요."
+    : g.wrongDans.map(function(d){return d+"단";}).join("·")+"을 조금 더 연습하면 완성이에요.";
+  var html='<div class="result"><div class="score">'+g.score+' / '+g.total+'</div>'
+    +'<div class="diag">'+diag+'</div>';
+  if(g.wrong.length){
+    html+='<div class="wrongs">'+g.wrong.map(function(r){return r.a+" × "+r.b+" = <b>"+r.ans+"</b>";}).join("&nbsp;&nbsp;·&nbsp;&nbsp;")+'</div>';
+  }
+  html+='<div class="ctrl">';
+  if(g.wrong.length) html+='<button class="main" id="btnRetryWrong">틀린 문제만 다시 시험</button>';
+  html+='<button id="btnRetryAll">처음부터 다시</button><button id="btnDone">끝내기</button></div>';
+  if(g.wrong.length){
+    html+='<div class="plinks">'+g.wrongDans.map(function(d){
+      return '<a class="gobtn" data-topic="gugudan" data-dan="'+d+'" data-title="구구단 '+d+'단 연습" href="../math/">🖨 '+d+'단 학습지 인쇄</a>';
+    }).join("")+'</div>';
+  }
+  html+='</div>';
+  body.innerHTML=html;
+  wireDeepLinks();   /* 학습지 인쇄 링크의 #s= 해시는 common.js가 생성 */
+  if(g.wrong.length) document.getElementById("btnRetryWrong").addEventListener("click",function(){
+    startQuiz(g.wrong.map(function(r){return {a:r.a,b:r.b,ans:r.ans};}));
+  });
+  document.getElementById("btnRetryAll").addEventListener("click",function(){ startQuiz(); });
+  document.getElementById("btnDone").addEventListener("click",closeQuiz);
+  say(g.score+"점, 참 잘했어요");
+}
+
+/* ---------- share ---------- */
+function encodeState(){
+  return b64e(JSON.stringify([1, state.dans.join(""), state.count, state.order, state.mode, state.think, state.voice?1:0]));
+}
+function loadFromHash(){
+  try{
+    var m=location.hash.match(/s=([^&]+)/); if(!m) return false;
+    var a=JSON.parse(b64d(decodeURIComponent(m[1])));
+    if(a[0]!==1) return false;
+    var ds=String(a[1]).split("").map(Number).filter(function(d,i,arr){return d>=2&&d<=9&&arr.indexOf(d)===i;});
+    if(ds.length) state.dans=ds;
+    state.count=[10,20,0].indexOf(+a[2])>=0 ? +a[2] : 10;
+    state.order=a[3]==="seq"?"seq":"mix";
+    state.mode=a[4]==="type"?"type":"speak";
+    state.think=[3,5,8].indexOf(+a[5])>=0 ? +a[5] : 5;
+    state.voice=!!a[6];
+    return true;
+  }catch(e){ return false; }
+}
+
+/* ---------- wire controls ---------- */
+function syncControls(){
+  document.querySelectorAll("#danGrid button").forEach(function(b){
+    b.classList.toggle("on", state.dans.indexOf(+b.dataset.dan)>=0);
+  });
+  document.getElementById("qcount").value=String(state.count);
+  document.querySelectorAll("#orderSeg button").forEach(function(b){ b.classList.toggle("on", b.dataset.order===state.order); });
+  document.querySelectorAll("#modeSeg button").forEach(function(b){ b.classList.toggle("on", b.dataset.mode===state.mode); });
+  document.getElementById("think").value=String(state.think);
+  document.getElementById("voice").checked=state.voice;
+  document.getElementById("thinkField").style.visibility = state.mode==="speak" ? "" : "hidden";
+}
+document.getElementById("danGrid").addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b)return;
+  var d=+b.dataset.dan, i=state.dans.indexOf(d);
+  if(i>=0) state.dans.splice(i,1); else state.dans.push(d);
+  state.dans.sort(function(x,y){return x-y;});
+  syncControls();
+});
+document.getElementById("danChips").addEventListener("click",function(e){
+  var c=e.target.closest(".chip"); if(!c)return;
+  state.dans=c.dataset.dans.split("").map(Number);
+  syncControls();
+});
+document.getElementById("qcount").addEventListener("change",function(e){ state.count=+e.target.value; });
+document.getElementById("orderSeg").addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b)return; state.order=b.dataset.order; syncControls();
+});
+document.getElementById("modeSeg").addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b)return; state.mode=b.dataset.mode; syncControls();
+});
+document.getElementById("think").addEventListener("change",function(e){ state.think=+e.target.value; });
+document.getElementById("voice").addEventListener("change",function(e){ state.voice=e.target.checked; });
+document.getElementById("btnStart").addEventListener("click",function(){ startQuiz(); });
+document.getElementById("quizClose").addEventListener("click",closeQuiz);
+document.getElementById("btnShare").addEventListener("click",function(){ copyShareLink(encodeState()); });
+document.getElementById("btnReset").addEventListener("click",function(){
+  state={ dans:[2,3,4,5,6,7,8,9], count:10, order:"mix", mode:"speak", think:5, voice:true };
+  history.replaceState(null,"",location.pathname);
+  syncControls();
+});
+/* 시험 도중 페이지 이탈 시 음성·타이머 정리 */
+window.addEventListener("pagehide",function(){ stopTimer(); if(window.speechSynthesis) speechSynthesis.cancel(); });
+
+/* ---------- init ---------- */
+loadFromHash();
+syncControls();
+</script>
+</body>
+</html>
