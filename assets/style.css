@@ -184,7 +184,7 @@ select:focus, input[type=text]:focus{border-color:var(--redpen)}
 .tool:hover{transform:translateY(-3px); box-shadow:0 16px 36px var(--paper-shadow)}
 .tool::before{content:""; position:absolute; top:0; left:0; right:0; height:7px; background:repeating-linear-gradient(90deg, var(--redpen) 0 14px, var(--redpen-deep) 14px 28px)}
 .tool .ico{font-size:30px; line-height:1}
-.tool h2{font-family:var(--disp); font-weight:400; font-size:21px; margin:10px 0 6px}
+.tool h2,.tool h3{font-family:var(--disp); font-weight:400; font-size:21px; margin:10px 0 6px}
 .tool p{margin:0; font-size:13.5px; color:var(--ink-soft)}
 .tool .go{display:inline-block; margin-top:14px; font-family:var(--disp); font-size:14px; color:var(--redpen)}
 

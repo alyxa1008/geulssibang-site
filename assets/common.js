@@ -142,10 +142,10 @@ function showToast(msg){
    버튼에 이미 있는 href(도구 경로)를 그대로 쓰므로 페이지 깊이와 무관.
    새 랜딩 페이지는 마크업만 만들면 되고 스크립트 복사가 필요 없다. */
 function wireDeepLinks(){
-  /* 한글 도구형: [텍스트, 모드, 폰트, 크기, 빈칸수, 따라쓰기줄, 빈줄, 안내선, 제목, 농도] */
+  /* 한글 도구형: [텍스트, 모드, 폰트, 크기, 빈칸수, 따라쓰기줄, 빈줄, 안내선, 제목, 농도, 색] */
   document.querySelectorAll(".gobtn[data-text]").forEach(function(b){
-    var st=[b.getAttribute("data-text"), b.getAttribute("data-mode")||"char", "f-gowun",
-            b.getAttribute("data-size")||"big", 3, 2, 1, 1, b.getAttribute("data-title")||"", "mid"];
+    var st=[b.getAttribute("data-text"), b.getAttribute("data-mode")||"char", b.getAttribute("data-font")||"f-gowun",
+            b.getAttribute("data-size")||"big", 3, 2, 1, 1, b.getAttribute("data-title")||"", "mid", b.getAttribute("data-ink")||"gray"];
     b.href=b.getAttribute("href")+"#s="+encodeURIComponent(b64e(JSON.stringify(st)));
   });
   /* 수학 도구형 v2: [2, 유형, 난이도, 받아올림없음, 단, 형식, 장수, 정답지, 제목, 시드0=열 때마다 새 문제] */
