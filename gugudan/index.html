@@ -274,6 +274,8 @@ function grade(results){
 /* ---------- 시험 진행 ---------- */
 function stopTimer(){ if(quiz.timer){ clearTimeout(quiz.timer); quiz.timer=null; } }
 function say(text){ if(state.voice) speakKo(text, 0.9); }
+/* 수 뒤 조사 — 한자어 수사 중 받침 있는 일·삼·육·칠·팔은 '은', 나머지는 '는' */
+function askText(q){ return q.a+" 곱하기 "+q.b+([1,3,6,7,8].indexOf(q.b)>=0?"은?":"는?"); }
 
 function startQuiz(qs){
   if(!state.dans.length){ showToast("시험 볼 단을 골라 주세요"); return; }
@@ -300,7 +302,7 @@ function showQuestion(){
       +'<div class="bar"><i id="thinkBar"></i></div>'
       +'<div class="ctrl"><button id="btnAgain">다시 듣기</button><button class="main" id="btnReveal">정답 보기</button></div>'
       +'<p class="tip">아이가 소리 내어 답하면, 정답이 공개된 뒤 맞음/틀림을 눌러 주세요.</p>';
-    document.getElementById("btnAgain").addEventListener("click",function(){ say(q.a+" 곱하기 "+q.b+"는?"); });
+    document.getElementById("btnAgain").addEventListener("click",function(){ say(askText(q)); });
     document.getElementById("btnReveal").addEventListener("click",reveal);
     /* 생각할 시간 진행 막대 — CSS transition 하나로 (타이머 중첩 없음) */
     animateThinkBar(document.getElementById("thinkBar"));
@@ -314,7 +316,7 @@ function showQuestion(){
       +'<button data-k="del">←</button><button data-k="0">0</button><button data-k="go" class="go">확인</button></div>';
     document.getElementById("pad").addEventListener("click",padTap);
   }
-  say(q.a+" 곱하기 "+q.b+"는?");
+  say(askText(q));
 }
 /* 진행 막대는 CSS transition 하나로 움직인다 (반복 타이머 불필요) */
 function animateThinkBar(bar){
