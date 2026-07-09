@@ -27,6 +27,10 @@ gtag("config", "G-86X82MNHC8");
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Gaegu:wght@400;700&family=Gowun+Batang&family=Nanum+Pen+Script&family=Hi+Melody&family=Gamja+Flower&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
+<style>
+/* 흐린 글자 색 선택 버튼의 색 견본 점 */
+#inkSeg .dot{display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:5px; vertical-align:-1px; border:1px solid rgba(0,0,0,.08)}
+</style>
 <meta property="og:url" content="https://geulssibang.com/hangul/">
 <meta property="og:site_name" content="글씨방">
 <meta property="og:locale" content="ko_KR">
@@ -153,9 +157,18 @@ gtag("config", "G-86X82MNHC8");
             </select>
           </div>
           <div>
-            <label for="title">학습지 제목</label>
-            <input type="text" id="title" placeholder="한글 따라쓰기 연습" maxlength="20">
+            <label>흐린 글자 색</label>
+            <div class="seg" id="inkSeg" role="group" aria-label="흐린 글자 색">
+              <button data-ink="gray" class="on"><span class="dot" style="background:#c3c8ce"></span>회색</button>
+              <button data-ink="blue"><span class="dot" style="background:#b9cfec"></span>파랑</button>
+              <button data-ink="red"><span class="dot" style="background:#eebfbf"></span>빨강</button>
+            </div>
           </div>
+        </div>
+
+        <div class="field">
+          <label for="title">학습지 제목</label>
+          <input type="text" id="title" placeholder="한글 따라쓰기 연습" maxlength="20">
         </div>
 
         <div class="field">
@@ -197,12 +210,13 @@ gtag("config", "G-86X82MNHC8");
       <a href="./ireum/">✎ 아이 이름 따라쓰기</a>
       <a href="./suja/">✎ 숫자 따라쓰기</a>
       <a href="./order/">✎ 한글 쓰기 순서(획순)</a>
+      <a href="./pen/">✎ 예쁜 글씨 연습 (성인 손글씨 교정)</a>
     </div>
     <h2>우리 아이만을 위한 한글 학습지</h2>
     <p>글씨방은 입력한 내용 그대로 따라쓰기 학습지를 만들어 주는 무료 생성기입니다. 시중 학습지와 달리 <strong>아이 이름, 이번 주 받아쓰기 단어, 좋아하는 동물 이름</strong>처럼 우리 아이에게 딱 맞는 내용으로 연습장을 만들 수 있어요. 회원가입도, 다운로드 제한도 없습니다. 인쇄 버튼을 누르면 프린터로 바로 출력하거나 PDF 파일로 저장할 수 있습니다.</p>
 
     <h2>이렇게 활용해 보세요</h2>
-    <p>한글 공부를 어디서부터 시작할지 막막하다면 <a href="./guide/"><strong>한글 떼기 순서 가이드</strong></a>를 먼저 보세요 — 이름부터 받아쓰기까지 7단계 로드맵을 단계별 학습지와 함께 정리해 두었어요. <strong>한글 떼기 시작 단계</strong>라면 자음·모음·가나다 버튼으로 기본 글자부터, <strong>이름 쓰기 연습</strong>은 아이 이름을 입력하고 '단어·문장 반복' 방식으로, <strong>받아쓰기 대비</strong>는 시험 범위 단어를 입력하고 '단어·문장 반복' 방식으로 만들면 좋아요. 본보기 글자 → 흐린 글자 따라쓰기 → 빈칸에 혼자 쓰기 순서로 구성되어 자연스럽게 글씨가 손에 익습니다. 십자 안내선은 글자의 중심을 잡는 데 도움을 줘요. <strong>프린터가 없다면</strong> <a href="./trace/"><strong>화면 손글씨</strong></a>에서 휴대폰·태블릿에 손가락으로 바로 따라 쓸 수 있어요.</p>
+    <p>한글 공부를 어디서부터 시작할지 막막하다면 <a href="./guide/"><strong>한글 떼기 순서 가이드</strong></a>를 먼저 보세요 — 이름부터 받아쓰기까지 7단계 로드맵을 단계별 학습지와 함께 정리해 두었어요. <strong>한글 떼기 시작 단계</strong>라면 자음·모음·가나다 버튼으로 기본 글자부터, <strong>이름 쓰기 연습</strong>은 아이 이름을 입력하고 '단어·문장 반복' 방식으로, <strong>받아쓰기 대비</strong>는 시험 범위 단어를 입력하고 '단어·문장 반복' 방식으로 만들면 좋아요. 본보기 글자 → 흐린 글자 따라쓰기 → 빈칸에 혼자 쓰기 순서로 구성되어 자연스럽게 글씨가 손에 익습니다. 십자 안내선은 글자의 중심을 잡는 데 도움을 줘요. 흐린 글자 색은 회색 외에 <strong>연한 파랑·빨강</strong>으로 바꿀 수 있어서, 색연필로 덧쓰듯 부담 없이 연습하기 좋아요. <strong>프린터가 없다면</strong> <a href="./trace/"><strong>화면 손글씨</strong></a>에서 휴대폰·태블릿에 손가락으로 바로 따라 쓸 수 있어요.</p>
 
 
     <div class="adslot" aria-hidden="true">광고 영역</div>
@@ -233,6 +247,7 @@ gtag("config", "G-86X82MNHC8");
       <a href="/hangul/order/">쓰기 순서(획순)</a>
       <a href="/hangul/trace/">화면 손글씨</a>
       <a href="/hangul/guide/">한글 떼기 가이드</a>
+      <a href="/hangul/pen/">예쁜 글씨 연습(성인)</a>
     </div>
     <div class="fcol"><b>🔊 받아쓰기</b>
       <a href="/badaseugi/">불러주기·시험지</a>
@@ -281,10 +296,17 @@ var state = {
   emptyRows: 1,
   guide: true,
   fade: "mid",           // light | mid | dark — 흐린 글자 농도
+  ink: "gray",           // gray | blue | red — 흐린 글자 색 (색연필 문화)
   title: ""
 };
 var SIZES = { big:{cell:22, cols:8, rows:9}, mid:{cell:18, cols:10, rows:11}, small:{cell:15, cols:12, rows:13} };
-var FADE = { light:"#d6dade", mid:"#c3c8ce", dark:"#9aa2ac" };
+/* 인쇄했을 때 덧쓰기 좋은 농도로 맞춘 색 — 화면보다 프린터에서 옅게 나오는 걸 감안해 진한 쪽으로 */
+var INKS = {
+  gray:{ light:"#d6dade", mid:"#c3c8ce", dark:"#9aa2ac" },
+  blue:{ light:"#cfe1f6", mid:"#b9cfec", dark:"#8fb1dd" },
+  red: { light:"#f7d9d9", mid:"#eebfbf", dark:"#dd9c9c" }
+};
+function traceColor(){ var ink=INKS[state.ink]||INKS.gray; return ink[state.fade]||ink.mid; }
 
 /* ---------- helpers ---------- */
 /* 공백을 뺀 글자들을 입력 순서대로, 중복 없이 */
@@ -402,7 +424,7 @@ function makeSheet(pageRows, cfg, pageNo, pageTotal){
   var sheet=el("div","sheet "+state.font);
   sheet.style.setProperty("--cell", cfg.cell+"mm");
   sheet.style.setProperty("--rowgap", "4mm");
-  sheet.style.setProperty("--trace", FADE[state.fade]||FADE.mid);
+  sheet.style.setProperty("--trace", traceColor());
 
   var head=el("div","sheet-head");
   var title=el("div","sheet-title");
@@ -438,7 +460,7 @@ function makeSheet(pageRows, cfg, pageNo, pageTotal){
 
 /* ---------- share url ---------- */
 function encodeState(){
-  return b64e(JSON.stringify([state.text,state.mode,state.font,state.size,state.emptyCells,state.traceRows,state.emptyRows,state.guide?1:0,state.title,state.fade]));
+  return b64e(JSON.stringify([state.text,state.mode,state.font,state.size,state.emptyCells,state.traceRows,state.emptyRows,state.guide?1:0,state.title,state.fade,state.ink]));
 }
 function loadFromHash(){
   try{
@@ -448,7 +470,8 @@ function loadFromHash(){
     state.text=a[0]; state.mode=a[1]; state.font=a[2]; state.size=a[3];
     state.emptyCells=+a[4]; state.traceRows=+a[5]; state.emptyRows=+a[6];
     state.guide=!!a[7]; state.title=a[8]||"";
-    state.fade=FADE[a[9]] ? a[9] : "mid";   /* 농도 추가 전에 만든 링크는 보통으로 */
+    state.fade=INKS.gray[a[9]] ? a[9] : "mid";   /* 농도 추가 전에 만든 링크는 보통으로 */
+    state.ink=INKS[a[10]] ? a[10] : "gray";      /* 색 추가 전에 만든 링크는 회색으로 */
     return true;
   }catch(e){ return false; }
 }
@@ -466,6 +489,9 @@ function syncControls(){
   document.getElementById("title").value=state.title;
   document.querySelectorAll("#modeSeg button").forEach(function(b){
     b.classList.toggle("on", b.dataset.mode===state.mode);
+  });
+  document.querySelectorAll("#inkSeg button").forEach(function(b){
+    b.classList.toggle("on", b.dataset.ink===state.ink);
   });
   document.getElementById("charOpts").style.display = state.mode==="char" ? "" : "none";
   document.getElementById("lineOpts").style.display = state.mode==="line" ? "" : "none";
@@ -490,6 +516,10 @@ document.getElementById("traceRows").addEventListener("change",function(e){ stat
 document.getElementById("emptyRows").addEventListener("change",function(e){ state.emptyRows=+e.target.value; render(); });
 document.getElementById("guide").addEventListener("change",function(e){ state.guide=e.target.checked; render(); });
 document.getElementById("fade").addEventListener("change",function(e){ state.fade=e.target.value; render(); });
+document.getElementById("inkSeg").addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b)return;
+  state.ink=b.dataset.ink; syncControls(); render();
+});
 document.getElementById("title").addEventListener("input",function(e){ state.title=e.target.value; render(); });
 
 document.getElementById("btnPrint").addEventListener("click",function(){ track("print_sheet",{tool:"hangul"}); window.print(); });
@@ -503,7 +533,7 @@ function drawSheetPNG(pageRows,cfg,pageNo,pageTotal,fam){
                        meta:["이름 __________","날짜 __________"]});
   /* 격자 */
   var cell=cfg.cell*M, gap=4*M, y=headY+5*M;
-  var traceCol=FADE[state.fade]||FADE.mid;
+  var traceCol=traceColor();
   pageRows.forEach(function(row){
     var cx=L;
     row.forEach(function(ci){
@@ -554,7 +584,7 @@ document.getElementById("btnImage").addEventListener("click",function(){
   } else fin();
 });
 document.getElementById("btnReset").addEventListener("click",function(){
-  state={text:"가나다라마바사",mode:"char",font:"f-gowun",size:"mid",emptyCells:3,traceRows:2,emptyRows:1,guide:true,fade:"mid",title:""};
+  state={text:"가나다라마바사",mode:"char",font:"f-gowun",size:"mid",emptyCells:3,traceRows:2,emptyRows:1,guide:true,fade:"mid",ink:"gray",title:""};
   history.replaceState(null,"",location.pathname);
   syncControls(); render();
 });
