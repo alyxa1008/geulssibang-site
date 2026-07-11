@@ -128,13 +128,15 @@ function speakKo(text, rate){
   return true;
 }
 
-/* 하단 토스트 알림 */
+/* 하단 토스트 알림 — 연속 호출 시 이전 타이머를 지워 새 토스트가 1.8초를 온전히 산다 */
+var __toastTimer=null;
 function showToast(msg){
   var t=document.getElementById("toast");
   if(!t) return;
   if(msg) t.textContent=msg;
   t.classList.add("show");
-  setTimeout(function(){ t.classList.remove("show"); }, 1800);
+  if(__toastTimer) clearTimeout(__toastTimer);
+  __toastTimer=setTimeout(function(){ t.classList.remove("show"); __toastTimer=null; }, 1800);
 }
 
 /* ===== 랜딩 페이지 딥링크 =====
