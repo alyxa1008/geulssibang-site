@@ -51,6 +51,10 @@
 - **재사용**: common.js의 `koVoice/speakKo·koVoiceMissing`(음성), `track`(GA), `b64e/d`(공유), `showToast`
 - **타이머 규약**: 모든 setTimeout은 `exam.timer` 한 곳에 저장, 상태 전환·중단 시 반드시 clear (받아쓰기 검증된 패턴)
 - **공유 링크**: `#s=` b64 `[1, 단문자열("23456789"), 문제수, 순서, 답방식, 생각시간, 소리]` — v1 버전 넘버 포함
+- **v1.1 (2026-07-11)**: 답방식 3종 — speak(⭕❌ 같이 채점) / **choice(사지선다 자동 채점, 신규)** / type(키패드).
+  choice 오답 보기는 헷갈리는 값에서 생성: 같은 단 옆 문제 a×(b±1), 옆 단 (a±1)×b, ±한 묶음, ±1.
+  연속 정답 콤보(🔥 n연속, 2연속부터 표시) + 결과 화면 최고 콤보(3 이상).
+  🏆 상장 인쇄: 만점=으뜸상/그 외=도전상, 단·점수·날짜 자동, 이름은 손으로. #cert만 @media print visibility로 인쇄.
 - **wireDeepLinks 확장**: `.gobtn[data-quiz-dan]` 유형 1개 추가 (랜딩·결과 CTA에서 단 지정 링크 생성, 인라인 스크립트 금지 원칙 유지)
 - **GA 이벤트**: `exam_start {tool:"gugudan", dans, n}` (기존 이벤트명 재사용), 완료 시 `quiz_done {score, total}`
 - **인쇄 없음**: 이 도구 자체는 화면 전용. 인쇄는 결과 CTA로 math 도구에 위임 (인쇄 엔진 중복 제작 금지)
