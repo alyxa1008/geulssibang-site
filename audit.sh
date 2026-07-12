@@ -83,7 +83,7 @@ PY
 
 echo "━━━ 9. 애드센스 분포 (미삽입은 404·privacy·about만 정상) ━━━"
 missing=$(grep -rL 'ca-pub-1834921044404408' $(find . -name '*.html' -not -path './.git/*' | tr '\n' ' ') | sed 's|^\./||' | sort | tr '\n' ' ')
-expected="404.html about/index.html privacy/index.html "
+expected="404.html about/index.html privacy/index.html terms/index.html "
 if [ "$missing" = "$expected" ]; then echo "  ✅ 정상 (미삽입: $missing)"; else echo "  ⚠️ 미삽입 목록 변화: $missing (기대: $expected)"; FAIL=1; fi
 
 echo "━━━ 10. 브랜드 톤 — 불안 조장 표현 금지 ━━━"
