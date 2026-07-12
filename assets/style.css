@@ -256,3 +256,6 @@ footer a:hover{color:var(--chalk)}
   .sheet{box-shadow:none; page-break-after:always; break-after:page}
   .sheet:last-child{page-break-after:auto; break-after:auto}
 }
+
+/* 도구 사용 화면 스크린샷 */
+.content img.shot{display:block; width:100%; max-width:760px; height:auto; margin:4px auto 18px; border:1px solid #e3e6ea; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.06)}
