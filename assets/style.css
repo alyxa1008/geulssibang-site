@@ -190,6 +190,7 @@ select:focus, input[type=text]:focus{border-color:var(--redpen)}
 
 /* ===== 광고 / 본문 / 푸터 / 토스트 ===== */
 .adslot{margin:26px auto; max-width:760px; min-height:96px; display:flex; align-items:center; justify-content:center; border:1.5px dashed rgba(243,239,228,.35); border-radius:var(--radius); color:var(--chalk-dim); font-size:11px; letter-spacing:.25em}
+.adslot{display:none} /* 애드센스 승인 전까지 자리표시 숨김 — 승인 후 이 줄 삭제 */
 /* 허브: 도구 아래 가이드 콘텐츠 링크 줄 */
 .guides{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:18px 0 0}
 .guides a{color:var(--chalk-dim); border:1.5px solid rgba(243,239,228,.25); border-radius:20px; padding:7px 14px; font-size:13.5px; text-decoration:none}
