@@ -257,5 +257,7 @@ footer a:hover{color:var(--chalk)}
   .sheet:last-child{page-break-after:auto; break-after:auto}
 }
 
-/* 도구 사용 화면 스크린샷 */
-.content img.shot{display:block; width:100%; max-width:760px; height:auto; margin:4px auto 18px; border:1px solid #e3e6ea; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.06)}
+/* 실제 사용 화면·출력물 액자 — 어두운 칠판 배경과 구분되는 흰 프레임 + 캡션 */
+figure.shotbox{background:#fff; border:2px solid var(--board-edge); border-radius:12px; padding:10px 10px 4px; margin:20px auto; max-width:430px; box-shadow:0 10px 26px rgba(0,0,0,.28)}
+figure.shotbox img{display:block; width:100%; height:auto; border-radius:6px; border:1px solid #edf0f2}
+figure.shotbox figcaption{font-size:12.5px; color:var(--ink-soft); text-align:center; padding:7px 4px 4px}
