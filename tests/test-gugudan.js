@@ -41,6 +41,19 @@ ok("전체 20문제 + 정답 검산", q.length===20 && q.every(x=>x.ans===x.a*x.
 q=buildQuestions([2,3,4,5,6,7,8,9],0,"mix");
 ok("전체 섞기 72문제, 중복 없음", q.length===72 && new Set(q.map(x=>x.a+"x"+x.b)).size===72);
 
+// ---- ×1 뒤로 밀기 (mix 모드) ----
+{
+  let seed=7; const rnd=()=>{ seed=(seed*1103515245+12345)&0x7fffffff; return seed/0x80000000; };
+  const q10=buildQuestions([2,3],10,"mix",rnd);
+  ok("섞기 10문제: ×1 자동 제외 (2·3단)", q10.length===10 && q10.every(x=>x.b!==1));
+  const q9=buildQuestions([7],10,"mix",rnd);
+  ok("문제 부족 시(7단만) ×1이 맨 뒤에서 채움", q9.length===9 && q9[8].b===1 && q9.slice(0,8).every(x=>x.b!==1));
+  const qAll=buildQuestions([2,3],0,"mix",rnd);
+  ok("전체 문제(0)에는 ×1 포함", qAll.length===18 && qAll.filter(x=>x.b===1).length===2);
+  const qSeq=buildQuestions([5],0,"seq");
+  ok("차례대로는 ×1부터 그대로", qSeq[0].b===1);
+}
+
 // ---- grade ----
 const g=grade([{a:6,b:3,ans:18,ok:false},{a:6,b:7,ans:42,ok:false},{a:7,b:2,ans:14,ok:false},{a:2,b:2,ans:4,ok:true}]);
 ok("채점 1/4, 약한 단 6·7", g.score===1 && g.total===4 && g.wrongDans.join(",")==="6,7" && g.wrong.length===3);
