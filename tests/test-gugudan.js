@@ -1,8 +1,9 @@
 const fs=require("fs");
+const gen=fs.readFileSync("gugudan/gugudan-gen.js","utf8").replace(/"use strict";/,"");
 const h=fs.readFileSync("gugudan/index.html","utf8");
 const m=h.match(/<script>\n("use strict";[\s\S]*?)<\/script>/);
 if(!m) throw new Error("inline script not found");
-const src=m[1].replace(/"use strict";/,"");
+const src=gen+"\n"+m[1].replace(/"use strict";/,"");
 
 // ---- DOM 스텁 ----
 function stubEl(){
