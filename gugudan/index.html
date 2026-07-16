@@ -31,6 +31,9 @@ gtag("config", "G-86X82MNHC8");
 <style>
 /* ===== 이 페이지 전용 — 시험 화면 확장 (칠판 오버레이 틀은 style.css .exam) ===== */
 .solo{max-width:620px; margin:0 auto 18px}
+/* 시험 화면 내부 — 문제·보기·진행 막대·안내가 겹치지 않게 세로 배열 */
+#quizBody{display:flex; flex-direction:column; align-items:center; gap:18px; width:100%}
+#quizBody .tip{margin:0}
 /* 단 선택 격자 */
 .dangrid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px}
 .dangrid button{font-family:var(--disp); font-size:16px; padding:10px 0; border:2px solid #e3e6ea; border-radius:8px; background:#fff; color:var(--ink-soft); cursor:pointer}
