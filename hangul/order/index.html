@@ -36,6 +36,18 @@ gtag("config", "G-86X82MNHC8");
 .scard{background:var(--paper); color:var(--ink); border-radius:12px; padding:12px 8px 10px; text-align:center; box-shadow:0 8px 20px var(--paper-shadow)}
 .scard b{display:block; font-size:15px; margin-top:2px}
 .scard .st{font-size:12px; color:var(--ink-soft); margin:4px 0 0; line-height:1.55}
+.prhead{display:none}
+@media print{
+  body.pposter .topnav, body.pposter header, body.pposter footer{display:none !important}
+  body.pposter .content > *{display:none}
+  body.pposter .content > .prkeep{display:block}
+  body.pposter .content > .strokegrid.prkeep{display:grid}
+  body.pposter .prhead{font-family:var(--kr); font-weight:700; font-size:14pt; color:#000; margin:0 0 5mm}
+  body.pposter .prhead small{font-weight:400; font-size:9pt; color:#666; margin-left:8px}
+  body.pposter .prhead.pbreak{page-break-before:always; padding-top:2mm}
+  body.pposter .strokegrid{grid-template-columns:repeat(4, 1fr); gap:3mm 4mm; margin:0}
+  body.pposter .scard{box-shadow:none; border:1.5px solid #d5d9dd; break-inside:avoid; padding:8px 6px 8px}
+}
 </style>
 <meta property="og:url" content="https://geulssibang.com/hangul/order/">
 <meta property="og:site_name" content="글씨방">
@@ -69,7 +81,8 @@ gtag("config", "G-86X82MNHC8");
   </header>
 
   <div class="content">
-    <p>한글을 처음 배울 때 <strong>바른 획순(쓰는 순서)</strong>으로 익히면 글씨가 고르고 빨라져요. 순서가 몸에 배면 나중에 문장을 빨리 써도 모양이 무너지지 않습니다. 아래 <strong>기본 원칙</strong>과 <strong>자음 14자·모음 10자 전체 획순 그림</strong>을 익힌 뒤, <a href="../jamo/">자음·모음 따라쓰기</a>로 직접 써보며 순서를 손에 익히세요.</p>
+    <p>한글을 처음 배울 때 <strong>바른 획순(쓰는 순서)</strong>으로 익히면 글씨가 고르고 빨라져요. 순서가 몸에 배면 나중에 문장을 빨리 써도 모양이 무너지지 않습니다. 아래 <strong>기본 원칙</strong>과 <strong>자음 14자·모음 10자 전체 획순 그림</strong>을 익힌 뒤, <a href="../jamo/">자음·모음 따라쓰기</a>로 직접 써보며 순서를 손에 익히세요. 획순 그림은 <strong>A4 포스터로 인쇄</strong>해서 책상 앞에 붙여둘 수 있어요.</p>
+    <p><a class="gobtn" id="btnPoster" href="#" role="button">🖨 획순 포스터 인쇄 (A4 2장 — 자음·모음)</a></p>
 
     <h2>획순 기본 원칙 5가지</h2>
     <ol class="rules">
@@ -82,7 +95,8 @@ gtag("config", "G-86X82MNHC8");
 
     <h2>자음 14자 획순 한눈에 (ㄱ~ㅎ)</h2>
     <p>획 색깔이 곧 순서예요 — <strong style="color:#ff9b8f">1획 빨강</strong>, <strong style="color:#9fc3ef">2획 파랑</strong>, <strong style="color:#cdb2ee">3획 보라</strong>, <strong style="color:#f3bc85">4획 주황</strong>. 집에서 가르칠 때도 색연필을 획마다 바꿔 쓰게 하면 순서가 눈에 확 들어옵니다. 특히 <strong>ㄷ·ㄹ·ㅁ·ㅂ·ㅇ</strong>이 순서를 가장 많이 틀리는 자음이에요.</p>
-<div class="strokegrid">
+    <div class="prhead prkeep">한글 자음 획순표 (ㄱ~ㅎ) <small>1획 빨강 · 2획 파랑 · 3획 보라 · 4획 주황 — 글씨방 geulssibang.com</small></div>
+<div class="strokegrid prkeep">
       <div class="scard"><svg viewBox="0 0 100 100" width="86" height="86" role="img" aria-label="ㄱ 획순"><path d="M20 26 L76 26 L76 84" fill="none" stroke="#d1493f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="15" r="7.5" fill="#d1493f"/><text x="12" y="18.2" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">1</text></svg><b>ㄱ · 1획</b><p class="st">가로로 긋다가 꺾어서 한 번에 내려요.</p></div>
       <div class="scard"><svg viewBox="0 0 100 100" width="86" height="86" role="img" aria-label="ㄴ 획순"><path d="M24 16 L24 74 L80 74" fill="none" stroke="#d1493f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13" cy="10" r="7.5" fill="#d1493f"/><text x="13" y="13.2" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">1</text></svg><b>ㄴ · 1획</b><p class="st">내리긋다가 꺾어서 한 번에 오른쪽으로.</p></div>
       <div class="scard"><svg viewBox="0 0 100 100" width="86" height="86" role="img" aria-label="ㄷ 획순"><path d="M26 26 L78 26" fill="none" stroke="#d1493f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="15" cy="15" r="7.5" fill="#d1493f"/><text x="15" y="18.2" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">1</text><path d="M26 30 L26 82 L78 82" fill="none" stroke="#2f6bb0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13" cy="56" r="7.5" fill="#2f6bb0"/><text x="13" y="59.2" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">2</text></svg><b>ㄷ · 2획</b><p class="st">① 위 가로 ② ㄴ 모양</p></div>
@@ -102,7 +116,8 @@ gtag("config", "G-86X82MNHC8");
 
     <h2>모음 10자 획순 (ㅏ~ㅣ)</h2>
     <p>모음도 원칙은 같아요 — <strong>위에 있는 획, 왼쪽에 있는 획 먼저</strong>. 그래서 ㅏ는 세로 기둥부터 긋지만, ㅓ는 왼쪽에 붙는 곁줄기를 먼저 긋습니다. 헷갈리면 "기둥보다 왼쪽에 있으면 곁줄기 먼저"라고 기억하세요.</p>
-<div class="strokegrid">
+    <div class="prhead prkeep pbreak">한글 모음 획순표 (ㅏ~ㅣ) <small>1획 빨강 · 2획 파랑 · 3획 보라 — 글씨방 geulssibang.com</small></div>
+<div class="strokegrid prkeep">
       <div class="scard"><svg viewBox="0 0 100 100" width="86" height="86" role="img" aria-label="ㅏ 획순"><path d="M40 14 L40 86" fill="none" stroke="#d1493f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="30" cy="21" r="7.5" fill="#d1493f"/><text x="30" y="24.2" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">1</text><path d="M44 50 L68 50" fill="none" stroke="#2f6bb0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="58" cy="40" r="7.5" fill="#2f6bb0"/><text x="58" y="43.2" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">2</text></svg><b>ㅏ · 2획</b><p class="st">① 세로 기둥 ② 오른쪽 곁줄기</p></div>
       <div class="scard"><svg viewBox="0 0 100 100" width="86" height="86" role="img" aria-label="ㅑ 획순"><path d="M38 14 L38 86" fill="none" stroke="#d1493f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="28" cy="21" r="7.5" fill="#d1493f"/><text x="28" y="24.2" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">1</text><path d="M42 38 L66 38" fill="none" stroke="#2f6bb0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="57" cy="28" r="7.5" fill="#2f6bb0"/><text x="57" y="31.2" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">2</text><path d="M42 62 L66 62" fill="none" stroke="#7a4fb0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="57" cy="74" r="7.5" fill="#7a4fb0"/><text x="57" y="77.2" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">3</text></svg><b>ㅑ · 3획</b><p class="st">① 세로 기둥 ② ③ 곁줄기는 위부터</p></div>
       <div class="scard"><svg viewBox="0 0 100 100" width="86" height="86" role="img" aria-label="ㅓ 획순"><path d="M30 50 L54 50" fill="none" stroke="#d1493f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="40" r="7.5" fill="#d1493f"/><text x="26" y="43.2" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">1</text><path d="M60 14 L60 86" fill="none" stroke="#2f6bb0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="71" cy="21" r="7.5" fill="#2f6bb0"/><text x="71" y="24.2" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">2</text></svg><b>ㅓ · 2획</b><p class="st">① 곁줄기 ② 세로 기둥 — 왼쪽 것 먼저!</p></div>
@@ -192,5 +207,15 @@ gtag("config", "G-86X82MNHC8");
 </div>
 
 <script src="../../assets/common.js"></script>
+<script>
+/* 획순 포스터 인쇄 — 인쇄 중에만 body.pposter로 그리드 외 요소 숨김 */
+document.getElementById("btnPoster").addEventListener("click", function(e){
+  e.preventDefault();
+  document.body.classList.add("pposter");
+  track("print_sheet", {tool: "order-poster"});
+  window.print();
+});
+window.addEventListener("afterprint", function(){ document.body.classList.remove("pposter"); });
+</script>
 </body>
 </html>
