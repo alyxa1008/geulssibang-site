@@ -221,7 +221,7 @@ footer a:hover{color:var(--chalk)}
 .foot-map{display:flex; flex-wrap:wrap; gap:16px 34px}
 .foot-map .fcol{display:flex; flex-direction:column; gap:4px; min-width:110px}
 .foot-map b{color:var(--chalk); font-size:12.5px; margin-bottom:2px}
-.foot-map a{text-decoration:none; font-size:12px}
+.foot-map a{text-decoration:none; font-size:12px; display:inline-block; padding:4px 2px}
 .foot-base{display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; border-top:1px solid rgba(243,239,228,.12); padding-top:11px}
 /* 홈 가이드 줄 — 과목별 그룹 */
 .guides-box{display:flex; flex-direction:column; gap:9px; margin:18px 0 0; align-items:center}

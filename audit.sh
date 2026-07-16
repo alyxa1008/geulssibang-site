@@ -11,17 +11,17 @@ FAIL=0
 
 echo "━━━ 1. 메모리 누수 패턴 ━━━"
 for pat in 'setInterval' 'requestAnimationFrame'; do
-  n=$(grep -rho "$pat" --include='*.html' --include='*.js' . 2>/dev/null | grep -v audit.sh | wc -l | tr -d ' ')
+  n=$(grep -rho "$pat" --include='*.html' --include='*.js' --exclude-dir=node_modules . 2>/dev/null | grep -v audit.sh | wc -l | tr -d ' ')
   if [ "$n" -gt 0 ]; then echo "  ⚠️  $pat ${n}건 — clear 짝이 있는지 확인 필요"; FAIL=1; else echo "  ✅ $pat 0건"; fi
 done
 
 echo "━━━ 2. 랜딩 딥링크 중복 스크립트 (wireDeepLinks로 통합됨 — 인라인 금지) ━━━"
-n=$(grep -rl 'gobtn\[data-text\]\|gobtn\[data-topic\]\|querySelectorAll(".gset")' --include='*.html' . 2>/dev/null | grep -v '.git' | wc -l | tr -d ' ')
+n=$(grep -rl 'gobtn\[data-text\]\|gobtn\[data-topic\]\|querySelectorAll(".gset")' --include='*.html' --exclude-dir=node_modules . 2>/dev/null | grep -v '.git' | wc -l | tr -d ' ')
 if [ "$n" -gt 0 ]; then echo "  ❌ 인라인 딥링크 스크립트 ${n}개 페이지 — common.js wireDeepLinks만 쓸 것"; FAIL=1; else echo "  ✅ 0건"; fi
 
 echo "━━━ 3. 미사용 CSS 클래스 ━━━"
 classes=$(grep -oE '\.[a-zA-Z][a-zA-Z0-9_-]*' assets/style.css | sort -u | sed 's/^\.//')
-all=$(find . -name '*.html' -not -path './.git/*' -exec cat {} + ; cat assets/*.js)
+all=$(find . -name '*.html' -not -path './.git/*' -not -path './node_modules/*' -exec cat {} + ; cat assets/*.js)
 un=0
 for c in $classes; do echo "$all" | grep -q "$c" || { echo "  ⚠️  미사용: .$c"; un=$((un+1)); }; done
 [ "$un" -eq 0 ] && echo "  ✅ 없음" || FAIL=1
@@ -61,7 +61,7 @@ if(!locs.includes(u)){bad++;console.log("  ⚠️ 사이트맵 누락: "+u);}}
 if(bad)process.exit(1); console.log("  ✅ "+locs.length+"개 URL 정합");' || FAIL=1
 
 echo "━━━ 7. 푸터 사이트맵 일관성 (전 페이지 동일해야) ━━━"
-kinds=$(find . -name '*.html' -not -path './.git/*' | while read f; do
+kinds=$(find . -name '*.html' -not -path './.git/*' -not -path './node_modules/*' | while read f; do
   sed -n '/<nav class="foot-map"/,/<\/nav>/p' "$f" | md5
 done | sort -u | wc -l | tr -d ' ')
 if [ "$kinds" -eq 1 ]; then echo "  ✅ 전 페이지 동일 (md5 1종)"; else echo "  ❌ 푸터가 ${kinds}종으로 갈라짐 — 일괄 갱신 누락"; FAIL=1; fi
@@ -71,6 +71,7 @@ python3 - <<'PY' || FAIL=1
 import re,json,glob,sys
 bad=0;n=0
 for f in glob.glob("**/*.html",recursive=True):
+    if f.startswith("node_modules/"): continue
     if ".git" in f: continue
     h=open(f,encoding="utf-8").read()
     for b in re.findall(r'application/ld\+json">(.*?)</script>',h,re.S):
@@ -82,14 +83,14 @@ sys.exit(1 if bad else 0)
 PY
 
 echo "━━━ 9. 애드센스 분포 (미삽입은 404·privacy·about만 정상) ━━━"
-missing=$(grep -rL 'ca-pub-1834921044404408' $(find . -name '*.html' -not -path './.git/*' | tr '\n' ' ') | sed 's|^\./||' | sort | tr '\n' ' ')
+missing=$(grep -rL 'ca-pub-1834921044404408' $(find . -name '*.html' -not -path './.git/*' -not -path './node_modules/*' | tr '\n' ' ') | sed 's|^\./||' | sort | tr '\n' ' ')
 expected="404.html about/index.html privacy/index.html terms/index.html "
 if [ "$missing" = "$expected" ]; then echo "  ✅ 정상 (미삽입: $missing)"; else echo "  ⚠️ 미삽입 목록 변화: $missing (기대: $expected)"; FAIL=1; fi
 
 echo "━━━ 10. 브랜드 톤 — 불안 조장 표현 금지 ━━━"
 banned='수포자|뒤처지|뒤쳐지|낙오|망한다|골든타임|늦으면 안|포기하게 됩니다'
-hits=$(grep -rnE "$banned" --include='*.html' . 2>/dev/null | grep -v '.git' | wc -l | tr -d ' ')
-if [ "$hits" -gt 0 ]; then echo "  ❌ ${hits}건 — 사실·응원 톤으로 교체할 것"; grep -rnE "$banned" --include='*.html' . | grep -v '.git' | head -5; FAIL=1; else echo "  ✅ 없음"; fi
+hits=$(grep -rnE "$banned" --include='*.html' --exclude-dir=node_modules . 2>/dev/null | grep -v '.git' | wc -l | tr -d ' ')
+if [ "$hits" -gt 0 ]; then echo "  ❌ ${hits}건 — 사실·응원 톤으로 교체할 것"; grep -rnE "$banned" --include='*.html' --exclude-dir=node_modules . | grep -v '.git' | head -5; FAIL=1; else echo "  ✅ 없음"; fi
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━"
 if [ "$FAIL" -eq 0 ]; then echo "🟢 전체 통과"; else echo "🔴 실패 항목 있음 — 위 로그 확인"; fi
