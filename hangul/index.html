@@ -292,8 +292,10 @@ gtag("config", "G-86X82MNHC8");
 <div class="toast" id="toast">링크가 복사되었습니다</div>
 
 <script src="../assets/common.js"></script>
+<script src="hangul-gen.js"></script>
 <script>
 "use strict";
+/* 줄 생성·페이지 배분·SIZES·INKS·traceColor는 hangul-gen.js (순수 모듈, tests/test-hangul.js) */
 /* ---------- state ---------- */
 var state = {
   text: "가나다라마바사",
@@ -308,118 +310,16 @@ var state = {
   ink: "gray",           // gray | blue | red — 흐린 글자 색 (색연필 문화)
   title: ""
 };
-var SIZES = { big:{cell:22, cols:8, rows:9}, mid:{cell:18, cols:10, rows:11}, small:{cell:15, cols:12, rows:13} };
-/* 인쇄했을 때 덧쓰기 좋은 농도로 맞춘 색 — 화면보다 프린터에서 옅게 나오는 걸 감안해 진한 쪽으로 */
-var INKS = {
-  gray:{ light:"#d6dade", mid:"#c3c8ce", dark:"#9aa2ac" },
-  blue:{ light:"#cfe1f6", mid:"#b9cfec", dark:"#8fb1dd" },
-  red: { light:"#f7d9d9", mid:"#eebfbf", dark:"#dd9c9c" }
-};
-function traceColor(){ var ink=INKS[state.ink]||INKS.gray; return ink[state.fade]||ink.mid; }
-
-/* ---------- helpers ---------- */
-/* 공백을 뺀 글자들을 입력 순서대로, 중복 없이 */
-function uniqueChars(text){
-  var seen={}, out=[];
-  Array.from(text.replace(/\s+/g,"")).forEach(function(c){ if(!seen[c]){seen[c]=1; out.push(c);} });
-  return out;
-}
-
-/* ---------- row builders : each row = array of {ch, kind} ---------- */
-/* kind: solid | trace | empty | gap
-   실제 학습지처럼 격자가 항상 페이지 전체를 채우도록,
-   모든 빌더는 (페이지 줄 수의 배수)만큼 줄을 만들어 돌려준다.
-   남는 줄은 십자선만 있는 '혼자 쓰기' 빈 줄. */
-function charRow(c,cfg){
-  var row=[], traceCount = cfg.cols - 1 - state.emptyCells;
-  if(traceCount < 1) traceCount = 1;
-  row.push({ch:c, kind:"solid"});
-  for(var i=0;i<traceCount;i++) row.push({ch:c, kind:"trace"});
-  while(row.length<cfg.cols) row.push({ch:"", kind:"empty"});
-  return row;
-}
-function blankRow(cfg){
-  var row=[];
-  for(var i=0;i<cfg.cols;i++) row.push({ch:"", kind:"empty"});
-  return row;
-}
-function blankPage(cfg){
-  var rows=[];
-  for(var i=0;i<cfg.rows;i++) rows.push(blankRow(cfg));
-  return rows;
-}
-function buildRowsChar(){
-  var cfg=SIZES[state.size], cs=uniqueChars(state.text), rows=[];
-  if(!cs.length) return blankPage(cfg);
-  /* 필요한 페이지 수를 먼저 정하고, 글자마다 같은 줄 수(per)를 배분 */
-  var total=Math.ceil(cs.length/cfg.rows)*cfg.rows;
-  var per=Math.max(1, Math.floor(total/cs.length));
-  cs.forEach(function(c){
-    for(var k=0;k<per;k++) rows.push(charRow(c,cfg));
-  });
-  while(rows.length<total) rows.push(blankRow(cfg));
-  return rows;
-}
-function buildRowsLine(){
-  var cfg=SIZES[state.size];
-  // 단어 단위로 줄을 채워서, 단어가 줄 끝에서 잘리지 않게 한다
-  var words=state.text.replace(/\r?\n/g," ").trim().split(/\s+/).filter(Boolean);
-  if(!words.length) return blankPage(cfg);
-  var lines=[], cur=[];
-  words.forEach(function(w){
-    var wc=Array.from(w);
-    // a word longer than one line has to be split anyway
-    while(wc.length>cfg.cols){
-      if(cur.length){ lines.push(cur); cur=[]; }
-      lines.push(wc.slice(0,cfg.cols));
-      wc=wc.slice(cfg.cols);
-    }
-    if(!wc.length) return;
-    if(cur.length && cur.length+1+wc.length>cfg.cols){ lines.push(cur); cur=[]; }
-    if(cur.length) cur.push(" ");
-    cur=cur.concat(wc);
-  });
-  if(cur.length) lines.push(cur);
-  /* 한 줄짜리 짧은 입력(이름 등)은 오른쪽이 비지 않도록 줄 폭에 맞춰 반복해 채운다
-     예: "김하준"(3칸) → "김하준 김하준"(7칸). 두 칸 이상 남으면 한 번 더 반복. */
-  if(lines.length===1 && lines[0].length){
-    var unit=lines[0].slice(), filled=unit.slice();
-    while(filled.length + 1 + unit.length <= cfg.cols){ filled.push(" "); filled=filled.concat(unit); }
-    lines=[filled];
-  }
-  // one block = solid lines + trace lines + empty lines
-  function makeBlock(){
-    var block=[];
-    lines.forEach(function(L){ block.push(L.map(function(c){return {ch:c, kind:c===" "?"gap":"solid"};})); });
-    for(var t=0;t<state.traceRows;t++)
-      lines.forEach(function(L){ block.push(L.map(function(c){return {ch:c, kind:c===" "?"gap":"trace"};})); });
-    for(var e=0;e<state.emptyRows;e++)
-      lines.forEach(function(L){ block.push(L.map(function(c){return {ch:"", kind:c===" "?"gap":"empty"};})); });
-    return block;
-  }
-  /* 필요한 페이지 수만큼 블록을 반복하고, 남는 줄은 빈 연습 줄로 채운다 */
-  var block=makeBlock();
-  if(!block.length) return blankPage(cfg);
-  var total=Math.ceil(block.length/cfg.rows)*cfg.rows;
-  var rows=block.slice();
-  while(rows.length + block.length <= total) rows = rows.concat(block);
-  /* 남는 줄은 전체 폭(blankRow) 대신 글자 폭에 맞춘 빈 연습 줄로 채운다
-     (이름처럼 짧은 단어일 때 8칸짜리 빈 줄이 어긋나 보이는 문제 방지) */
-  var emptyLines=lines.map(function(L){ return L.map(function(c){ return {ch:"", kind:c===" "?"gap":"empty"}; }); });
-  for(var pi=0; rows.length<total; pi++) rows.push(emptyLines[pi % emptyLines.length]);
-  return rows;
-}
 
 /* ---------- render sheets ---------- */
 function render(){
   var cfg=SIZES[state.size];
-  var rows = state.mode==="char" ? buildRowsChar() : buildRowsLine();
+  var rows = buildRows(state);
   var container=document.getElementById("sheets");
   container.innerHTML="";
 
   // paginate — 빌더가 항상 페이지 줄 수의 배수를 돌려주므로 모든 페이지가 꽉 찬다
-  var pages=[];
-  for(var i=0;i<rows.length;i+=cfg.rows) pages.push(rows.slice(i,i+cfg.rows));
+  var pages=paginate(rows, cfg);
   pages.forEach(function(pageRows, idx){
     var scale=el("div","sheet-scale");
     scale.appendChild(makeSheet(pageRows, cfg, idx+1, pages.length));
@@ -433,7 +333,7 @@ function makeSheet(pageRows, cfg, pageNo, pageTotal){
   var sheet=el("div","sheet "+state.font);
   sheet.style.setProperty("--cell", cfg.cell+"mm");
   sheet.style.setProperty("--rowgap", "4mm");
-  sheet.style.setProperty("--trace", traceColor());
+  sheet.style.setProperty("--trace", traceColor(state.ink, state.fade));
 
   var head=el("div","sheet-head");
   var title=el("div","sheet-title");
@@ -542,7 +442,7 @@ function drawSheetPNG(pageRows,cfg,pageNo,pageTotal,fam){
                        meta:["이름 __________","날짜 __________"]});
   /* 격자 */
   var cell=cfg.cell*M, gap=4*M, y=headY+5*M;
-  var traceCol=traceColor();
+  var traceCol=traceColor(state.ink, state.fade);
   pageRows.forEach(function(row){
     var cx=L;
     row.forEach(function(ci){
@@ -572,10 +472,9 @@ function drawSheetPNG(pageRows,cfg,pageNo,pageTotal,fam){
 }
 document.getElementById("btnImage").addEventListener("click",function(){
   var cfg=SIZES[state.size];
-  var rows=state.mode==="char"?buildRowsChar():buildRowsLine();
+  var rows=buildRows(state);
   if(!rows.length){ showToast("연습할 글자를 입력해 주세요"); return; }
-  var pages=[];
-  for(var i=0;i<rows.length;i+=cfg.rows) pages.push(rows.slice(i,i+cfg.rows));
+  var pages=paginate(rows, cfg);
   track("save_png",{tool:"hangul"});
   var fam=FONTMAP[state.font]||"Gowun Dodum";
   var fin=function(){
