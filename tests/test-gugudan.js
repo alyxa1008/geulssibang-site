@@ -78,6 +78,14 @@ state={dans:[7],count:20,order:"seq",mode:"choice",think:5,voice:true};
 location.hash="#s="+encodeURIComponent(encodeState());
 state={dans:[2],count:10,order:"mix",mode:"speak",think:5,voice:true};
 ok("고르기 모드 라운드트립", loadFromHash() && state.mode==="choice" && state.dans.join("")==="7");
+
+// ---- 답할 시간 v1.2: 제한 없음(0) 라운드트립 + 옛 링크 폴백 ----
+state={dans:[4],count:10,order:"mix",mode:"choice",think:0,voice:true};
+location.hash="#s="+encodeURIComponent(encodeState());
+state={dans:[2],count:10,order:"mix",mode:"speak",think:5,voice:true};
+ok("답할 시간 '제한 없음'(0) 라운드트립", loadFromHash() && state.think===0);
+location.hash="#s="+encodeURIComponent(b64e(JSON.stringify([1,"25",10,"mix","speak",99,1])));
+ok("이상한 답할 시간 → 5초 폴백", loadFromHash() && state.think===5);
 location.hash="#s="+encodeURIComponent(b64e(JSON.stringify([1,"25",10,"mix","이상한값",5,1])));
 ok("모르는 답방식 → speak 폴백", loadFromHash() && state.mode==="speak");
 

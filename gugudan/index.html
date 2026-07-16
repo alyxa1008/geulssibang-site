@@ -163,11 +163,12 @@ gtag("config", "G-86X82MNHC8");
 
         <div class="two field">
           <div id="thinkField">
-            <label for="think">생각할 시간</label>
+            <label for="think">답할 시간 <span class="hint">지나면 정답 공개·오답 처리</span></label>
             <select id="think">
               <option value="3">3초</option>
               <option value="5" selected>5초</option>
               <option value="8">8초</option>
+              <option value="0">제한 없음</option>
             </select>
           </div>
           <div>
@@ -314,32 +315,54 @@ function showQuestion(){
   var head='<div class="qno"><span>'+(quiz.idx+1)+'</span>번<small>'+(quiz.idx+1)+' / '+quiz.qs.length+'</small></div>'
           +(quiz.combo>=2 ? '<div class="combo">🔥 '+quiz.combo+'문제 연속 정답!</div>' : '')
           +'<div class="prob">'+q.a+' × '+q.b+' = <span class="ans" id="ansSlot">?</span></div>';
+  var barHTML = state.think>0 ? '<div class="bar"><i id="thinkBar"></i></div>' : '';
   if(state.mode==="speak"){
     body.innerHTML=head
-      +'<div class="bar"><i id="thinkBar"></i></div>'
+      +barHTML
       +'<div class="ctrl"><button id="btnAgain">다시 듣기</button><button class="main" id="btnReveal">정답 보기</button></div>'
       +'<p class="tip">아이가 소리 내어 답하면, 정답이 공개된 뒤 맞음/틀림을 눌러 주세요.</p>';
     document.getElementById("btnAgain").addEventListener("click",function(){ say(askText(q)); });
     document.getElementById("btnReveal").addEventListener("click",reveal);
-    /* 생각할 시간 진행 막대 — CSS transition 하나로 (타이머 중첩 없음) */
-    animateThinkBar(document.getElementById("thinkBar"));
-    quiz.timer=setTimeout(reveal, state.think*1000);
+    startAnswerTimer(reveal);   /* 시간이 다 되면 정답 공개 (채점은 부모가) */
   }else if(state.mode==="choice"){
     var ch=buildChoices(q);
     body.innerHTML=head
       +'<div class="choices" id="choices">'+ch.map(function(v){return '<button data-v="'+v+'">'+v+'</button>';}).join("")+'</div>'
+      +barHTML
       +'<p class="tip">정답이라고 생각하는 수를 골라 보세요.</p>';
     document.getElementById("choices").addEventListener("click",choiceTap);
+    startAnswerTimer(timeUp);   /* 시간이 다 되면 오답 처리 */
   }else{
     quiz.typed="";
     body.innerHTML=head
       +'<div class="prob" style="font-size:clamp(30px,8vw,44px); min-height:1.2em" id="typedView">&nbsp;</div>'
       +'<div class="keypad" id="pad">'
       +[1,2,3,4,5,6,7,8,9].map(function(n){return '<button data-k="'+n+'">'+n+'</button>';}).join("")
-      +'<button data-k="del">←</button><button data-k="0">0</button><button data-k="go" class="go">확인</button></div>';
+      +'<button data-k="del">←</button><button data-k="0">0</button><button data-k="go" class="go">확인</button></div>'
+      +barHTML;
     document.getElementById("pad").addEventListener("click",padTap);
+    startAnswerTimer(timeUp);   /* 시간이 다 되면 오답 처리 */
   }
   say(askText(q));
+}
+/* 답할 시간 타이머 — '제한 없음'(0)이면 걸지 않는다. 진행 막대는 CSS transition 하나 */
+function startAnswerTimer(onTimeout){
+  if(!(state.think>0)) return;
+  animateThinkBar(document.getElementById("thinkBar"));
+  quiz.timer=setTimeout(onTimeout, state.think*1000);
+}
+/* 시간 초과 (고르기·입력 모드) — 정답을 보여주고 오답 처리 */
+function timeUp(){
+  var q=quiz.qs[quiz.idx];
+  document.getElementById("ansSlot").textContent=q.ans;
+  say("시간 초과. 정답은 "+q.ans);
+  if(state.mode==="choice"){
+    document.querySelectorAll("#choices button").forEach(function(x){
+      x.disabled=true;
+      if(+x.dataset.v===q.ans) x.classList.add("right");
+    });
+  }
+  mark(false, 1600);
 }
 /* 진행 막대는 CSS transition 하나로 움직인다 (반복 타이머 불필요) */
 function animateThinkBar(bar){
@@ -467,7 +490,7 @@ function loadFromHash(){
     state.count=[10,20,0].indexOf(+a[2])>=0 ? +a[2] : 10;
     state.order=a[3]==="seq"?"seq":"mix";
     state.mode=["speak","type","choice"].indexOf(a[4])>=0 ? a[4] : "speak";
-    state.think=[3,5,8].indexOf(+a[5])>=0 ? +a[5] : 5;
+    state.think=[0,3,5,8].indexOf(+a[5])>=0 ? +a[5] : 5;   /* 0 = 제한 없음 (v1.2) */
     state.voice=!!a[6];
     return true;
   }catch(e){ return false; }
@@ -483,7 +506,7 @@ function syncControls(){
   document.querySelectorAll("#modeSeg button").forEach(function(b){ b.classList.toggle("on", b.dataset.mode===state.mode); });
   document.getElementById("think").value=String(state.think);
   document.getElementById("voice").checked=state.voice;
-  document.getElementById("thinkField").style.visibility = state.mode==="speak" ? "" : "hidden";
+  /* 답할 시간은 모든 모드에 적용 (v1.2) — 항상 표시 */
 }
 document.getElementById("danGrid").addEventListener("click",function(e){
   var b=e.target.closest("button"); if(!b)return;
