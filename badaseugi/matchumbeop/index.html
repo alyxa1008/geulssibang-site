@@ -38,6 +38,19 @@ gtag("config", "G-86X82MNHC8");
 .content h3.wpair .ok{color:#7fd6a8}
 .content h3.wpair .no{color:#f0a8a0; text-decoration:line-through; text-decoration-thickness:2px; font-weight:400}
 .content .wex{margin:0; color:inherit}
+#msum{display:none}
+@media print{
+  body.pposter .topnav, body.pposter header, body.pposter footer{display:none !important}
+  body.pposter .content > *{display:none}
+  body.pposter .content > #msum{display:block; color:#111}
+  #msum .mtitle{font-family:var(--kr); font-weight:700; font-size:14pt; margin:0 0 1mm; color:#000}
+  #msum .msub{font-size:8.5pt; color:#666; margin:0 0 4mm}
+  #msum h2{font-size:10.5pt; color:#000; margin:3mm 0 1.5mm; border-bottom:1px solid #bbb; padding-bottom:0.8mm; font-family:var(--kr)}
+  #msum ul{columns:2; column-gap:7mm; margin:0; padding-left:4mm; list-style:none}
+  #msum li{font-size:8.8pt; margin:0 0 1.6mm; break-inside:avoid; line-height:1.45; color:#222}
+  #msum li b{color:#000}
+  #msum li s{color:#b0443c}
+}
 </style>
 <meta property="og:url" content="https://geulssibang.com/badaseugi/matchumbeop/">
 <meta property="og:site_name" content="글씨방">
@@ -71,7 +84,48 @@ gtag("config", "G-86X82MNHC8");
   </header>
 
   <div class="content">
-    <p>며칠일까 몇일일까, 되일까 돼일까 — 쓸 때마다 검색하게 되는 <strong>헷갈리는 맞춤법 26쌍</strong>을 한 페이지에 모았습니다. 어른이 봐도 헷갈리는 것들이니 아이가 틀린다고 답답해할 일이 아니에요. 각 항목의 <strong>30초 구별법</strong>을 읽고, 중간중간 있는 <strong>"이 급수로 시험 만들기"</strong> 버튼을 누르면 컴퓨터가 한 문제씩 불러주는 <strong>받아쓰기 시험</strong>으로 바로 확인할 수 있습니다. 초등 고학년 맞춤법 공부에도, 어른의 문서 작성에도 그대로 쓰세요.</p>
+    <p>며칠일까 몇일일까, 되일까 돼일까 — 쓸 때마다 검색하게 되는 <strong>헷갈리는 맞춤법 26쌍</strong>을 한 페이지에 모았습니다. 어른이 봐도 헷갈리는 것들이니 아이가 틀린다고 답답해할 일이 아니에요. 각 항목의 <strong>30초 구별법</strong>을 읽고, 중간중간 있는 <strong>"이 급수로 시험 만들기"</strong> 버튼을 누르면 컴퓨터가 한 문제씩 불러주는 <strong>받아쓰기 시험</strong>으로 바로 확인할 수 있습니다. 초등 고학년 맞춤법 공부에도, 어른의 문서 작성에도 그대로 쓰세요. 26쌍을 <strong>한 장짜리 요약표로 인쇄</strong>해서 책상이나 냉장고에 붙여둘 수도 있어요.</p>
+    <p><a class="gobtn" id="btnSummary" href="#" role="button">🖨 맞춤법 26 요약표 인쇄 (A4 1장)</a></p>
+
+    <div id="msum" aria-hidden="true">
+      <p class="mtitle">헷갈리는 맞춤법 26 — 한 장 요약</p>
+      <p class="msub">○ 맞는 표기 · 취소선은 없는 말 — 글씨방 geulssibang.com/badaseugi/matchumbeop</p>
+      <h2>1. 둘 중 하나는 세상에 없는 말</h2>
+      <ul>
+        <li><b>며칠</b> ○ / <s>몇일</s> — 항상 며칠</li>
+        <li><b>금세</b> ○ / <s>금새</s> — '금시에'의 준말</li>
+        <li><b>설레다·설렘</b> ○ / <s>설레이다·설레임</s></li>
+        <li><b>희한하다</b> ○ / <s>희안하다</s></li>
+        <li><b>어이없다</b> ○ / <s>어의없다</s></li>
+        <li><b>역할</b> ○ / <s>역활</s></li>
+        <li><b>곰곰이</b> ○ / <s>곰곰히</s> — 깨끗이·일찍이도 '-이'</li>
+        <li><b>오랜만</b> ○ / <s>오랫만</s> — 단, 오랫동안 ○</li>
+      </ul>
+      <h2>2. 뜻이 달라서 골라 쓰는 짝</h2>
+      <ul>
+        <li><b>낳다/낫다/났다</b> — 아기는 낳고, 병은 낫고, 화는 났다</li>
+        <li><b>맞히다/맞추다</b> — 정답은 맞히고, 퍼즐은 맞추고</li>
+        <li><b>가르치다/가리키다</b> — 지식은 가르치고, 방향은 가리키고</li>
+        <li><b>다르다/틀리다</b> — 같지 않으면 다르고, 답이 어긋나면 틀리다</li>
+        <li><b>잃어버리다/잊어버리다</b> — 물건은 잃고, 기억은 잊고</li>
+        <li><b>붙이다/부치다</b> — 우표는 붙이고, 편지는 부치고</li>
+        <li><b>늘리다/늘이다</b> — 양은 늘리고, 길이는 늘이고</li>
+        <li><b>반드시/반듯이</b> — 꼭 = 반드시, 비뚤지 않게 = 반듯이</li>
+        <li><b>바람/바램</b> — 소망은 바람, 색이 변하면 바래다</li>
+      </ul>
+      <h2>3. 모양이 비슷해서 헷갈리는 것</h2>
+      <ul>
+        <li><b>되/돼</b> — '하'가 어울리면 되, '해'가 어울리면 돼</li>
+        <li><b>안/않</b> — 안은 띄어서(안 먹어), 않은 어미와(먹지 않아)</li>
+        <li><b>왠지/웬</b> — 왠지 하나만 '왠', 나머지는 전부 '웬'</li>
+        <li><b>-이에요/-예요</b> — 받침 있으면 이에요, 없으면 예요</li>
+        <li><b>-대/-데</b> — 남의 말은 대(맛있대), 내 경험은 데(맛있데)</li>
+        <li><b>-든지/-던지</b> — 선택은 든, 과거 회상은 던</li>
+        <li><b>로서/로써</b> — 자격은 로서, 수단은 로써</li>
+        <li><b>어떡해/어떻게</b> — 문장 끝은 어떡해 (<s>어떻해</s>는 없는 말)</li>
+        <li><b>-ㄹ게/-ㄹ까</b> — 갈게 ○ <s>갈께</s> / 갈까 ○</li>
+      </ul>
+    </div>
 
     <h2>1부. 둘 중 하나는 세상에 없는 말</h2>
     <p>아래 쌍들은 고민할 필요가 없어요 — <strong>한쪽은 표준어에 아예 없는 표기</strong>거든요. 초록색만 기억하면 됩니다.</p>
@@ -250,5 +304,15 @@ gtag("config", "G-86X82MNHC8");
 </div>
 
 <script src="../../assets/common.js"></script>
+<script>
+/* 요약표 인쇄 — 인쇄 중에만 body.pposter로 요약표 외 요소 숨김 */
+document.getElementById("btnSummary").addEventListener("click", function(e){
+  e.preventDefault();
+  document.body.classList.add("pposter");
+  track("print_sheet", {tool: "matchum-poster"});
+  window.print();
+});
+window.addEventListener("afterprint", function(){ document.body.classList.remove("pposter"); });
+</script>
 </body>
 </html>
