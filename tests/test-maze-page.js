@@ -88,5 +88,42 @@ ok("깨진 해시 무시", loadFromHash()===false);
 location.hash="#s="+encodeURIComponent(b64e(JSON.stringify(["없는레벨",1,1,"",7,"없는모양","없는테마"])));
 ok("모르는 값 → 기본값 폴백", loadFromHash()===true && state.level==="mid" && state.shape==="rect" && state.theme==="rabbit");
 
+/* ---- 테마 전연령(deco) — v1.1 ---- */
+ok("구형 링크 → 테마 없음 (도안 불변)", state.deco==="none");
+state={level:"mid",shape:"rect",theme:"rabbit",deco:"dino",pages:1,answers:true,title:"",seed:9};
+{
+  const g=makeGrid(), open=carve(g,9);
+  const svg=drawSVG(g,open,false);
+  ok("보통+공룡 테마: 아이콘 포함·얇은 벽", svg.includes("🦖") && svg.includes("🍖") && svg.includes('stroke-width="1.7"'));
+}
+state.deco="none";
+{
+  const g=makeGrid(), open=carve(g,9);
+  ok("테마 없음: 아이콘 미포함", !drawSVG(g,open,false).includes("🦖"));
+}
+state.shape="circle"; state.deco="dino";
+{
+  const g=makeGrid(), open=carve(g,9);
+  ok("원형은 테마 미적용", !drawSVG(g,open,false).includes("🦖"));
+}
+
+/* ---- 7일 챌린지 ---- */
+state={level:"mid",shape:"rect",theme:"rabbit",deco:"none",pages:"week",answers:true,title:"",seed:5};
+render();
+ok("7일 챌린지: A4 14장 (정답지 포함)", ids["pageInfo"].textContent==="A4 · 14장 (정답지 포함)");
+ok("7일 챌린지 자동 제목", autoTitle()==="미로 7일 챌린지");
+{
+  // 난이도 커브: 쉬움 2 → 보통 3 → 어려움 2
+  const sizes=WEEK_LEVELS.map(lv=>{ const g=makeGrid(lv); return g.cols+"×"+g.rows; });
+  ok("주간 난이도 커브 (8×10 ×2, 12×15 ×3, 17×21 ×2)",
+     JSON.stringify(sizes)===JSON.stringify(["8×10","8×10","12×15","12×15","12×15","17×21","17×21"]));
+}
+state={level:"kids",shape:"star",theme:"bee",deco:"uni",pages:"week",answers:false,title:"방학 미로",seed:777};
+const enc2=encodeState();
+state={level:"mid",shape:"rect",theme:"rabbit",deco:"none",pages:1,answers:true,title:"",seed:1};
+location.hash="#s="+encodeURIComponent(enc2);
+ok("주간팩+테마 라운드트립", loadFromHash() && state.pages==="week" && state.deco==="uni" &&
+   state.shape==="star" && state.theme==="bee" && state.title==="방학 미로" && state.seed===777);
+
 console.log(fail? "🔴 "+fail+"건 실패" : "🟢 전체 통과");
 process.exit(fail?1:0);

@@ -160,7 +160,8 @@ function solve(g, open){
 }
 
 /* ---------- 사각/모양 미로 SVG ---------- */
-/* opts.icons = {s:출발 이모지, e:도착 이모지} — 유아 테마용 (통로도 굵게) */
+/* opts.icons = {s:출발 이모지, e:도착 이모지} — 테마 장식
+   opts.bold  = 유아용 굵은 선 (테마와 독립 — 일반 난이도도 아이콘만 붙일 수 있다) */
 function gridSVG(g, open, path, opts){
   opts=opts||{};
   var u=10, cols=g.cols, rows=g.rows, w=cols*u, h=rows*u, seg=[];
@@ -197,9 +198,9 @@ function gridSVG(g, open, path, opts){
       pts.push((px*u+u/2)+","+(py*u+u/2));
     }
     pts.push((ex*u+u/2)+","+((ey+1)*u+2));
-    s+='<polyline points="'+pts.join(" ")+'" fill="none" stroke="#e4573d" stroke-width="'+(opts.icons?3:2.4)+'" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>';
+    s+='<polyline points="'+pts.join(" ")+'" fill="none" stroke="#e4573d" stroke-width="'+(opts.bold?3:2.4)+'" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>';
   }
-  s+='<path d="'+seg.join("")+'" stroke="#2b3038" stroke-width="'+(opts.icons?2.6:1.7)+'" stroke-linecap="round" fill="none"/>';
+  s+='<path d="'+seg.join("")+'" stroke="#2b3038" stroke-width="'+(opts.bold?2.6:1.7)+'" stroke-linecap="round" fill="none"/>';
   return s+'</svg>';
 }
 
