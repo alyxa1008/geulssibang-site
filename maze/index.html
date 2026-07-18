@@ -14,7 +14,7 @@ gtag("js", new Date());
 gtag("config", "G-86X82MNHC8");
 </script>
 <title>미로 찾기 도안 무료 출력 — 유아·7세·초등 난이도별 미로 활동지 프린트 | 글씨방</title>
-<meta name="description" content="미로 찾기 도안을 난이도별로 무한 생성해 무료로 인쇄하세요. 5~6세 유아부터 7세, 초등까지 수준별 미로 활동지에 원형·하트·별 모양, 토끼·강아지 유아 테마 미로까지. 버튼 한 번에 새 미로가 만들어지고 정답 경로지도 함께 출력됩니다. 회원가입 없음.">
+<meta name="description" content="미로 찾기 도안을 난이도별로 무한 생성해 무료로 인쇄하세요. 5~6세 유아부터 7세, 초등까지 수준별 미로 활동지에 원형·하트·별 모양, 토끼·공룡·로켓 그림 테마, 하루 한 장씩 푸는 7일 챌린지 묶음까지. 버튼 한 번에 새 미로가 만들어지고 정답 경로지도 함께 출력됩니다. 회원가입 없음.">
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="미로 찾기 도안 무료 출력 — 난이도별 미로 활동지 | 글씨방">
 <meta property="og:description" content="버튼 한 번에 새로운 미로. 유아 테마와 원형·하트·별 모양, 난이도별 정답지 지원. 무료 A4 인쇄.">
@@ -32,6 +32,9 @@ gtag("config", "G-86X82MNHC8");
 /* 미로 시트 (이 페이지 전용) */
 .mazebody{flex:1; display:flex; align-items:center; justify-content:center; padding:3mm 0}
 .mazebody svg{width:168mm; height:auto; max-height:225mm}
+/* 테마 9종은 한 줄에 안 들어간다 — 두 줄로 감싸기 */
+#themeSeg{flex-wrap:wrap}
+#themeSeg button{flex:1 1 19%; min-width:19%; border-bottom:1px solid #e3e6ea; white-space:nowrap}
 </style>
 <meta property="og:url" content="https://geulssibang.com/maze/">
 <meta property="og:site_name" content="글씨방">
@@ -46,7 +49,7 @@ gtag("config", "G-86X82MNHC8");
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="글씨방">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "미로 찾기 활동지 생성기", "url": "https://geulssibang.com/maze/", "description": "난이도별·모양별(네모·원형·하트·별) 미로 찾기 활동지를 무한 생성하고 정답 경로지와 함께 인쇄할 수 있는 무료 도구", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "미로 도안이 시중 자료와 뭐가 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "인터넷에서 받는 미로 도안은 정해진 몇 장이 전부지만, 글씨방은 새 미로 만들기를 누를 때마다 완전히 새로운 도안이 무한히 만들어집니다. 같은 난이도로 매일 다른 미로를 무료로 출력할 수 있습니다."}}, {"@type": "Question", "name": "몇 살부터 풀 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "쉬움은 5~6세 유아부터, 보통은 7세·초등 저학년, 어려움은 초등 중·고학년에 맞습니다. 미로 찾기는 집중력과 시지각, 소근육과 문제 해결력 발달에 도움이 됩니다."}}, {"@type": "Question", "name": "한 번에 몇 장까지 만들 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "한 번에 미로 1~3개를 만들 수 있고 정답 경로지도 각각 함께 인쇄됩니다. 더 필요하면 새 미로 만들기로 계속 새로 뽑으면 됩니다."}}, {"@type": "Question", "name": "정답도 인쇄되나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 정답 경로 함께 인쇄를 켜면 출발부터 도착까지의 길이 빨간 선으로 표시된 정답지가 뒤에 함께 인쇄됩니다."}}, {"@type": "Question", "name": "원형이나 하트 모양 미로도 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 네모 미로 외에 원형·하트·별 모양 미로를 같은 난이도 체계로 만들 수 있습니다. 모양 버튼만 바꾸면 새 도안이 바로 생성됩니다."}}, {"@type": "Question", "name": "유아용 미로는 무엇이 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "유아 난이도는 통로가 훨씬 넓고 갈림길이 적으며, 토끼가 당근을 찾아가는 식의 그림 테마(토끼·강아지·꿀벌·자동차)가 붙어 있어 네다섯 살 아이도 혼자 풀 수 있습니다."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "미로 도안이 시중 자료와 뭐가 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "인터넷에서 받는 미로 도안은 정해진 몇 장이 전부지만, 글씨방은 새 미로 만들기를 누를 때마다 완전히 새로운 도안이 무한히 만들어집니다. 같은 난이도로 매일 다른 미로를 무료로 출력할 수 있습니다."}}, {"@type": "Question", "name": "몇 살부터 풀 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "쉬움은 5~6세 유아부터, 보통은 7세·초등 저학년, 어려움은 초등 중·고학년에 맞습니다. 미로 찾기는 집중력과 시지각, 소근육과 문제 해결력 발달에 도움이 됩니다."}}, {"@type": "Question", "name": "한 번에 몇 장까지 만들 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "한 번에 미로 1~5개를 만들 수 있고 정답 경로지도 각각 함께 인쇄됩니다. 분량에서 7일 챌린지를 고르면 쉬움 2장, 보통 3장, 어려움 2장이 1일차부터 7일차까지 제목이 붙은 7장 묶음으로 한 번에 나옵니다."}}, {"@type": "Question", "name": "미로 7일 챌린지는 무엇인가요?", "acceptedAnswer": {"@type": "Answer", "text": "하루 한 장씩 일주일 동안 풀도록 만든 미로 묶음입니다. 1~2일차는 쉬움, 3~5일차는 보통, 6~7일차는 어려움으로 점점 어려워져서 방학 루틴이나 주간 학습 계획에 끼워 쓰기 좋습니다."}}, {"@type": "Question", "name": "정답도 인쇄되나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 정답 경로 함께 인쇄를 켜면 출발부터 도착까지의 길이 빨간 선으로 표시된 정답지가 뒤에 함께 인쇄됩니다."}}, {"@type": "Question", "name": "원형이나 하트 모양 미로도 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 네모 미로 외에 원형·하트·별 모양 미로를 같은 난이도 체계로 만들 수 있습니다. 모양 버튼만 바꾸면 새 도안이 바로 생성됩니다."}}, {"@type": "Question", "name": "유아용 미로는 무엇이 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "유아 난이도는 통로가 훨씬 넓고 갈림길이 적으며, 토끼가 당근을 찾아가는 식의 그림 테마(토끼·강아지·꿀벌·자동차·공룡·로켓·돛단배·유니콘)가 붙어 있어 네다섯 살 아이도 혼자 풀 수 있습니다. 그림 테마는 쉬움·보통·어려움 미로에도 붙일 수 있습니다."}}]}</script>
 </head>
 <body>
 <div class="wrap">
@@ -94,10 +97,15 @@ gtag("config", "G-86X82MNHC8");
         <div class="field" id="themeField" style="display:none">
           <label>테마 <span class="hint">출발 → 도착</span></label>
           <div class="seg" id="themeSeg" role="group" aria-label="테마">
+            <button data-theme="none">없음</button>
             <button data-theme="rabbit" class="on">🐰🥕</button>
             <button data-theme="puppy">🐶🦴</button>
             <button data-theme="bee">🐝🌷</button>
             <button data-theme="car">🚗🏠</button>
+            <button data-theme="dino">🦖🍖</button>
+            <button data-theme="rocket">🚀🌙</button>
+            <button data-theme="boat">⛵🏝️</button>
+            <button data-theme="uni">🦄🌈</button>
           </div>
         </div>
 
@@ -107,7 +115,10 @@ gtag("config", "G-86X82MNHC8");
             <option value="1" selected>미로 1개</option>
             <option value="2">미로 2개</option>
             <option value="3">미로 3개</option>
+            <option value="5">미로 5개</option>
+            <option value="week">📅 7일 챌린지 (쉬움→어려움)</option>
           </select>
+          <div class="hint" id="pagesHint" style="display:none">하루 한 장 — 쉬움 2장, 보통 3장, 어려움 2장으로 점점 어려워져요</div>
         </div>
 
         <div class="field">
@@ -167,7 +178,10 @@ gtag("config", "G-86X82MNHC8");
     </figure>
 
     <h2>미로 도안, 이렇게 활용하세요</h2>
-    <p>한 장에 미로 1개가 큼직하게 인쇄돼서 어린아이도 손이 편해요. 분량을 2~3개로 늘리면 형제·자매가 같은 미로로 누가 빨리 푸는지 시합을 할 수도 있습니다. <strong>'정답 경로 함께 인쇄'</strong>를 켜면 빨간 길이 그려진 정답지가 뒤에 붙어 나와 채점이 쉬워요. <a href="../hangul/">한글 따라쓰기</a>나 <a href="../math/">수학 연산</a> 학습지 사이에 쉬어 가는 활동으로 끼워 주면 집중력이 다시 살아납니다. 종이에 뽑아 두면 여행길이나 식당에서 기다릴 때 아이 놀잇거리로도 좋아요.</p>
+    <p>한 장에 미로 1개가 큼직하게 인쇄돼서 어린아이도 손이 편해요. 분량을 2~5개로 늘리면 형제·자매가 같은 미로로 누가 빨리 푸는지 시합을 할 수도 있습니다. <strong>'정답 경로 함께 인쇄'</strong>를 켜면 빨간 길이 그려진 정답지가 뒤에 붙어 나와 채점이 쉬워요. <a href="../hangul/">한글 따라쓰기</a>나 <a href="../math/">수학 연산</a> 학습지 사이에 쉬어 가는 활동으로 끼워 주면 집중력이 다시 살아납니다. 종이에 뽑아 두면 여행길이나 식당에서 기다릴 때 아이 놀잇거리로도 좋아요.</p>
+
+    <h2>하루 한 장, 미로 7일 챌린지</h2>
+    <p>분량에서 <strong>'📅 7일 챌린지'</strong>를 고르면 1~2일차 쉬움, 3~5일차 보통, 6~7일차 어려움으로 <strong>점점 어려워지는 7장 묶음</strong>이 한 번에 만들어져요. 장마다 "1일차·쉬움"처럼 날짜와 난이도가 제목에 붙어 있어서, 일요일에 한 번 뽑아 두면 일주일치 아침 활동이나 <a href="../banghak/">방학 루틴</a>이 그대로 준비됩니다. 마지막 7일차를 다 풀었을 때 아이가 느끼는 "처음보다 어려운 미로를 풀었다"는 성취감이 이 묶음의 핵심이에요. 그리고 유아 전용이던 그림 테마(토끼·공룡·로켓·유니콘 등)를 이제 <strong>쉬움·보통·어려움 미로에도</strong> 붙일 수 있어서, 공룡을 좋아하는 초등 아이라면 공룡이 먹이를 찾아가는 어려움 미로로 만들어 줄 수 있습니다.</p>
 
     <h2>미로를 좋아하는 5~7세라면, 이런 학습지도 있어요</h2>
     <p>미로 찾기로 연필 힘과 집중력이 붙었다면 쓰기 연습으로 이어 가기 딱 좋은 때예요. 미로처럼 <strong>버튼 한 번에 새로 만들어지는</strong> 무료 학습지들입니다.</p>
@@ -207,11 +221,11 @@ gtag("config", "G-86X82MNHC8");
       <dt>몇 살부터 풀 수 있나요?</dt>
       <dd>'쉬움'은 5~6세 유아부터, '보통'은 7세·초등 저학년, '어려움'은 초등 중·고학년에 맞습니다. 아이가 너무 쉽게 풀면 한 단계 올려 주세요.</dd>
       <dt>한 번에 몇 장까지 만들 수 있나요?</dt>
-      <dd>한 번에 미로 1~3개를 만들 수 있고, 정답 경로지도 각각 함께 인쇄됩니다. 더 필요하면 '새 미로 만들기'로 계속 새로 뽑으면 돼요.</dd>
+      <dd>한 번에 미로 1~5개를 만들 수 있고, 정답 경로지도 각각 함께 인쇄됩니다. 분량에서 <strong>'7일 챌린지'</strong>를 고르면 쉬움→보통→어려움으로 점점 어려워지는 7장 묶음(1일차~7일차)이 한 번에 나와요.</dd>
       <dt>원형이나 하트 모양 미로도 있나요?</dt>
       <dd>네. 네모 미로 외에 <strong>원형·하트·별</strong> 모양 미로를 같은 난이도 체계로 만들 수 있어요. '모양' 버튼만 바꾸면 새 도안이 바로 생성됩니다.</dd>
       <dt>유아용 미로는 무엇이 다른가요?</dt>
-      <dd>'유아' 난이도는 통로가 훨씬 넓고 갈림길이 적어요. 토끼가 당근을 찾아가는 식의 그림 테마(토끼·강아지·꿀벌·자동차)가 붙어 있어 네다섯 살 아이도 혼자 풀 수 있습니다.</dd>
+      <dd>'유아' 난이도는 통로가 훨씬 넓고 갈림길이 적어요. 토끼가 당근을 찾아가는 식의 그림 테마(토끼·강아지·꿀벌·자동차·공룡·로켓·돛단배·유니콘)가 붙어 있어 네다섯 살 아이도 혼자 풀 수 있습니다. 그림 테마는 쉬움·보통·어려움 미로에도 붙일 수 있어요.</dd>
       <dt>길이 없는 미로가 나올 수도 있나요?</dt>
       <dd>아니요. 모든 미로는 출발에서 도착까지 정확히 하나의 길이 있도록 만들어집니다.</dd>
       <dt>PDF로 저장하려면?</dt>
@@ -289,27 +303,44 @@ var THEMES={
   rabbit:{ s:"🐰", e:"🥕", title:"토끼가 당근을 찾아가요" },
   puppy: { s:"🐶", e:"🦴", title:"강아지가 뼈다귀를 찾아가요" },
   bee:   { s:"🐝", e:"🌷", title:"꿀벌이 꽃을 찾아가요" },
-  car:   { s:"🚗", e:"🏠", title:"자동차가 집으로 가요" }
+  car:   { s:"🚗", e:"🏠", title:"자동차가 집으로 가요" },
+  dino:  { s:"🦖", e:"🍖", title:"공룡이 먹이를 찾아가요" },
+  rocket:{ s:"🚀", e:"🌙", title:"로켓이 달나라로 가요" },
+  boat:  { s:"⛵", e:"🏝️", title:"돛단배가 섬을 찾아가요" },
+  uni:   { s:"🦄", e:"🌈", title:"유니콘이 무지개를 찾아가요" }
 };
-var state={ level:"mid", shape:"rect", theme:"rabbit", pages:1, answers:true, title:"", seed:newSeed() };
+/* 7일 챌린지 — 하루 한 장, 점점 어려워지는 난이도 커브 */
+var WEEK_LEVELS=["easy","easy","mid","mid","mid","hard","hard"];
+/* theme: 유아 난이도의 그림 테마(필수). deco: 그 외 난이도의 선택 테마("none"이면 기존 그대로) */
+var state={ level:"mid", shape:"rect", theme:"rabbit", deco:"none", pages:1, answers:true, title:"", seed:newSeed() };
 function newSeed(){ return Math.floor(Math.random()*1e8)+1; }
 function autoTitle(){
+  if(state.pages==="week") return "미로 7일 챌린지";
   if(state.level==="kids") return THEMES[state.theme].title;
   if(state.shape==="rect") return "미로 찾기 — "+LEVELS[state.level].name;
   return SHAPE_NAMES[state.shape]+" 미로 — "+LEVELS[state.level].name;
 }
-function makeGrid(){
-  if(state.level==="kids") return buildGrid(KIDS_GRID[0], KIDS_GRID[1], null);
-  if(state.shape==="circle") return buildCircle(RINGS[state.level]);
-  var wh=GRID[state.shape][state.level];
+function makeGrid(level){
+  level=level||state.level;
+  if(level==="kids") return buildGrid(KIDS_GRID[0], KIDS_GRID[1], null);
+  if(state.shape==="circle") return buildCircle(RINGS[level]);
+  var wh=GRID[state.shape][level];
   var mask = state.shape==="heart" ? heartMask(wh[0],wh[1])
            : state.shape==="star"  ? starMask(wh[0],wh[1]) : null;
   return buildGrid(wh[0], wh[1], mask);
 }
-function drawSVG(g, open, withPath){
+/* 이 도안에 붙는 테마 — 유아는 항상, 그 외엔 '없음'이 아닐 때만 (원형은 구조상 제외) */
+function activeDeco(level){
+  if(level==="kids") return state.theme;
+  if(state.shape!=="circle" && state.deco!=="none") return state.deco;
+  return null;
+}
+function drawSVG(g, open, withPath, level){
+  level=level||state.level;
   var path = withPath ? solve(g, open) : null;
   if(g.kind==="circle") return circleSVG(g, open, path);
-  return gridSVG(g, open, path, state.level==="kids" ? {icons:THEMES[state.theme]} : null);
+  var deco=activeDeco(level);
+  return gridSVG(g, open, path, deco ? {icons:THEMES[deco], bold:level==="kids"} : null);
 }
 
 /* ---------- render ---------- */
@@ -336,21 +367,34 @@ function makeSheet(title, svg, pageNo, pageTotal, isAnswer){
 function render(){
   var container=document.getElementById("sheets");
   container.innerHTML="";
-  var title=state.title||autoTitle();
-  var total=state.pages*(state.answers?2:1);
-  var no=0;
-  var g=makeGrid(), mazes=[];
-  for(var i=0;i<state.pages;i++) mazes.push(carve(g, state.seed+i));
-  mazes.forEach(function(open,i){
+  var week = state.pages==="week";
+  var count = week ? WEEK_LEVELS.length : state.pages;
+  var total=count*(state.answers?2:1);
+  var no=0, jobs=[];
+  if(week){
+    var base=state.title||autoTitle();
+    WEEK_LEVELS.forEach(function(lv,i){
+      var g=makeGrid(lv);
+      jobs.push({ g:g, open:carve(g, state.seed+i), lv:lv,
+                  title:base+" — "+(i+1)+"일차 · "+LEVELS[lv].name });
+    });
+  }else{
+    var title=state.title||autoTitle();
+    var g0=makeGrid();
+    for(var i=0;i<count;i++)
+      jobs.push({ g:g0, open:carve(g0, state.seed+i), lv:state.level,
+                  title:title+(count>1?" ("+(i+1)+")":"") });
+  }
+  jobs.forEach(function(j){
     no++;
     var scale=el("div","sheet-scale");
-    scale.appendChild(makeSheet(title+(state.pages>1?" ("+(i+1)+")":""), drawSVG(g,open,false), no, total, false));
+    scale.appendChild(makeSheet(j.title, drawSVG(j.g,j.open,false,j.lv), no, total, false));
     container.appendChild(scale);
   });
-  if(state.answers) mazes.forEach(function(open,i){
+  if(state.answers) jobs.forEach(function(j){
     no++;
     var scale=el("div","sheet-scale");
-    scale.appendChild(makeSheet(title+(state.pages>1?" ("+(i+1)+")":"")+" — 정답", drawSVG(g,open,true), no, total, true));
+    scale.appendChild(makeSheet(j.title+" — 정답", drawSVG(j.g,j.open,true,j.lv), no, total, true));
     container.appendChild(scale);
   });
   fitScale();
@@ -359,28 +403,39 @@ function render(){
 
 /* ---------- share ---------- */
 function encodeState(){
-  return b64e(JSON.stringify([state.level,state.pages,state.answers?1:0,state.title,state.seed,state.shape,state.theme]));
+  return b64e(JSON.stringify([state.level,state.pages,state.answers?1:0,state.title,state.seed,state.shape,state.theme,state.deco]));
 }
 function loadFromHash(){
   try{
     var m=location.hash.match(/s=([^&]+)/); if(!m) return false;
     var a=JSON.parse(b64d(decodeURIComponent(m[1])));
-    state.level=LEVELS[a[0]]?a[0]:"mid"; state.pages=+a[1]||1;
+    state.level=LEVELS[a[0]]?a[0]:"mid";
+    state.pages=a[1]==="week" ? "week" : (+a[1]||1);
     state.answers=!!a[2]; state.title=a[3]||""; state.seed=+a[4]||newSeed();
     state.shape=SHAPE_NAMES[a[5]]?a[5]:"rect";     /* 구형 5칸 링크 → 네모 */
     state.theme=THEMES[a[6]]?a[6]:"rabbit";
+    state.deco=THEMES[a[7]]?a[7]:"none";           /* 구형 링크 → 테마 없음 (도안 불변) */
     return true;
   }catch(e){ return false; }
 }
 
 /* ---------- controls ---------- */
 function syncControls(){
+  var week = state.pages==="week";
+  var kidsUI = state.level==="kids" && !week;   /* 주간 팩은 난이도 커브가 정해져 있어 유아 UI를 쓰지 않는다 */
   document.querySelectorAll("#levelSeg button").forEach(function(b){ b.classList.toggle("on", b.dataset.level===state.level); });
   document.querySelectorAll("#shapeSeg button").forEach(function(b){ b.classList.toggle("on", b.dataset.shape===state.shape); });
-  document.querySelectorAll("#themeSeg button").forEach(function(b){ b.classList.toggle("on", b.dataset.theme===state.theme); });
-  var kids = state.level==="kids";
-  document.getElementById("shapeField").style.display = kids ? "none" : "";
-  document.getElementById("themeField").style.display = kids ? "" : "none";
+  var themeVal = kidsUI ? state.theme : state.deco;
+  document.querySelectorAll("#themeSeg button").forEach(function(b){
+    b.classList.toggle("on", b.dataset.theme===themeVal);
+    if(b.dataset.theme==="none") b.style.display = kidsUI ? "none" : "";  /* 유아는 테마 필수 */
+  });
+  var lseg=document.getElementById("levelSeg");
+  lseg.style.opacity = week ? ".45" : "";
+  lseg.style.pointerEvents = week ? "none" : "";
+  document.getElementById("pagesHint").style.display = week ? "" : "none";
+  document.getElementById("shapeField").style.display = kidsUI ? "none" : "";
+  document.getElementById("themeField").style.display = (kidsUI || state.shape!=="circle") ? "" : "none";
   document.getElementById("pages").value=String(state.pages);
   document.getElementById("answers").checked=state.answers;
   document.getElementById("title").value=state.title;
@@ -396,14 +451,19 @@ document.getElementById("shapeSeg").addEventListener("click",function(e){
 });
 document.getElementById("themeSeg").addEventListener("click",function(e){
   var b=e.target.closest("button"); if(!b)return;
-  state.theme=b.dataset.theme; syncControls(); render();
+  if(state.level==="kids" && state.pages!=="week") state.theme=b.dataset.theme;
+  else state.deco=b.dataset.theme;
+  syncControls(); render();
 });
-document.getElementById("pages").addEventListener("change",function(e){ state.pages=+e.target.value; render(); });
+document.getElementById("pages").addEventListener("change",function(e){
+  state.pages = e.target.value==="week" ? "week" : +e.target.value;
+  syncControls(); render();
+});
 document.getElementById("answers").addEventListener("change",function(e){ state.answers=e.target.checked; render(); });
 document.getElementById("title").addEventListener("input",function(e){ state.title=e.target.value; render(); });
 document.getElementById("btnShuffle").addEventListener("click",function(){ state.seed=newSeed(); render(); });
 document.getElementById("btnPrint").addEventListener("click",function(){
-  track("print_sheet",{tool:"maze",level:state.level,shape:state.level==="kids"?"kids":state.shape});
+  track("print_sheet",{tool:"maze",level:state.level,shape:state.level==="kids"?"kids":state.shape,pages:String(state.pages)});
   window.print();
 });
 document.getElementById("btnImage").addEventListener("click",function(){
@@ -417,7 +477,7 @@ document.getElementById("btnImage").addEventListener("click",function(){
 });
 document.getElementById("btnShare").addEventListener("click",function(){ copyShareLink(encodeState()); });
 document.getElementById("btnReset").addEventListener("click",function(){
-  state={level:"mid",shape:"rect",theme:"rabbit",pages:1,answers:true,title:"",seed:newSeed()};
+  state={level:"mid",shape:"rect",theme:"rabbit",deco:"none",pages:1,answers:true,title:"",seed:newSeed()};
   history.replaceState(null,"",location.pathname);
   syncControls(); render();
 });

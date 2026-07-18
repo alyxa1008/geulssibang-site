@@ -99,7 +99,12 @@ STAR.forEach(([c,r],i)=>{
 function svgOk(s){ return s.indexOf("NaN")<0 && s.indexOf("undefined")<0 && s.startsWith("<svg") && s.endsWith("</svg>"); }
 {
   const g=buildGrid(6,7,null), open=carve(g,7);
-  ok("유아 SVG (아이콘·경로)", svgOk(gridSVG(g,open,solve(g,open),{icons:{s:"🐰",e:"🥕"}})));
+  ok("유아 SVG (아이콘·경로)", svgOk(gridSVG(g,open,solve(g,open),{icons:{s:"🐰",e:"🥕"},bold:true})));
+  // 테마 아이콘은 굵기와 독립 — 일반 난이도에 아이콘만 붙이면 벽 굵기는 그대로 1.7
+  const gm=buildGrid(12,15,null), om=carve(gm,7);
+  const deco=gridSVG(gm,om,null,{icons:{s:"🦖",e:"🍖"}});
+  ok("일반 난이도 + 테마 아이콘 (얇은 벽 유지)", svgOk(deco) && deco.includes("🦖") && deco.includes('stroke-width="1.7"'));
+  ok("유아 bold 벽 굵기 2.6 유지", gridSVG(g,open,null,{icons:{s:"🐰",e:"🥕"},bold:true}).includes('stroke-width="2.6"'));
   const gh=buildGrid(16,15,heartMask(16,15)), oh=carve(gh,7);
   ok("하트 SVG", svgOk(gridSVG(gh,oh,solve(gh,oh))));
   const gc=buildCircle(7), oc=carve(gc,7);
