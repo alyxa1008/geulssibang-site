@@ -186,3 +186,17 @@ function fitScale(){
 /* 로드 시 자동 실행 — common.js는 body 끝에서 로드되므로 DOM이 준비돼 있다.
    해당 버튼이 없는 페이지에서는 아무 일도 하지 않는다. */
 wireDeepLinks();
+
+/* ===== 최근 사용 도구 기록 — 홈의 "최근에 쓴 도구" 바로가기용 =====
+   localStorage에만 저장(서버 전송 없음). 사생활 고지("입력한 내용은
+   브라우저 안에서만 처리")와 일치. 사용 불가 환경(시크릿 등)은 조용히 무시. */
+(function(){
+  var TOOLS={"/hangul/":1,"/badaseugi/":1,"/math/":1,"/maze/":1,"/card/":1,"/plan/":1,"/gugudan/":1};
+  try{
+    if(!TOOLS[location.pathname]) return;
+    var list=JSON.parse(localStorage.getItem("gb_recent")||"[]")
+      .filter(function(p){ return p!==location.pathname && TOOLS[p]; });
+    list.unshift(location.pathname);
+    localStorage.setItem("gb_recent", JSON.stringify(list.slice(0,3)));
+  }catch(e){}
+})();

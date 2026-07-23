@@ -46,6 +46,10 @@ gtag("config", "G-86X82MNHC8");
 .season{max-width:760px; margin:20px auto 34px; padding:10px 16px; border:1.5px dashed rgba(255,217,168,.55); border-radius:12px; background:rgba(255,217,168,.09); font-size:14px; color:var(--chalk-dim); text-align:center; line-height:1.9}
 .season b{color:var(--chalk); margin-right:6px}
 .season a{color:#ffd9a8; margin:0 7px; white-space:nowrap}
+/* 최근 사용 도구 — 재방문자용 바로가기 (localStorage에 기록 있을 때만 보임) */
+.recent{max-width:760px; margin:18px auto -14px; font-size:14px; color:var(--chalk-dim); text-align:center; line-height:1.9}
+.recent b{color:var(--chalk); font-weight:400; margin-right:4px}
+.recent a{color:#cfe6da; margin:0 7px; white-space:nowrap}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "글씨방", "url": "https://geulssibang.com/", "description": "입력하면 바로 인쇄되는 무료 학습지 생성기. 한글 따라쓰기, 받아쓰기, 수학 연산 학습지를 회원가입 없이 무제한으로 만들 수 있습니다.", "inLanguage": "ko"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "정말 전부 무료인가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 모든 도구가 무료이고 회원가입, 인쇄 횟수 제한이 없습니다. 입력한 내용은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다."}}, {"@type": "Question", "name": "프린터가 없어도 쓸 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 대부분의 도구가 이미지(PNG) 저장을 지원해 복사집이나 편의점 인쇄로 출력할 수 있고, 화면 손글씨처럼 종이 없이 쓰는 도구도 있습니다."}}, {"@type": "Question", "name": "만든 학습지를 다른 사람과 공유하려면?", "acceptedAnswer": {"@type": "Answer", "text": "각 도구의 링크 복사 버튼을 누르면 현재 설정이 담긴 주소가 복사됩니다. 링크를 받은 사람은 가입 없이 같은 학습지를 바로 열 수 있습니다."}}]}</script>
@@ -59,6 +63,11 @@ gtag("config", "G-86X82MNHC8");
     <p class="perks">✓ 회원가입 없음 &nbsp;·&nbsp; ✓ 인쇄 무제한 &nbsp;·&nbsp; ✓ 100% 무료</p>
     <div class="chalk-line"></div>
   </header>
+
+  <!-- 최근 사용 도구 — 방문 기록이 있는 재방문자에게만 보인다 (스크립트는 body 끝) -->
+  <div class="recent" id="recent" hidden>
+    <b>🕐 최근에 쓴 도구</b><span id="recentLinks"></span>
+  </div>
 
   <!-- 시즌 배너 — 개학 시즌(8월 말)엔 받아쓰기·2학기 준비 문구로 교체 -->
   <div class="season">
@@ -220,5 +229,27 @@ gtag("config", "G-86X82MNHC8");
   </div>
 </footer>
 </div>
+
+<script>
+/* 최근 사용 도구 표시 — common.js가 도구 페이지에서 기록한 localStorage를 읽는다 */
+(function(){
+  var NAMES={"/hangul/":"✎ 한글 따라쓰기","/badaseugi/":"🔊 받아쓰기","/math/":"✚ 수학 연산",
+             "/maze/":"🌀 미로 찾기","/card/":"🎨 이름 카드","/plan/":"⏰ 생활계획표","/gugudan/":"✖ 구구단 시험"};
+  try{
+    var list=JSON.parse(localStorage.getItem("gb_recent")||"[]").filter(function(p){ return NAMES[p]; });
+    if(!list.length) return;
+    var slot=document.getElementById("recentLinks");
+    list.slice(0,3).forEach(function(p){
+      var a=document.createElement("a");
+      a.href="."+p; a.textContent=NAMES[p];
+      a.addEventListener("click", function(){
+        if(typeof gtag==="function") gtag("event","recent_tool_click",{tool:p.replace(/\//g,"")});
+      });
+      slot.appendChild(a);
+    });
+    document.getElementById("recent").hidden=false;
+  }catch(e){}
+})();
+</script>
 </body>
 </html>
