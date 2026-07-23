@@ -167,6 +167,17 @@ function wireDeepLinks(){
     var words=Array.prototype.map.call(box.querySelectorAll("li"), function(li){ return li.textContent.trim(); });
     var payload=[words.join("\n"), 2, 12, 0.85, box.getAttribute("data-title"), 1];
     btn.href=btn.getAttribute("href")+"#s="+encodeURIComponent(b64e(JSON.stringify(payload)));
+    /* 낱말 미로 버튼(선택) — 같은 급수 단어로 놀며 외우기.
+       문장·긴 항목은 미로에 못 들어가므로 2~6글자 단어만 추려 담는다 (시드 0 = 열 때마다 새 미로) */
+    var mz=box.querySelector(".gobtn[data-maze]");
+    if(mz){
+      var single=words.filter(function(w){
+        var n=Array.from(w).length;
+        return w.indexOf(" ")<0 && n>=2 && n<=6;
+      });
+      var mp=[single.join("\n"), mz.getAttribute("data-maze")||"easy", 1, box.getAttribute("data-title")+" 낱말 미로", 0];
+      mz.href=mz.getAttribute("href")+"#s="+encodeURIComponent(b64e(JSON.stringify(mp)));
+    }
   });
 }
 
