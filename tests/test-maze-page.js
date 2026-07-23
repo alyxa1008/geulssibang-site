@@ -13,7 +13,7 @@ function stubEl(){
     style:{}, dataset:{}, _html:"", textContent:"", value:"", checked:false, placeholder:"",
     set innerHTML(v){ this._html=v; }, get innerHTML(){ return this._html; },
     addEventListener(){}, appendChild(){}, remove(){},
-    querySelector(){return null;}, closest(){return null;}
+    querySelector(){return stubEl();}, closest(){return null;}
   };
 }
 const ids={};
@@ -38,7 +38,7 @@ function ok(name,cond){ console.log((cond?"✅":"❌")+" "+name); if(!cond)fail+
 
 /* ---- 모든 레벨×모양 조합 렌더 (예외 없이, SVG 정상) ---- */
 let combos=0, bad=[];
-["kids"].concat(["easy","mid","hard"].flatMap(l=>["rect","circle","heart","star"].map(s=>l+":"+s)))
+["kids"].concat(["easy","mid","hard","beast"].flatMap(l=>["rect","circle","heart","star"].map(s=>l+":"+s)))
 .forEach(key=>{
   const [l,s]=key.includes(":")?key.split(":"):[key,"rect"];
   state.level=l; state.shape=s; state.pages=2; state.answers=true; state.seed=777;
@@ -50,7 +50,7 @@ let combos=0, bad=[];
     if(good) combos++; else bad.push(key);
   }catch(e){ bad.push(key+" EX:"+e.message); }
 });
-ok("13개 조합(유아 + 3난이도×4모양) 렌더 정상", combos===13 && !bad.length);
+ok("17개 조합(유아 + 4난이도×4모양, 괴물 포함) 렌더 정상", combos===17 && !bad.length);
 if(bad.length) console.log("  실패:", bad.join(", "));
 
 /* ---- 유아 SVG에 테마 아이콘 ---- */
@@ -137,6 +137,28 @@ ok("twin 라운드트립", loadFromHash() && state.twin===true && state.pages===
 state.pages="week"; state.twin=true;
 render();
 ok("주간 팩에선 twin 무시 (14장 유지)", ids["pageInfo"].textContent==="A4 · 14장 (정답지 포함)");
+
+/* ---- 미로 책 표지 (cover) — v1.2 ---- */
+ok("구형 링크 → cover 꺼짐", (()=>{ location.hash="#s="+encodeURIComponent(enc2); loadFromHash(); return state.cover===false; })());
+state={level:"mid",shape:"rect",theme:"rabbit",deco:"none",pages:3,answers:true,twin:false,cover:true,title:"",seed:9};
+render();
+ok("표지: 미로 3개 → 1+3+3 = 7장", ids["pageInfo"].textContent==="A4 · 7장 (정답지 포함)");
+state.pages=1;
+render();
+ok("미로 1개일 땐 표지 무시", ids["pageInfo"].textContent==="A4 · 2장 (정답지 포함)");
+state.pages="week"; state.cover=true;
+render();
+ok("주간 팩 + 표지 = 15장", ids["pageInfo"].textContent==="A4 · 15장 (정답지 포함)");
+const enc4=encodeState();
+state={level:"mid",shape:"rect",theme:"rabbit",deco:"none",pages:1,answers:true,twin:false,cover:false,title:"",seed:1};
+location.hash="#s="+encodeURIComponent(enc4);
+ok("cover 라운드트립", loadFromHash() && state.cover===true && state.pages==="week");
+ok("괴물 난이도 라운드트립", (()=>{
+  state={level:"beast",shape:"star",theme:"rabbit",deco:"none",pages:1,answers:true,twin:false,cover:false,title:"",seed:5};
+  const e=encodeState();
+  state.level="mid"; location.hash="#s="+encodeURIComponent(e);
+  return loadFromHash() && state.level==="beast" && state.shape==="star";
+})());
 
 console.log(fail? "🔴 "+fail+"건 실패" : "🟢 전체 통과");
 process.exit(fail?1:0);
