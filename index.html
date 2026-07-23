@@ -50,6 +50,14 @@ gtag("config", "G-86X82MNHC8");
 .recent{max-width:760px; margin:18px auto -14px; font-size:14px; color:var(--chalk-dim); text-align:center; line-height:1.9}
 .recent b{color:var(--chalk); font-weight:400; margin-right:4px}
 .recent a{color:#cfe6da; margin:0 7px; white-space:nowrap}
+/* 카드 속 세부 갈래 — 큰 표지판(카드) 안의 작은 표지판.
+   카드 전체가 <a>였던 것을 div로 바꾸고 본문 링크(.tmain)와 분리 */
+.tool .tmain{display:block; color:inherit; text-decoration:none}
+.tool .subs{display:flex; flex-wrap:wrap; gap:7px; margin-top:14px; padding-top:12px; border-top:1.5px dashed #e3e6ea}
+.tool .subs a{font-size:13px; color:var(--ink); text-decoration:none; background:#f4f1ea; border:1px solid #e3ddd0; border-radius:15px; padding:5px 12px; white-space:nowrap}
+.tool .subs a:hover{background:var(--redpen); border-color:var(--redpen); color:#fff}
+.tool .subs a.new{border-color:var(--redpen); color:var(--redpen); font-weight:700}
+.tool .subs a.new:hover{color:#fff}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "글씨방", "url": "https://geulssibang.com/", "description": "입력하면 바로 인쇄되는 무료 학습지 생성기. 한글 따라쓰기, 받아쓰기, 수학 연산 학습지를 회원가입 없이 무제한으로 만들 수 있습니다.", "inLanguage": "ko"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "정말 전부 무료인가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 모든 도구가 무료이고 회원가입, 인쇄 횟수 제한이 없습니다. 입력한 내용은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다."}}, {"@type": "Question", "name": "프린터가 없어도 쓸 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 대부분의 도구가 이미지(PNG) 저장을 지원해 복사집이나 편의점 인쇄로 출력할 수 있고, 화면 손글씨처럼 종이 없이 쓰는 도구도 있습니다."}}, {"@type": "Question", "name": "만든 학습지를 다른 사람과 공유하려면?", "acceptedAnswer": {"@type": "Answer", "text": "각 도구의 링크 복사 버튼을 누르면 현재 설정이 담긴 주소가 복사됩니다. 링크를 받은 사람은 가입 없이 같은 학습지를 바로 열 수 있습니다."}}]}</script>
@@ -80,48 +88,98 @@ gtag("config", "G-86X82MNHC8");
   </div>
 
   <div class="tools">
-    <a class="tool" href="./hangul/">
-      <span class="ico">✎</span>
-      <h2>한글 따라쓰기</h2>
-      <p>아이 이름, 받아쓰기 단어, 문장을 입력하면 십자 안내선 격자에 흐린 글씨 따라쓰기 학습지가 만들어져요.</p>
-      <span class="go">학습지 만들기 →</span>
-    </a>
-    <a class="tool" href="./math/">
-      <span class="ico">✚</span>
-      <h2>수학 연산</h2>
-      <p>덧셈·뺄셈·구구단부터 곱셈·나눗셈·분수·소수까지, 학년별 문제를 버튼 한 번에 새로. 정답지도 함께 인쇄돼요.</p>
-      <span class="go">학습지 만들기 →</span>
-    </a>
-    <a class="tool" href="./badaseugi/">
-      <span class="ico">🔊</span>
-      <h2>받아쓰기</h2>
-      <p>이번 주 급수 단어를 입력하면 컴퓨터가 또박또박 불러주고, 시험지와 정답지도 인쇄돼요.</p>
-      <span class="go">시험 만들기 →</span>
-    </a>
-    <a class="tool" href="./maze/">
-      <span class="ico">🌀</span>
-      <h2>미로 찾기</h2>
-      <p>유아 그림 테마부터 원형·하트·별 모양까지, 난이도별 미로를 버튼 한 번에 새로 만들어요. 정답 경로지 포함.</p>
-      <span class="go">활동지 만들기 →</span>
-    </a>
-    <a class="tool" href="./card/">
-      <span class="ico">🎨</span>
-      <h2>이름 카드</h2>
-      <p>아이 이름으로 예쁜 한글 카드를 만들어 인스타·카톡에 공유해요. 그 이름 따라쓰기 연결까지.</p>
-      <span class="go">카드 만들기 →</span>
-    </a>
-    <a class="tool" href="./plan/">
-      <span class="ico">⏰</span>
-      <h2>생활계획표</h2>
-      <p>방학 동그라미 시간표를 아이와 함께 만들어요. 제목과 일과만 넣으면 24시간 계획표 완성.</p>
-      <span class="go">계획표 만들기 →</span>
-    </a>
-    <a class="tool" href="./gugudan/">
-      <span class="ico">✖</span>
-      <h2>구구단 시험</h2>
-      <p>컴퓨터가 문제를 불러주고 채점까지. 아이 혼자서도 구구단 외우기 검사, 틀린 단은 학습지로 이어져요.</p>
-      <span class="go">시험 보기 →</span>
-    </a>
+    <div class="tool">
+      <a class="tmain" href="./hangul/">
+        <span class="ico">✎</span>
+        <h2>한글 따라쓰기</h2>
+        <p>아이 이름, 받아쓰기 단어, 문장을 입력하면 십자 안내선 격자에 흐린 글씨 따라쓰기 학습지가 만들어져요.</p>
+        <span class="go">학습지 만들기 →</span>
+      </a>
+      <div class="subs">
+        <a href="./hangul/jamo/">자음·모음</a>
+        <a href="./hangul/ireum/">아이 이름</a>
+        <a href="./hangul/natmal/">낱말</a>
+        <a href="./hangul/suja/">숫자</a>
+        <a href="./hangul/order/">획순 보기</a>
+        <a href="./hangul/trace/">화면 손글씨</a>
+      </div>
+    </div>
+    <div class="tool">
+      <a class="tmain" href="./math/">
+        <span class="ico">✚</span>
+        <h2>수학 연산</h2>
+        <p>덧셈·뺄셈·구구단부터 곱셈·나눗셈·분수·소수까지, 학년별 문제를 버튼 한 번에 새로. 정답지도 함께 인쇄돼요.</p>
+        <span class="go">학습지 만들기 →</span>
+      </a>
+      <div class="subs">
+        <a href="./math/add-sub/">덧셈·뺄셈</a>
+        <a href="./math/gugudan/">구구단</a>
+        <a href="./math/mul-div/">곱셈·나눗셈</a>
+        <a href="./math/fraction/">분수·소수</a>
+        <a href="./math/word/">문장제</a>
+      </div>
+    </div>
+    <div class="tool">
+      <a class="tmain" href="./badaseugi/">
+        <span class="ico">🔊</span>
+        <h2>받아쓰기</h2>
+        <p>이번 주 급수 단어를 입력하면 컴퓨터가 또박또박 불러주고, 시험지와 정답지도 인쇄돼요.</p>
+        <span class="go">시험 만들기 →</span>
+      </a>
+      <div class="subs">
+        <a href="./badaseugi/geupsu/">학기별 급수표</a>
+        <a href="./badaseugi/geupsu/3/">3학년·어려운 문제</a>
+        <a href="./badaseugi/matchumbeop/">헷갈리는 맞춤법</a>
+      </div>
+    </div>
+    <div class="tool">
+      <a class="tmain" href="./maze/">
+        <span class="ico">🌀</span>
+        <h2>미로 찾기</h2>
+        <p>유아 그림 테마부터 원형·하트·별 모양까지, 난이도별 미로를 버튼 한 번에 새로 만들어요. 정답 경로지 포함.</p>
+        <span class="go">활동지 만들기 →</span>
+      </a>
+      <div class="subs">
+        <a class="new" href="./maze/hangul/">🆕 한글 낱말 미로</a>
+        <a href="./maze/">7일 챌린지 묶음</a>
+      </div>
+    </div>
+    <div class="tool">
+      <a class="tmain" href="./card/">
+        <span class="ico">🎨</span>
+        <h2>이름 카드</h2>
+        <p>아이 이름으로 예쁜 한글 카드를 만들어 인스타·카톡에 공유해요. 그 이름 따라쓰기 연결까지.</p>
+        <span class="go">카드 만들기 →</span>
+      </a>
+      <div class="subs">
+        <a href="./hangul/ireum/">이름 따라쓰기</a>
+        <a class="new" href="./maze/hangul/">이름으로 낱말 미로</a>
+      </div>
+    </div>
+    <div class="tool">
+      <a class="tmain" href="./plan/">
+        <span class="ico">⏰</span>
+        <h2>생활계획표</h2>
+        <p>방학 동그라미 시간표를 아이와 함께 만들어요. 제목과 일과만 넣으면 24시간 계획표 완성.</p>
+        <span class="go">계획표 만들기 →</span>
+      </a>
+      <div class="subs">
+        <a href="./banghak/">여름방학 학습지</a>
+        <a href="./banghak/routine/">방학 공부 루틴</a>
+      </div>
+    </div>
+    <div class="tool">
+      <a class="tmain" href="./gugudan/">
+        <span class="ico">✖</span>
+        <h2>구구단 시험</h2>
+        <p>컴퓨터가 문제를 불러주고 채점까지. 아이 혼자서도 구구단 외우기 검사, 틀린 단은 학습지로 이어져요.</p>
+        <span class="go">시험 보기 →</span>
+      </a>
+      <div class="subs">
+        <a href="./math/gugudan/">구구단 학습지</a>
+        <a href="./gugudan/tips/">외우는 법</a>
+      </div>
+    </div>
   </div>
 
   <div class="guides-box">
