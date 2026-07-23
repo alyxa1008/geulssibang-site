@@ -160,8 +160,9 @@ function solve(g, open){
 }
 
 /* ---------- 사각/모양 미로 SVG ---------- */
-/* opts.icons = {s:출발 이모지, e:도착 이모지} — 테마 장식
-   opts.bold  = 유아용 굵은 선 (테마와 독립 — 일반 난이도도 아이콘만 붙일 수 있다) */
+/* opts.icons  = {s:출발 이모지, e:도착 이모지} — 테마 장식
+   opts.bold   = 유아용 굵은 선 (테마와 독립 — 일반 난이도도 아이콘만 붙일 수 있다)
+   opts.labels = [{c:칸번호, ch:글자}] — 낱말 미로용 칸 글자 (없으면 출력 불변) */
 function gridSVG(g, open, path, opts){
   opts=opts||{};
   var u=10, cols=g.cols, rows=g.rows, w=cols*u, h=rows*u, seg=[];
@@ -201,6 +202,12 @@ function gridSVG(g, open, path, opts){
     s+='<polyline points="'+pts.join(" ")+'" fill="none" stroke="#e4573d" stroke-width="'+(opts.bold?3:2.4)+'" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>';
   }
   s+='<path d="'+seg.join("")+'" stroke="#2b3038" stroke-width="'+(opts.bold?2.6:1.7)+'" stroke-linecap="round" fill="none"/>';
+  if(opts.labels){
+    opts.labels.forEach(function(L){
+      var lx2=L.c%cols, ly2=(L.c-lx2)/cols;
+      s+='<text x="'+(lx2*u+u/2)+'" y="'+(ly2*u+u/2+2.3)+'" font-size="6" text-anchor="middle" fill="#2b3038" font-family="sans-serif" font-weight="700">'+L.ch+'</text>';
+    });
+  }
   return s+'</svg>';
 }
 
