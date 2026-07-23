@@ -25,8 +25,8 @@ function pathLetterCells(path, n){
   return cells;
 }
 
-/* 정답 길이 아닌 살아있는 칸에 함정 글자 배치 (낱말에 든 글자는 제외) */
-function decoyLabels(g, path, wordChars, count, rnd){
+/* 정답 길이 아닌 살아있는 칸에 함정 토큰 배치 (pool은 이미 정답 토큰이 제외된 상태) */
+function decoyLabels(g, path, pool, count, rnd){
   var onPath={};
   path.forEach(function(c){ onPath[c]=1; });
   var cand=[];
@@ -35,31 +35,57 @@ function decoyLabels(g, path, wordChars, count, rnd){
   for(var j=cand.length-1;j>0;j--){
     var k=Math.floor(rnd()*(j+1)); var t=cand[j]; cand[j]=cand[k]; cand[k]=t;
   }
-  var pool=Array.from(DECOY_POOL).filter(function(ch){ return wordChars.indexOf(ch)<0; });
   var out=[];
   for(var m=0;m<Math.min(count,cand.length);m++)
     out.push({ c:cand[m], ch:pool[Math.floor(rnd()*pool.length)] });
   return out;
 }
 
-/* 낱말 하나 → 미로+글자 배치. 경로가 짧으면 시드를 바꿔 다시 판다.
-   반환: {g, open, path, labels(길 글자+함정), word} / 낱말이 너무 길면 null */
-function buildWordMaze(word, level, seed){
-  var chars=Array.from(String(word).replace(/\s+/g,""));
-  if(chars.length<2 || chars.length>6) return null;
+/* 공통 심장부: 토큰(글자든 숫자든) 목록을 정답 길에 순서대로 놓는다.
+   경로가 짧으면 시드를 바꿔 다시 판다. 실패(토큰이 너무 많음) 시 null */
+function buildTokenMaze(tokens, level, seed, decoyPool, decoyCount){
   var wh=WORD_GRID[level]||WORD_GRID.easy;
   var g=buildGrid(wh[0], wh[1], null);
   for(var t=0;t<40;t++){
     var s=(seed+t*7919)|0;
     var open=carve(g, s);
     var path=solve(g, open);
-    if(path.length < chars.length*2+2) continue;
-    var cells=pathLetterCells(path, chars.length);
+    if(path.length < tokens.length*2+2) continue;
+    var cells=pathLetterCells(path, tokens.length);
     if(!cells) continue;
     var rnd=mulberry32(s^0x9e3779);
-    var labels=cells.map(function(c,i){ return {c:c, ch:chars[i]}; });
-    return { g:g, open:open, path:path, word:chars.join(""),
-             labels:labels.concat(decoyLabels(g, path, chars, chars.length*2, rnd)) };
+    var labels=cells.map(function(c,i){ return {c:c, ch:tokens[i]}; });
+    return { g:g, open:open, path:path,
+             labels:labels.concat(decoyLabels(g, path, decoyPool, decoyCount, rnd)) };
   }
   return null;
+}
+
+/* 낱말 하나 → 미로+글자 배치. 반환: {g, open, path, labels, word} / 낱말 길이 밖이면 null */
+function buildWordMaze(word, level, seed){
+  var chars=Array.from(String(word).replace(/\s+/g,""));
+  if(chars.length<2 || chars.length>6) return null;
+  var pool=Array.from(DECOY_POOL).filter(function(ch){ return chars.indexOf(ch)<0; });
+  var m=buildTokenMaze(chars, level, seed, pool, chars.length*2);
+  if(m) m.word=chars.join("");
+  return m;
+}
+
+/* 숫자 미로 — kind: "c10"(1~10 수 세기) | "c20"(1~20, 항상 보통 격자) | "skip"(구구단 뛰어세기)
+   함정은 수열에 없는 수라서, 길을 잘못 들면 숫자 순서가 바로 깨진다. */
+function buildNumberMaze(kind, dan, level, seed){
+  var tokens=[], pool=[], i;
+  if(kind==="skip"){
+    if(!(dan>=2 && dan<=9)) return null;
+    for(i=1;i<=9;i++) tokens.push(String(dan*i));
+    for(i=2;i<=dan*9+6;i++) if(i%dan!==0) pool.push(String(i));
+  }else{
+    var top = kind==="c20" ? 20 : 10;
+    for(i=1;i<=top;i++) tokens.push(String(i));
+    for(i=top+1;i<=top+12;i++) pool.push(String(i));
+    if(kind==="c20") level="mid";   /* 20칸은 넓은 격자가 필요하다 */
+  }
+  var m=buildTokenMaze(tokens, level, seed, pool, tokens.length);
+  if(m) m.tokens=tokens;
+  return m;
 }

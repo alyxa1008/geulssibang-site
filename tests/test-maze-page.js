@@ -118,12 +118,25 @@ ok("7일 챌린지 자동 제목", autoTitle()==="미로 7일 챌린지");
   ok("주간 난이도 커브 (8×10 ×2, 12×15 ×3, 17×21 ×2)",
      JSON.stringify(sizes)===JSON.stringify(["8×10","8×10","12×15","12×15","12×15","17×21","17×21"]));
 }
-state={level:"kids",shape:"star",theme:"bee",deco:"uni",pages:"week",answers:false,title:"방학 미로",seed:777};
+state={level:"kids",shape:"star",theme:"bee",deco:"uni",pages:"week",answers:false,twin:false,title:"방학 미로",seed:777};
 const enc2=encodeState();
-state={level:"mid",shape:"rect",theme:"rabbit",deco:"none",pages:1,answers:true,title:"",seed:1};
+state={level:"mid",shape:"rect",theme:"rabbit",deco:"none",pages:1,answers:true,twin:false,title:"",seed:1};
 location.hash="#s="+encodeURIComponent(enc2);
 ok("주간팩+테마 라운드트립", loadFromHash() && state.pages==="week" && state.deco==="uni" &&
    state.shape==="star" && state.theme==="bee" && state.title==="방학 미로" && state.seed===777);
+
+/* ---- 시합용 같은 미로 2장 (twin) — v1.2 ---- */
+ok("구형 링크 → twin 꺼짐", state.twin===false);
+state={level:"mid",shape:"rect",theme:"rabbit",deco:"none",pages:2,answers:true,twin:true,title:"",seed:42};
+render();
+ok("twin: 미로 2개 → 문제 4장 + 정답 2장 = 6장", ids["pageInfo"].textContent==="A4 · 6장 (정답지 포함)");
+const enc3=encodeState();
+state={level:"mid",shape:"rect",theme:"rabbit",deco:"none",pages:1,answers:true,twin:false,title:"",seed:1};
+location.hash="#s="+encodeURIComponent(enc3);
+ok("twin 라운드트립", loadFromHash() && state.twin===true && state.pages===2 && state.seed===42);
+state.pages="week"; state.twin=true;
+render();
+ok("주간 팩에선 twin 무시 (14장 유지)", ids["pageInfo"].textContent==="A4 · 14장 (정답지 포함)");
 
 console.log(fail? "🔴 "+fail+"건 실패" : "🟢 전체 통과");
 process.exit(fail?1:0);

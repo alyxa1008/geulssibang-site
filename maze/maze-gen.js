@@ -205,7 +205,8 @@ function gridSVG(g, open, path, opts){
   if(opts.labels){
     opts.labels.forEach(function(L){
       var lx2=L.c%cols, ly2=(L.c-lx2)/cols;
-      s+='<text x="'+(lx2*u+u/2)+'" y="'+(ly2*u+u/2+2.3)+'" font-size="6" text-anchor="middle" fill="#2b3038" font-family="sans-serif" font-weight="700">'+L.ch+'</text>';
+      var two=String(L.ch).length>1;   /* 두 자리 수는 작게 — 칸(10) 안에 들어가게 */
+      s+='<text x="'+(lx2*u+u/2)+'" y="'+(ly2*u+u/2+(two?1.8:2.3))+'" font-size="'+(two?4.6:6)+'" text-anchor="middle" fill="#2b3038" font-family="sans-serif" font-weight="700">'+L.ch+'</text>';
     });
   }
   return s+'</svg>';
