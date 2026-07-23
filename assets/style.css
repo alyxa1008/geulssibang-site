@@ -203,6 +203,8 @@ select:focus, input[type=text]:focus{border-color:var(--redpen)}
 .content .ccard strong{color:var(--ink)}
 .content .gobtn{display:inline-block; background:var(--redpen); color:#fff; border-radius:8px; padding:9px 16px; text-decoration:none; font-weight:700; font-size:14px}
 .content .gobtn:hover{background:var(--redpen-deep)}
+/* 한 카드에 버튼이 두 개일 때(시험 만들기 + 낱말 미로) 간격·줄바꿈 여유 */
+.content .gobtn+.gobtn{margin-left:8px; margin-top:8px}
 
 .content{max-width:760px; margin:36px auto 0; color:var(--chalk-dim)}
 .content h2{font-family:var(--disp); font-weight:400; color:var(--chalk); font-size:23px; margin:34px 0 10px}
