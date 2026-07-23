@@ -35,6 +35,11 @@ gtag("config", "G-86X82MNHC8");
 /* 테마 9종은 한 줄에 안 들어간다 — 두 줄로 감싸기 */
 #themeSeg{flex-wrap:wrap}
 #themeSeg button{flex:1 1 19%; min-width:19%; border-bottom:1px solid #e3e6ea; white-space:nowrap}
+/* 형제 도구 탭 — 미로 찾기 ↔ 한글 낱말 미로 */
+.subtabs{display:flex; gap:10px; justify-content:center; margin:-8px 0 20px}
+.subtabs a{font-size:14.5px; text-decoration:none; color:var(--chalk-dim); border:1.5px solid rgba(255,255,255,.28); border-radius:18px; padding:7px 16px; white-space:nowrap}
+.subtabs a.on{background:var(--redpen); border-color:var(--redpen); color:#fff; font-weight:700}
+.subtabs a b{color:#ffd9a8; font-weight:700; font-size:12px; margin-left:3px}
 </style>
 <meta property="og:url" content="https://geulssibang.com/maze/">
 <meta property="og:site_name" content="글씨방">
@@ -67,6 +72,11 @@ gtag("config", "G-86X82MNHC8");
     <h1 class="tagline">미로 찾기 도안 무료 출력 — 유아·7세·초등 난이도별 · 원형·하트·별 미로 프린트</h1>
     <div class="chalk-line"></div>
   </header>
+
+  <nav class="subtabs no-print" aria-label="미로 도구 갈래">
+    <a class="on" href="./">🌀 미로 찾기</a>
+    <a href="./hangul/">✎ 한글 낱말 미로<b>NEW</b></a>
+  </nav>
 
   <div class="app">
     <!-- ============ CONTROLS ============ -->

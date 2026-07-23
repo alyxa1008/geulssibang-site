@@ -37,6 +37,10 @@ gtag("config", "G-86X82MNHC8");
 .collect .cbox.ans{color:#e4573d}
 .chint{font-family:var(--kr); font-size:4.6mm; color:#5b6470; margin-top:-2mm}
 .chint b{color:#2b3038}
+/* 형제 도구 탭 — 미로 찾기 ↔ 한글 낱말 미로 */
+.subtabs{display:flex; gap:10px; justify-content:center; margin:-8px 0 20px}
+.subtabs a{font-size:14.5px; text-decoration:none; color:var(--chalk-dim); border:1.5px solid rgba(255,255,255,.28); border-radius:18px; padding:7px 16px; white-space:nowrap}
+.subtabs a.on{background:var(--redpen); border-color:var(--redpen); color:#fff; font-weight:700}
 </style>
 <meta property="og:url" content="https://geulssibang.com/maze/hangul/">
 <meta property="og:site_name" content="글씨방">
@@ -69,6 +73,11 @@ gtag("config", "G-86X82MNHC8");
     <h1 class="tagline">한글 낱말 미로 — 미로 풀며 글자 모아 낱말 완성, 무료 프린트</h1>
     <div class="chalk-line"></div>
   </header>
+
+  <nav class="subtabs no-print" aria-label="미로 도구 갈래">
+    <a href="../">🌀 미로 찾기</a>
+    <a class="on" href="./">✎ 한글 낱말 미로</a>
+  </nav>
 
   <div class="app">
     <!-- ============ CONTROLS ============ -->
