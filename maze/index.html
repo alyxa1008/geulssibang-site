@@ -35,6 +35,16 @@ gtag("config", "G-86X82MNHC8");
 /* 테마 9종은 한 줄에 안 들어간다 — 두 줄로 감싸기 */
 #themeSeg{flex-wrap:wrap}
 #themeSeg button{flex:1 1 19%; min-width:19%; border-bottom:1px solid #e3e6ea; white-space:nowrap}
+/* 미로 책 표지 */
+.coverbody{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9mm; font-family:var(--kr); color:#2b3038; text-align:center}
+.coverbody .cdeco{font-size:26mm; line-height:1}
+.coverbody .ctitle{font-family:var(--disp); font-size:15mm; line-height:1.25; max-width:160mm}
+.coverbody .csub{font-size:6mm; color:#5b6470; margin-top:-5mm}
+.coverbody .cblank{font-size:6.5mm}
+.coverbody .bline{display:inline-block; width:60mm; border-bottom:0.5mm solid #9aa2ac; height:1em; vertical-align:-1mm; margin-left:3mm}
+.coverbody .cstars{display:flex; flex-wrap:wrap; justify-content:center; gap:4mm; max-width:160mm; margin-top:2mm}
+.coverbody .cstar{font-size:14mm; line-height:1; color:#d9822b}
+.coverbody .chintline{font-size:5mm; color:#5b6470; margin-top:-4mm}
 /* 형제 도구 탭 — 미로 찾기 ↔ 한글 낱말 미로 ↔ 숫자 미로 */
 .subtabs{display:flex; gap:10px; justify-content:center; margin:-8px 0 20px; flex-wrap:wrap}
 .subtabs a{font-size:14.5px; text-decoration:none; color:var(--chalk-dim); border:1.5px solid rgba(255,255,255,.28); border-radius:18px; padding:7px 16px; white-space:nowrap}
@@ -54,7 +64,7 @@ gtag("config", "G-86X82MNHC8");
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="글씨방">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "미로 찾기 활동지 생성기", "url": "https://geulssibang.com/maze/", "description": "난이도별·모양별(네모·원형·하트·별) 미로 찾기 활동지를 무한 생성하고 정답 경로지와 함께 인쇄할 수 있는 무료 도구", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "미로 도안이 시중 자료와 뭐가 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "인터넷에서 받는 미로 도안은 정해진 몇 장이 전부지만, 글씨방은 새 미로 만들기를 누를 때마다 완전히 새로운 도안이 무한히 만들어집니다. 같은 난이도로 매일 다른 미로를 무료로 출력할 수 있습니다."}}, {"@type": "Question", "name": "몇 살부터 풀 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "쉬움은 5~6세 유아부터, 보통은 7세·초등 저학년, 어려움은 초등 중·고학년에 맞습니다. 미로 찾기는 집중력과 시지각, 소근육과 문제 해결력 발달에 도움이 됩니다."}}, {"@type": "Question", "name": "한 번에 몇 장까지 만들 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "한 번에 미로 1~5개를 만들 수 있고 정답 경로지도 각각 함께 인쇄됩니다. 분량에서 7일 챌린지를 고르면 쉬움 2장, 보통 3장, 어려움 2장이 1일차부터 7일차까지 제목이 붙은 7장 묶음으로 한 번에 나옵니다."}}, {"@type": "Question", "name": "미로 7일 챌린지는 무엇인가요?", "acceptedAnswer": {"@type": "Answer", "text": "하루 한 장씩 일주일 동안 풀도록 만든 미로 묶음입니다. 1~2일차는 쉬움, 3~5일차는 보통, 6~7일차는 어려움으로 점점 어려워져서 방학 루틴이나 주간 학습 계획에 끼워 쓰기 좋습니다."}}, {"@type": "Question", "name": "정답도 인쇄되나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 정답 경로 함께 인쇄를 켜면 출발부터 도착까지의 길이 빨간 선으로 표시된 정답지가 뒤에 함께 인쇄됩니다."}}, {"@type": "Question", "name": "원형이나 하트 모양 미로도 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 네모 미로 외에 원형·하트·별 모양 미로를 같은 난이도 체계로 만들 수 있습니다. 모양 버튼만 바꾸면 새 도안이 바로 생성됩니다."}}, {"@type": "Question", "name": "유아용 미로는 무엇이 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "유아 난이도는 통로가 훨씬 넓고 갈림길이 적으며, 토끼가 당근을 찾아가는 식의 그림 테마(토끼·강아지·꿀벌·자동차·공룡·로켓·돛단배·유니콘)가 붙어 있어 네다섯 살 아이도 혼자 풀 수 있습니다. 그림 테마는 쉬움·보통·어려움 미로에도 붙일 수 있습니다."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "미로 도안이 시중 자료와 뭐가 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "인터넷에서 받는 미로 도안은 정해진 몇 장이 전부지만, 글씨방은 새 미로 만들기를 누를 때마다 완전히 새로운 도안이 무한히 만들어집니다. 같은 난이도로 매일 다른 미로를 무료로 출력할 수 있습니다."}}, {"@type": "Question", "name": "몇 살부터 풀 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "쉬움은 5~6세 유아부터, 보통은 7세·초등 저학년, 어려움은 초등 중·고학년에 맞고, 고학년·어른 도전용 괴물 난이도도 있습니다. 미로 찾기는 집중력과 시지각, 소근육과 문제 해결력 발달에 도움이 됩니다."}}, {"@type": "Question", "name": "한 번에 몇 장까지 만들 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "한 번에 미로 1~5개를 만들 수 있고 정답 경로지도 각각 함께 인쇄됩니다. 분량에서 7일 챌린지를 고르면 쉬움 2장, 보통 3장, 어려움 2장이 1일차부터 7일차까지 제목이 붙은 7장 묶음으로 한 번에 나옵니다."}}, {"@type": "Question", "name": "미로 7일 챌린지는 무엇인가요?", "acceptedAnswer": {"@type": "Answer", "text": "하루 한 장씩 일주일 동안 풀도록 만든 미로 묶음입니다. 1~2일차는 쉬움, 3~5일차는 보통, 6~7일차는 어려움으로 점점 어려워져서 방학 루틴이나 주간 학습 계획에 끼워 쓰기 좋습니다."}}, {"@type": "Question", "name": "정답도 인쇄되나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 정답 경로 함께 인쇄를 켜면 출발부터 도착까지의 길이 빨간 선으로 표시된 정답지가 뒤에 함께 인쇄됩니다."}}, {"@type": "Question", "name": "원형이나 하트 모양 미로도 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 네모 미로 외에 원형·하트·별 모양 미로를 같은 난이도 체계로 만들 수 있습니다. 모양 버튼만 바꾸면 새 도안이 바로 생성됩니다."}}, {"@type": "Question", "name": "유아용 미로는 무엇이 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "유아 난이도는 통로가 훨씬 넓고 갈림길이 적으며, 토끼가 당근을 찾아가는 식의 그림 테마(토끼·강아지·꿀벌·자동차·공룡·로켓·돛단배·유니콘)가 붙어 있어 네다섯 살 아이도 혼자 풀 수 있습니다. 그림 테마는 쉬움·보통·어려움 미로에도 붙일 수 있습니다."}}]}</script>
 </head>
 <body>
 <div class="wrap">
@@ -92,6 +102,7 @@ gtag("config", "G-86X82MNHC8");
             <button data-level="easy">쉬움</button>
             <button data-level="mid" class="on">보통</button>
             <button data-level="hard">어려움</button>
+            <button data-level="beast">괴물🔥</button>
           </div>
         </div>
 
@@ -137,6 +148,7 @@ gtag("config", "G-86X82MNHC8");
           <input type="text" id="title" placeholder="예) 미로 찾기 놀이" maxlength="20">
           <label class="check"><input type="checkbox" id="answers" checked> 정답 경로 함께 인쇄</label>
           <label class="check" id="twinLabel"><input type="checkbox" id="twin"> 같은 미로 2장씩 <span class="hint">누가 먼저 푸나 시합용</span></label>
+          <label class="check" id="coverLabel" style="display:none"><input type="checkbox" id="cover"> 📕 표지 붙이기 <span class="hint">나만의 미로 책 만들기</span></label>
         </div>
 
         <div class="actions">
@@ -178,6 +190,7 @@ gtag("config", "G-86X82MNHC8");
       <li><strong>5~6세 유아</strong> — '쉬움'. 길이 넓고 갈림길이 적어, 연필을 막 잡기 시작한 아이도 끝까지 갈 수 있어요.</li>
       <li><strong>7세·초등 저학년</strong> — '보통'. 갈림길이 늘어 "어디로 갈까" 잠깐 생각하게 됩니다. <strong>7세 미로찾기</strong>로 딱 좋은 난이도예요.</li>
       <li><strong>초등 중·고학년</strong> — '어려움'. 길이 촘촘하고 막다른 길이 많아, 끝까지 풀면 성취감이 큽니다.</li>
+      <li><strong>고학년·어른 도전용</strong> — '괴물🔥'. 어려움의 두 배 크기예요. 아이가 부모님께 도전장을 내밀 때, 온 가족 시합용으로 뽑아 보세요.</li>
     </ul>
     <p>아이가 너무 쉽게 풀면 한 단계 올리고, 자꾸 포기하면 한 단계 내려 주세요. 같은 난이도에서도 '새 미로 만들기'를 누르면 매번 다른 미로가 나와서 질리지 않아요.</p>
 
@@ -190,7 +203,7 @@ gtag("config", "G-86X82MNHC8");
     </figure>
 
     <h2>미로 도안, 이렇게 활용하세요</h2>
-    <p>한 장에 미로 1개가 큼직하게 인쇄돼서 어린아이도 손이 편해요. 분량을 2~5개로 늘리면 형제·자매가 같은 미로로 누가 빨리 푸는지 시합을 할 수도 있습니다. <strong>'정답 경로 함께 인쇄'</strong>를 켜면 빨간 길이 그려진 정답지가 뒤에 붙어 나와 채점이 쉬워요. <a href="../hangul/">한글 따라쓰기</a>나 <a href="../math/">수학 연산</a> 학습지 사이에 쉬어 가는 활동으로 끼워 주면 집중력이 다시 살아납니다. 종이에 뽑아 두면 여행길이나 식당에서 기다릴 때 아이 놀잇거리로도 좋아요.</p>
+    <p>한 장에 미로 1개가 큼직하게 인쇄돼서 어린아이도 손이 편해요. <strong>'같은 미로 2장씩'</strong>을 켜면 똑같은 미로가 A·B 두 장 나와서 형제·자매가 누가 빨리 푸는지 공정한 시합을 할 수 있고, 분량이 2장 이상일 때 <strong>'표지 붙이기'</strong>를 켜면 이름·날짜 칸과 완주 별 색칠판이 있는 표지가 붙어 '나만의 미로 책'이 됩니다. <strong>'정답 경로 함께 인쇄'</strong>를 켜면 빨간 길이 그려진 정답지가 뒤에 붙어 나와 채점이 쉬워요. <a href="../hangul/">한글 따라쓰기</a>나 <a href="../math/">수학 연산</a> 학습지 사이에 쉬어 가는 활동으로 끼워 주면 집중력이 다시 살아납니다. 종이에 뽑아 두면 여행길이나 식당에서 기다릴 때 아이 놀잇거리로도 좋아요.</p>
 
     <h2>하루 한 장, 미로 7일 챌린지</h2>
     <p>분량에서 <strong>'📅 7일 챌린지'</strong>를 고르면 1~2일차 쉬움, 3~5일차 보통, 6~7일차 어려움으로 <strong>점점 어려워지는 7장 묶음</strong>이 한 번에 만들어져요. 장마다 "1일차·쉬움"처럼 날짜와 난이도가 제목에 붙어 있어서, 일요일에 한 번 뽑아 두면 일주일치 아침 활동이나 <a href="../banghak/">방학 루틴</a>이 그대로 준비됩니다. 마지막 7일차를 다 풀었을 때 아이가 느끼는 "처음보다 어려운 미로를 풀었다"는 성취감이 이 묶음의 핵심이에요. 그리고 유아 전용이던 그림 테마(토끼·공룡·로켓·유니콘 등)를 이제 <strong>쉬움·보통·어려움 미로에도</strong> 붙일 수 있어서, 공룡을 좋아하는 초등 아이라면 공룡이 먹이를 찾아가는 어려움 미로로 만들어 줄 수 있습니다.</p>
@@ -237,7 +250,7 @@ gtag("config", "G-86X82MNHC8");
       <dt>미로 도안이 시중 자료와 뭐가 다른가요?</dt>
       <dd>인터넷에서 받는 미로 도안은 정해진 몇 장이 전부지만, 글씨방은 '새 미로 만들기'를 누를 때마다 완전히 새로운 도안이 무한히 만들어져요. 같은 난이도로 매일 다른 미로를 무료로 출력할 수 있습니다.</dd>
       <dt>몇 살부터 풀 수 있나요?</dt>
-      <dd>'쉬움'은 5~6세 유아부터, '보통'은 7세·초등 저학년, '어려움'은 초등 중·고학년에 맞습니다. 아이가 너무 쉽게 풀면 한 단계 올려 주세요.</dd>
+      <dd>'쉬움'은 5~6세 유아부터, '보통'은 7세·초등 저학년, '어려움'은 초등 중·고학년에 맞습니다. 아이가 너무 쉽게 풀면 한 단계 올려 주세요. 고학년과 어른에게는 '괴물🔥' 난이도가 기다리고 있어요.</dd>
       <dt>한 번에 몇 장까지 만들 수 있나요?</dt>
       <dd>한 번에 미로 1~5개를 만들 수 있고, 정답 경로지도 각각 함께 인쇄됩니다. 분량에서 <strong>'7일 챌린지'</strong>를 고르면 쉬움→보통→어려움으로 점점 어려워지는 7장 묶음(1일차~7일차)이 한 번에 나와요.</dd>
       <dt>원형이나 하트 모양 미로도 있나요?</dt>
@@ -310,14 +323,14 @@ gtag("config", "G-86X82MNHC8");
    (buildGrid / buildCircle / heartMask / starMask / carve / solve / gridSVG / circleSVG) */
 
 /* ---------- state ---------- */
-var LEVELS={ kids:{name:"유아"}, easy:{name:"쉬움"}, mid:{name:"보통"}, hard:{name:"어려움"} };
+var LEVELS={ kids:{name:"유아"}, easy:{name:"쉬움"}, mid:{name:"보통"}, hard:{name:"어려움"}, beast:{name:"괴물"} };
 var SHAPE_NAMES={ rect:"네모", circle:"원형", heart:"하트", star:"별" };
 var GRID={
-  rect: { easy:[8,10],  mid:[12,15], hard:[17,21] },
-  heart:{ easy:[13,12], mid:[17,16], hard:[22,20] },
-  star: { easy:[15,15], mid:[19,19], hard:[25,25] }
+  rect: { easy:[8,10],  mid:[12,15], hard:[17,21], beast:[23,29] },
+  heart:{ easy:[13,12], mid:[17,16], hard:[22,20], beast:[29,26] },
+  star: { easy:[15,15], mid:[19,19], hard:[25,25], beast:[33,33] }
 };
-var RINGS={ easy:5, mid:7, hard:9 };
+var RINGS={ easy:5, mid:7, hard:9, beast:12 };
 var KIDS_GRID=[6,7];   /* 유아: 칸이 적어 통로가 자동으로 넓어진다 */
 var THEMES={
   rabbit:{ s:"🐰", e:"🥕", title:"토끼가 당근을 찾아가요" },
@@ -332,8 +345,9 @@ var THEMES={
 /* 7일 챌린지 — 하루 한 장, 점점 어려워지는 난이도 커브 */
 var WEEK_LEVELS=["easy","easy","mid","mid","mid","hard","hard"];
 /* theme: 유아 난이도의 그림 테마(필수). deco: 그 외 난이도의 선택 테마("none"이면 기존 그대로)
-   twin: 같은 미로를 2장씩 — 형제·자매 시합용 (정답지는 미로당 1장) */
-var state={ level:"mid", shape:"rect", theme:"rabbit", deco:"none", pages:1, answers:true, twin:false, title:"", seed:newSeed() };
+   twin: 같은 미로를 2장씩 — 형제·자매 시합용 (정답지는 미로당 1장)
+   cover: 묶음(2장 이상) 맨 앞에 표지 1장 — 이름·날짜 칸과 완주 별 색칠 */
+var state={ level:"mid", shape:"rect", theme:"rabbit", deco:"none", pages:1, answers:true, twin:false, cover:false, title:"", seed:newSeed() };
 function newSeed(){ return Math.floor(Math.random()*1e8)+1; }
 function autoTitle(){
   if(state.pages==="week") return "미로 7일 챌린지";
@@ -385,13 +399,37 @@ function makeSheet(title, svg, pageNo, pageTotal, isAnswer){
   sheet.appendChild(foot);
   return sheet;
 }
+/* 미로 책 표지 — 큰 제목 + 이름·날짜 칸 + 미로 수만큼 완주 별 (다 풀면 색칠) */
+function makeCover(title, jobs, pageNo, pageTotal){
+  var sheet=el("div","sheet");
+  var body=el("div","coverbody");
+  var stars="";
+  for(var i=0;i<jobs.length;i++) stars+='<span class="cstar">☆</span>';
+  body.innerHTML=
+    '<div class="cdeco">🌀</div>'+
+    '<div class="ctitle"></div>'+
+    '<div class="csub">미로 '+jobs.length+'개가 기다리고 있어요</div>'+
+    '<div class="cblank">이름 <span class="bline"></span></div>'+
+    '<div class="cblank">시작한 날 <span class="bline"></span></div>'+
+    '<div class="cstars">'+stars+'</div>'+
+    '<div class="chintline">미로를 하나 다 풀 때마다 별을 색칠해요!</div>';
+  body.querySelector(".ctitle").textContent=title;   /* 사용자 입력 제목은 텍스트로만 */
+  sheet.appendChild(body);
+  var foot=el("div","sheet-foot");
+  var l=el("span"); l.textContent="글씨방 · 무료 미로 활동지 생성기";
+  var r=el("span"); r.textContent=pageNo+" / "+pageTotal;
+  foot.appendChild(l); foot.appendChild(r);
+  sheet.appendChild(foot);
+  return sheet;
+}
 function render(){
   var container=document.getElementById("sheets");
   container.innerHTML="";
   var week = state.pages==="week";
   var count = week ? WEEK_LEVELS.length : state.pages;
   var twin = state.twin && !week;   /* 주간 팩은 14장이라 2배 인쇄 제외 */
-  var total=count*(twin?2:1)+(state.answers?count:0);
+  var cover = state.cover && count>1;   /* 표지는 묶음일 때만 의미가 있다 */
+  var total=(cover?1:0)+count*(twin?2:1)+(state.answers?count:0);
   var no=0, jobs=[];
   if(week){
     var base=state.title||autoTitle();
@@ -406,6 +444,12 @@ function render(){
     for(var i=0;i<count;i++)
       jobs.push({ g:g0, open:carve(g0, state.seed+i), lv:state.level,
                   title:title+(count>1?" ("+(i+1)+")":"") });
+  }
+  if(cover){
+    no++;
+    var cscale=el("div","sheet-scale");
+    cscale.appendChild(makeCover(week ? (state.title||"미로 7일 챌린지") : (state.title||"나의 미로 책"), jobs, no, total));
+    container.appendChild(cscale);
   }
   jobs.forEach(function(j){
     var copies = twin ? 2 : 1;
@@ -429,7 +473,7 @@ function render(){
 
 /* ---------- share ---------- */
 function encodeState(){
-  return b64e(JSON.stringify([state.level,state.pages,state.answers?1:0,state.title,state.seed,state.shape,state.theme,state.deco,state.twin?1:0]));
+  return b64e(JSON.stringify([state.level,state.pages,state.answers?1:0,state.title,state.seed,state.shape,state.theme,state.deco,state.twin?1:0,state.cover?1:0]));
 }
 function loadFromHash(){
   try{
@@ -442,6 +486,7 @@ function loadFromHash(){
     state.theme=THEMES[a[6]]?a[6]:"rabbit";
     state.deco=THEMES[a[7]]?a[7]:"none";           /* 구형 링크 → 테마 없음 (도안 불변) */
     state.twin=!!a[8];
+    state.cover=!!a[9];
     return true;
   }catch(e){ return false; }
 }
@@ -465,6 +510,8 @@ function syncControls(){
   document.getElementById("themeField").style.display = (kidsUI || state.shape!=="circle") ? "" : "none";
   document.getElementById("twinLabel").style.display = week ? "none" : "";
   document.getElementById("twin").checked=state.twin;
+  document.getElementById("coverLabel").style.display = (week || state.pages>1) ? "" : "none";
+  document.getElementById("cover").checked=state.cover;
   document.getElementById("pages").value=String(state.pages);
   document.getElementById("answers").checked=state.answers;
   document.getElementById("title").value=state.title;
@@ -490,6 +537,7 @@ document.getElementById("pages").addEventListener("change",function(e){
 });
 document.getElementById("answers").addEventListener("change",function(e){ state.answers=e.target.checked; render(); });
 document.getElementById("twin").addEventListener("change",function(e){ state.twin=e.target.checked; render(); });
+document.getElementById("cover").addEventListener("change",function(e){ state.cover=e.target.checked; render(); });
 document.getElementById("title").addEventListener("input",function(e){ state.title=e.target.value; render(); });
 document.getElementById("btnShuffle").addEventListener("click",function(){ state.seed=newSeed(); render(); });
 document.getElementById("btnPrint").addEventListener("click",function(){
@@ -507,7 +555,7 @@ document.getElementById("btnImage").addEventListener("click",function(){
 });
 document.getElementById("btnShare").addEventListener("click",function(){ copyShareLink(encodeState()); });
 document.getElementById("btnReset").addEventListener("click",function(){
-  state={level:"mid",shape:"rect",theme:"rabbit",deco:"none",pages:1,answers:true,twin:false,title:"",seed:newSeed()};
+  state={level:"mid",shape:"rect",theme:"rabbit",deco:"none",pages:1,answers:true,twin:false,cover:false,title:"",seed:newSeed()};
   history.replaceState(null,"",location.pathname);
   syncControls(); render();
 });
