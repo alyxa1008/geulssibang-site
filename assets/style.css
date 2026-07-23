@@ -229,6 +229,11 @@ footer a:hover{color:var(--chalk)}
 .gline b{color:var(--chalk-dim); font-size:13px}
 .gline a{color:var(--chalk-dim); border:1.5px solid rgba(243,239,228,.25); border-radius:20px; padding:5px 12px; font-size:13px; text-decoration:none}
 .gline a:hover{color:var(--chalk); border-color:rgba(243,239,228,.55)}
+/* 형제 도구 탭 — 한 도구의 갈래 페이지끼리 오가는 상단 알약 (미로 3형제 등) */
+.subtabs{display:flex; gap:10px; justify-content:center; margin:-8px 0 20px; flex-wrap:wrap}
+.subtabs a{font-size:14.5px; text-decoration:none; color:var(--chalk-dim); border:1.5px solid rgba(255,255,255,.28); border-radius:18px; padding:7px 16px; white-space:nowrap}
+.subtabs a.on{background:var(--redpen); border-color:var(--redpen); color:#fff; font-weight:700}
+.subtabs a b{color:#ffd9a8; font-weight:700; font-size:12px; margin-left:3px}
 .toast{position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(80px); background:var(--ink); color:#fff; font-size:13.5px; padding:11px 20px; border-radius:999px; box-shadow:0 8px 20px rgba(0,0,0,.35); transition:transform .25s; z-index:150}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
