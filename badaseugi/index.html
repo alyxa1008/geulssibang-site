@@ -243,6 +243,7 @@ gtag("config", "G-86X82MNHC8");
 <div class="toast" id="toast">링크가 복사되었습니다</div>
 
 <script src="../assets/common.js"></script>
+<script src="voice/manifest.js"></script>
 <script>
 "use strict";
 /* ---------- state ---------- */
@@ -326,7 +327,7 @@ function makeSheet(title, startIdx, count, answerWords, pageNo, pageTotal){
 /* ---------- TTS exam mode ---------- */
 /* 한국어 음성 선택은 common.js(koVoice/koVoiceMissing)에 공통. 받아쓰기는
    콜백·세션 처리가 필요해 speak()만 자체로 둔다. */
-var exam={ idx:0, running:false, timer:null, session:0, utter:null };
+var exam={ idx:0, running:false, timer:null, session:0, utter:null, player:null, useFile:false };
 /* session: 취소된 음성의 콜백이 뒤늦게 도착해 새 재생과 겹치는 것을 막는 세대 번호.
    재생을 새로 시작하거나 멈출 때마다 증가하고, 콜백은 자기 번호가 최신일 때만 동작한다. */
 function aliveGuard(){
@@ -338,6 +339,39 @@ function aliveGuard(){
 var ORD_KO=["첫","두","세","네","다섯","여섯","일곱","여덟","아홉","열",
             "열한","열두","열세","열네","열다섯","열여섯","열일곱","열여덟","열아홉","스무"];
 function ordinalKo(n){ return (ORD_KO[n-1]||n)+" 번째"; }
+
+/* ---- 자연 음성 클립 (급수표·프리셋 낱말은 미리 생성한 파일, voice/manifest.js) ----
+   시험의 모든 단어+번호에 클립이 있을 때만 파일 모드 — 한 시험 안에서 목소리가 섞이지 않는다.
+   파일이 없거나 재생에 실패하면 기기 음성(speak)으로 그 자리에서 폴백. */
+var VOICE_MAP=(typeof GB_VOICE!=="undefined")?GB_VOICE:{};
+function clipId(text){ return VOICE_MAP[text]||null; }
+function allClipsReady(words){
+  if(!words.length) return false;
+  for(var i=0;i<words.length;i++){
+    if(!clipId(words[i]) || !clipId(ordinalKo(i+1))) return false;
+  }
+  return true;
+}
+function playClip(cid, cb){
+  var p=exam.player||(exam.player=new Audio());
+  var fin=false;
+  function done(ok){ if(!fin){ fin=true; if(cb) cb(ok); } }
+  p.onended=function(){ done(true); };
+  p.onerror=function(){ done(false); };
+  p.src="voice/"+cid+".mp3";
+  /* 속도 설정은 기기 음성 기준(0.85=보통)이라 파일 재생 배속으로 환산 */
+  p.playbackRate=Math.max(0.7, Math.min(1.3, state.rate/0.85));
+  var pr=p.play();
+  if(pr && pr.catch) pr.catch(function(){ done(false); });
+}
+function speakEx(text, cb){
+  var cid=exam.useFile ? clipId(text) : null;
+  if(!cid){ speak(text, cb); return; }
+  playClip(cid, function(ok){
+    if(ok){ if(cb) cb(); }
+    else speak(text, cb);
+  });
+}
 
 function speak(text, cb){
   var u=new SpeechSynthesisUtterance(text);
@@ -369,7 +403,7 @@ function playCurrent(){
   function readOnce(){
     if(!alive()) return;
     reads++;
-    speak(word, function(){
+    speakEx(word, function(){
       if(!alive()) return;
       if(reads<state.repeat){
         exam.timer=setTimeout(readOnce, 1200);
@@ -379,16 +413,20 @@ function playCurrent(){
       }
     });
   }
-  speak(ordinalKo(exam.idx+1), function(){
+  speakEx(ordinalKo(exam.idx+1), function(){
     if(!alive()) return;
     exam.timer=setTimeout(readOnce, 700);
   });
+}
+function stopClip(){
+  if(exam.player){ exam.player.onended=null; exam.player.onerror=null; exam.player.pause(); }
 }
 function nextQuestion(){
   if(!exam.running) return;
   exam.session++;
   clearExamTimer();
   speechSynthesis.cancel();
+  stopClip();
   if(exam.idx >= state.words.length-1){
     document.getElementById("examBar").style.width="100%";
     document.getElementById("examStatus").textContent="시험 끝! 수고했어요 🎉";
@@ -404,6 +442,7 @@ function stopExam(){
   exam.session++;
   clearExamTimer();
   if(window.speechSynthesis) speechSynthesis.cancel();
+  stopClip();
 }
 /* 시험 중 페이지를 떠나면 음성이 계속 나오는 브라우저가 있어 정리 */
 window.addEventListener("pagehide", stopExam);
@@ -420,11 +459,22 @@ document.getElementById("btnExam").addEventListener("click",function(){
     showToast("먼저 문제를 입력해 주세요");
     return;
   }
-  if(!window.speechSynthesis){
-    showToast("이 브라우저는 음성을 지원하지 않아요");
-    return;
+  exam.useFile=allClipsReady(state.words);
+  if(!exam.useFile){
+    /* 클립 없는 시험만 기기 음성이 필요하다 */
+    if(!window.speechSynthesis){
+      showToast("이 브라우저는 음성을 지원하지 않아요");
+      return;
+    }
+    warnIfNoKoVoice();
+  } else if(window.fetch){
+    /* 시작 전에 이 시험의 클립을 미리 받아 캐시(단어+번호, 300KB 안팎) */
+    state.words.forEach(function(w,i){
+      [clipId(w), clipId(ordinalKo(i+1))].forEach(function(cid){
+        fetch("voice/"+cid+".mp3").catch(function(){});
+      });
+    });
   }
-  warnIfNoKoVoice();
   exam.idx=0; exam.running=false;
   document.getElementById("examStart").textContent="시작";
   document.getElementById("examStatus").textContent="준비되면 시작을 눌러 주세요";
@@ -434,14 +484,14 @@ document.getElementById("btnExam").addEventListener("click",function(){
 });
 document.getElementById("examStart").addEventListener("click",function(){
   stopExam();
-  track("exam_start",{words:state.words.length});
+  track("exam_start",{words:state.words.length, voice:exam.useFile?"file":"device"});
   exam.idx=0; exam.running=true;
   this.textContent="시작";
   playCurrent();
 });
 document.getElementById("examAgain").addEventListener("click",function(){
   if(!state.words.length) return;
-  clearExamTimer(); speechSynthesis.cancel();
+  clearExamTimer(); speechSynthesis.cancel(); stopClip();
   if(!exam.running){ exam.running=true; }
   playCurrent();
 });
@@ -540,11 +590,17 @@ document.getElementById("btnImage").addEventListener("click",function(){
   } else fin();
 });
 document.getElementById("btnPreview").addEventListener("click",function(){
-  if(!window.speechSynthesis){ showToast("이 브라우저는 음성을 지원하지 않아요"); return; }
-  warnIfNoKoVoice();
   stopExam();
   var ws=parseWords(document.getElementById("words").value);
-  speak(ws[0] || "안녕하세요. 받아쓰기 연습을 시작해 볼까요?", null);
+  var t=ws[0] || "안녕하세요. 받아쓰기 연습을 시작해 볼까요?";
+  var cid=clipId(t);
+  if(cid){
+    playClip(cid, null);
+  } else {
+    if(!window.speechSynthesis){ showToast("이 브라우저는 음성을 지원하지 않아요"); return; }
+    warnIfNoKoVoice();
+    speak(t, null);
+  }
   track("tts_preview",{});
 });
 document.getElementById("btnReset").addEventListener("click",function(){
