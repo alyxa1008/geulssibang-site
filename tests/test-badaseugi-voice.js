@@ -1,7 +1,7 @@
 /* 받아쓰기 자연 음성 클립 검사
    실행: node tests/test-badaseugi-voice.js
    1) manifest가 급수표·맞춤법·프리셋·번호(서수)를 전부 덮는가 (파일 모드 판정의 전제)
-   2) manifest의 모든 항목이 실제 m4a 파일로 존재하는가
+   2) manifest의 모든 항목이 실제 mp3 파일로 존재하는가
    3) 파일명 = sha1(텍스트) 앞 10자리 규칙이 지켜지는가
    4) 페이지 배선(manifest 로드·speakEx 사용)이 살아 있는가 */
 "use strict";

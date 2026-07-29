@@ -367,9 +367,11 @@ function playClip(cid, cb){
 function speakEx(text, cb){
   var cid=exam.useFile ? clipId(text) : null;
   if(!cid){ speak(text, cb); return; }
+  var s=exam.session;   /* 연타로 재생이 교체되면 낡은 실패 콜백이 남는다 — 세대가 다르면 폴백 금지 */
   playClip(cid, function(ok){
-    if(ok){ if(cb) cb(); }
-    else speak(text, cb);
+    if(ok){ if(cb) cb(); return; }
+    if(s!==exam.session) return;
+    speak(text, cb);
   });
 }
 
