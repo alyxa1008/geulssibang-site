@@ -334,6 +334,11 @@ function aliveGuard(){
   return function(){ return exam.running && s===exam.session; };
 }
 
+/* TTS가 "1번"을 횟수(한 번)로 읽어 어색함 → 서수(첫 번째)로 불러준다 */
+var ORD_KO=["첫","두","세","네","다섯","여섯","일곱","여덟","아홉","열",
+            "열한","열두","열세","열네","열다섯","열여섯","열일곱","열여덟","열아홉","스무"];
+function ordinalKo(n){ return (ORD_KO[n-1]||n)+" 번째"; }
+
 function speak(text, cb){
   var u=new SpeechSynthesisUtterance(text);
   u.lang="ko-KR";
@@ -374,7 +379,7 @@ function playCurrent(){
       }
     });
   }
-  speak((exam.idx+1)+"번", function(){
+  speak(ordinalKo(exam.idx+1), function(){
     if(!alive()) return;
     exam.timer=setTimeout(readOnce, 700);
   });
