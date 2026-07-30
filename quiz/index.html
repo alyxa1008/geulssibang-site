@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="naver-site-verification" content="5a80c95ca3675833b5faac38af43702f204a7b69" />
+<meta name="p:domain_verify" content="6e21dcbfb23c20103a0e44fcd76be732"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-86X82MNHC8"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "G-86X82MNHC8");
+</script>
+<title>초등 상식퀴즈 — 어린이 상식 문제 시험 (동물·과학·나라·세계·안전) | 글씨방</title>
+<meta name="description" content="초등 상식퀴즈를 화면에서 바로. 동물·과학·우리나라·세계·생활안전 5개 분야, 7세부터 부모님 도전까지 급수 5단계. 객관식·주관식 선택, 답할 시간 제한, 정답마다 한 줄 해설, 시험 후 상장 인쇄까지. 문제은행 250개에서 매번 새로 출제. 무료, 회원가입 없음.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="초등 상식퀴즈 — 어린이 상식 문제 시험 | 글씨방">
+<meta property="og:description" content="동물·과학·우리나라·세계·안전 5개 분야 × 급수 5단계. 객관식·주관식, 해설과 상장까지. 무료.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://geulssibang.com/quiz/">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1834921044404408" crossorigin="anonymous"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+/* ===== 이 페이지 전용 — 상식퀴즈 시험 화면 (칠판 오버레이 틀은 style.css .exam) ===== */
+.solo{max-width:620px; margin:0 auto 18px}
+#quizBody{display:flex; flex-direction:column; align-items:center; gap:16px; width:100%; max-width:560px}
+#quizBody .tip{margin:0}
+/* 분야 칩 */
+.catgrid{display:flex; gap:8px; flex-wrap:wrap}
+.catgrid button{font-family:var(--disp); font-size:15px; padding:9px 14px; border:2px solid #e3e6ea; border-radius:999px; background:#fff; color:var(--ink-soft); cursor:pointer}
+.catgrid button.on{background:var(--redpen); border-color:var(--redpen); color:#fff}
+/* 급수 세그 */
+.lvseg{display:grid; grid-template-columns:repeat(5,1fr); gap:6px}
+.lvseg button{font-family:var(--disp); font-size:14px; padding:10px 0; border:2px solid #e3e6ea; border-radius:8px; background:#fff; color:var(--ink-soft); cursor:pointer}
+.lvseg button.on{background:var(--redpen); border-color:var(--redpen); color:#fff}
+/* 문제 카드 — 글 문제라 구구단보다 작게, 여러 줄 허용 */
+.exam .prob{font-family:var(--disp); font-size:clamp(22px,5.5vw,34px); color:var(--chalk); line-height:1.5; text-align:center; word-break:keep-all}
+/* 사지선다 — 글 보기라 세로 나열 */
+.choices{display:flex; flex-direction:column; gap:10px; width:100%; max-width:440px}
+.choices button{min-height:52px; padding:10px 14px; font-family:var(--disp); font-size:clamp(16px,4.2vw,20px); border-radius:12px; border:2px solid rgba(243,239,228,.4); background:transparent; color:var(--chalk); cursor:pointer; word-break:keep-all}
+.choices button:active{transform:scale(.98)}
+.choices button.right{border-color:#9ed6a8; background:rgba(158,214,168,.22)}
+.choices button.wrong{border-color:#e8a1a1; background:rgba(232,161,161,.22)}
+/* 주관식 입력 */
+.typein{display:flex; gap:8px; width:100%; max-width:440px}
+.typein input{flex:1; min-width:0; height:52px; font-family:var(--disp); font-size:20px; padding:0 14px; border-radius:12px; border:2px solid rgba(243,239,228,.5); background:rgba(255,255,255,.08); color:var(--chalk); text-align:center}
+.typein input::placeholder{color:rgba(243,239,228,.4)}
+.typein button{height:52px; padding:0 20px; font-family:var(--disp); font-size:17px; border-radius:12px; border:0; background:var(--redpen); color:#fff; cursor:pointer}
+/* 정답 공개 카드 — 이모지+정답+해설 */
+.reveal{display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center; animation:comboPop .35s ease}
+.reveal .remoji{font-size:64px; line-height:1.1}
+.reveal .rmark{font-family:var(--disp); font-size:22px}
+.reveal .rmark.good{color:#9ed6a8}
+.reveal .rmark.bad{color:#e8a1a1}
+.reveal .ranswer{font-family:var(--disp); font-size:clamp(20px,5vw,28px); color:#ffd9a8}
+.reveal .rexp{font-size:15px; color:var(--chalk-dim); line-height:1.6; max-width:420px; word-break:keep-all}
+.combo{font-family:var(--disp); color:#ffd9a8; font-size:17px; animation:comboPop .35s ease}
+@keyframes comboPop{from{transform:scale(.5); opacity:0} to{transform:scale(1); opacity:1}}
+/* 결과 화면 */
+.result{color:var(--chalk); text-align:center; max-width:560px; display:flex; flex-direction:column; gap:14px; align-items:center}
+.result .score{font-family:var(--disp); font-size:clamp(44px,12vw,80px); line-height:1}
+.result .diag{color:#ffd9a8; font-size:16px}
+.result .wrongs{font-size:15px; color:var(--chalk-dim); line-height:1.9; word-break:keep-all}
+/* 상장·시험지 — 평소엔 숨기고 인쇄할 때 해당하는 것만 */
+#cert,#psheet{display:none}
+@media print{
+  body *{visibility:hidden}
+  body.pc-cert #cert, body.pc-cert #cert *{visibility:visible}
+  body.pc-sheet #psheet, body.pc-sheet #psheet *{visibility:visible}
+  body.pc-cert #cert, body.pc-sheet #psheet{display:block; position:absolute; left:0; top:0; width:100%}
+}
+#cert .cframe{border:4px double #2b3038; outline:2px solid #2b3038; outline-offset:3px; margin:12mm; padding:20mm 14mm; text-align:center; font-family:var(--disp); color:#2b3038}
+#cert .cmedal{font-size:72px; line-height:1}
+#cert h2{font-size:42px; margin:10mm 0 12mm; letter-spacing:.28em}
+#cert .cname{font-size:20px; margin-bottom:10mm}
+#cert p{font-size:19px; line-height:2.1; font-family:"Gowun Dodum",sans-serif}
+#cert .cdate{margin-top:14mm; font-size:17px}
+#cert .csign{margin-top:4mm; font-size:17px; color:#555}
+/* 인쇄용 시험지 */
+#psheet{font-family:"Gowun Dodum",sans-serif; color:#2b3038}
+#psheet .ppage{padding:14mm 12mm; page-break-after:always}
+#psheet .phead{font-family:var(--disp); font-size:24px; margin-bottom:2mm}
+#psheet .pmeta{font-size:14px; color:#555; margin-bottom:8mm}
+#psheet ol{padding-left:22px; margin:0}
+#psheet li{font-size:15px; line-height:1.7; margin-bottom:6mm; break-inside:avoid}
+#psheet .popts{margin-top:1mm; color:#444}
+#psheet .pans li{margin-bottom:2mm}
+</style>
+<meta property="og:url" content="https://geulssibang.com/quiz/">
+<meta property="og:site_name" content="글씨방">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://geulssibang.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2f5d4d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="글씨방">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "초등 상식퀴즈", "url": "https://geulssibang.com/quiz/", "description": "동물·과학·우리나라·세계·생활안전 5개 분야, 급수 5단계의 어린이 상식 문제를 화면에서 바로 풀고 해설과 상장까지 받는 무료 상식퀴즈 도구", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "문제가 매번 똑같이 나오나요?", "acceptedAnswer": {"@type": "Answer", "text": "아니요. 분야·급수별 문제은행에서 매번 무작위로 출제되고, 최근에 나왔던 문제는 다음 시험에서 자동으로 빠집니다. 문제은행은 계속 늘어납니다."}}, {"@type": "Question", "name": "몇 살부터 풀 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "1급수는 7세~1학년 눈높이의 쉬운 문제부터 시작합니다. 급수가 올라갈수록 어려워져서 5급수는 부모님이 함께 도전하는 수준입니다."}}, {"@type": "Question", "name": "아이 혼자서도 할 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 객관식은 네 개의 보기 중 정답을 골라 자동 채점되고, 정답이 공개될 때마다 큰 그림과 한 줄 해설이 나와 혼자서도 배우며 풀 수 있습니다."}}, {"@type": "Question", "name": "무료인가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 상식퀴즈, 해설, 상장·시험지 인쇄 모두 무료이고 회원가입도 없습니다."}}]}</script>
+</head>
+<body>
+<div class="wrap narrow">
+
+  <nav class="topnav">
+    <a href="../">글씨방 홈</a>
+    <a href="../hangul/">한글 따라쓰기</a>
+    <a href="../badaseugi/">받아쓰기</a>
+    <a href="../gugudan/">구구단 시험</a>
+    <a href="./" class="here">상식퀴즈</a>
+  </nav>
+
+  <header>
+    <div class="logo">상식퀴즈 <span class="pen">💡</span></div>
+    <h1 class="tagline">초등 상식퀴즈 — 답이 딱 하나뿐인 진짜 상식 문제</h1>
+    <div class="chalk-line"></div>
+  </header>
+
+  <div class="solo">
+    <aside class="panel">
+      <div class="panel-head">시험 만들기</div>
+      <div class="panel-body">
+
+        <div class="field">
+          <label>분야 <span class="hint">여러 개 선택 가능 · 안 고르면 전체</span></label>
+          <div class="catgrid" id="catGrid">
+            <button data-cat="animal">🐾 동물</button>
+            <button data-cat="science">🔬 과학·자연</button>
+            <button data-cat="korea">🇰🇷 우리나라</button>
+            <button data-cat="world">🌍 세계</button>
+            <button data-cat="life">🏠 생활·안전</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>급수 <span class="hint">1급수 7세~ · 5급수는 부모님 도전</span></label>
+          <div class="lvseg" id="lvSeg">
+            <button data-lv="1">1급수 🌱</button>
+            <button data-lv="2" class="on">2급수</button>
+            <button data-lv="3">3급수</button>
+            <button data-lv="4">4급수</button>
+            <button data-lv="5">5급수 🔥</button>
+          </div>
+        </div>
+
+        <div class="two field">
+          <div>
+            <label>답하는 방법</label>
+            <div class="seg" id="modeSeg" role="group" aria-label="답하는 방법">
+              <button data-mode="choice" class="on">보기로 고르기</button>
+              <button data-mode="type">직접 입력</button>
+            </div>
+          </div>
+          <div>
+            <label for="think">답할 시간 <span class="hint">지나면 오답</span></label>
+            <select id="think">
+              <option value="5">5초</option>
+              <option value="10" selected>10초</option>
+              <option value="15">15초</option>
+              <option value="0">제한 없음</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="check"><input type="checkbox" id="voice" checked> 문제 읽어주기</label>
+        </div>
+
+        <div class="actions">
+          <button class="act tts" id="btnStart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            퀴즈 시작 (10문제)
+          </button>
+          <button class="act sub" id="btnSheet">🖨 시험지 인쇄</button>
+          <button class="act sub" id="btnShare">🔗 링크 복사</button>
+          <button class="act sub" id="btnReset">처음부터</button>
+        </div>
+
+      </div>
+    </aside>
+  </div>
+
+  <!-- ============ QUIZ OVERLAY (칠판 틀은 style.css .exam) ============ -->
+  <div class="exam" id="quiz">
+    <button class="close" id="quizClose" aria-label="퀴즈 닫기">✕</button>
+    <div id="quizBody"></div>
+  </div>
+
+  <!-- AD SLOT (애드센스 유닛으로 교체) -->
+  <div class="adslot" aria-hidden="true">광고 영역</div>
+
+  <!-- ============ SEO CONTENT ============ -->
+  <div class="content">
+    <h2>"문어 다리는 몇 개게?" — 답이 하나뿐인 문제만 모았어요</h2>
+    <p>아이 상식 문제를 찾다 보면 답이 애매해서 다투게 되는 문제가 많죠. 글씨방 상식퀴즈는 <strong>정의·숫자·이름·날짜처럼 답이 사실 하나로 고정되는 문제만</strong> 골라 담았습니다. 동물·과학과 자연·우리나라·세계·생활과 안전 <strong>5개 분야</strong>, 7세부터 시작하는 <strong>급수 5단계</strong> — 문제은행에서 매번 무작위로 10문제가 출제되고, 최근에 나온 문제는 다음 시험에서 자동으로 빠져서 할 때마다 새 시험이에요. 정답이 공개될 때마다 큰 그림(이모지)과 <strong>한 줄 해설</strong>이 함께 나와서, 맞혀도 틀려도 하나씩 배우고 넘어갑니다.</p>
+
+    <h2>급수는 이렇게 골라 주세요</h2>
+    <p><strong>1급수</strong>는 "멍멍 짖는 동물은?" 같은 7세~1학년 눈높이, <strong>2급수</strong>는 1~2학년, <strong>3급수</strong>는 3~4학년 교과 상식 수준입니다. <strong>4급수</strong>부터는 고학년도 갸웃하는 문제가 섞이고, <strong>5급수 🔥</strong>는 "훈민정음 반포 연도는?" 같은 어른용 상식퀴즈 수준이라 부모님과 대결하기 좋아요. 아이가 10문제 중 8문제 이상을 맞히면 다음 급수로 올려 보세요. 시험이 끝나면 <strong>상식왕 상장</strong>을 인쇄해 줄 수 있고, 종이로 풀고 싶다면 <strong>시험지 인쇄</strong> 버튼으로 문제지+정답지를 뽑아 가족 퀴즈 대회를 열 수도 있습니다.</p>
+
+    <div class="adslot" aria-hidden="true">광고 영역</div>
+
+    <h2>자주 묻는 질문</h2>
+    <dl class="faq">
+      <dt>문제가 매번 똑같이 나오나요?</dt>
+      <dd>아니요. 분야·급수별 문제은행에서 매번 무작위로 출제되고, 최근에 나왔던 문제는 다음 시험에서 자동으로 빠집니다. 문제은행은 계속 늘어나요.</dd>
+      <dt>몇 살부터 풀 수 있나요?</dt>
+      <dd>1급수는 7세~1학년 눈높이부터 시작해요. 글을 아직 못 읽어도 '문제 읽어주기'를 켜면 들으면서 풀 수 있습니다.</dd>
+      <dt>아이 혼자서도 할 수 있나요?</dt>
+      <dd>네. <strong>보기로 고르기</strong>는 자동 채점되고 정답마다 해설이 나와 혼자서도 배우며 풀 수 있어요. <strong>직접 입력</strong>은 보기 없이 답을 쓰는 도전 모드입니다.</dd>
+      <dt>답이 이상한 것 같아요.</dt>
+      <dd>모든 문제는 교과서·사전에서 확인되는 사실만 담고 논쟁이 있는 문제는 넣지 않았어요. 그래도 이상한 문제를 발견하면 hello.geulssibang@gmail.com 으로 알려주세요.</dd>
+      <dt>무료인가요?</dt>
+      <dd>네. 퀴즈·해설·상장·시험지 인쇄 모두 무료이고 회원가입도 없습니다.</dd>
+    </dl>
+  </div>
+
+  <footer>
+  <nav class="foot-map" aria-label="전체 메뉴">
+    <div class="fcol"><b>✎ 한글</b>
+      <a href="/hangul/">따라쓰기 만들기</a>
+      <a href="/hangul/jamo/">자음·모음 따라쓰기</a>
+      <a href="/hangul/natmal/">낱말 따라쓰기</a>
+      <a href="/hangul/ireum/">아이 이름 따라쓰기</a>
+      <a href="/hangul/suja/">숫자 따라쓰기</a>
+      <a href="/hangul/order/">쓰기 순서(획순)</a>
+      <a href="/hangul/trace/">화면 손글씨</a>
+      <a href="/hangul/guide/">한글 떼기 가이드</a>
+      <a href="/hangul/pen/">예쁜 글씨 연습(성인)</a>
+    </div>
+    <div class="fcol"><b>🔊 받아쓰기</b>
+      <a href="/badaseugi/">불러주기·시험지</a>
+      <a href="/badaseugi/geupsu/">학기별 급수표</a>
+      <a href="/badaseugi/geupsu/1-1/">1학년 1학기</a>
+      <a href="/badaseugi/geupsu/1-2/">1학년 2학기</a>
+      <a href="/badaseugi/geupsu/2-1/">2학년 1학기</a>
+      <a href="/badaseugi/geupsu/2-2/">2학년 2학기</a>
+      <a href="/badaseugi/geupsu/3/">3학년 (어려운 문제)</a>
+      <a href="/badaseugi/matchumbeop/">헷갈리는 맞춤법</a>
+    </div>
+    <div class="fcol"><b>✚ 수학</b>
+      <a href="/math/">문제지 만들기</a>
+      <a href="/math/add-sub/">덧셈·뺄셈</a>
+      <a href="/math/gugudan/">구구단</a>
+      <a href="/math/mul-div/">곱셈·나눗셈</a>
+      <a href="/math/fraction/">분수·소수</a>
+      <a href="/math/word/">문장제</a>
+      <a href="/math/roadmap/">연산 로드맵</a>
+      <a href="/gugudan/">구구단 외우기 시험</a>
+    </div>
+    <div class="fcol"><b>🌀 놀이·활동</b>
+      <a href="/maze/">미로 찾기</a>
+      <a href="/maze/hangul/">한글 낱말 미로</a>
+      <a href="/maze/suja/">숫자 미로</a>
+      <a href="/card/">이름 카드</a>
+      <a href="/banghak/">여름방학 학습지</a>
+      <a href="/plan/">방학 생활계획표</a>
+      <a href="/quiz/">상식 퀴즈</a>
+    </div>
+  </nav>
+  <div class="foot-base">
+    <span>© 2026 글씨방 — 무료 학습지 생성기 · <a href="/terms/">무단 복제·전재 금지</a></span>
+    <span><a href="/about/">사이트 소개</a> · <a href="/terms/">이용약관</a> · <a href="/privacy/">개인정보처리방침</a></span>
+  </div>
+</footer>
+</div>
+
+<div id="cert" aria-hidden="true"></div>
+<div id="psheet" aria-hidden="true"></div>
+<div class="toast" id="toast">링크가 복사되었습니다</div>
+
+<script src="../assets/common.js"></script>
+<script src="quiz-data.js"></script>
+<script src="quiz-gen.js"></script>
+<script>
+"use strict";
+/* 출제·채점 로직은 quiz-gen.js (순수 모듈), 문제은행은 quiz-data.js */
+var CATNAME={animal:"동물", science:"과학·자연", korea:"우리나라", world:"세계", life:"생활·안전"};
+var COUNT=10, SEEN_KEY="gb_quiz_seen", SEEN_MAX=150;
+
+/* ---------- state ---------- */
+var state={ cats:[], level:2, mode:"choice", think:10, voice:true };
+var quiz={ qs:[], idx:0, timer:null, results:[], combo:0, best:0 };
+
+function seenLoad(){
+  try{ var a=JSON.parse(localStorage.getItem(SEEN_KEY)||"[]"); return Array.isArray(a)?a:[]; }
+  catch(e){ return []; }
+}
+function seenSave(ids){
+  try{
+    var a=seenLoad().concat(ids).slice(-SEEN_MAX);
+    localStorage.setItem(SEEN_KEY, JSON.stringify(a));
+  }catch(e){}
+}
+
+/* ---------- 시험 진행 ---------- */
+function stopTimer(){ if(quiz.timer){ clearTimeout(quiz.timer); quiz.timer=null; } }
+function say(text){ if(state.voice) speakKo(text, 0.95); }
+
+function startQuiz(idxList){
+  var ids=idxList || QuizGen.pickQuestions(QUIZ_DATA, state.cats, state.level, COUNT, seenLoad());
+  if(!ids.length){ showToast("이 조건에 맞는 문제가 없어요"); return; }
+  quiz.qs=ids.map(function(i){ return QUIZ_DATA[i]; });
+  quiz.ids=ids;
+  quiz.idx=0; quiz.results=[]; quiz.combo=0; quiz.best=0;
+  if(koVoiceMissing() && state.voice) showToast("이 기기에 한국어 음성이 없어요. 화면만으로 진행됩니다");
+  track("exam_start",{tool:"quiz", level:state.level, cats:state.cats.join(",")||"all", n:quiz.qs.length, mode:state.mode});
+  document.getElementById("quiz").classList.add("show");
+  showQuestion();
+}
+function closeQuiz(){
+  stopTimer();
+  if(window.speechSynthesis) speechSynthesis.cancel();
+  document.getElementById("quiz").classList.remove("show");
+}
+
+function showQuestion(){
+  stopTimer();
+  var q=quiz.qs[quiz.idx], body=document.getElementById("quizBody");
+  var head='<div class="qno"><span>'+(quiz.idx+1)+'</span>번<small>'+(quiz.idx+1)+' / '+quiz.qs.length+' · '+CATNAME[q.c]+'</small></div>'
+          +(quiz.combo>=2 ? '<div class="combo">🔥 '+quiz.combo+'문제 연속 정답!</div>' : '')
+          +'<div class="prob">'+q.q+'</div>';
+  var barHTML = state.think>0 ? '<div class="bar"><i id="thinkBar"></i></div>' : '';
+  if(state.mode==="choice"){
+    var ch=QuizGen.shuffledChoices(q);
+    body.innerHTML=head
+      +'<div class="choices" id="choices">'+ch.map(function(v,i){
+        return '<button data-v="'+i+'">'+"①②③④"[i]+' '+v+'</button>';
+      }).join("")+'</div>'
+      +barHTML
+      +'<p class="tip">정답이라고 생각하는 것을 골라 보세요.</p>';
+    quiz.choiceVals=ch;
+    document.getElementById("choices").addEventListener("click",choiceTap);
+  }else{
+    body.innerHTML=head
+      +'<div class="typein"><input id="typeIn" type="text" autocomplete="off" enterkeyhint="done" placeholder="정답 입력"><button id="typeGo">확인</button></div>'
+      +barHTML
+      +'<p class="tip">답을 쓰고 확인을 눌러 주세요.</p>';
+    var input=document.getElementById("typeIn");
+    input.focus();
+    input.addEventListener("keydown",function(e){ if(e.key==="Enter") typeSubmit(); });
+    document.getElementById("typeGo").addEventListener("click",typeSubmit);
+  }
+  startAnswerTimer(timeUp);
+  say(q.q);
+}
+/* 답할 시간 타이머 — '제한 없음'(0)이면 걸지 않는다 */
+function startAnswerTimer(onTimeout){
+  if(!(state.think>0)) return;
+  animateThinkBar(document.getElementById("thinkBar"));
+  quiz.timer=setTimeout(onTimeout, state.think*1000);
+}
+function animateThinkBar(bar){
+  bar.style.transition="none"; bar.style.width="0";
+  void bar.offsetWidth;
+  bar.style.transition="width "+state.think+"s linear";
+  bar.style.width="100%";
+}
+
+/* 정답 공개 카드 — 이모지 + 정답 + 해설. 맞음/틀림 어느 쪽이든 반드시 보여준다 */
+function showReveal(q, ok){
+  var body=document.getElementById("quizBody");
+  [".bar",".tip",".typein"].forEach(function(sel){
+    var el=body.querySelector(sel); if(el) el.remove();
+  });
+  var div=document.createElement("div");
+  div.className="reveal";
+  div.innerHTML='<div class="remoji">'+q.m+'</div>'
+    +'<div class="rmark '+(ok?"good":"bad")+'">'+(ok?"⭕ 정답!":"❌ 아쉬워요")+'</div>'
+    +'<div class="ranswer">'+q.o[0]+'</div>'
+    +'<div class="rexp">'+q.e+'</div>';
+  body.appendChild(div);
+  if(!ok) say("정답은 "+q.o[0]);
+}
+function timeUp(){
+  var q=quiz.qs[quiz.idx];
+  if(state.mode==="choice"){
+    document.querySelectorAll("#choices button").forEach(function(x){
+      x.disabled=true;
+      if(quiz.choiceVals[+x.dataset.v]===q.o[0]) x.classList.add("right");
+    });
+  }
+  showReveal(q,false);
+  mark(false, 2600);
+}
+function choiceTap(e){
+  var b=e.target.closest("button"); if(!b||b.disabled) return;
+  var q=quiz.qs[quiz.idx], ok=quiz.choiceVals[+b.dataset.v]===q.o[0];
+  document.querySelectorAll("#choices button").forEach(function(x){
+    x.disabled=true;
+    if(quiz.choiceVals[+x.dataset.v]===q.o[0]) x.classList.add("right");
+  });
+  if(!ok) b.classList.add("wrong");
+  showReveal(q, ok);
+  mark(ok, ok?1800:2600);
+}
+function typeSubmit(){
+  var input=document.getElementById("typeIn");
+  if(!input || !input.value.trim()) return;
+  var q=quiz.qs[quiz.idx], ok=QuizGen.checkAnswer(q, input.value);
+  showReveal(q, ok);
+  mark(ok, ok?1800:2600);
+}
+function mark(ok, delay){
+  stopTimer();
+  var q=quiz.qs[quiz.idx];
+  quiz.results.push({q:q.q, ans:q.o[0], ok:ok});
+  if(ok){ quiz.combo++; if(quiz.combo>quiz.best) quiz.best=quiz.combo; } else quiz.combo=0;
+  quiz.timer=setTimeout(function(){
+    quiz.idx++;
+    if(quiz.idx<quiz.qs.length) showQuestion(); else finish();
+  }, delay||300);
+}
+
+function finish(){
+  stopTimer();
+  seenSave(quiz.ids);
+  var g=QuizGen.grade(quiz.results);
+  track("quiz_done",{tool:"quiz", level:state.level, score:g.score, total:g.total});
+  var body=document.getElementById("quizBody");
+  var diag = g.wrong.length===0
+    ? (state.level<5 ? "만점! 다음 급수에 도전해 보세요." : "만점! 5급수 정복 — 진짜 상식왕이에요.")
+    : "틀린 문제의 해설을 한 번씩 읽어 보면 다음엔 맞힐 수 있어요.";
+  var html='<div class="result"><div class="score">'+g.score+' / '+g.total+'</div>'
+    +'<div class="diag">'+diag+'</div>';
+  if(quiz.best>=3) html+='<div class="diag">🔥 최고 '+quiz.best+'문제 연속 정답!</div>';
+  if(g.wrong.length){
+    html+='<div class="wrongs">'+g.wrong.map(function(r){return r.q+" <b>"+r.ans+"</b>";}).join("<br>")+'</div>';
+  }
+  html+='<div class="ctrl">'
+    +'<button class="main" id="btnAgainQ">새 문제로 또 하기</button>'
+    +'<button id="btnCert">🏆 상장 인쇄</button><button id="btnDone">끝내기</button></div></div>';
+  body.innerHTML=html;
+  document.getElementById("btnAgainQ").addEventListener("click",function(){ startQuiz(); });
+  document.getElementById("btnDone").addEventListener("click",closeQuiz);
+  document.getElementById("btnCert").addEventListener("click",function(){ printCert(g); });
+  say(g.score+"점, 참 잘했어요");
+}
+
+/* 상장 인쇄 */
+function printCert(g){
+  var perfect=g.score===g.total, d=new Date();
+  document.getElementById("cert").innerHTML='<div class="cframe">'
+    +'<div class="cmedal">'+(perfect?"🏆":"🌟")+'</div>'
+    +'<h2>'+(perfect?"상식왕 으뜸상":"상식왕 도전상")+'</h2>'
+    +'<div class="cname">이름: ________________</div>'
+    +'<p>위 어린이는 상식퀴즈 '+state.level+'급수 시험에서<br><b>'+g.total+'문제 중 '+g.score+'문제</b>를 맞혔기에<br>큰 칭찬과 함께 이 상장을 드립니다.</p>'
+    +'<div class="cdate">'+d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일</div>'
+    +'<div class="csign">글씨방 상식퀴즈 💡 geulssibang.com</div></div>';
+  track("print_sheet",{tool:"quiz", kind:"cert"});
+  printOnly("pc-cert");
+}
+/* 시험지 인쇄 — 문제지 1장 + 정답지 1장 */
+function printSheet(){
+  var ids=QuizGen.pickQuestions(QUIZ_DATA, state.cats, state.level, COUNT, seenLoad());
+  if(!ids.length){ showToast("이 조건에 맞는 문제가 없어요"); return; }
+  var qs=ids.map(function(i){ return QUIZ_DATA[i]; });
+  var catLabel=state.cats.length ? state.cats.map(function(c){return CATNAME[c];}).join("·") : "전체 분야";
+  var html='<div class="ppage"><div class="phead">상식퀴즈 '+state.level+'급수 💡</div>'
+    +'<div class="pmeta">'+catLabel+' · 이름: ______________ · 점수: ____ / '+qs.length+'</div><ol>';
+  qs.forEach(function(q){
+    html+='<li>'+q.q+'<div class="popts">'+q.o.slice().sort(function(){return .5-Math.random();}).map(function(v,i){
+      return "①②③④"[i]+" "+v;
+    }).join("&nbsp;&nbsp; ")+'</div></li>';
+  });
+  html+='</ol></div>';
+  html+='<div class="ppage"><div class="phead">정답지 ✔</div><div class="pmeta">상식퀴즈 '+state.level+'급수 · '+catLabel+'</div><ol class="pans">';
+  qs.forEach(function(q){ html+='<li><b>'+q.o[0]+'</b> — '+q.e+'</li>'; });
+  html+='</ol></div>';
+  document.getElementById("psheet").innerHTML=html;
+  seenSave(ids);
+  track("print_sheet",{tool:"quiz", kind:"sheet", level:state.level});
+  printOnly("pc-sheet");
+}
+function printOnly(cls){
+  document.body.classList.add(cls);
+  var done=function(){ document.body.classList.remove(cls); window.removeEventListener("afterprint",done); };
+  window.addEventListener("afterprint",done);
+  window.print();
+}
+
+/* ---------- share ---------- */
+function encodeState(){
+  return b64e(JSON.stringify([1, state.cats.join(","), state.level, state.mode, state.think, state.voice?1:0]));
+}
+function loadFromHash(){
+  try{
+    var m=location.hash.match(/s=([^&]+)/); if(!m) return false;
+    var a=JSON.parse(b64d(decodeURIComponent(m[1])));
+    if(a[0]!==1) return false;
+    var cs=String(a[1]||"").split(",").filter(function(c){ return CATNAME[c]; });
+    state.cats=cs;
+    state.level=[1,2,3,4,5].indexOf(+a[2])>=0 ? +a[2] : 2;
+    state.mode=a[3]==="type" ? "type" : "choice";
+    state.think=[0,5,10,15].indexOf(+a[4])>=0 ? +a[4] : 10;
+    state.voice=!!a[5];
+    return true;
+  }catch(e){ return false; }
+}
+
+/* ---------- wire controls ---------- */
+function syncControls(){
+  document.querySelectorAll("#catGrid button").forEach(function(b){
+    b.classList.toggle("on", state.cats.indexOf(b.dataset.cat)>=0);
+  });
+  document.querySelectorAll("#lvSeg button").forEach(function(b){ b.classList.toggle("on", +b.dataset.lv===state.level); });
+  document.querySelectorAll("#modeSeg button").forEach(function(b){ b.classList.toggle("on", b.dataset.mode===state.mode); });
+  document.getElementById("think").value=String(state.think);
+  document.getElementById("voice").checked=state.voice;
+}
+document.getElementById("catGrid").addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b)return;
+  var c=b.dataset.cat, i=state.cats.indexOf(c);
+  if(i>=0) state.cats.splice(i,1); else state.cats.push(c);
+  syncControls();
+});
+document.getElementById("lvSeg").addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b)return; state.level=+b.dataset.lv; syncControls();
+});
+document.getElementById("modeSeg").addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b)return; state.mode=b.dataset.mode; syncControls();
+});
+document.getElementById("think").addEventListener("change",function(e){ state.think=+e.target.value; });
+document.getElementById("voice").addEventListener("change",function(e){ state.voice=e.target.checked; });
+document.getElementById("btnStart").addEventListener("click",function(){ startQuiz(); });
+document.getElementById("btnSheet").addEventListener("click",printSheet);
+document.getElementById("quizClose").addEventListener("click",closeQuiz);
+document.getElementById("btnShare").addEventListener("click",function(){ copyShareLink(encodeState()); });
+document.getElementById("btnReset").addEventListener("click",function(){
+  state={ cats:[], level:2, mode:"choice", think:10, voice:true };
+  history.replaceState(null,"",location.pathname);
+  syncControls();
+});
+window.addEventListener("pagehide",function(){ stopTimer(); if(window.speechSynthesis) speechSynthesis.cancel(); });
+
+/* ---------- init ---------- */
+loadFromHash();
+syncControls();
+</script>
+</body>
+</html>
