@@ -202,7 +202,7 @@ wireDeepLinks();
    localStorage에만 저장(서버 전송 없음). 사생활 고지("입력한 내용은
    브라우저 안에서만 처리")와 일치. 사용 불가 환경(시크릿 등)은 조용히 무시. */
 (function(){
-  var TOOLS={"/hangul/":1,"/badaseugi/":1,"/math/":1,"/maze/":1,"/card/":1,"/plan/":1,"/gugudan/":1};
+  var TOOLS={"/hangul/":1,"/badaseugi/":1,"/math/":1,"/maze/":1,"/card/":1,"/plan/":1,"/gugudan/":1,"/quiz/":1};
   try{
     if(!TOOLS[location.pathname]) return;
     var list=JSON.parse(localStorage.getItem("gb_recent")||"[]")
