@@ -29,6 +29,16 @@ gtag("config", "G-86X82MNHC8");
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="../assets/style.css">
+<style>
+/* 시험 뒤 채점 패널 — 틀린 낱말 고르기 (칠판 오버레이 안) */
+#examMark{display:flex; flex-direction:column; gap:12px; align-items:center; max-width:560px}
+#examMark p{color:var(--chalk); margin:0; font-size:15px}
+#examMark .mkws{display:flex; flex-wrap:wrap; gap:8px; justify-content:center}
+#examMark .mkws button{font:inherit; font-size:15px; padding:7px 12px; border-radius:999px;
+  border:1.5px solid rgba(255,255,255,.45); background:transparent; color:var(--chalk); cursor:pointer}
+#examMark .mkws button.on{border-color:#e8a1a1; background:rgba(232,161,161,.25); color:#ffd9d9}
+#examMark .mkws button.on::before{content:"❌ "}
+</style>
 <meta property="og:url" content="https://geulssibang.com/badaseugi/">
 <meta property="og:site_name" content="글씨방">
 <meta property="og:locale" content="ko_KR">
@@ -156,6 +166,11 @@ gtag("config", "G-86X82MNHC8");
       <button class="main" id="examStart">시작</button>
       <button id="examAgain">다시 듣기</button>
       <button id="examNext">다음 문제</button>
+    </div>
+    <div id="examMark" hidden>
+      <p>채점하고 <b>틀린 낱말</b>을 톡톡 골라 주세요</p>
+      <div class="mkws" id="markWords"></div>
+      <div class="ctrl"><button class="main" id="examRetry">❌ 틀린 낱말만 다시 시험</button></div>
     </div>
     <p class="tip">소리가 안 나오면 휴대폰 무음 모드를 해제해 주세요. 문제를 다 쓰면 '다음 문제'를 눌러 바로 넘어갈 수도 있어요.</p>
   </div>
@@ -333,7 +348,9 @@ function makeSheet(title, startIdx, count, answerWords, pageNo, pageTotal){
 /* ---------- TTS exam mode ---------- */
 /* 한국어 음성 선택은 common.js(koVoice/koVoiceMissing)에 공통. 받아쓰기는
    콜백·세션 처리가 필요해 speak()만 자체로 둔다. */
-var exam={ idx:0, running:false, timer:null, session:0, utter:null, player:null, useFile:false };
+/* exam.list = 이번 시험에서 읽을 낱말 (기본은 state.words 전체, 틀린 낱말 재시험이면 그 부분집합).
+   시험지·정답지는 항상 state.words를 쓰므로 재시험이 인쇄물에 영향 주지 않는다 */
+var exam={ idx:0, running:false, timer:null, session:0, utter:null, player:null, useFile:false, list:[], retry:false };
 /* session: 취소된 음성의 콜백이 뒤늦게 도착해 새 재생과 겹치는 것을 막는 세대 번호.
    재생을 새로 시작하거나 멈출 때마다 증가하고, 콜백은 자기 번호가 최신일 때만 동작한다. */
 function aliveGuard(){
@@ -395,16 +412,17 @@ function clearExamTimer(){ if(exam.timer){ clearTimeout(exam.timer); exam.timer=
 
 function examUpdateUI(){
   document.getElementById("examNo").textContent=exam.idx+1;
-  document.getElementById("examProg").textContent=(exam.idx+1)+" / "+state.words.length;
-  document.getElementById("examBar").style.width=((exam.idx)/state.words.length*100)+"%";
+  document.getElementById("examProg").textContent=(exam.idx+1)+" / "+exam.list.length;
+  document.getElementById("examBar").style.width=((exam.idx)/exam.list.length*100)+"%";
 }
 
 function playCurrent(){
   if(!exam.running) return;
   clearExamTimer();
   examUpdateUI();
+  document.getElementById("examMark").hidden=true;
   var alive=aliveGuard();
-  var word=state.words[exam.idx];
+  var word=exam.list[exam.idx];
   var status=document.getElementById("examStatus");
   status.textContent="문제를 읽고 있어요…";
   var reads=0;
@@ -435,11 +453,12 @@ function nextQuestion(){
   clearExamTimer();
   speechSynthesis.cancel();
   stopClip();
-  if(exam.idx >= state.words.length-1){
+  if(exam.idx >= exam.list.length-1){
     document.getElementById("examBar").style.width="100%";
     document.getElementById("examStatus").textContent="시험 끝! 수고했어요 🎉";
     exam.running=false;
     document.getElementById("examStart").textContent="처음부터 다시";
+    showMarkPanel();
     return;
   }
   exam.idx++;
@@ -454,6 +473,33 @@ function stopExam(){
 }
 /* 시험 중 페이지를 떠나면 음성이 계속 나오는 브라우저가 있어 정리 */
 window.addEventListener("pagehide", stopExam);
+
+/* 시험 끝 채점 패널 — 틀린 낱말을 골라 그 낱말만 재시험 */
+function showMarkPanel(){
+  var box=document.getElementById("markWords");
+  box.innerHTML="";
+  exam.list.forEach(function(w){
+    var b=document.createElement("button");
+    b.type="button"; b.textContent=w;
+    b.addEventListener("click",function(){ b.classList.toggle("on"); });
+    box.appendChild(b);
+  });
+  document.getElementById("examMark").hidden=false;
+}
+document.getElementById("examRetry").addEventListener("click",function(){
+  var sel=[];
+  document.querySelectorAll("#markWords button.on").forEach(function(b){ sel.push(b.textContent); });
+  if(!sel.length){ showToast("틀린 낱말을 먼저 골라 주세요"); return; }
+  stopExam();
+  exam.list=sel;
+  exam.retry=true;
+  exam.useFile=allClipsReady(sel);
+  document.getElementById("examMark").hidden=true;
+  document.getElementById("examStart").textContent="처음부터 다시";
+  track("exam_start",{words:exam.list.length, voice:exam.useFile?"file":"device", retry:1});
+  exam.idx=0; exam.running=true;
+  playCurrent();
+});
 
 /* 한국어 음성이 설치되지 않은 기기 안내 (감지는 common.js koVoiceMissing) */
 function warnIfNoKoVoice(){
@@ -483,7 +529,9 @@ document.getElementById("btnExam").addEventListener("click",function(){
       });
     });
   }
+  exam.list=state.words; exam.retry=false;
   exam.idx=0; exam.running=false;
+  document.getElementById("examMark").hidden=true;
   document.getElementById("examStart").textContent="시작";
   document.getElementById("examStatus").textContent="준비되면 시작을 눌러 주세요";
   document.getElementById("examBar").style.width="0%";
@@ -492,19 +540,19 @@ document.getElementById("btnExam").addEventListener("click",function(){
 });
 document.getElementById("examStart").addEventListener("click",function(){
   stopExam();
-  track("exam_start",{words:state.words.length, voice:exam.useFile?"file":"device"});
+  track("exam_start",{words:exam.list.length, voice:exam.useFile?"file":"device", retry:exam.retry?1:0});
   exam.idx=0; exam.running=true;
   this.textContent="시작";
   playCurrent();
 });
 document.getElementById("examAgain").addEventListener("click",function(){
-  if(!state.words.length) return;
+  if(!exam.list.length) return;
   clearExamTimer(); speechSynthesis.cancel(); stopClip();
   if(!exam.running){ exam.running=true; }
   playCurrent();
 });
 document.getElementById("examNext").addEventListener("click",function(){
-  if(!state.words.length) return;
+  if(!exam.list.length) return;
   if(!exam.running){ exam.running=true; }
   nextQuestion();
 });
