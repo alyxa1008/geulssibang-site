@@ -1,5 +1,5 @@
 /* 상식퀴즈 검사 — 실행: node tests/test-quiz.js
-   1) 문제은행 무결성 (250개·25셀×10·보기 4·인정답·금지표현·이모지)
+   1) 문제은행 무결성 (275개·25셀×11·보기 4·인정답·금지표현·이모지)
    2) 출제 로직 성질 (급수·분야 필터, seen 제외, 모자라면 풀 재사용, 보기 섞기 보존)
    3) 주관식 채점 (인정답 변형·괄호·공백, 오답 거부)
    4) 페이지 배선 */
@@ -14,7 +14,7 @@ function ok(c,m){ if(c)console.log("  ✓ "+m); else{fails++; console.log("  ✗
 function rndSeq(){ var s=42; return function(){ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
 
 console.log("1. 문제은행 무결성");
-ok(DATA.length===250, "250문항 ("+DATA.length+")");
+ok(DATA.length===275, "275문항 ("+DATA.length+")");
 var cell={}, bad=[];
 DATA.forEach(function(q,i){
   cell[q.c+q.l]=(cell[q.c+q.l]||0)+1;
@@ -25,8 +25,8 @@ DATA.forEach(function(q,i){
   if(!q.m) bad.push(i+": 이모지 없음");
   if(/주로|좋아하|알려진|유명한/.test(q.q)) bad.push(i+": 금지표현");
 });
-ok(Object.keys(cell).length===25 && Object.keys(cell).every(function(k){return cell[k]===10;}),
-  "25셀 × 10문항");
+ok(Object.keys(cell).length===25 && Object.keys(cell).every(function(k){return cell[k]===11;}),
+  "25셀 × 11문항");
 ok(bad.length===0, "보기·인정답·해설·이모지·표현 전수 통과"+(bad.length?" — "+bad.slice(0,5).join("; "):""));
 
 console.log("2. 출제 로직 성질");
