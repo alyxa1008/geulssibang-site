@@ -318,7 +318,7 @@ function startQuiz(idxList){
   quiz.ids=ids;
   quiz.idx=0; quiz.results=[]; quiz.combo=0; quiz.best=0;
   if(koVoiceMissing() && state.voice) showToast("이 기기에 한국어 음성이 없어요. 화면만으로 진행됩니다");
-  track("exam_start",{tool:"quiz", level:state.level, cats:state.cats.join(",")||"all", n:quiz.qs.length, mode:state.mode});
+  track("exam_start",{tool:"quiz", level:state.level, cats:state.cats.join(",")||"all", n:quiz.qs.length, mode:state.mode, retry:idxList?1:0});
   document.getElementById("quiz").classList.add("show");
   showQuestion();
 }
@@ -442,9 +442,20 @@ function finish(){
     html+='<div class="wrongs">'+g.wrong.map(function(r){return r.q+" <b>"+r.ans+"</b>";}).join("<br>")+'</div>';
   }
   html+='<div class="ctrl">'
-    +'<button class="main" id="btnAgainQ">새 문제로 또 하기</button>'
+    +(g.wrong.length ? '<button class="main" id="btnRetryQ">❌ 틀린 문제만 다시 풀기</button>' : '')
+    +'<button'+(g.wrong.length?'':' class="main"')+' id="btnAgainQ">새 문제로 또 하기</button>'
     +'<button id="btnCert">🏆 상장 인쇄</button><button id="btnDone">끝내기</button></div></div>';
   body.innerHTML=html;
+  if(g.wrong.length){
+    /* 방금 시험에서 틀린 문제 번호만 추려 순서를 섞어 재시험 */
+    var wrongIds=quiz.ids.filter(function(id,i){ return !quiz.results[i].ok; });
+    document.getElementById("btnRetryQ").addEventListener("click",function(){
+      for(var i=wrongIds.length-1;i>0;i--){
+        var j=Math.floor(Math.random()*(i+1)), t=wrongIds[i]; wrongIds[i]=wrongIds[j]; wrongIds[j]=t;
+      }
+      startQuiz(wrongIds);
+    });
+  }
   document.getElementById("btnAgainQ").addEventListener("click",function(){ startQuiz(); });
   document.getElementById("btnDone").addEventListener("click",closeQuiz);
   document.getElementById("btnCert").addEventListener("click",function(){ printCert(g); });

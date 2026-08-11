@@ -72,6 +72,8 @@ ok(/QuizGen\.pickQuestions/.test(src) && /QuizGen\.checkAnswer/.test(src), "페�
 ok(/gb_quiz_seen/.test(src), "최근 문제 기억(localStorage)");
 ok(/exam_start/.test(src) && /quiz_done/.test(src) && /print_sheet/.test(src), "GA 이벤트 3종");
 ok(/pc-cert/.test(src) && /pc-sheet/.test(src), "상장·시험지 인쇄 분리");
+ok(/btnRetryQ/.test(src) && /틀린 문제만 다시 풀기/.test(src) && /startQuiz\(wrongIds\)/.test(src),
+  "틀린 문제 다시 풀기 배선");
 
 console.log(fails ? "\n실패 "+fails+"건" : "\n전부 통과");
 process.exit(fails?1:0);
