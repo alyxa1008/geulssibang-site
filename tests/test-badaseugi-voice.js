@@ -64,6 +64,8 @@ ok(bSrc.indexOf('src="voice/manifest.js"') > -1, "manifest.js 스크립트 로�
 ok(/speakEx\(word/.test(bSrc) && /speakEx\(ordinalKo/.test(bSrc), "시험 경로가 speakEx 사용 (단어·번호)");
 ok(/typeof GB_VOICE!=="undefined"/.test(bSrc), "manifest 부재 시 기기 음성 폴백 가드");
 ok(/stopClip\(\)/.test(bSrc), "정지 경로에서 클립도 멈춤");
+ok(/examRetry/.test(bSrc) && /exam\.list=sel/.test(bSrc) && /allClipsReady\(sel\)/.test(bSrc),
+  "틀린 낱말 재시험 배선 (부분집합 + 목소리 재판정)");
 
 console.log(fails ? "\n실패 " + fails + "건" : "\n전부 통과");
 process.exit(fails ? 1 : 0);
