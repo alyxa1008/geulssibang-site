@@ -4,6 +4,7 @@
 "use strict";
 
 function shuffle(arr, rnd){
+  rnd=rnd||Math.random;
   var a=arr.slice();
   for(var i=a.length-1;i>0;i--){
     var j=Math.floor(rnd()*(i+1)), t=a[i]; a[i]=a[j]; a[j]=t;
@@ -56,7 +57,7 @@ function grade(results){
   return { score:score, total:results.length, wrong:wrong };
 }
 
-var api={ pickQuestions:pickQuestions, shuffledChoices:shuffledChoices,
+var api={ pickQuestions:pickQuestions, shuffledChoices:shuffledChoices, shuffle:shuffle,
           checkAnswer:checkAnswer, answerSet:answerSet, grade:grade };
 if(typeof module!=="undefined") module.exports=api;
 else root.QuizGen=api;
