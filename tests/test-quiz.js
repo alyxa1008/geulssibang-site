@@ -40,6 +40,12 @@ var p3=G.pickQuestions(DATA, ["animal"], 5, 2, seen, r);
 ok(p3.every(function(i){return seen.indexOf(i)<0;}), "최근 문제(seen) 제외");
 var p4=G.pickQuestions(DATA, ["animal"], 5, 10, DATA.map(function(q,i){return i;}), r);
 ok(p4.length===10, "전부 봤으면 풀 재사용 (고갈 안 됨)");
+var dupRuns=0;
+for(var t=0;t<200;t++){
+  var pick=G.pickQuestions(DATA, t%2?["life"]:[], (t%5)+1, 10, t%3?[]:DATA.map(function(q,i){return i;}), r);
+  if(new Set(pick).size!==pick.length) dupRuns++;
+}
+ok(dupRuns===0, "한 시험 안 같은 문제 중복 0 (200회, 풀 재사용 포함)");
 var q0=DATA[0];
 var ch=G.shuffledChoices(q0, r);
 ok(ch.length===4 && ch.slice().sort().join()===q0.o.slice().sort().join(), "보기 섞기 — 내용 보존");
