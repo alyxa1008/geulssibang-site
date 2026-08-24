@@ -14,7 +14,7 @@ gtag("js", new Date());
 gtag("config", "G-86X82MNHC8");
 </script>
 <title>한글 쓰기 순서(획순) — 자음 모음 바르게 쓰는 법 + 연습 프린트 | 글씨방</title>
-<meta name="description" content="한글 획순(쓰기 순서) 완전 정리 — 자음 ㄱ~ㅎ 14자와 모음 10자를 획마다 색깔·번호를 붙인 그림으로 보여드립니다. ㅈ은 2획, ㅁ은 왼쪽 세로부터. 자음 모음 따라쓰기 연습 프린트 무료, 회원가입 없음.">
+<meta name="description" content="한글 획순(쓰기 순서) 완전 정리 — 자음 ㄱ~ㅎ 14자와 모음 10자를 획마다 색깔·번호를 붙인 그림으로 보여드립니다. ㅈ은 2획, ㅁ은 왼쪽 세로부터. 받침 있는 글자·겹모음 쓰는 순서까지, 연습 프린트 무료.">
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="한글 쓰기 순서(획순) — 바르게 쓰는 법 + 연습 | 글씨방">
 <meta property="og:description" content="한글 획순 기본 원칙과 자주 틀리는 자음 순서. 따라쓰기로 바로 연습. 무료.">
@@ -40,6 +40,11 @@ gtag("config", "G-86X82MNHC8");
 /* 카드 속 연습지 버튼 — .gobtn 기본(큰 빨간 버튼)을 카드에 맞게 축소 */
 .content .scard .gobtn.slink{background:none; color:var(--redpen); border:1.5px solid var(--redpen); font-size:12px; padding:3px 10px; margin-top:8px; border-radius:14px}
 .content .scard .gobtn.slink:hover{background:var(--redpen); color:#fff}
+/* 글자 조립 순서 예시 */
+.asm{display:flex; flex-wrap:wrap; align-items:center; gap:8px; background:var(--paper); color:var(--ink); border-radius:12px; padding:10px 14px; margin:10px 0; box-shadow:0 8px 20px var(--paper-shadow)}
+.asm>b{font-size:26px; font-family:var(--disp); font-weight:400; color:var(--redpen); min-width:34px; text-align:center}
+.asm .ap{background:rgba(0,0,0,.05); border-radius:8px; padding:4px 10px; font-size:13.5px; white-space:nowrap}
+.asm i{font-style:normal; color:var(--ink-soft); font-size:12.5px; margin-left:auto}
 .prhead{display:none}
 @media print{
   body.pposter .topnav, body.pposter header, body.pposter footer{display:none !important}
@@ -66,7 +71,7 @@ gtag("config", "G-86X82MNHC8");
 <meta name="theme-color" content="#2f5d4d">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="글씨방">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "한글도 획순을 꼭 지켜야 하나요?", "acceptedAnswer": {"@type": "Answer", "text": "처음 배울 때 바른 순서로 익히는 것이 좋습니다. 획순이 몸에 배면 글씨가 고르고 빨라지며, 잘못 든 습관은 나중에 고치기 어렵습니다. 다만 순서 자체보다 글자 모양을 바르게 익히는 것이 더 중요합니다."}}, {"@type": "Question", "name": "가장 자주 틀리는 자음은 무엇인가요?", "acceptedAnswer": {"@type": "Answer", "text": "ㄷ, ㄹ, ㅁ, ㅂ, ㅇ이 순서를 가장 많이 틀리는 자음입니다. ㅁ은 왼쪽 세로부터, ㅂ은 두 세로획을 먼저 긋는 식으로 익히면 좋습니다."}}, {"@type": "Question", "name": "ㅈ은 2획인가요, 3획인가요?", "acceptedAnswer": {"@type": "Answer", "text": "2획입니다. 가로획에서 꺾어 왼쪽 삐침까지 한 번에 긋고, 오른쪽 파임을 두 번째로 씁니다. 가로를 긋고 ㅅ을 따로 쓰는 3획은 표준 획순이 아닙니다. ㅊ은 여기에 꼭지가 더해져 3획입니다."}}, {"@type": "Question", "name": "무료인가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 획순 안내와 자모 따라쓰기 학습지 인쇄가 모두 무료이고 회원가입도 없습니다."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "한글도 획순을 꼭 지켜야 하나요?", "acceptedAnswer": {"@type": "Answer", "text": "처음 배울 때 바른 순서로 익히는 것이 좋습니다. 획순이 몸에 배면 글씨가 고르고 빨라지며, 잘못 든 습관은 나중에 고치기 어렵습니다. 다만 순서 자체보다 글자 모양을 바르게 익히는 것이 더 중요합니다."}}, {"@type": "Question", "name": "가장 자주 틀리는 자음은 무엇인가요?", "acceptedAnswer": {"@type": "Answer", "text": "ㄷ, ㄹ, ㅁ, ㅂ, ㅇ이 순서를 가장 많이 틀리는 자음입니다. ㅁ은 왼쪽 세로부터, ㅂ은 두 세로획을 먼저 긋는 식으로 익히면 좋습니다."}}, {"@type": "Question", "name": "받침이 있는 글자는 어떤 순서로 쓰나요?", "acceptedAnswer": {"@type": "Answer", "text": "첫소리 자음, 가운데 모음, 받침 순서로 씁니다. '한'이라면 ㅎ, ㅏ, ㄴ 순서이고 각 낱자는 자기 획순대로 씁니다. 소리 나는 순서와 쓰는 순서가 같습니다."}}, {"@type": "Question", "name": "ㅈ은 2획인가요, 3획인가요?","acceptedAnswer": {"@type": "Answer", "text": "2획입니다. 가로획에서 꺾어 왼쪽 삐침까지 한 번에 긋고, 오른쪽 파임을 두 번째로 씁니다. 가로를 긋고 ㅅ을 따로 쓰는 3획은 표준 획순이 아닙니다. ㅊ은 여기에 꼭지가 더해져 3획입니다."}}, {"@type": "Question", "name": "무료인가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 획순 안내와 자모 따라쓰기 학습지 인쇄가 모두 무료이고 회원가입도 없습니다."}}]}</script>
 </head>
 <body>
 <div class="wrap narrow">
@@ -135,6 +140,16 @@ gtag("config", "G-86X82MNHC8");
       <div class="scard"><svg viewBox="0 0 100 100" width="86" height="86" role="img" aria-label="ㅣ 획순"><path d="M50 12 L50 88" fill="none" stroke="#d1493f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="39" cy="19" r="7.5" fill="#d1493f"/><text x="39" y="22.2" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">1</text></svg><b>ㅣ · 1획</b><p class="st">위에서 아래로 한 번에.</p><a class="gobtn slink" href="../" data-text="ㅣ" data-size="big" data-title="ㅣ 따라쓰기">✎ ㅣ 연습지</a></div>
     </div>
 
+    <h2>받침까지 — 한 글자를 조립하는 순서</h2>
+    <p>낱자를 다 익혔으면 글자를 조립할 차례예요. 규칙은 하나뿐입니다 — <strong>첫소리 자음 → 가운데 모음 → 받침</strong> 순서로 쓰고, 각 낱자는 위에서 배운 자기 획순 그대로 씁니다. 예를 들어 볼게요.</p>
+    <div class="asm"><b>한</b><span class="ap">① ㅎ (꼭지→가로→동그라미)</span><span class="ap">② ㅏ (기둥→곁줄기)</span><span class="ap">③ 받침 ㄴ</span><i>모두 6획</i></div>
+    <div class="asm"><b>글</b><span class="ap">① ㄱ</span><span class="ap">② ㅡ</span><span class="ap">③ 받침 ㄹ (3획)</span><i>모두 5획</i></div>
+    <div class="asm"><b>꽃</b><span class="ap">① ㄲ (ㄱ 두 번)</span><span class="ap">② ㅗ (세로→가로)</span><span class="ap">③ 받침 ㅊ (3획)</span><i>모두 7획</i></div>
+    <p>아이가 헷갈려 하면 <strong>"먼저 소리 나는 것부터"</strong>라고 말해 주세요. '한'을 소리 내면 ㅎ→ㅏ→ㄴ 순서로 들리는데, 쓰는 순서도 똑같습니다. 이 규칙만 잡히면 처음 보는 글자도 스스로 바른 순서로 쓸 수 있어요.</p>
+
+    <h2>ㅐ·ㅔ·ㅘ 같은 겹모음은 어떻게 쓰나요?</h2>
+    <p>겹모음도 새 규칙이 필요 없어요 — <strong>왼쪽에 있는 낱자부터, 각각 자기 획순대로</strong> 쓰면 됩니다. <strong>ㅐ</strong>는 ㅏ를 다 쓴 뒤 오른쪽 기둥을 하나 더(3획), <strong>ㅔ</strong>는 ㅓ를 쓴 뒤 오른쪽 기둥(3획)이에요. <strong>ㅘ</strong>처럼 아래위로 조합된 모음은 <strong>위·왼쪽에 있는 ㅗ부터</strong> 다 쓰고 ㅏ를 씁니다(4획). ㅝ도 마찬가지로 ㅜ를 먼저, ㅓ를 나중에 써요(4획).</p>
+
     <div class="gset ccard">
       <h3>바른 순서로 직접 써보기</h3>
       <p class="glabel">자음·모음 따라쓰기 학습지로 순서를 손에 익혀요. 흐린 글씨를 따라 쓰면 모양이 잡혀요.</p>
@@ -157,6 +172,8 @@ gtag("config", "G-86X82MNHC8");
       <dd>처음 배울 때 바른 순서로 익히면 글씨가 고르고 빨라져요. 잘못 든 습관은 나중에 고치기 어렵습니다. 다만 순서 자체보다 글자 모양을 바르게 익히는 게 더 중요해요.</dd>
       <dt>가장 자주 틀리는 자음은 무엇인가요?</dt>
       <dd>ㄷ·ㄹ·ㅁ·ㅂ·ㅇ이 순서를 가장 많이 틀려요. ㅁ은 왼쪽 세로부터, ㅂ은 두 세로획을 먼저 긋는 식으로 익히면 좋아요.</dd>
+      <dt>받침이 있는 글자는 어떤 순서로 쓰나요?</dt>
+      <dd>첫소리 자음 → 가운데 모음 → 받침 순서예요. '한'이라면 ㅎ, ㅏ, ㄴ 순서로, 각 낱자는 자기 획순대로 씁니다. 소리 나는 순서와 쓰는 순서가 같아요.</dd>
       <dt>ㅈ은 2획인가요, 3획인가요?</dt>
       <dd>2획이에요. 가로획에서 꺾어 왼쪽 삐침까지 한 번에 긋고, 오른쪽 파임을 두 번째로 씁니다. 가로를 긋고 ㅅ을 따로 쓰는 3획은 표준 획순이 아니에요. ㅊ은 여기에 꼭지가 더해져 3획입니다.</dd>
       <dt>무료인가요?</dt>
