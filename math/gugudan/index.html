@@ -14,7 +14,7 @@ gtag("js", new Date());
 gtag("config", "G-86X82MNHC8");
 </script>
 <title>구구단 연습 문제 — 단별 곱셈구구 학습지 + 구구단 표 무료 | 글씨방</title>
-<meta name="description" content="구구단(곱셈구구) 연습 문제를 단별로 무료 출력. 2단부터 9단까지 골라서, 또는 전체 섞어서 버튼 한 번에 새 문제. 구구단 표도 함께. 2학년 2학기 곱셈구구, 정답지 포함 무료.">
+<meta name="description" content="구구단(곱셈구구) 연습 문제를 단별로 무료 출력. 2단부터 9단까지 골라서, 또는 전체 섞어서 버튼 한 번에 새 문제. 벽에 붙이는 구구단표도 A4 한 장으로 인쇄. 2학년 2학기 곱셈구구, 정답지 포함 무료.">
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="구구단 연습 문제 — 단별 학습지 + 구구단 표 | 글씨방">
 <meta property="og:description" content="2단~9단 구구단 문제를 단별로 무한 생성. 구구단 표 포함, 정답지 함께. 무료.">
@@ -37,6 +37,26 @@ gtag("config", "G-86X82MNHC8");
 .gtable th,.gtable td{border:1px solid var(--grid,#d9dee3); padding:6px 4px; text-align:center}
 .gtable th{background:rgba(0,0,0,.04); font-weight:700}
 .gtable td:first-child,.gtable th:first-child{background:rgba(0,0,0,.04); font-weight:700}
+/* 벽에 붙이는 구구단표 — 화면 카드 + A4 1장 인쇄 (획순 포스터 패턴) */
+.pyo{display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:10px; margin:14px 0 6px}
+.dcard{background:var(--paper); color:var(--ink); border-radius:12px; padding:10px 8px 12px; text-align:center; box-shadow:0 8px 20px var(--paper-shadow); border-top:4px solid var(--dc,#e4573d)}
+.dcard h4{margin:0 0 6px; font-size:16px; font-family:var(--disp); font-weight:400; color:var(--dc,#e4573d)}
+.dcard p{margin:0; font-size:14px; line-height:1.7; font-variant-numeric:tabular-nums}
+.dcard:nth-child(1){--dc:#e4573d}.dcard:nth-child(2){--dc:#e8913c}
+.dcard:nth-child(3){--dc:#c9a227}.dcard:nth-child(4){--dc:#3f9d63}
+.dcard:nth-child(5){--dc:#2e8bc0}.dcard:nth-child(6){--dc:#5d5fbe}
+.dcard:nth-child(7){--dc:#9b59b6}.dcard:nth-child(8){--dc:#c0577e}
+.prhead{display:none}
+@media print{
+  body.ppyo .topnav, body.ppyo header, body.ppyo footer{display:none !important}
+  body.ppyo .content > *{display:none}
+  body.ppyo .content > .prhead{display:block; font-family:var(--kr); font-weight:700; font-size:15pt; color:#000; margin:0 0 4mm}
+  body.ppyo .prhead small{font-weight:400; font-size:9pt; color:#666; margin-left:8px}
+  body.ppyo .content > .pyo{display:grid; grid-template-columns:repeat(4, 1fr); gap:5mm; margin:0}
+  body.ppyo .dcard{box-shadow:none; border:1.2px solid #d5d9dd; border-top:1.8mm solid var(--dc,#e4573d); border-radius:3mm; break-inside:avoid; padding:4mm 1mm 4.5mm}
+  body.ppyo .dcard h4{font-size:16pt; margin:0 0 3mm}
+  body.ppyo .dcard p{font-size:13.5pt; line-height:1.85}
+}
 </style>
 <meta property="og:url" content="https://geulssibang.com/math/gugudan/">
 <meta property="og:site_name" content="글씨방">
@@ -50,7 +70,7 @@ gtag("config", "G-86X82MNHC8");
 <meta name="theme-color" content="#2f5d4d">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="글씨방">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "구구단은 몇 학년에 배우나요?", "acceptedAnswer": {"@type": "Answer", "text": "곱셈구구(구구단)는 2022 개정 교육과정 기준 2학년 2학기에 배웁니다. 2단부터 9단까지 익히고, 이후 곱셈·나눗셈의 기초가 됩니다."}}, {"@type": "Question", "name": "특정 단만 연습할 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 2단부터 9단까지 원하는 단을 골라 그 단만 집중 연습하거나, 전체를 섞어서 실전처럼 연습할 수 있습니다."}}, {"@type": "Question", "name": "무료인가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 구구단 문제지와 정답지 인쇄가 모두 무료이고 회원가입도 없습니다."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "구구단은 몇 학년에 배우나요?", "acceptedAnswer": {"@type": "Answer", "text": "곱셈구구(구구단)는 2022 개정 교육과정 기준 2학년 2학기에 배웁니다. 2단부터 9단까지 익히고, 이후 곱셈·나눗셈의 기초가 됩니다."}}, {"@type": "Question", "name": "특정 단만 연습할 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 2단부터 9단까지 원하는 단을 골라 그 단만 집중 연습하거나, 전체를 섞어서 실전처럼 연습할 수 있습니다."}}, {"@type": "Question", "name": "구구단표만 인쇄할 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. '구구단표 인쇄' 버튼을 누르면 2단부터 9단까지 담긴 표가 A4 한 장으로 인쇄됩니다. 벽이나 책상 앞에 붙여 두고 외울 수 있습니다."}},{"@type": "Question", "name": "무료인가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 구구단 문제지와 정답지 인쇄가 모두 무료이고 회원가입도 없습니다."}}]}</script>
 </head>
 <body>
 <div class="wrap narrow">
@@ -94,7 +114,25 @@ gtag("config", "G-86X82MNHC8");
       </div>
     </div>
 
-    <h2>구구단 표 (2단~9단)</h2>
+    <h2>구구단표 (2단~9단) — 인쇄해서 벽에 붙이세요</h2>
+    <p class="prhead">구구단표 (2단~9단) <small>글씨방 · geulssibang.com</small></p>
+    <div class="pyo">
+      <div class="dcard"><h4>2단</h4><p>2 × 1 = 2<br>2 × 2 = 4<br>2 × 3 = 6<br>2 × 4 = 8<br>2 × 5 = 10<br>2 × 6 = 12<br>2 × 7 = 14<br>2 × 8 = 16<br>2 × 9 = 18</p></div>
+      <div class="dcard"><h4>3단</h4><p>3 × 1 = 3<br>3 × 2 = 6<br>3 × 3 = 9<br>3 × 4 = 12<br>3 × 5 = 15<br>3 × 6 = 18<br>3 × 7 = 21<br>3 × 8 = 24<br>3 × 9 = 27</p></div>
+      <div class="dcard"><h4>4단</h4><p>4 × 1 = 4<br>4 × 2 = 8<br>4 × 3 = 12<br>4 × 4 = 16<br>4 × 5 = 20<br>4 × 6 = 24<br>4 × 7 = 28<br>4 × 8 = 32<br>4 × 9 = 36</p></div>
+      <div class="dcard"><h4>5단</h4><p>5 × 1 = 5<br>5 × 2 = 10<br>5 × 3 = 15<br>5 × 4 = 20<br>5 × 5 = 25<br>5 × 6 = 30<br>5 × 7 = 35<br>5 × 8 = 40<br>5 × 9 = 45</p></div>
+      <div class="dcard"><h4>6단</h4><p>6 × 1 = 6<br>6 × 2 = 12<br>6 × 3 = 18<br>6 × 4 = 24<br>6 × 5 = 30<br>6 × 6 = 36<br>6 × 7 = 42<br>6 × 8 = 48<br>6 × 9 = 54</p></div>
+      <div class="dcard"><h4>7단</h4><p>7 × 1 = 7<br>7 × 2 = 14<br>7 × 3 = 21<br>7 × 4 = 28<br>7 × 5 = 35<br>7 × 6 = 42<br>7 × 7 = 49<br>7 × 8 = 56<br>7 × 9 = 63</p></div>
+      <div class="dcard"><h4>8단</h4><p>8 × 1 = 8<br>8 × 2 = 16<br>8 × 3 = 24<br>8 × 4 = 32<br>8 × 5 = 40<br>8 × 6 = 48<br>8 × 7 = 56<br>8 × 8 = 64<br>8 × 9 = 72</p></div>
+      <div class="dcard"><h4>9단</h4><p>9 × 1 = 9<br>9 × 2 = 18<br>9 × 3 = 27<br>9 × 4 = 36<br>9 × 5 = 45<br>9 × 6 = 54<br>9 × 7 = 63<br>9 × 8 = 72<br>9 × 9 = 81</p></div>
+    </div>
+    <div class="gset ccard">
+      <h3>🖨 벽에 붙이는 구구단표 인쇄</h3>
+      <p class="glabel">위 표가 그대로 A4 한 장에 담겨요. 책상 앞이나 냉장고에 붙여 두고 하루 한 단씩 외워 보세요.</p>
+      <a class="gobtn" id="btnPyo" href="#">🖨 구구단표 인쇄 (A4 1장 · 무료)</a>
+    </div>
+
+    <h3>한눈에 보는 곱셈표</h3>
     <table class="gtable">
       <thead>
         <tr><th>×</th><th>2단</th><th>3단</th><th>4단</th><th>5단</th><th>6단</th><th>7단</th><th>8단</th><th>9단</th></tr>
@@ -121,7 +159,7 @@ gtag("config", "G-86X82MNHC8");
     </div>
 
     <h2>이렇게 활용해 보세요</h2>
-    <p>구구단은 <strong>표로 외우기 → 한 단씩 문제 풀기 → 전체 섞어서 점검</strong> 순서가 효과적이에요. 먼저 위 구구단 표로 한 단을 외운 뒤, 그 단 버튼으로 문제지를 뽑아 풀게 하세요. 2·5단처럼 쉬운 단부터 시작해 어려운 7·8단으로 올리고, 다 외웠으면 '전체 섞어서'로 실전 점검을 하면 됩니다. 매일 한 장씩, 시간을 재며 풀면 속도까지 붙어요.</p>
+    <p>구구단은 <strong>표로 외우기 → 한 단씩 문제 풀기 → 전체 섞어서 점검</strong> 순서가 효과적이에요. 먼저 위 구구단표를 인쇄해 잘 보이는 곳에 붙여 두고 한 단을 외운 뒤, 그 단 버튼으로 문제지를 뽑아 풀게 하세요. 2·5단처럼 쉬운 단부터 시작해 어려운 7·8단으로 올리고, 다 외웠으면 '전체 섞어서'로 실전 점검을 하면 됩니다. 매일 한 장씩, 시간을 재며 풀면 속도까지 붙어요.</p>
 
     <h2>구구단, 외우기 전에 개념부터 — 교과서 순서</h2>
     <p>교과서는 곱셈을 "빠른 덧셈"이 아니라 <strong>묶어 세기 → 몇 배 → 곱셈식</strong> 순서로 가르쳐요. 사탕이 4개씩 3묶음이면 "4의 3배", 곱셈식으로 4×3 — <strong>×는 '몇씩 몇 묶음'을 나타내는 기호</strong>예요. 구구단 각 단은 뛰어 세기와 같아요(7단 = 7씩 뛰어 세기: 7, 14, 21…). 외우기 전에 묶음 그림과 뛰어 세기로 원리를 먼저 느끼게 해 주세요.</p>
@@ -133,6 +171,8 @@ gtag("config", "G-86X82MNHC8");
       <dd>곱셈구구(구구단)는 2학년 2학기에 배워요(2022 개정 교육과정). 2단부터 9단까지 익히고 이후 곱셈·나눗셈의 기초가 됩니다.</dd>
       <dt>특정 단만 연습할 수 있나요?</dt>
       <dd>네. 2단부터 9단까지 원하는 단을 골라 집중 연습하거나, 전체를 섞어서 실전처럼 연습할 수 있어요.</dd>
+      <dt>구구단표만 인쇄할 수 있나요?</dt>
+      <dd>네. '구구단표 인쇄' 버튼을 누르면 2단부터 9단까지 담긴 표가 A4 한 장으로 인쇄됩니다. 벽이나 책상 앞에 붙여 두고 외우세요.</dd>
       <dt>무료인가요?</dt>
       <dd>네. 구구단 문제지와 정답지 인쇄가 모두 무료이고 회원가입이 없습니다.</dd>
     </dl>
@@ -194,5 +234,15 @@ gtag("config", "G-86X82MNHC8");
 </div>
 
 <script src="../../assets/common.js"></script>
+<script>
+/* 구구단표 인쇄 — 인쇄 중에만 body.ppyo로 표 외 요소 숨김 (획순 포스터 패턴) */
+document.getElementById("btnPyo").addEventListener("click", function(e){
+  e.preventDefault();
+  document.body.classList.add("ppyo");
+  track("print_sheet", {tool: "gugudan-pyo"});
+  window.print();
+});
+window.addEventListener("afterprint", function(){ document.body.classList.remove("ppyo"); });
+</script>
 </body>
 </html>
