@@ -66,6 +66,9 @@ ok(/typeof GB_VOICE!=="undefined"/.test(bSrc), "manifest 부재 시 기기 음�
 ok(/stopClip\(\)/.test(bSrc), "정지 경로에서 클립도 멈춤");
 ok(/examRetry/.test(bSrc) && /exam\.list=sel/.test(bSrc) && /allClipsReady\(sel\)/.test(bSrc),
   "틀린 낱말 재시험 배선 (부분집합 + 목소리 재판정)");
+var gSrc = fs.readFileSync(path.join(ROOT, "badaseugi/geupsu/1-1/index.html"), "utf8");
+ok(/btnGpyo/.test(gSrc) && /pgsp/.test(gSrc) && /geupsu-pyo/.test(gSrc) && /afterprint/.test(gSrc),
+  "1-1 급수표 인쇄 배선 (btnGpyo·pgsp·GA)");
 
 console.log(fails ? "\n실패 " + fails + "건" : "\n전부 통과");
 process.exit(fails ? 1 : 0);
