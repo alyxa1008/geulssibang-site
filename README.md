@@ -17,6 +17,7 @@ math/generators.js    수학 문제 생성기 등록부 — 유형 추가는 이
 math/roadmap/         학년별 수학 연산 로드맵 (검색 유입용 콘텐츠, 도구로 연결)
 maze/index.html       미로 찾기 활동지 생성기
 card/index.html       이름 한글 카드 생성기 (캔버스 PNG, 공유·바이럴용)
+diary/index.html      그림일기·원고지 양식 생성기 (SVG mm 단위, 프리셋 4종, 인쇄 전용)
 404.html              잘못된 주소 안내 페이지 (Cloudflare Pages가 자동 사용)
 
 about/index.html      사이트 소개 (애드센스 심사용 콘텐츠)
