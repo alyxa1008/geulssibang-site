@@ -14,10 +14,10 @@ gtag("js", new Date());
 gtag("config", "G-86X82MNHC8");
 </script>
 <title>우리 아이 이름 한글 카드 만들기 — 이름 캘리그래피 이미지 무료 저장 | 글씨방</title>
-<meta name="description" content="아이 이름을 입력하면 예쁜 한글 이름 카드 이미지가 바로 만들어져요. 백일·돌·입학 기념이나 인스타·카톡 공유에. 그 이름으로 따라쓰기 학습지까지 연결. 무료, 회원가입 없음.">
+<meta name="description" content="아이 이름을 입력하면 예쁜 한글 이름 카드 이미지가 바로 만들어져요. 어린이집·유치원 준비물에 붙이는 이름표 A4 인쇄(큰 4·중간 9·작은 25칸), 백일·돌 기념 이미지 저장, 그 이름 따라쓰기 연결까지. 무료, 회원가입 없음.">
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="우리 아이 이름 한글 카드 만들기 | 글씨방">
-<meta property="og:description" content="아이 이름으로 예쁜 한글 카드 이미지를 무료로 만들어 공유하세요. 따라쓰기 연결까지.">
+<meta property="og:description" content="아이 이름 카드 이미지 저장 + 어린이집·유치원 이름표 38칸 A4 인쇄. 무료, 회원가입 없음.">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://geulssibang.com/card/">
 
@@ -41,6 +41,26 @@ gtag("config", "G-86X82MNHC8");
 .card-links{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:14px}
 .card-links a{color:var(--chalk-dim); border:1.5px solid rgba(243,239,228,.25); border-radius:20px; padding:7px 14px; font-size:13.5px; text-decoration:none}
 .card-links a:hover{color:var(--chalk); border-color:rgba(243,239,228,.55)}
+.card-actions{flex-wrap:wrap}
+.card-actions .act{flex:1 1 45%}
+/* 이름표 A4 시트 — 인쇄 시에만 표시 (body.plabel 토글) */
+#labelSheet{display:none}
+#labelSheet .lsheet{width:210mm; height:297mm; padding:10mm; box-sizing:border-box; background:#fff; font-family:'Jua','Gowun Dodum',sans-serif; color:#2b3038}
+#labelSheet .lgrid{display:grid; gap:2mm; margin-bottom:4mm}
+#labelSheet .lg-big{grid-template-columns:repeat(2,1fr)}
+#labelSheet .lg-mid{grid-template-columns:repeat(3,1fr)}
+#labelSheet .lg-sm{grid-template-columns:repeat(5,1fr); margin-bottom:0}
+#labelSheet .lab{border:0.6mm solid var(--labc,#2f5d4d); border-radius:2.5mm; display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden}
+#labelSheet .lg-big .lab{height:42mm}
+#labelSheet .lg-mid .lab{height:27mm}
+#labelSheet .lg-sm .lab{height:15.5mm}
+#labelSheet .ls{font-family:'Gowun Dodum',sans-serif; font-size:3.6mm; color:#5b6470; margin-bottom:1mm}
+#labelSheet .lfoot{text-align:right; font-family:'Gowun Dodum',sans-serif; font-size:2.6mm; color:#9aa1a9; margin-top:1.5mm}
+@media print{
+  body.plabel .wrap, body.plabel .toast{display:none !important}
+  body.plabel #labelSheet{display:block}
+  @page{size:A4; margin:0}
+}
 </style>
 <meta property="og:url" content="https://geulssibang.com/card/">
 <meta property="og:site_name" content="글씨방">
@@ -54,8 +74,8 @@ gtag("config", "G-86X82MNHC8");
 <meta name="theme-color" content="#2f5d4d">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="글씨방">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"한글 이름 카드 만들기","url":"https://geulssibang.com/card/","description":"아이 이름으로 예쁜 한글 카드 이미지를 만들어 저장·공유하는 무료 도구","applicationCategory":"EducationalApplication","operatingSystem":"Web","inLanguage":"ko","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "만든 카드는 어디에 저장되나요?", "acceptedAnswer": {"@type": "Answer", "text": "이미지 저장을 누르면 휴대폰이나 컴퓨터에 그림 파일로 바로 내려받아집니다. 입력한 이름은 글씨방 서버로 전송되지 않습니다."}}, {"@type": "Question", "name": "인쇄해서 이름표로 써도 되나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 저장한 이미지를 인쇄해 준비물 이름표, 책상 이름패 등으로 자유롭게 쓸 수 있습니다. 출력물 판매만 허용되지 않습니다."}}, {"@type": "Question", "name": "무료인가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 카드 만들기와 저장 모두 무료이고 회원가입도 없습니다."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"한글 이름 카드 만들기","url":"https://geulssibang.com/card/","description":"아이 이름으로 예쁜 한글 카드 이미지를 만들어 저장·공유하고, 어린이집·유치원 이름표 38칸을 A4로 인쇄하는 무료 도구","applicationCategory":"EducationalApplication","operatingSystem":"Web","inLanguage":"ko","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "만든 카드는 어디에 저장되나요?", "acceptedAnswer": {"@type": "Answer", "text": "이미지 저장을 누르면 휴대폰이나 컴퓨터에 그림 파일로 바로 내려받아집니다. 입력한 이름은 글씨방 서버로 전송되지 않습니다."}}, {"@type": "Question", "name": "인쇄해서 이름표로 써도 되나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. '이름표 A4 인쇄' 버튼을 누르면 큰 4칸·중간 9칸·작은 25칸, 모두 38칸 이름표가 한 장에 나옵니다. 저장한 카드 이미지를 크게 인쇄해 이름패로 써도 됩니다. 출력물 판매만 허용되지 않습니다."}}, {"@type": "Question", "name": "이름표에 반 이름도 넣을 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. '위에 들어갈 문구' 칸에 '햇님반'처럼 반 이름을 쓰면 큰 이름표에 이름과 함께 인쇄됩니다. 이름만 넣고 싶으면 '문구 없음'을 누르세요."}}, {"@type": "Question", "name": "무료인가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 카드 만들기, 이미지 저장, 이름표 인쇄 모두 무료이고 회원가입도 없습니다."}}]}</script>
 </head>
 <body>
 <div class="wrap narrow">
@@ -70,7 +90,7 @@ gtag("config", "G-86X82MNHC8");
 
   <header>
     <div class="logo">이름 카드 <span class="pen">🎨</span></div>
-    <h1 class="tagline">우리 아이 이름 한글 카드 — 예쁜 이미지로 저장하고 공유하세요</h1>
+    <h1 class="tagline">우리 아이 이름 한글 카드 — 예쁜 이미지 저장, 어린이집 이름표 인쇄까지</h1>
     <div class="chalk-line"></div>
   </header>
 
@@ -106,6 +126,7 @@ gtag("config", "G-86X82MNHC8");
 
     <div class="card-actions">
       <button class="act print" id="btnSave">💾 이미지 저장</button>
+      <button class="act print" id="btnLabel">🏷️ 이름표 A4 인쇄</button>
       <button class="act sub" id="btnShare">🔗 링크 복사</button>
     </div>
 
@@ -123,8 +144,12 @@ gtag("config", "G-86X82MNHC8");
     <p>아이 이름을 입력하면 <strong>예쁜 한글 이름 카드</strong>가 그 자리에서 만들어져요. 백일·돌·입학 같은 기념일에 사진과 함께 올리거나, 인스타·카톡 프로필, 가족 단톡방에 공유하기 좋아요. 칠판·크림 종이·하늘 세 가지 배경 중에 고르고 '이미지 저장'을 누르면 휴대폰에 바로 담깁니다. 회원가입도, 비용도 없어요.</p>
     <p>카드를 만든 김에 그 이름으로 <a href="../hangul/trace/">화면 손글씨</a>나 <a href="../hangul/">따라쓰기 학습지</a>를 만들어, 아이가 자기 이름을 직접 써보게 해주세요. 자기 이름은 아이가 가장 좋아하고 빨리 익히는 글자예요.</p>
 
+    <h2>어린이집·유치원 이름표 — A4 한 장에 38칸</h2>
+    <p>새 학기가 되면 준비물마다 붙일 이름표가 몇십 개씩 필요하죠. <strong>'이름표 A4 인쇄'</strong> 버튼을 누르면 세 가지 크기 38칸이 한 장에 나와요 — <strong>큰 이름표 4칸</strong>은 가방·사물함·스케치북에, <strong>중간 9칸</strong>은 필통·물병·도시락에, <strong>작은 25칸</strong>은 연필·크레파스 낱개에 맞는 크기예요. 잘라서 붙인 뒤 투명 테이프로 한 번 감싸거나 손코팅지를 쓰면 물에 닿아도 오래갑니다. 테두리 색은 고른 카드 배경을 따라가요(칠판=초록, 크림 종이=황토, 하늘=파랑).</p>
+    <p>'위에 들어갈 문구' 칸에 <strong>'햇님반'처럼 반 이름</strong>을 쓰면 큰 이름표에 이름과 함께 인쇄돼요. 이름만 넣고 싶으면 '문구 없음'을 누르면 됩니다.</p>
+
     <h2>이름 카드, 이렇게 활용해 보세요</h2>
-    <p>새 학기·입학 준비물에 붙이는 <strong>이름표</strong>로 쓰기 좋아요. 카드를 저장해 작게 인쇄한 뒤 잘라서 연필, 물병, 크레파스 상자에 붙이고 투명 테이프로 한 번 감싸면 물에 닿아도 오래갑니다. 책상 앞이나 사물함에 붙이는 큼직한 이름패로 만들어도 좋고, 형제·자매 것을 나란히 만들어 방문에 붙여 주면 아이들이 무척 좋아해요. 가족 단톡방 프로필 사진이나 생일 축하 이미지로 쓰는 분들도 많습니다.</p>
+    <p>책상 앞이나 사물함에 붙이는 큼직한 이름패로 만들어도 좋고, 형제·자매 것을 나란히 만들어 방문에 붙여 주면 아이들이 무척 좋아해요. 가족 단톡방 프로필 사진이나 생일 축하 이미지로 쓰는 분들도 많습니다. 백일·돌·입학 기념 사진과 함께 올리기에도 좋아요.</p>
 
     <h2>이름 카드에서 이름 쓰기로</h2>
     <p>자기 이름은 아이가 세상에서 가장 먼저 관심을 갖는 글자예요. 예쁘게 만들어진 자기 이름 카드를 보고 나면 '이거 내가 써볼래'라는 말이 자연스럽게 나옵니다. 그 순간이 한글 쓰기를 시작하기 가장 좋은 때예요. 카드에 쓴 이름 그대로 <a href="../hangul/ireum/">이름 따라쓰기 학습지</a>를 만들면, 진한 글자 → 흐린 글자 → 혼자 쓰기로 이어지는 연습지가 바로 나옵니다.</p>
@@ -137,7 +162,9 @@ gtag("config", "G-86X82MNHC8");
       <dt>만든 카드는 어디에 저장되나요?</dt>
       <dd>'이미지 저장'을 누르면 휴대폰(또는 컴퓨터)에 그림 파일로 바로 내려받아져요. 입력한 이름은 글씨방 서버로 전송되지 않습니다.</dd>
       <dt>인쇄해서 이름표로 써도 되나요?</dt>
-      <dd>네. 저장한 이미지를 인쇄해 준비물 이름표, 책상 이름패 등으로 자유롭게 쓰세요. 출력물을 판매하지 않는 한 가정·교실 어디서든 사용할 수 있습니다.</dd>
+      <dd>네. '이름표 A4 인쇄' 버튼을 누르면 큰 4칸·중간 9칸·작은 25칸, 모두 38칸 이름표가 한 장에 나와요. 저장한 카드 이미지를 크게 인쇄해 이름패로 써도 됩니다. 출력물을 판매하지 않는 한 가정·교실 어디서든 사용할 수 있습니다.</dd>
+      <dt>이름표에 반 이름도 넣을 수 있나요?</dt>
+      <dd>네. '위에 들어갈 문구' 칸에 '햇님반'처럼 반 이름을 쓰면 큰 이름표에 이름과 함께 인쇄돼요. 이름만 넣고 싶으면 '문구 없음'을 누르세요.</dd>
       <dt>무료인가요?</dt>
       <dd>네. 카드 만들기와 저장 모두 무료이고 회원가입도 없습니다.</dd>
     </dl>
@@ -201,6 +228,7 @@ gtag("config", "G-86X82MNHC8");
 </div>
 
 <div class="toast" id="toast">링크가 복사되었습니다</div>
+<div id="labelSheet" aria-hidden="true"></div>
 
 <script src="../assets/common.js"></script>
 <script>
@@ -297,6 +325,34 @@ document.getElementById("btnSave").addEventListener("click",function(){
   savePNG(canvas, "이름카드-"+(state.name||"글씨방")+".png");
   showToast("이미지 저장 ✓ 인스타·카톡에 공유해 보세요");
 });
+/* 이름표 A4 시트 — 큰 4(가방·사물함) + 중간 9(필통·물병) + 작은 25(연필 낱개) = 38칸 */
+var LABEL_COLORS={ board:"#2f5d4d", paper:"#b08d4f", sky:"#3e6fb0" };
+function escHtml(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function rep(s,n){ var out=""; for(var i=0;i<n;i++) out+=s; return out; }
+function labFont(len,a,b,c,d){ return len<=3?a:len<=5?b:len<=8?c:d; }
+function buildLabels(){
+  var nm=(state.name||"").trim(), sub=(state.sub||"").trim(), L=nm.length;
+  var color=LABEL_COLORS[state.theme]||LABEL_COLORS.board;
+  function lab(fs,withSub){
+    return '<div class="lab">'+(withSub&&sub?'<div class="ls">'+escHtml(sub)+'</div>':'')
+      +'<div style="font-size:'+fs+'mm;line-height:1.05;white-space:nowrap">'+escHtml(nm)+'</div></div>';
+  }
+  var h='<div class="lsheet" style="--labc:'+color+'">'
+    +'<div class="lgrid lg-big">'+rep(lab(labFont(L,12,10,7.5,6),true),4)+'</div>'
+    +'<div class="lgrid lg-mid">'+rep(lab(labFont(L,8,6.5,5.2,4.2),false),9)+'</div>'
+    +'<div class="lgrid lg-sm">'+rep(lab(labFont(L,5.2,4.2,3.4,2.8),false),25)+'</div>'
+    +'<div class="lfoot">글씨방 · geulssibang.com</div></div>';
+  document.getElementById("labelSheet").innerHTML=h;
+}
+document.getElementById("btnLabel").addEventListener("click",function(){
+  if(!(state.name||"").trim()){ showToast("아이 이름을 입력해 주세요"); return; }
+  track("print_sheet",{tool:"card-label",theme:state.theme});
+  buildLabels();
+  document.body.classList.add("plabel");
+  window.print();
+});
+window.addEventListener("afterprint",function(){ document.body.classList.remove("plabel"); });
+
 function encodeState(){ return b64e(JSON.stringify([state.name,state.sub,state.theme])); }
 document.getElementById("btnShare").addEventListener("click",function(){ copyShareLink(encodeState()); });
 
