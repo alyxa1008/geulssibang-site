@@ -18,6 +18,7 @@ math/roadmap/         학년별 수학 연산 로드맵 (검색 유입용 콘텐
 maze/index.html       미로 찾기 활동지 생성기
 card/index.html       이름 한글 카드 생성기 (캔버스 PNG, 공유·바이럴용)
 diary/index.html      그림일기·원고지 양식 생성기 (SVG mm 단위, 프리셋 4종, 인쇄 전용)
+hangul/chart/         한글 자음모음표·가나다 음절표 출력 (SVG mm 단위, 표 3종)
 404.html              잘못된 주소 안내 페이지 (Cloudflare Pages가 자동 사용)
 
 about/index.html      사이트 소개 (애드센스 심사용 콘텐츠)
