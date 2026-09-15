@@ -311,25 +311,10 @@ function collectHTML(tokens, filled){
   });
   return s+'</div><div class="chint">💡 '+sheetHint()+'</div>';
 }
-function makeSheet(title, bodyHTML, pageNo, pageTotal, isAnswer){
-  var sheet=el("div","sheet");
-  var head=el("div","sheet-head");
-  var t=el("div","sheet-title");
-  var deco=el("span","deco"); deco.textContent=isAnswer?"✔":"➊";
-  t.appendChild(deco); t.appendChild(document.createTextNode(title));
-  var meta=el("div","sheet-meta");
-  meta.innerHTML = isAnswer ? '' : '이름 <span class="blank"></span>';
-  head.appendChild(t); head.appendChild(meta);
-  sheet.appendChild(head);
+function makeMazeSheet(title, bodyHTML, pageNo, pageTotal, isAnswer){
   var body=el("div","mazebody");
   body.innerHTML=bodyHTML;   /* 내부에서 만든 SVG·칸 HTML만 들어간다 */
-  sheet.appendChild(body);
-  var foot=el("div","sheet-foot");
-  var l=el("span"); l.textContent="글씨방 · 무료 숫자 미로 생성기";
-  var r=el("span"); r.textContent=pageNo+" / "+pageTotal;
-  foot.appendChild(l); foot.appendChild(r);
-  sheet.appendChild(foot);
-  return sheet;
+  return makeSheet({deco:isAnswer?"✔":"➊", title:title, meta:isAnswer?"":META_NAME, foot:"글씨방 · 무료 숫자 미로 생성기", pageNo:pageNo, pageTotal:pageTotal}, body);
 }
 function render(){
   var container=document.getElementById("sheets");
@@ -347,14 +332,14 @@ function render(){
     no++;
     var svg=gridSVG(m.g, m.open, null, {labels:m.labels, bold:bold});
     var scale=el("div","sheet-scale");
-    scale.appendChild(makeSheet(title+(jobs.length>1?" ("+(i+1)+")":""), svg+collectHTML(m.tokens,false), no, total, false));
+    scale.appendChild(makeMazeSheet(title+(jobs.length>1?" ("+(i+1)+")":""), svg+collectHTML(m.tokens,false), no, total, false));
     container.appendChild(scale);
   });
   if(state.answers) jobs.forEach(function(m,i){
     no++;
     var svg=gridSVG(m.g, m.open, m.path, {labels:m.labels, bold:bold});
     var scale=el("div","sheet-scale");
-    scale.appendChild(makeSheet(title+(jobs.length>1?" ("+(i+1)+")":"")+" — 정답", svg+collectHTML(m.tokens,true), no, total, true));
+    scale.appendChild(makeMazeSheet(title+(jobs.length>1?" ("+(i+1)+")":"")+" — 정답", svg+collectHTML(m.tokens,true), no, total, true));
     container.appendChild(scale);
   });
   fitScale();
@@ -363,12 +348,13 @@ function render(){
 
 /* ---------- share ---------- */
 function encodeState(){
-  return b64e(JSON.stringify([state.kind, state.dan, state.level, state.pages, state.answers?1:0, state.title, state.seed]));
+  return b64e(JSON.stringify([1, state.kind, state.dan, state.level, state.pages, state.answers?1:0, state.title, state.seed]));
 }
 function loadFromHash(){
   try{
     var m=location.hash.match(/s=([^&]+)/); if(!m) return false;
     var a=JSON.parse(b64d(decodeURIComponent(m[1])));
+    if(typeof a[0]==="number"){ if(a[0]!==1) return false; a=a.slice(1); }   /* v1 = 첫 칸 버전. 버전 없는 옛 링크는 그대로 */
     state.kind=KINDS[a[0]]?a[0]:"c10";
     state.dan=(+a[1]>=2 && +a[1]<=9)?+a[1]:2;
     state.level=(a[2]==="mid")?"mid":"easy";

@@ -268,19 +268,7 @@ function render(){
   fitScale();
   document.getElementById("pageInfo").textContent="A4 · "+total+"장"+(state.answers?" (정답지 포함)":"");
 }
-function sheetHead(title, deco, metaHTML){
-  var head=el("div","sheet-head");
-  var t=el("div","sheet-title"); var d=el("span","deco"); d.textContent=deco;
-  t.appendChild(d); t.appendChild(document.createTextNode(title));
-  var meta=el("div","sheet-meta"); meta.innerHTML=metaHTML;
-  head.appendChild(t); head.appendChild(meta);
-  return head;
-}
-function sheetFoot(label, pageNo, pageTotal){
-  var foot=el("div","sheet-foot"); var l=el("span"); l.textContent=label;
-  var r=el("span"); r.textContent=pageNo+" / "+pageTotal;
-  foot.appendChild(l); foot.appendChild(r); return foot;
-}
+/* sheetHead·sheetFoot는 common.js 공용 */
 function makeItem(num, p, showAns){
   var item=el("div","wp-item");
   var n=el("span","wp-num"); n.textContent=num; item.appendChild(n);

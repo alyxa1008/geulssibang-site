@@ -366,24 +366,10 @@ var CONCEPT_SHEETS={
 };
 function makeConceptSheet(key, pageNo, pageTotal){
   var c=CONCEPT_SHEETS[key];
-  var sheet=el("div","sheet");
-  var head=el("div","sheet-head");
-  var t=el("div","sheet-title");
-  var deco=el("span","deco"); deco.textContent=c.deco;
-  t.appendChild(deco); t.appendChild(document.createTextNode(c.title));
-  var meta=el("div","sheet-meta");
-  meta.innerHTML='개념 설명<br>교과서 방식';
-  head.appendChild(t); head.appendChild(meta);
-  sheet.appendChild(head);
   var body=el("div","concept-body");
   body.innerHTML=c.html();
-  sheet.appendChild(body);
-  var foot=el("div","sheet-foot");
-  var l=el("span"); l.textContent="글씨방 · 개념 설명 (2022 개정 교과서 지도 방식)";
-  var r=el("span"); r.textContent=pageNo+" / "+pageTotal;
-  foot.appendChild(l); foot.appendChild(r);
-  sheet.appendChild(foot);
-  return sheet;
+  return makeSheet({deco:c.deco, title:c.title, meta:'개념 설명<br>교과서 방식',
+                    foot:"글씨방 · 개념 설명 (2022 개정 교과서 지도 방식)", pageNo:pageNo, pageTotal:pageTotal}, body);
 }
 
 /* ---------- render ---------- */
@@ -410,13 +396,13 @@ function render(){
     sheetNo++;
     var slice=probs.slice(pg*per,(pg+1)*per);
     var scale=el("div","sheet-scale");
-    scale.appendChild(makeSheet(title, slice, pg*per, false, sheetNo, sheetCount, vertical));
+    scale.appendChild(makeProblemSheet(title, slice, pg*per, false, sheetNo, sheetCount, vertical));
     container.appendChild(scale);
   }
   if(state.answers){
     sheetNo++;
     var scale2=el("div","sheet-scale");
-    scale2.appendChild(makeSheet(title+" — 정답", probs, 0, true, sheetNo, sheetCount, vertical));
+    scale2.appendChild(makeProblemSheet(title+" — 정답", probs, 0, true, sheetNo, sheetCount, vertical));
     container.appendChild(scale2);
   }
   fitScale();
@@ -424,17 +410,7 @@ function render(){
   document.getElementById("pageInfo").textContent="A4 · "+sheetCount+"장"+(extras.length?" ("+extras.join("·")+" 포함)":"");
 }
 
-function makeSheet(title, probs, startIdx, isAnswerKey, pageNo, pageTotal, vertical){
-  var sheet=el("div","sheet");
-  var head=el("div","sheet-head");
-  var t=el("div","sheet-title");
-  var deco=el("span","deco"); deco.textContent= isAnswerKey ? "✔" : "✚";
-  t.appendChild(deco); t.appendChild(document.createTextNode(title));
-  var meta=el("div","sheet-meta");
-  meta.innerHTML = isAnswerKey ? '채점일 <span class="blank"></span>' : '이름 <span class="blank"></span><br>날짜 <span class="blank"></span>';
-  head.appendChild(t); head.appendChild(meta);
-  sheet.appendChild(head);
-
+function makeProblemSheet(title, probs, startIdx, isAnswerKey, pageNo, pageTotal, vertical){
   var body;
   if(isAnswerKey){
     body=el("div","anskey");
@@ -476,14 +452,8 @@ function makeSheet(title, probs, startIdx, isAnswerKey, pageNo, pageTotal, verti
       body.appendChild(hp);
     });
   }
-  sheet.appendChild(body);
-
-  var foot=el("div","sheet-foot");
-  var l=el("span"); l.textContent="글씨방 · 무료 수학 학습지 생성기";
-  var r=el("span"); r.textContent=pageNo+" / "+pageTotal;
-  foot.appendChild(l); foot.appendChild(r);
-  sheet.appendChild(foot);
-  return sheet;
+  return makeSheet({deco:isAnswerKey?"✔":"✚", title:title, meta:isAnswerKey?META_GRADED:META_NAME_DATE,
+                    foot:"글씨방 · 무료 수학 학습지 생성기", pageNo:pageNo, pageTotal:pageTotal}, body);
 }
 
 

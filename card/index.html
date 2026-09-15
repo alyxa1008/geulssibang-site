@@ -300,7 +300,7 @@ function syncLinks(){
   var nm=(state.name||"").trim();
   var enc=encodeURIComponent(b64e(nm));
   document.getElementById("lnkTrace").href="../hangul/trace/#t="+enc;
-  var payload=[nm,"line","f-gowun","big",3,2,1,1,nm+" 따라쓰기","mid"];
+  var payload=[1,nm,"line","f-gowun","big",3,2,1,1,nm+" 따라쓰기","mid","gray"];   /* 한글 도구 v1 포맷 (common.js wireDeepLinks와 동일) */
   document.getElementById("lnkWrite").href="../hangul/#s="+encodeURIComponent(b64e(JSON.stringify(payload)));
 }
 
@@ -349,7 +349,7 @@ document.getElementById("btnLabel").addEventListener("click",function(){
   printWith("plabel", {tool:"card-label",theme:state.theme}, buildLabels);
 });
 
-function encodeState(){ return b64e(JSON.stringify([state.name,state.sub,state.theme])); }
+function encodeState(){ return b64e(JSON.stringify([1,state.name,state.sub,state.theme])); }
 document.getElementById("btnShare").addEventListener("click",function(){ copyShareLink(encodeState()); });
 
 /* init (공유 링크 복원) */
@@ -357,6 +357,7 @@ document.getElementById("btnShare").addEventListener("click",function(){ copySha
   try{
     var m=location.hash.match(/s=([^&]+)/);
     if(m){ var a=JSON.parse(b64d(decodeURIComponent(m[1])));
+      if(typeof a[0]==="number"){ if(a[0]!==1) throw new Error("version"); a=a.slice(1); }   /* v1 = 첫 칸 버전. 옛 링크는 그대로 */
       state.name=a[0]||state.name; state.sub=a[1]||""; state.theme=THEMES[a[2]]?a[2]:"board";
       nameIn.value=state.name; subIn.value=state.sub;
       document.querySelectorAll("#themeSeg button").forEach(function(x){ x.classList.toggle("on",x.dataset.theme===state.theme); });

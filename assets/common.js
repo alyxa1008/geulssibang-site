@@ -19,6 +19,32 @@ function printWith(cls, gaParams, before){
   window.print();
 }
 
+/* A4 시트 머리·꼬리 — .sheet > .sheet-head(.sheet-title>.deco+제목, .sheet-meta) > 본문 > .sheet-foot
+   makeSheet({deco, title, meta, foot, pageNo, pageTotal, cls}, bodyEl) → .sheet 요소. 제목은 텍스트 노드(사용자 입력 안전), meta는 HTML */
+var META_NAME_DATE='이름 <span class="blank"></span><br>날짜 <span class="blank"></span>';
+var META_NAME='이름 <span class="blank"></span>';
+var META_GRADED='채점일 <span class="blank"></span>';
+function sheetHead(title, deco, metaHTML){
+  var head=el("div","sheet-head");
+  var t=el("div","sheet-title"); var d=el("span","deco"); d.textContent=deco;
+  t.appendChild(d); t.appendChild(document.createTextNode(title));
+  var meta=el("div","sheet-meta"); meta.innerHTML=metaHTML;
+  head.appendChild(t); head.appendChild(meta);
+  return head;
+}
+function sheetFoot(label, pageNo, pageTotal){
+  var foot=el("div","sheet-foot"); var l=el("span"); l.textContent=label;
+  var r=el("span"); r.textContent=pageNo+" / "+pageTotal;
+  foot.appendChild(l); foot.appendChild(r); return foot;
+}
+function makeSheet(o, body){
+  var sheet=el("div", o.cls ? "sheet "+o.cls : "sheet");
+  sheet.appendChild(sheetHead(o.title, o.deco, o.meta||""));
+  if(body) sheet.appendChild(body);
+  sheet.appendChild(sheetFoot(o.foot, o.pageNo, o.pageTotal));
+  return sheet;
+}
+
 /* 한글 안전 base64 인코딩/디코딩 (공유 링크용) */
 function b64e(str){ return btoa(unescape(encodeURIComponent(str))); }
 function b64d(str){ return decodeURIComponent(escape(atob(str))); }
@@ -161,9 +187,9 @@ function setDeepLink(b, payload){
   b.href=h+"#s="+encodeURIComponent(b64e(JSON.stringify(payload)));
 }
 function wireDeepLinks(){
-  /* 한글 도구형: [텍스트, 모드, 폰트, 크기, 빈칸수, 따라쓰기줄, 빈줄, 안내선, 제목, 농도, 색] */
+  /* 한글 도구형 v1: [1, 텍스트, 모드, 폰트, 크기, 빈칸수, 따라쓰기줄, 빈줄, 안내선, 제목, 농도, 색] */
   document.querySelectorAll(".gobtn[data-text]").forEach(function(b){
-    var st=[b.getAttribute("data-text"), b.getAttribute("data-mode")||"char", b.getAttribute("data-font")||"f-gowun",
+    var st=[1, b.getAttribute("data-text"), b.getAttribute("data-mode")||"char", b.getAttribute("data-font")||"f-gowun",
             b.getAttribute("data-size")||"big", 3, 2, 1, 1, b.getAttribute("data-title")||"", "mid", b.getAttribute("data-ink")||"gray"];
     setDeepLink(b, st);
   });
@@ -178,11 +204,11 @@ function wireDeepLinks(){
     var st=[1, b.getAttribute("data-quiz-dan"), +(b.getAttribute("data-quiz-n")||10), "mix", "speak", 5, 1];
     setDeepLink(b, st);
   });
-  /* 받아쓰기 급수 카드형: .gset[data-title]의 li 목록 → [단어들, 읽기횟수, 사이시간, 속도, 제목, 정답지] */
+  /* 받아쓰기 급수 카드형 v1: .gset[data-title]의 li 목록 → [1, 단어들, 읽기횟수, 사이시간, 속도, 제목, 정답지] */
   document.querySelectorAll(".gset[data-title]").forEach(function(box){
     var btn=box.querySelector(".gobtn"); if(!btn) return;
     var words=Array.prototype.map.call(box.querySelectorAll("li"), function(li){ return li.textContent.trim(); });
-    var payload=[words.join("\n"), 2, 12, 0.85, box.getAttribute("data-title"), 1];
+    var payload=[1, words.join("\n"), 2, 12, 0.85, box.getAttribute("data-title"), 1];
     setDeepLink(btn, payload);
     /* 낱말 미로 버튼(선택) — 같은 급수 단어로 놀며 외우기.
        문장·긴 항목은 미로에 못 들어가므로 2~6글자 단어만 추려 담는다 (시드 0 = 열 때마다 새 미로) */
@@ -192,7 +218,7 @@ function wireDeepLinks(){
         var n=Array.from(w).length;
         return w.indexOf(" ")<0 && n>=2 && n<=6;
       });
-      var mp=[single.join("\n"), mz.getAttribute("data-maze")||"easy", 1, box.getAttribute("data-title")+" 낱말 미로", 0];
+      var mp=[1, single.join("\n"), mz.getAttribute("data-maze")||"easy", 1, box.getAttribute("data-title")+" 낱말 미로", 0];   /* 낱말 미로 v1 */
       setDeepLink(mz, mp);
     }
   });

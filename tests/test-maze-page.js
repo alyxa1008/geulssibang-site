@@ -27,6 +27,10 @@ global.window={addEventListener(){}};
 global.location={hash:"", pathname:"/maze/"};
 global.history={replaceState(){}};
 global.el=(tag,cls)=>stubEl();
+/* common.js 시트 틀 — 스텁 (본문만 붙이는 형태 유지) */
+global.META_NAME_DATE=""; global.META_NAME=""; global.META_GRADED="";
+global.sheetHead=()=>stubEl(); global.sheetFoot=()=>stubEl();
+global.makeSheet=(o,body)=>{ const s=stubEl(); if(body) s.appendChild(body); return s; };
 global.fitScale=()=>{};
 global.showToast=()=>{}; global.track=()=>{}; global.copyShareLink=()=>{}; global.svgToPNG=()=>{};
 global.b64e=s=>Buffer.from(unescape(encodeURIComponent(s)),"binary").toString("base64");
