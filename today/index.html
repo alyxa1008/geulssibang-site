@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="naver-site-verification" content="5a80c95ca3675833b5faac38af43702f204a7b69" />
+<meta name="p:domain_verify" content="6e21dcbfb23c20103a0e44fcd76be732"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-86X82MNHC8"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "G-86X82MNHC8");
+</script>
+<title>오늘의 학습지 — 매일 새로 만드는 하루 한 장 무료 프린트 (유아·초등) | 글씨방</title>
+<meta name="description" content="학년만 고르면 오늘 날짜로 새 학습지 한 장이 만들어져요. 한글 따라쓰기·받아쓰기 5문제·수학 6문제·미로·상식 한 문제를 A4 한 장에, 정답은 아래에 뒤집어 인쇄. 5~6세부터 3학년까지, 매일 아침 한 장 뽑는 습관. 무료, 회원가입 없음.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="오늘의 학습지 — 매일 새로 만드는 하루 한 장 | 글씨방">
+<meta property="og:description" content="한글·받아쓰기·수학·미로·상식을 A4 한 장에. 오늘 날짜로 매일 새로 만들어져요. 무료.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://geulssibang.com/today/">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1834921044404408" crossorigin="anonymous"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+#levelSeg{flex-wrap:wrap}
+#levelSeg button{flex:1 1 45%; border-bottom:1px solid #e3e6ea}
+.two{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+#todayHint{font-size:12.5px; color:var(--ink-soft); margin:6px 0 0}
+input[type=date]{font-family:var(--kr)}
+/* ---- 오늘의 학습지 시트 (한 장 고정) ---- */
+.tsheet{--cell:13mm; --trace:#c3c8ce}
+.tblk{margin-top:3mm}
+.tlab{font-family:var(--disp); font-size:4.8mm; margin:0 0 2mm; display:flex; justify-content:space-between; align-items:baseline}
+.tlab small{font-family:var(--kr); font-size:3.1mm; color:var(--ink-soft); font-weight:400}
+.trows{display:flex; flex-direction:column; gap:3mm}
+.trow2{display:flex; gap:6mm; align-items:flex-start}
+.tmath{flex:1}
+.tmath ol{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:4mm 5mm}
+.tmath li{font-size:5.6mm; font-family:var(--disp); white-space:nowrap}
+.tmath li b{display:inline-block; width:6mm; font-size:3.4mm; color:var(--ink-soft); font-family:var(--kr); font-weight:400}
+.tbox{display:inline-block; width:14mm; height:8.5mm; border:1px solid var(--grid); border-radius:1mm; vertical-align:middle; margin-left:1mm}
+.tcount li{font-family:var(--kr); font-size:4mm}
+.tcount .obj{display:block; font-size:6.4mm; letter-spacing:1.2mm; line-height:1.5; margin:1mm 0}
+.tmaze{flex:none}
+.tmaze svg{height:84mm; width:auto; max-width:76mm; display:block}   /* 높이 고정 — 학년별 미로 비율이 달라도 한 장 안에 */
+.tdict{list-style:none; margin:0; padding:0}
+.tdict li{height:8.6mm; border-bottom:1px solid var(--grid); font-size:3.6mm; color:var(--ink-soft); display:flex; align-items:flex-end; padding-bottom:1mm}
+.tquiz p{margin:0 0 1.5mm; font-size:4.4mm}
+.tquiz .ch{display:flex; flex-wrap:wrap; gap:2mm 7mm; font-size:4mm}
+.tkey{transform:rotate(180deg); font-size:3mm; color:var(--ink-soft); border-top:1px dashed var(--grid); padding-top:1.5mm; margin-top:4mm; line-height:1.6}
+.tstars{font-size:5.5mm; letter-spacing:1.5mm; color:#c9c0b0}
+</style>
+<meta property="og:url" content="https://geulssibang.com/today/">
+<meta property="og:site_name" content="글씨방">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://geulssibang.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2f5d4d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="글씨방">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "오늘의 학습지", "url": "https://geulssibang.com/today/", "description": "학년을 고르면 오늘 날짜로 한글 따라쓰기·받아쓰기·수학·미로·상식이 담긴 학습지 한 장이 매일 새로 만들어집니다. A4 무료 인쇄.", "applicationCategory": "EducationalApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "inLanguage": "ko", "isAccessibleForFree": true, "publisher": {"@type": "Organization", "name": "글씨방", "url": "https://geulssibang.com/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "정말 매일 다른 학습지가 나오나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 날짜를 기준으로 문제를 뽑기 때문에 날짜가 바뀌면 낱말·수학 문제·미로·상식 문제가 모두 새로 만들어집니다. 반대로 같은 날짜·같은 학년이면 누가 열어도 같은 학습지라, 형제나 친구와 같은 문제로 풀 수 있습니다."}}, {"@type": "Question", "name": "한 장에 무엇이 들어가나요?", "acceptedAnswer": {"@type": "Answer", "text": "1~3학년은 한글 따라쓰기 2줄, 수학 6문제, 미로 1개, 받아쓰기 5문제, 상식 1문제가 한 장에 들어갑니다. 5~6세는 받아쓰기 대신 자음·모음 따라쓰기와 숫자 따라쓰기, 수학 대신 수 세기가 들어갑니다. 정답은 학습지 아래쪽에 거꾸로 인쇄되어 채점할 때 종이를 뒤집어 보면 됩니다."}}, {"@type": "Question", "name": "미리 여러 날치를 뽑을 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 날짜 칸을 내일이나 주말 날짜로 바꾸면 그날의 학습지가 나옵니다. 일주일치를 한 번에 뽑아 두어도 됩니다."}}, {"@type": "Question", "name": "우리 아이 학년과 난이도가 안 맞으면요?", "acceptedAnswer": {"@type": "Answer", "text": "학년은 기준일 뿐이니 한 단계 위나 아래를 골라 보세요. 받아쓰기 낱말은 학기별 급수표에서, 수학은 그 학기 교과 범위에서 뽑히므로 2학기가 되면 같은 학년이라도 내용이 조금 올라갑니다."}}, {"@type": "Question", "name": "무료인가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 매일 만들어 인쇄해도 무료이고 회원가입도 없습니다. '인쇄 · PDF 저장' 버튼에서 PDF로 저장할 수도 있습니다."}}]}</script>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topnav no-print">
+    <a href="../">글씨방 홈</a>
+    <a href="../hangul/">한글 따라쓰기</a>
+    <a href="../badaseugi/">받아쓰기</a>
+    <a href="../math/">수학 연산</a>
+    <a href="../maze/">미로 찾기</a>
+  </nav>
+
+  <header class="no-print">
+    <div class="logo">오늘의 학습지 <span class="pen">📅</span></div>
+    <h1 class="tagline">오늘의 학습지 — 매일 새로 만드는 하루 한 장 무료 프린트</h1>
+    <div class="chalk-line"></div>
+  </header>
+
+  <div class="app">
+    <aside class="panel no-print">
+      <div class="panel-head">오늘 한 장 만들기</div>
+      <div class="panel-body">
+
+        <div class="field">
+          <label>아이 학년 <span class="hint">한 단계 위·아래로 바꿔도 돼요</span></label>
+          <div class="seg" id="levelSeg" role="group" aria-label="학년">
+            <button data-level="kids">5~6세</button>
+            <button data-level="g1" class="on">1학년</button>
+            <button data-level="g2">2학년</button>
+            <button data-level="g3">3학년</button>
+          </div>
+        </div>
+
+        <div class="two">
+          <div class="field">
+            <label for="date">날짜 <span class="hint">바꾸면 그날 것</span></label>
+            <input type="date" id="date">
+          </div>
+          <div class="field">
+            <label for="name">이름 <span class="hint">비우면 빈칸</span></label>
+            <input type="text" id="name" maxlength="8" placeholder="김글씨">
+          </div>
+        </div>
+        <p id="todayHint"></p>
+
+        <div class="actions">
+          <button class="act print" id="btnPrint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v7H6z"/></svg>
+            인쇄 · PDF 저장
+          </button>
+          <button class="act sub" id="btnShare">🔗 링크 복사</button>
+          <button class="act sub" id="btnToday">오늘로</button>
+        </div>
+
+      </div>
+    </aside>
+
+    <section class="preview-zone">
+      <div class="preview-bar no-print">
+        <b>학습지 미리보기</b>
+        <span id="pageLabel">A4 · 1장</span>
+      </div>
+      <div id="sheets"></div>
+    </section>
+  </div>
+
+  <div class="adslot no-print" aria-hidden="true">광고 영역</div>
+
+  <div class="content no-print">
+    <h2>매일 아침 한 장 — 오늘 날짜로 새로 만들어져요</h2>
+    <p>"오늘은 뭐 시키지?"를 매일 고민하지 않아도 되게 만든 페이지예요. 학년만 골라 두면 <strong>오늘 날짜를 기준으로 학습지 한 장</strong>이 만들어지고, 내일 열면 내일 것이 나옵니다. 한글 따라쓰기·수학·미로·받아쓰기·상식 한 문제가 A4 한 장에 들어가서 <strong>10~15분이면 끝</strong>나고, 정답은 아래쪽에 거꾸로 인쇄돼 있어 종이를 뒤집으면 바로 채점할 수 있어요. 즐겨찾기(또는 홈 화면 추가)만 해 두면 매일 아침 한 번 열어 인쇄 버튼을 누르는 게 전부입니다.</p>
+
+    <h2>한 장에 들어가는 것</h2>
+    <ul class="rule">
+      <li><strong>5~6세</strong> — 자음·모음 따라쓰기 2줄, 수 세기 3문제(그림 세고 숫자 쓰기), 유아 미로(요일마다 다른 동물), 숫자 따라쓰기 2줄, 상식 1문제(부모님이 읽어 주세요)</li>
+      <li><strong>1학년</strong> — 낱말 따라쓰기 2줄, 덧셈·뺄셈 6문제(1학기 받아올림 없음 → 2학기 받아올림), 쉬운 미로, 받아쓰기 5문제(1학년 급수표), 상식 1급수</li>
+      <li><strong>2학년</strong> — 낱말 따라쓰기, 두 자리 덧셈·뺄셈(2학기엔 구구단 포함), 보통 미로, 받아쓰기 5문제(2학년 급수표), 상식 2급수</li>
+      <li><strong>3학년</strong> — 낱말 따라쓰기, 곱셈·나눗셈 6문제, 보통 미로, 받아쓰기 5문제(맞춤법·속담 급수표), 상식 3급수</li>
+    </ul>
+    <p>받아쓰기 낱말은 글씨방의 <a href="../badaseugi/geupsu/">학기별 받아쓰기 급수표</a>에서, 수학 문제는 <a href="../math/">수학 문제지 생성기</a>의 그 학기 범위에서, 미로는 <a href="../maze/">미로 찾기 도안</a>에서, 상식은 <a href="../quiz/">상식 퀴즈</a> 문제은행에서 뽑혀요. 어느 하나가 재미있으면 그 도구로 넘어가 더 풀면 됩니다.</p>
+
+    <h2>왜 '한 장'인가요</h2>
+    <p>가정 학습이 오래 가는 집의 공통점은 양이 아니라 <strong>매일 같은 시간에 같은 분량</strong>이에요. 학습지를 여러 장 뽑아 두면 첫날만 하고 쌓이기 쉬운데, 딱 한 장은 아이도 끝이 보이니까 앉습니다. 한 장 안에 쓰기·계산·놀이(미로)·듣기(받아쓰기)가 섞여 있어서 한 가지만 계속하는 지루함도 없고요. 다 하면 아래 별 세 개를 색칠하게 해 주세요 — 일주일치 학습지를 모아 별이 스물한 개가 되면 그 자체가 기록이 됩니다.</p>
+
+    <div class="adslot" aria-hidden="true">광고 영역</div>
+
+    <h2>이렇게 쓰세요</h2>
+    <ol class="rule">
+      <li><strong>학년 고르기</strong> — 1학년인데 쉬우면 2학년, 어려우면 5~6세로. 학년은 기준일 뿐이에요.</li>
+      <li><strong>인쇄</strong> — 아침에 한 장, 또는 날짜를 바꿔 일주일치를 한 번에 뽑아 두어도 됩니다.</li>
+      <li><strong>받아쓰기는 부모님이 불러 주기</strong> — 낱말 5개는 뒤집힌 정답 줄에 있어요. 혼자 시키고 싶으면 <a href="../badaseugi/">받아쓰기 불러주기</a>에 같은 낱말을 넣으면 컴퓨터가 읽어 줍니다.</li>
+      <li><strong>채점</strong> — 종이를 뒤집어 정답 줄 확인. 틀린 낱말은 다음 날 학습지 여백에 한 번 더 써 보게 하세요.</li>
+    </ol>
+    <p>같은 날짜·같은 학년이면 누가 열어도 같은 학습지예요. 그래서 형제·자매나 친구끼리 <strong>같은 문제로 시합</strong>할 수 있고, 링크 복사로 다른 집에 보내면 그 집도 같은 장을 뽑을 수 있습니다.</p>
+
+    <h2>함께 보면 좋은 페이지</h2>
+    <div class="guides">
+      <a href="../badaseugi/geupsu/">📋 학기별 받아쓰기 급수표</a>
+      <a href="../plan/">⏰ 생활계획표 만들기</a>
+      <a href="../banghak/routine/">📖 하루 학습 루틴 잡기</a>
+      <a href="../maze/">🌀 미로 찾기 도안</a>
+    </div>
+
+    <h2>자주 묻는 질문</h2>
+    <dl class="faq">
+      <dt>정말 매일 다른 학습지가 나오나요?</dt>
+      <dd>네. 날짜를 기준으로 문제를 뽑기 때문에 날짜가 바뀌면 낱말·수학 문제·미로·상식 문제가 모두 새로 만들어져요. 반대로 같은 날짜·같은 학년이면 누가 열어도 같은 학습지라, 형제나 친구와 같은 문제로 풀 수 있습니다.</dd>
+      <dt>한 장에 무엇이 들어가나요?</dt>
+      <dd>1~3학년은 한글 따라쓰기 2줄, 수학 6문제, 미로 1개, 받아쓰기 5문제, 상식 1문제. 5~6세는 받아쓰기 대신 자음·모음 따라쓰기와 숫자 따라쓰기, 수학 대신 수 세기가 들어가요. 정답은 학습지 아래쪽에 거꾸로 인쇄돼 있어 종이를 뒤집어 보면 됩니다.</dd>
+      <dt>미리 여러 날치를 뽑을 수 있나요?</dt>
+      <dd>네. 날짜 칸을 내일이나 주말 날짜로 바꾸면 그날의 학습지가 나와요. 일주일치를 한 번에 뽑아 두어도 됩니다.</dd>
+      <dt>우리 아이 학년과 난이도가 안 맞으면요?</dt>
+      <dd>학년은 기준일 뿐이니 한 단계 위나 아래를 골라 보세요. 받아쓰기 낱말은 학기별 급수표에서, 수학은 그 학기 교과 범위에서 뽑히므로 2학기가 되면 같은 학년이라도 내용이 조금 올라가요.</dd>
+      <dt>무료인가요?</dt>
+      <dd>네. 매일 만들어 인쇄해도 무료이고 회원가입도 없어요. '인쇄 · PDF 저장' 버튼에서 PDF로 저장할 수도 있습니다.</dd>
+    </dl>
+  </div>
+
+  <footer class="no-print">
+  <nav class="foot-map" aria-label="전체 메뉴">
+    <div class="fcol"><b>✎ 한글</b>
+      <a href="/hangul/">따라쓰기 만들기</a>
+      <a href="/hangul/jamo/">자음·모음 따라쓰기</a>
+      <a href="/hangul/chart/">자음모음표·음절표</a>
+      <a href="/hangul/natmal/">낱말 따라쓰기</a>
+      <a href="/hangul/ireum/">아이 이름 따라쓰기</a>
+      <a href="/hangul/suja/">숫자 따라쓰기</a>
+      <a href="/hangul/order/">쓰기 순서(획순)</a>
+      <a href="/hangul/pencil/">연필 바르게 잡는 법</a>
+      <a href="/hangul/trace/">화면 손글씨</a>
+      <a href="/hangul/guide/">한글 떼기 가이드</a>
+      <a href="/hangul/pen/">예쁜 글씨 연습(성인)</a>
+    </div>
+    <div class="fcol"><b>🔊 받아쓰기</b>
+      <a href="/badaseugi/">불러주기·시험지</a>
+      <a href="/badaseugi/geupsu/">학기별 급수표</a>
+      <a href="/badaseugi/geupsu/1-1/">1학년 1학기</a>
+      <a href="/badaseugi/geupsu/1-2/">1학년 2학기</a>
+      <a href="/badaseugi/geupsu/2-1/">2학년 1학기</a>
+      <a href="/badaseugi/geupsu/2-2/">2학년 2학기</a>
+      <a href="/badaseugi/geupsu/3/">3학년 (어려운 문제)</a>
+      <a href="/badaseugi/matchumbeop/">헷갈리는 맞춤법</a>
+      <a href="/badaseugi/howto/">받아쓰기 지도법</a>
+    </div>
+    <div class="fcol"><b>✚ 수학</b>
+      <a href="/math/">문제지 만들기</a>
+      <a href="/math/add-sub/">덧셈·뺄셈</a>
+      <a href="/math/gugudan/">구구단</a>
+      <a href="/math/mul-div/">곱셈·나눗셈</a>
+      <a href="/math/fraction/">분수·소수</a>
+      <a href="/math/word/">문장제</a>
+      <a href="/math/roadmap/">연산 로드맵</a>
+      <a href="/gugudan/">구구단 외우기 시험</a>
+      <a href="/gugudan/when/">구구단 시작 시기</a>
+    </div>
+    <div class="fcol"><b>🌀 놀이·활동</b>
+      <a href="/maze/">미로 찾기</a>
+      <a href="/maze/kids/">유아 미로</a>
+      <a href="/maze/dino/">공룡 미로</a>
+      <a href="/maze/hangul/">한글 낱말 미로</a>
+      <a href="/maze/suja/">숫자 미로</a>
+      <a href="/card/">이름 카드</a>
+      <a href="/diary/">그림일기·원고지</a>
+      <a href="/today/">오늘의 학습지</a>
+      <a href="/banghak/">여름방학 학습지</a>
+      <a href="/plan/">방학 생활계획표</a>
+      <a href="/quiz/">상식 퀴즈</a>
+    </div>
+  </nav>
+  <div class="foot-base">
+    <span>© 2026 글씨방 — 무료 학습지 생성기 · <a href="/terms/">무단 복제·전재 금지</a></span>
+    <span><a href="/about/">사이트 소개</a> · <a href="/terms/">이용약관</a> · <a href="/privacy/">개인정보처리방침</a></span>
+  </div>
+</footer>
+</div>
+
+<div class="toast" id="toast">링크가 복사되었습니다</div>
+
+<script src="../assets/common.js"></script>
+<script src="../math/generators.js"></script>
+<script src="../maze/maze-gen.js"></script>
+<script src="../quiz/quiz-data.js"></script>
+<script src="../quiz/quiz-gen.js"></script>
+<script src="today-data.js"></script>
+<script>
+"use strict";
+/* ---------- state ----------
+   level: kids|g1|g2|g3, date: "YYYY-MM-DD", name: 이름
+   같은 (level, date)면 항상 같은 학습지 — 날짜가 시드 */
+var LEVELS_T={ kids:{name:"5~6세", quiz:1}, g1:{name:"1학년", quiz:1}, g2:{name:"2학년", quiz:2}, g3:{name:"3학년", quiz:3} };
+var LEVEL_IDX={ kids:0, g1:1, g2:2, g3:3 };
+var DOW=["일","월","화","수","목","금","토"];
+var JA=["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+var MO=["ㅏ","ㅑ","ㅓ","ㅕ","ㅗ","ㅛ","ㅜ","ㅠ","ㅡ","ㅣ"];
+var KIDS_ICONS=[{s:"🐰",e:"🥕"},{s:"🐶",e:"🦴"},{s:"🐝",e:"🌷"},{s:"🚗",e:"🏠"},{s:"🦖",e:"🍖"},{s:"🚀",e:"🌙"},{s:"⛵",e:"🏝️"}];
+var COUNT_OBJ=["🍎","🍓","🐟","⭐","🌸","🚗","🐥","🍪"];
+var MAX_CELLS=12;
+
+function todayStr(){ var d=new Date(); return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
+var DEF={ level:"g1", date:todayStr(), name:"" };
+var state=JSON.parse(JSON.stringify(DEF));
+
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function parseDate(s){ var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||""); if(!m) return null; var d=new Date(+m[1],+m[2]-1,+m[3]); return isNaN(d)?null:d; }
+function dateNum(s){ return +s.replace(/-/g,""); }
+function pick(rnd,arr){ return arr[Math.floor(rnd()*arr.length)]; }
+function pickN(rnd,arr,n){
+  var a=arr.slice(), out=[];
+  while(a.length && out.length<n) out.push(a.splice(Math.floor(rnd()*a.length),1)[0]);
+  return out;
+}
+/* 학기: 3~8월 1학기, 9~2월 2학기 (2학기엔 1학기 풀도 섞어 복습) */
+function semester(month){ return (month>=3&&month<=8) ? 1 : 2; }
+function wordPool(level,month){
+  if(level==="kids") return TODAY_NATMAL[0].concat(TODAY_NATMAL[1]);
+  if(level==="g3") return flat(TODAY_WORDS["3"]);
+  var g=level==="g1"?"1":"2";
+  var pool=flat(TODAY_WORDS[g+"-1"]);
+  if(semester(month)===2) pool=pool.concat(flat(TODAY_WORDS[g+"-2"]));
+  return pool;
+}
+function poolLabel(level,month){
+  if(level==="kids") return "받침 없는 낱말·자음·모음";
+  if(level==="g3") return "3학년 급수표";
+  var g=level==="g1"?"1":"2";
+  return semester(month)===2 ? g+"학년 2학기 급수표 + 1학기 복습" : g+"학년 1학기 급수표";
+}
+function flat(sets){ var out=[]; sets.forEach(function(s){ out=out.concat(s.w); }); return out; }
+function traceWords(pool,maxLen){ return pool.filter(function(w){ return w.indexOf(" ")<0 && Array.from(w).length<=maxLen; }); }
+
+/* ---------- 따라쓰기 줄: 본보기 → 흐린 글자 → 빈칸, 12칸 안에서 채움 ---------- */
+var ROW_PATTERNS=[["solid","trace","trace","empty"],["solid","trace","empty"],["solid","trace"],["solid"]];
+function rowPattern(n){
+  for(var i=0;i<ROW_PATTERNS.length;i++){ var k=ROW_PATTERNS[i].length; if(k*n+(k-1)<=MAX_CELLS) return ROW_PATTERNS[i]; }
+  return ["solid"];
+}
+function traceRow(word,guide){
+  var cs=Array.from(word), parts=[];
+  rowPattern(cs.length).forEach(function(kind){
+    if(parts.length) parts.push({kind:"gap"});
+    cs.forEach(function(c){ parts.push({kind:kind, ch:kind==="empty"?"":c}); });
+  });
+  var h='<div class="row">';
+  parts.forEach(function(p){
+    if(p.kind==="gap"){ h+='<div class="cell" style="border-color:transparent"></div>'; return; }
+    h+='<div class="cell '+p.kind+(guide&&p.kind!=="gap"?" guide":"")+'">'+(p.ch?'<span>'+esc(p.ch)+'</span>':'')+'</div>';
+  });
+  return h+'</div>';
+}
+
+/* ---------- 수학 ---------- */
+function tokText(toks){
+  return toks.map(function(t){
+    if(t.t==="f") return (t.w?t.w+" ":"")+t.n+"/"+t.d;
+    return t.v;
+  }).join(" ");
+}
+function mathProblems(rnd,level,month){
+  var seed=Math.floor(rnd()*1e9)+1, list=[];
+  function add(topic,lv,opts,n){ genAll(seed+list.length*7,topic,lv,opts||{},n).forEach(function(p){ list.push(p); }); }
+  if(level==="g1"){
+    if(semester(month)===1) add("addsub",0,{noCarry:true},6);
+    else { add("addsub",0,{noCarry:false},3); add("addsub",1,{noCarry:true},3); }
+  }else if(level==="g2"){
+    if(semester(month)===1) add("addsub",2,{noCarry:false},6);
+    else { add("addsub",2,{noCarry:false},3); add("gugudan",0,{dan:0},3); }
+  }else{
+    add("mul",0,{},3); add("div",0,{},3);
+  }
+  return list;
+}
+function countProblems(rnd){
+  var out=[];
+  for(var i=0;i<3;i++){ var n=2+Math.floor(rnd()*9); out.push({obj:pick(rnd,COUNT_OBJ), n:n}); }
+  return out;
+}
+
+/* ---------- 한 장 ---------- */
+function build(){
+  var d=parseDate(state.date)||new Date();
+  var month=d.getMonth()+1, dow=d.getDay();
+  var rnd=mulberry32(dateNum(state.date)*4+LEVEL_IDX[state.level]);
+  var L=LEVELS_T[state.level], lv=state.level, keys=[];
+  var pool=wordPool(lv,month);
+  var guide=(lv==="kids"||lv==="g1");
+  var h='<div class="sheet tsheet">';
+
+  /* 머리 */
+  h+='<div class="sheet-head"><div class="sheet-title"><span class="deco">📅</span>오늘의 학습지 <small style="font-size:4.2mm;color:var(--ink-soft)">'+(month)+'월 '+d.getDate()+'일 '+DOW[dow]+'요일 · '+L.name+'</small></div>'
+    +'<div class="sheet-meta">이름 <span class="blank">'+(state.name?'<b style="font-weight:400;color:var(--ink)">'+esc(state.name)+'</b>':'')+'</span><br>다 했어요 <span class="tstars">☆☆☆</span></div></div>';
+
+  /* ① 따라쓰기 */
+  var rowsHtml="";
+  if(lv==="kids"){
+    rowsHtml=traceRow(pick(rnd,JA),true)+traceRow(pick(rnd,MO),true);
+  }else{
+    var tw=pickN(rnd,traceWords(pool,lv==="g3"?5:4),2);
+    rowsHtml=tw.map(function(w){ return traceRow(w,guide); }).join("");
+  }
+  h+='<div class="tblk"><p class="tlab">✎ '+(lv==="kids"?"자음·모음 따라쓰기":"낱말 따라쓰기")+'<small>진한 글자 보고 → 흐린 글자 따라 → 빈칸에 혼자</small></p><div class="trows">'+rowsHtml+'</div></div>';
+
+  /* ② 수학 + 미로 */
+  var mathHtml="";
+  if(lv==="kids"){
+    var cp=countProblems(rnd);
+    mathHtml='<ol class="tcount">'+cp.map(function(p,i){
+      var objs=""; for(var k=0;k<p.n;k++) objs+=p.obj;
+      return '<li><b>'+(i+1)+'</b>몇 개일까요? <span class="obj">'+objs+'</span><span class="tbox"></span> 개</li>';
+    }).join("")+'</ol>';
+    keys.push("수 세기: "+cp.map(function(p){ return p.n; }).join(", "));
+  }else{
+    var mp=mathProblems(rnd,lv,month);
+    mathHtml='<ol>'+mp.map(function(p,i){ return '<li><b>'+(i+1)+'</b>'+esc(tokText(p.q))+' = <span class="tbox"></span></li>'; }).join("")+'</ol>';
+    keys.push("수학: "+mp.map(function(p){ return tokText(p.ans); }).join(", "));
+  }
+  var g = lv==="kids" ? buildGrid(6,7,null) : lv==="g1" ? buildGrid(8,10,null) : buildGrid(12,15,null);
+  var open=carve(g, Math.floor(rnd()*1e8)+1);
+  var icons = (lv==="kids"||lv==="g1") ? KIDS_ICONS[dow] : null;
+  var mazeSvg=gridSVG(g,open,null, icons ? {icons:icons, bold:lv==="kids"} : null);
+  h+='<div class="tblk trow2"><div class="tmath"><p class="tlab">✚ '+(lv==="kids"?"수 세기":"수학")+'<small>'+(lv==="kids"?"세어 보고 숫자로":"답을 칸에")+'</small></p>'+mathHtml+'</div>'
+    +'<div class="tmaze"><p class="tlab">🌀 미로<small>'+(icons?icons.s+"→"+icons.e:"출발 → 도착")+'</small></p>'+mazeSvg+'</div></div>';
+
+  /* ③ 받아쓰기 / 숫자 따라쓰기 */
+  if(lv==="kids"){
+    var nums=pickN(rnd,["1","2","3","4","5","6","7","8","9","10"],2);
+    h+='<div class="tblk"><p class="tlab">🔢 숫자 따라쓰기<small>오늘의 숫자 '+nums.join(" · ")+'</small></p><div class="trows">'+nums.map(function(n){ return traceRow(n,true); }).join("")+'</div></div>';
+  }else{
+    var dw=pickN(rnd,pool,5);
+    h+='<div class="tblk"><p class="tlab">🔊 받아쓰기<small>부모님이 불러 주세요 · 정답은 아래 뒤집힌 줄에</small></p><ol class="tdict">'+dw.map(function(w,i){ return '<li>'+(i+1)+'.</li>'; }).join("")+'</ol></div>';
+    keys.push("받아쓰기: "+dw.map(function(w,i){ return (i+1)+" "+w; }).join("  "));
+  }
+
+  /* ④ 상식 한 문제 */
+  var qi=QuizGen.pickQuestions(QUIZ_DATA,[],L.quiz,1,[],rnd)[0];
+  var q=QUIZ_DATA[qi], ch=QuizGen.shuffle(q.o.slice(),rnd), ansIdx=ch.indexOf(q.o[0]);
+  var circ=["①","②","③","④"];
+  h+='<div class="tblk tquiz"><p class="tlab">💡 오늘의 상식<small>'+(lv==="kids"?"부모님이 읽어 주세요":"하나만 골라 ○")+'</small></p><p>'+esc(q.q)+'</p><div class="ch">'+ch.map(function(c,i){ return '<span>'+circ[i]+' '+esc(c)+'</span>'; }).join("")+'</div></div>';
+  keys.push("상식: "+circ[ansIdx]+" "+q.o[0]+" — "+q.e);
+
+  /* 정답 (뒤집어 인쇄) + 꼬리 */
+  h+='<div class="tkey">🔑 정답 — '+keys.map(esc).join(" · ")+'</div>';
+  h+='<div class="sheet-foot"><span>글씨방 · 오늘의 학습지 · geulssibang.com/today/</span><span>'+esc(state.date)+' · '+L.name+'</span></div>';
+  return h+'</div>';
+}
+
+function render(){
+  document.getElementById("sheets").innerHTML='<div class="sheet-scale">'+build()+'</div>';
+  fitScale();
+  var d=parseDate(state.date)||new Date();
+  document.getElementById("todayHint").textContent=(d.getMonth()+1)+"월 "+d.getDate()+"일("+DOW[d.getDay()]+") · "+LEVELS_T[state.level].name+" · "+poolLabel(state.level,d.getMonth()+1);
+}
+
+/* ---------- UI ---------- */
+function syncUI(){
+  document.querySelectorAll("#levelSeg button").forEach(function(b){ b.classList.toggle("on", b.dataset.level===state.level); });
+  document.getElementById("date").value=state.date;
+  document.getElementById("name").value=state.name;
+}
+document.getElementById("levelSeg").addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b||!LEVELS_T[b.dataset.level]) return;
+  state.level=b.dataset.level; syncUI(); render();
+});
+document.getElementById("date").addEventListener("change",function(e){
+  state.date = parseDate(e.target.value) ? e.target.value : todayStr(); syncUI(); render();
+});
+document.getElementById("name").addEventListener("input",function(e){ state.name=e.target.value.slice(0,8); render(); });
+
+/* ---------- 공유 ---------- */
+function encodeState(){ return b64e(JSON.stringify([1,state.level,state.date,state.name])); }
+function loadFromHash(){
+  try{
+    var m=location.hash.match(/s=([^&]+)/); if(!m) return false;
+    var a=JSON.parse(b64d(decodeURIComponent(m[1])));
+    if(a[0]!==1) return false;
+    state.level = LEVELS_T[a[1]] ? a[1] : DEF.level;
+    state.date = parseDate(a[2]) ? a[2] : todayStr();
+    state.name = String(a[3]||"").slice(0,8);
+    return true;
+  }catch(e){ return false; }
+}
+document.getElementById("btnPrint").addEventListener("click",function(){
+  track("print_sheet",{tool:"today", level:state.level, dow:(parseDate(state.date)||new Date()).getDay()});
+  window.print();
+});
+document.getElementById("btnShare").addEventListener("click",function(){ copyShareLink(encodeState()); });
+document.getElementById("btnToday").addEventListener("click",function(){
+  state.date=todayStr();
+  history.replaceState(null,"",location.pathname);
+  syncUI(); render();
+});
+window.addEventListener("resize",fitScale);
+
+/* ---------- init ---------- */
+loadFromHash();
+syncUI();
+render();
+</script>
+</body>
+</html>

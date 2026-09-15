@@ -19,6 +19,8 @@ maze/index.html       미로 찾기 활동지 생성기
 card/index.html       이름 한글 카드 생성기 (캔버스 PNG, 공유·바이럴용)
 diary/index.html      그림일기·원고지 양식 생성기 (SVG mm 단위, 프리셋 4종, 인쇄 전용)
 hangul/chart/         한글 자음모음표·가나다 음절표 출력 (SVG mm 단위, 표 3종)
+today/index.html      오늘의 학습지 — 날짜 시드로 한글·수학·미로·받아쓰기·상식을 A4 한 장에 조합 (생성기 4종 재사용)
+today/today-data.js   급수표·낱말 풀 (badaseugi/geupsu·hangul/natmal에서 추출 — 테스트가 원본과 대조)
 404.html              잘못된 주소 안내 페이지 (Cloudflare Pages가 자동 사용)
 
 about/index.html      사이트 소개 (애드센스 심사용 콘텐츠)
