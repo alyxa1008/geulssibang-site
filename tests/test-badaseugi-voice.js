@@ -37,7 +37,8 @@ pages.forEach(function (p) {
 });
 ok(missing.length === 0, "급수표·맞춤법 전 항목 커버" + (missing.length ? " — 누락: " + missing.join(", ") : ""));
 
-var bSrc = fs.readFileSync(path.join(ROOT, "badaseugi/index.html"), "utf8");
+/* 페이지 + 순수 모듈(badaseugi-gen.js)을 합쳐서 검사 — 파싱·서수·클립 판정은 모듈로 분리됨 */
+var bSrc = fs.readFileSync(path.join(ROOT, "badaseugi/index.html"), "utf8") + "\n" + fs.readFileSync(path.join(ROOT, "badaseugi/badaseugi-gen.js"), "utf8");
 var presets = bSrc.match(/var PRESETS=\{([\s\S]*?)\};/)[1].match(/"([^"]+)"/g)
   .map(function (s) { return s.slice(1, -1); })
   .filter(function (s) { return !/^[ws]\d$/.test(s); });

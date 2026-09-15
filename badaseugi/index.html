@@ -268,21 +268,17 @@ gtag("config", "G-86X82MNHC8");
 
 <script src="../assets/common.js"></script>
 <script src="voice/manifest.js"></script>
+<script src="badaseugi-gen.js"></script>
 <script>
 "use strict";
 /* ---------- state ---------- */
 var state={ words:[], repeat:2, gap:12, rate:0.85, title:"", answers:true };
-var MAXQ=20, PER_PAGE=10;
 var PRESETS={
   w1:["나무","바다","하늘","구름","친구","학교","연필","가방","토끼","무지개"],
   w2:["꽃밭","부엌","무릎","숲속","낚시","돋보기","숯불","팥죽","닭장","흙탕물"],
   s1:["해가 떴습니다","비가 옵니다","친구와 놀아요","밥을 먹어요","학교에 갑니다","꽃이 피었습니다","바람이 붑니다","눈이 내립니다"],
   s2:["토끼가 깡충깡충 뜁니다","꽃이 활짝 피었습니다","아기가 방긋 웃어요","구름이 둥실둥실 떠가요","낙엽이 우수수 떨어집니다","별이 반짝반짝 빛나요"]
 };
-
-function parseWords(text){
-  return text.split(/\r?\n/).map(function(s){return s.trim();}).filter(Boolean).slice(0,MAXQ);
-}
 
 /* ---------- render sheets ---------- */
 function render(){
@@ -291,9 +287,7 @@ function render(){
   container.innerHTML="";
   var title=state.title||"받아쓰기 시험";
   var n=state.words.length||10;
-  var qPages=Math.max(1, Math.ceil(n/PER_PAGE));
-  /* 마지막 장에 한두 줄만 남지 않도록 문제를 페이지에 균등 배분 (예: 11문제 → 6+5) */
-  var perPage=Math.ceil(n/qPages);
+  var pgn=paginateExam(n), qPages=pgn.qPages, perPage=pgn.perPage;   /* 마지막 장에 한두 줄만 남지 않게 균등 배분 (badaseugi-gen.js) */
   var total=qPages + (state.answers && state.words.length ? 1 : 0);
   var no=0;
   for(var pg=0; pg<qPages; pg++){
@@ -344,23 +338,10 @@ function aliveGuard(){
   return function(){ return exam.running && s===exam.session; };
 }
 
-/* TTS가 "1번"을 횟수(한 번)로 읽어 어색함 → 서수(첫 번째)로 불러준다 */
-var ORD_KO=["첫","두","세","네","다섯","여섯","일곱","여덟","아홉","열",
-            "열한","열두","열세","열네","열다섯","열여섯","열일곱","열여덟","열아홉","스무"];
-function ordinalKo(n){ return (ORD_KO[n-1]||n)+" 번째"; }
 
 /* ---- 자연 음성 클립 (급수표·프리셋 낱말은 미리 생성한 파일, voice/manifest.js) ----
    시험의 모든 단어+번호에 클립이 있을 때만 파일 모드 — 한 시험 안에서 목소리가 섞이지 않는다.
    파일이 없거나 재생에 실패하면 기기 음성(speak)으로 그 자리에서 폴백. */
-var VOICE_MAP=(typeof GB_VOICE!=="undefined")?GB_VOICE:{};
-function clipId(text){ return VOICE_MAP[text]||null; }
-function allClipsReady(words){
-  if(!words.length) return false;
-  for(var i=0;i<words.length;i++){
-    if(!clipId(words[i]) || !clipId(ordinalKo(i+1))) return false;
-  }
-  return true;
-}
 function playClip(cid, cb){
   var p=exam.player||(exam.player=new Audio());
   var fin=false;
@@ -613,7 +594,7 @@ document.getElementById("btnImage").addEventListener("click",function(){
   if(!state.words.length){ showToast("먼저 문제를 입력해 주세요"); return; }
   track("save_png",{tool:"badaseugi"});
   var title=state.title||"받아쓰기 시험";
-  var n=state.words.length, qPages=Math.max(1,Math.ceil(n/PER_PAGE)), perPage=Math.ceil(n/qPages);
+  var n=state.words.length, pgn=paginateExam(n), qPages=pgn.qPages, perPage=pgn.perPage;
   var total=qPages+(state.answers?1:0), sheets=[], no=0;
   for(var pg=0; pg<qPages; pg++){
     no++;
