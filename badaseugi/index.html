@@ -454,7 +454,7 @@ function nextQuestion(){
   if(!exam.running) return;
   exam.session++;
   clearExamTimer();
-  speechSynthesis.cancel();
+  if(window.speechSynthesis) speechSynthesis.cancel();
   stopClip();
   if(exam.idx >= exam.list.length-1){
     document.getElementById("examBar").style.width="100%";
@@ -550,7 +550,7 @@ document.getElementById("examStart").addEventListener("click",function(){
 });
 document.getElementById("examAgain").addEventListener("click",function(){
   if(!exam.list.length) return;
-  clearExamTimer(); speechSynthesis.cancel(); stopClip();
+  clearExamTimer(); if(window.speechSynthesis) speechSynthesis.cancel(); stopClip();
   if(!exam.running){ exam.running=true; }
   playCurrent();
 });

@@ -243,13 +243,7 @@ gtag("config", "G-86X82MNHC8");
 <script src="../../assets/common.js"></script>
 <script>
 /* 획순 포스터 인쇄 — 인쇄 중에만 body.pposter로 그리드 외 요소 숨김 */
-document.getElementById("btnPoster").addEventListener("click", function(e){
-  e.preventDefault();
-  document.body.classList.add("pposter");
-  track("print_sheet", {tool: "order-poster"});
-  window.print();
-});
-window.addEventListener("afterprint", function(){ document.body.classList.remove("pposter"); });
+document.getElementById("btnPoster").addEventListener("click", function(e){ e.preventDefault(); printWith("pposter", {tool: "order-poster"}); });
 /* 카드 → 연습지 이동 계측 (이탈률 개선 판정용) */
 document.querySelectorAll(".scard .slink").forEach(function(a){
   a.addEventListener("click", function(){ track("order_to_practice", {ch: a.getAttribute("data-text")}); });

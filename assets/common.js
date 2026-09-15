@@ -7,6 +7,17 @@
 
 /* DOM 요소 생성 */
 function el(tag, cls){ var d=document.createElement(tag); if(cls) d.className=cls; return d; }
+function escHtml(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+/* 인쇄 중에만 body에 cls를 붙여 그 블록만 출력 (포스터·급수표·이름표·상장 공통).
+   before(): 인쇄 직전 시트를 만들 때, gaParams: print_sheet 이벤트 파라미터(없으면 계측 안 함) */
+function printWith(cls, gaParams, before){
+  if(before) before();
+  document.body.classList.add(cls);
+  if(gaParams) track("print_sheet", gaParams);
+  var done=function(){ document.body.classList.remove(cls); window.removeEventListener("afterprint", done); };
+  window.addEventListener("afterprint", done);
+  window.print();
+}
 
 /* 한글 안전 base64 인코딩/디코딩 (공유 링크용) */
 function b64e(str){ return btoa(unescape(encodeURIComponent(str))); }
@@ -143,30 +154,36 @@ function showToast(msg){
    .gobtn의 data 속성으로 도구 상태 해시(#s=)를 만들어 붙인다.
    버튼에 이미 있는 href(도구 경로)를 그대로 쓰므로 페이지 깊이와 무관.
    새 랜딩 페이지는 마크업만 만들면 되고 스크립트 복사가 필요 없다. */
+/* 버튼 href 뒤에 #s= 상태를 붙인다. 이미 붙어 있으면 건너뜀 — wireDeepLinks를 다시 불러도 #s=…#s=… 가 안 되게 */
+function setDeepLink(b, payload){
+  var h=b.getAttribute("href")||"";
+  if(h.indexOf("#s=")>=0) return;
+  b.href=h+"#s="+encodeURIComponent(b64e(JSON.stringify(payload)));
+}
 function wireDeepLinks(){
   /* 한글 도구형: [텍스트, 모드, 폰트, 크기, 빈칸수, 따라쓰기줄, 빈줄, 안내선, 제목, 농도, 색] */
   document.querySelectorAll(".gobtn[data-text]").forEach(function(b){
     var st=[b.getAttribute("data-text"), b.getAttribute("data-mode")||"char", b.getAttribute("data-font")||"f-gowun",
             b.getAttribute("data-size")||"big", 3, 2, 1, 1, b.getAttribute("data-title")||"", "mid", b.getAttribute("data-ink")||"gray"];
-    b.href=b.getAttribute("href")+"#s="+encodeURIComponent(b64e(JSON.stringify(st)));
+    setDeepLink(b, st);
   });
   /* 수학 도구형 v2: [2, 유형, 난이도, 받아올림없음, 단, 형식, 장수, 정답지, 제목, 시드0=열 때마다 새 문제] */
   document.querySelectorAll(".gobtn[data-topic]").forEach(function(b){
     var st=[2, b.getAttribute("data-topic"), +(b.getAttribute("data-level")||0), 0,
             +(b.getAttribute("data-dan")||0), "v", 1, 1, b.getAttribute("data-title")||"", 0];
-    b.href=b.getAttribute("href")+"#s="+encodeURIComponent(b64e(JSON.stringify(st)));
+    setDeepLink(b, st);
   });
   /* 구구단 시험형: [1, 단문자열, 문제수, 순서, 답방식, 생각시간, 소리] */
   document.querySelectorAll(".gobtn[data-quiz-dan]").forEach(function(b){
     var st=[1, b.getAttribute("data-quiz-dan"), +(b.getAttribute("data-quiz-n")||10), "mix", "speak", 5, 1];
-    b.href=b.getAttribute("href")+"#s="+encodeURIComponent(b64e(JSON.stringify(st)));
+    setDeepLink(b, st);
   });
   /* 받아쓰기 급수 카드형: .gset[data-title]의 li 목록 → [단어들, 읽기횟수, 사이시간, 속도, 제목, 정답지] */
   document.querySelectorAll(".gset[data-title]").forEach(function(box){
     var btn=box.querySelector(".gobtn"); if(!btn) return;
     var words=Array.prototype.map.call(box.querySelectorAll("li"), function(li){ return li.textContent.trim(); });
     var payload=[words.join("\n"), 2, 12, 0.85, box.getAttribute("data-title"), 1];
-    btn.href=btn.getAttribute("href")+"#s="+encodeURIComponent(b64e(JSON.stringify(payload)));
+    setDeepLink(btn, payload);
     /* 낱말 미로 버튼(선택) — 같은 급수 단어로 놀며 외우기.
        문장·긴 항목은 미로에 못 들어가므로 2~6글자 단어만 추려 담는다 (시드 0 = 열 때마다 새 미로) */
     var mz=box.querySelector(".gobtn[data-maze]");
@@ -176,7 +193,7 @@ function wireDeepLinks(){
         return w.indexOf(" ")<0 && n>=2 && n<=6;
       });
       var mp=[single.join("\n"), mz.getAttribute("data-maze")||"easy", 1, box.getAttribute("data-title")+" 낱말 미로", 0];
-      mz.href=mz.getAttribute("href")+"#s="+encodeURIComponent(b64e(JSON.stringify(mp)));
+      setDeepLink(mz, mp);
     }
   });
 }

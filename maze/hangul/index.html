@@ -337,11 +337,10 @@ function collectHTML(word, hint, filled){
   });
   s+='</div>';
   /* 힌트가 있으면 수수께끼처럼 — 무슨 낱말을 찾는지 알고 길을 고르게 된다 */
-  if(hint) s+='<div class="chint">💡 <b>힌트</b> '+esc(hint)+'</div>';
+  if(hint) s+='<div class="chint">💡 <b>힌트</b> '+escHtml(hint)+'</div>';
   return s;
 }
 /* 사용자 입력 힌트를 시트에 넣기 전 이스케이프 */
-function esc(t){ return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 function makeSheet(title, bodyHTML, pageNo, pageTotal, isAnswer){
   var sheet=el("div","sheet");
   var head=el("div","sheet-head");

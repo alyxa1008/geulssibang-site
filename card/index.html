@@ -328,7 +328,6 @@ document.getElementById("btnSave").addEventListener("click",function(){
 });
 /* 이름표 A4 시트 — 큰 4(가방·사물함) + 중간 9(필통·물병) + 작은 25(연필 낱개) = 38칸 */
 var LABEL_COLORS={ board:"#2f5d4d", paper:"#b08d4f", sky:"#3e6fb0" };
-function escHtml(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 function rep(s,n){ var out=""; for(var i=0;i<n;i++) out+=s; return out; }
 function labFont(len,a,b,c,d){ return len<=3?a:len<=5?b:len<=8?c:d; }
 function buildLabels(){
@@ -347,12 +346,8 @@ function buildLabels(){
 }
 document.getElementById("btnLabel").addEventListener("click",function(){
   if(!(state.name||"").trim()){ showToast("아이 이름을 입력해 주세요"); return; }
-  track("print_sheet",{tool:"card-label",theme:state.theme});
-  buildLabels();
-  document.body.classList.add("plabel");
-  window.print();
+  printWith("plabel", {tool:"card-label",theme:state.theme}, buildLabels);
 });
-window.addEventListener("afterprint",function(){ document.body.classList.remove("plabel"); });
 
 function encodeState(){ return b64e(JSON.stringify([state.name,state.sub,state.theme])); }
 document.getElementById("btnShare").addEventListener("click",function(){ copyShareLink(encodeState()); });

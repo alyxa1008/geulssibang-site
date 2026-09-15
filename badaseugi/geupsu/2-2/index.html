@@ -226,13 +226,7 @@ gtag("config", "G-86X82MNHC8");
 <script src="../../../assets/common.js"></script>
 <script>
 /* 급수표 인쇄 — 인쇄 중에만 body.pgsp로 급수 카드만 남김 (구구단표 패턴) */
-document.getElementById("btnGpyo").addEventListener("click", function(e){
-  e.preventDefault();
-  document.body.classList.add("pgsp");
-  track("print_sheet", {tool: "geupsu-pyo", grade: "2-2"});
-  window.print();
-});
-window.addEventListener("afterprint", function(){ document.body.classList.remove("pgsp"); });
+document.getElementById("btnGpyo").addEventListener("click", function(e){ e.preventDefault(); printWith("pgsp", {tool: "geupsu-pyo", grade: "2-2"}); });
 </script>
 </body>
 </html>

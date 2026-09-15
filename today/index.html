@@ -277,7 +277,6 @@ function todayStr(){ var d=new Date(); return d.getFullYear()+"-"+("0"+(d.getMon
 var DEF={ level:"g1", date:todayStr(), name:"" };
 var state=JSON.parse(JSON.stringify(DEF));
 
-function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 function parseDate(s){ var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||""); if(!m) return null; var d=new Date(+m[1],+m[2]-1,+m[3]); return isNaN(d)?null:d; }
 function dateNum(s){ return +s.replace(/-/g,""); }
 function pick(rnd,arr){ return arr[Math.floor(rnd()*arr.length)]; }
@@ -320,7 +319,7 @@ function traceRow(word,guide){
   var h='<div class="row">';
   parts.forEach(function(p){
     if(p.kind==="gap"){ h+='<div class="cell" style="border-color:transparent"></div>'; return; }
-    h+='<div class="cell '+p.kind+(guide&&p.kind!=="gap"?" guide":"")+'">'+(p.ch?'<span>'+esc(p.ch)+'</span>':'')+'</div>';
+    h+='<div class="cell '+p.kind+(guide&&p.kind!=="gap"?" guide":"")+'">'+(p.ch?'<span>'+escHtml(p.ch)+'</span>':'')+'</div>';
   });
   return h+'</div>';
 }
@@ -364,7 +363,7 @@ function build(){
 
   /* 머리 */
   h+='<div class="sheet-head"><div class="sheet-title"><span class="deco">📅</span>오늘의 학습지 <small style="font-size:4.2mm;color:var(--ink-soft)">'+(month)+'월 '+d.getDate()+'일 '+DOW[dow]+'요일 · '+L.name+'</small></div>'
-    +'<div class="sheet-meta">이름 <span class="blank">'+(state.name?'<b style="font-weight:400;color:var(--ink)">'+esc(state.name)+'</b>':'')+'</span><br>다 했어요 <span class="tstars">☆☆☆</span></div></div>';
+    +'<div class="sheet-meta">이름 <span class="blank">'+(state.name?'<b style="font-weight:400;color:var(--ink)">'+escHtml(state.name)+'</b>':'')+'</span><br>다 했어요 <span class="tstars">☆☆☆</span></div></div>';
 
   /* ① 따라쓰기 */
   var rowsHtml="";
@@ -387,7 +386,7 @@ function build(){
     keys.push("수 세기: "+cp.map(function(p){ return p.n; }).join(", "));
   }else{
     var mp=mathProblems(rnd,lv,month);
-    mathHtml='<ol>'+mp.map(function(p,i){ return '<li><b>'+(i+1)+'</b>'+esc(tokText(p.q))+' = <span class="tbox"></span></li>'; }).join("")+'</ol>';
+    mathHtml='<ol>'+mp.map(function(p,i){ return '<li><b>'+(i+1)+'</b>'+escHtml(tokText(p.q))+' = <span class="tbox"></span></li>'; }).join("")+'</ol>';
     keys.push("수학: "+mp.map(function(p){ return tokText(p.ans); }).join(", "));
   }
   var g = lv==="kids" ? buildGrid(6,7,null) : lv==="g1" ? buildGrid(8,10,null) : buildGrid(12,15,null);
@@ -411,12 +410,12 @@ function build(){
   var qi=QuizGen.pickQuestions(QUIZ_DATA,[],L.quiz,1,[],rnd)[0];
   var q=QUIZ_DATA[qi], ch=QuizGen.shuffle(q.o.slice(),rnd), ansIdx=ch.indexOf(q.o[0]);
   var circ=["①","②","③","④"];
-  h+='<div class="tblk tquiz"><p class="tlab">💡 오늘의 상식<small>'+(lv==="kids"?"부모님이 읽어 주시면 맞는 답을 골라 보세요":"맞는 답에 ○ 하세요")+'</small></p><p>'+esc(q.q)+'</p><div class="ch">'+ch.map(function(c,i){ return '<span>'+circ[i]+' '+esc(c)+'</span>'; }).join("")+'</div></div>';
+  h+='<div class="tblk tquiz"><p class="tlab">💡 오늘의 상식<small>'+(lv==="kids"?"부모님이 읽어 주시면 맞는 답을 골라 보세요":"맞는 답에 ○ 하세요")+'</small></p><p>'+escHtml(q.q)+'</p><div class="ch">'+ch.map(function(c,i){ return '<span>'+circ[i]+' '+escHtml(c)+'</span>'; }).join("")+'</div></div>';
   keys.push("상식: "+circ[ansIdx]+" "+q.o[0]+" — "+q.e);
 
   /* 정답 (뒤집어 인쇄) + 꼬리 */
-  h+='<div class="tkey">🔑 정답 — '+keys.map(esc).join(" · ")+'</div>';
-  h+='<div class="sheet-foot"><span>글씨방 · 오늘의 학습지 · geulssibang.com/today/</span><span>'+esc(state.date)+' · '+L.name+'</span></div>';
+  h+='<div class="tkey">🔑 정답 — '+keys.map(escHtml).join(" · ")+'</div>';
+  h+='<div class="sheet-foot"><span>글씨방 · 오늘의 학습지 · geulssibang.com/today/</span><span>'+escHtml(state.date)+' · '+L.name+'</span></div>';
   return h+'</div>';
 }
 

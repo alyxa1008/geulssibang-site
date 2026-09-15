@@ -239,13 +239,7 @@ gtag("config", "G-86X82MNHC8");
 <script src="../../assets/common.js"></script>
 <script>
 /* 구구단표 인쇄 — 인쇄 중에만 body.ppyo로 표 외 요소 숨김 (획순 포스터 패턴) */
-document.getElementById("btnPyo").addEventListener("click", function(e){
-  e.preventDefault();
-  document.body.classList.add("ppyo");
-  track("print_sheet", {tool: "gugudan-pyo"});
-  window.print();
-});
-window.addEventListener("afterprint", function(){ document.body.classList.remove("ppyo"); });
+document.getElementById("btnPyo").addEventListener("click", function(e){ e.preventDefault(); printWith("ppyo", {tool: "gugudan-pyo"}); });
 </script>
 </body>
 </html>
