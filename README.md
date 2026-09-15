@@ -24,7 +24,7 @@ hangul/order/  guide/  pencil/ pilsa/  획순(포스터 인쇄)·한글 떼기·
 hangul/chart/                        자음모음표·가나다 음절표 출력 (SVG mm)
 hangul/trace/                        화면 손글씨 (캔버스)
 hangul/pen/                          예쁜 글씨 연습 (성인)
-badaseugi/index.html                 받아쓰기 불러주기·시험지 (voice/ 자연 음성 292클립 + manifest.js)
+badaseugi/index.html + badaseugi-gen.js  받아쓰기 불러주기·시험지 (voice/ 자연 음성 292클립 + manifest.js; 파싱·페이지 배분·서수·클립 판정은 모듈)
 badaseugi/geupsu/{1-1,1-2,2-1,2-2,3} 학기별 급수표 (A4 인쇄, 딥링크 → 시험)
 badaseugi/{matchumbeop,howto,tips}   맞춤법 26(요약표 인쇄)·지도법·공부법
 math/index.html + generators.js      수학 연산 생성기 (토픽 등록부는 generators.js)
@@ -37,16 +37,16 @@ maze/{hangul,suja}/ + maze-word-gen.js  낱말 미로·숫자 미로
 maze/{kids,dino}/                    미로 랜딩
 quiz/ + quiz-gen.js + quiz-data.js   상식 퀴즈 (문제은행 275, 원본은 QUIZ-DRAFT.md)
 quiz/tips/                           가이드
-plan/                                생활계획표 (원형 시간표 SVG)
+plan/ + plan-gen.js                  생활계획표 (원형 시간표 SVG — buildSVG(state)는 모듈)
 diary/                               그림일기·원고지 양식 (SVG mm)
 card/                                이름 카드 PNG + 어린이집 이름표 38칸 인쇄
-today/ + today-data.js               오늘의 학습지 — 날짜 시드로 한글·수학·미로·받아쓰기·상식을 한 장에 (생성기 4종 재사용)
+today/ + today-gen.js + today-data.js  오늘의 학습지 — build(state)가 날짜 시드로 한글·수학·미로·받아쓰기·상식을 한 장에 (생성기 4종 재사용)
 banghak/ {gaehak,routine}            여름방학 학습지·가이드
 about/ privacy/ terms/ 404.html      사이트 소개·개인정보·약관·404
 robots.txt  sitemap.xml  ads.txt  manifest.json
 
 audit.sh        사이트 감사 12항목 (누수·딥링크·CSS·링크·중복 meta·sitemap·푸터 md5·JSON-LD·애드센스·톤·인쇄토글·테스트)
-tests/          회귀 테스트 13벌 + run-all.sh + _util.js (tests/README.md)
+tests/          회귀 테스트 16벌 + run-all.sh + _util.js (tests/README.md)
 tools/          smoke-test.js(전 페이지 브라우저 검사)·gen-today-data.js·gen-voice.js·gen-order-svg.py·capture-*.js
 *.md            운영 문서 (PLAYBOOK·QA·STUDY·CONCEPTS·GUGUDAN·MAZE·QUIZ-DRAFT) — .gitattributes export-ignore로 배포 제외
 ```
@@ -55,7 +55,7 @@ tools/          smoke-test.js(전 페이지 브라우저 검사)·gen-today-data
 1. `도구이름/index.html` — 가장 비슷한 도구 페이지(diary/ = SVG 시트형, today/ = 조합형, card/ = 캔버스형)를 복사해 시작.
    canonical·og:url·JSON-LD(WebApplication + FAQPage)·`ca-pub` 애드센스 스크립트(audit 9번이 검사)를 새 URL로.
 2. 순수 로직은 `도구이름/도구이름-gen.js`로 분리(테스트 가능하게). 이스케이프는 `escHtml`, 인쇄 토글은 `printWith(cls, gaParams, before)`.
-3. 공유 링크: `encodeState()`는 **첫 칸에 버전 정수** `[1, …]`, `loadFromHash()`는 모든 칸을 검증 후 폴백. GA는 `track("print_sheet",{tool:"이름", …})`.
+3. 공유 링크: `encodeState()`는 **첫 칸에 버전 정수** `[1, …]`, `loadFromHash()`는 `typeof a[0]==="number"`로 버전을 떼고 모든 칸을 검증 후 폴백(`tests/test-share.js`가 규약과 페이지 밖 생성자의 칸 수를 검사). 시트가 있으면 `makeSheet({deco,title,meta,foot,pageNo,pageTotal}, body)`. GA는 `track("print_sheet",{tool:"이름", …})`.
 4. **전 페이지 푸터**(`foot-map`)에 링크 추가 — 한 페이지라도 빠지면 audit 7번(md5) 실패. 스크립트로 일괄 삽입할 것.
 5. `assets/common.js`의 `TOOLS`에 경로 추가(최근 도구), 홈 `index.html` 카드 칩, `sitemap.xml`.
 6. `tests/test-이름.js` 작성(test-diary.js 복사 → `siteWiring`), `QA.md` 폰 확인 항목, README 구조 갱신.

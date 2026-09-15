@@ -17,11 +17,14 @@
 | test-maze-page.js | maze/index.html | 13조합 렌더·공유 라운드트립 |
 | test-maze-word.js | maze/maze-word-gen.js | 낱말·숫자 미로 성질(길 위 글자 순서·함정 배치) |
 | test-quiz.js | quiz/quiz-gen.js + quiz-data.js | 문제은행 무결성(275)·출제·채점·페이지 배선 |
+| test-badaseugi.js | badaseugi/badaseugi-gen.js | 낱말 파싱·페이지 배분 불변식·서수 읽기·클립 판정 |
 | test-badaseugi-voice.js | badaseugi/voice | 급수표 전 낱말 클립 존재·이름 규칙·급수표 인쇄 배선 |
+| test-plan.js | plan/plan-gen.js | 시간 칸 계산·부채꼴 경로·테마·SVG 결정성·이스케이프 |
+| test-share.js | 전 도구 encodeState/loadFromHash | 첫 칸 버전 규약, 페이지 밖 링크 생성자(common.js·card) 칸 수 대조 |
 | test-diary.js | diary/ | 배선·격자 줄 수 검산·사이트 연결 |
 | test-chart.js | hangul/chart/ | 배선·자모 이름·음절 공식·레이아웃·사이트 연결 |
 | test-card.js | card/ | 이름표 인쇄 배선·38칸·시트 높이·SEO 반영 |
-| test-today.js | today/ | 배선·today-data = 급수표 원본 대조·줄 패턴·사이트 연결 |
+| test-today.js | today/today-gen.js + 페이지 | build(state) 결정성·학년별 구성·줄 패턴·today-data = 급수표 원본 대조·사이트 연결 |
 
 공용 헬퍼 `tests/_util.js`: `read(경로)`, `htmlPages()`, `makeOk(라벨)`(실패 카운터 + `ok.done()`),
 `ldJson(html)`, `gsetWords(html)`(급수표 카드 추출 — tools/gen-today-data.js도 같은 함수 사용), `siteWiring(ok, {url, tools, home, footer})`.
