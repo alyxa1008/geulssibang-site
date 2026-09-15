@@ -383,25 +383,11 @@ function drawSVG(g, open, withPath, level){
 }
 
 /* ---------- render ---------- */
-function makeSheet(title, svg, pageNo, pageTotal, isAnswer){
-  var sheet=el("div","sheet");
-  var head=el("div","sheet-head");
-  var t=el("div","sheet-title");
-  var deco=el("span","deco"); deco.textContent=isAnswer?"✔":"🌀";
-  t.appendChild(deco); t.appendChild(document.createTextNode(title));
-  var meta=el("div","sheet-meta");
-  meta.innerHTML = isAnswer ? '' : '이름 <span class="blank"></span>';
-  head.appendChild(t); head.appendChild(meta);
-  sheet.appendChild(head);
+var FOOT_LABEL="글씨방 · 무료 미로 활동지 생성기";
+function makeMazeSheet(title, svg, pageNo, pageTotal, isAnswer){
   var body=el("div","mazebody");
   body.innerHTML=svg;   /* 내부에서 만든 SVG 문자열만 들어간다 */
-  sheet.appendChild(body);
-  var foot=el("div","sheet-foot");
-  var l=el("span"); l.textContent="글씨방 · 무료 미로 활동지 생성기";
-  var r=el("span"); r.textContent=pageNo+" / "+pageTotal;
-  foot.appendChild(l); foot.appendChild(r);
-  sheet.appendChild(foot);
-  return sheet;
+  return makeSheet({deco:isAnswer?"✔":"🌀", title:title, meta:isAnswer?"":META_NAME, foot:FOOT_LABEL, pageNo:pageNo, pageTotal:pageTotal}, body);
 }
 /* 미로 책 표지 — 큰 제목 + 이름·날짜 칸 + 미로 수만큼 완주 별 (다 풀면 색칠) */
 function makeCover(title, jobs, pageNo, pageTotal){
@@ -419,11 +405,7 @@ function makeCover(title, jobs, pageNo, pageTotal){
     '<div class="chintline">미로를 하나 다 풀 때마다 별을 색칠해요!</div>';
   body.querySelector(".ctitle").textContent=title;   /* 사용자 입력 제목은 텍스트로만 */
   sheet.appendChild(body);
-  var foot=el("div","sheet-foot");
-  var l=el("span"); l.textContent="글씨방 · 무료 미로 활동지 생성기";
-  var r=el("span"); r.textContent=pageNo+" / "+pageTotal;
-  foot.appendChild(l); foot.appendChild(r);
-  sheet.appendChild(foot);
+  sheet.appendChild(sheetFoot(FOOT_LABEL, pageNo, pageTotal));
   return sheet;
 }
 function render(){
@@ -461,14 +443,14 @@ function render(){
       no++;
       var scale=el("div","sheet-scale");
       var t = j.title + (twin ? (k===0 ? " · A" : " · B") : "");
-      scale.appendChild(makeSheet(t, drawSVG(j.g,j.open,false,j.lv), no, total, false));
+      scale.appendChild(makeMazeSheet(t, drawSVG(j.g,j.open,false,j.lv), no, total, false));
       container.appendChild(scale);
     }
   });
   if(state.answers) jobs.forEach(function(j){
     no++;
     var scale=el("div","sheet-scale");
-    scale.appendChild(makeSheet(j.title+" — 정답", drawSVG(j.g,j.open,true,j.lv), no, total, true));
+    scale.appendChild(makeMazeSheet(j.title+" — 정답", drawSVG(j.g,j.open,true,j.lv), no, total, true));
     container.appendChild(scale);
   });
   fitScale();
@@ -477,12 +459,13 @@ function render(){
 
 /* ---------- share ---------- */
 function encodeState(){
-  return b64e(JSON.stringify([state.level,state.pages,state.answers?1:0,state.title,state.seed,state.shape,state.theme,state.deco,state.twin?1:0,state.cover?1:0]));
+  return b64e(JSON.stringify([1,state.level,state.pages,state.answers?1:0,state.title,state.seed,state.shape,state.theme,state.deco,state.twin?1:0,state.cover?1:0]));
 }
 function loadFromHash(){
   try{
     var m=location.hash.match(/s=([^&]+)/); if(!m) return false;
     var a=JSON.parse(b64d(decodeURIComponent(m[1])));
+    if(typeof a[0]==="number"){ if(a[0]!==1) return false; a=a.slice(1); }   /* v1 = 첫 칸 버전. 버전 없는 옛 링크(5~10칸)는 그대로 */
     state.level=LEVELS[a[0]]?a[0]:"mid";
     state.pages=a[1]==="week" ? "week" : (+a[1]||1);
     state.answers=!!a[2]; state.title=a[3]||""; state.seed=+a[4]||newSeed();

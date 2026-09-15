@@ -300,32 +300,20 @@ function render(){
     no++;
     var count=Math.min(perPage, n - pg*perPage);
     var scale=el("div","sheet-scale");
-    scale.appendChild(makeSheet(title, pg*perPage, count, null, no, total));
+    scale.appendChild(makeExamSheet(title, pg*perPage, count, null, no, total));
     container.appendChild(scale);
   }
   if(state.answers && state.words.length){
     no++;
     var scale2=el("div","sheet-scale");
-    scale2.appendChild(makeSheet(title+" — 정답", 0, state.words.length, state.words, no, total));
+    scale2.appendChild(makeExamSheet(title+" — 정답", 0, state.words.length, state.words, no, total));
     container.appendChild(scale2);
   }
   fitScale();
   document.getElementById("pageInfo").textContent="A4 · "+total+"장"+(state.answers&&state.words.length?" (정답지 포함)":"");
 }
 
-function makeSheet(title, startIdx, count, answerWords, pageNo, pageTotal){
-  var sheet=el("div","sheet");
-  var head=el("div","sheet-head");
-  var t=el("div","sheet-title");
-  var deco=el("span","deco"); deco.textContent= answerWords ? "✔" : "🔊";
-  t.appendChild(deco); t.appendChild(document.createTextNode(title));
-  var meta=el("div","sheet-meta");
-  meta.innerHTML = answerWords
-    ? '채점일 <span class="blank"></span>'
-    : '이름 <span class="blank"></span><br>점수 <span class="score"></span> / '+(state.words.length||10);
-  head.appendChild(t); head.appendChild(meta);
-  sheet.appendChild(head);
-
+function makeExamSheet(title, startIdx, count, answerWords, pageNo, pageTotal){
   var rows=el("div","qrows");
   /* 정답지는 최대 20문제를 한 장에 담도록 줄 간격·높이를 줄인다 */
   if(answerWords && answerWords.length>PER_PAGE){ rows.style.setProperty("row-gap","0"); }
@@ -337,14 +325,9 @@ function makeSheet(title, startIdx, count, answerWords, pageNo, pageTotal){
     if(answerWords){ var qa=el("span","qa"); qa.textContent=answerWords[startIdx+i]; row.appendChild(qa); }
     rows.appendChild(row);
   }
-  sheet.appendChild(rows);
-
-  var foot=el("div","sheet-foot");
-  var l=el("span"); l.textContent="글씨방 · 받아쓰기 불러주기 & 시험지 생성기";
-  var r=el("span"); r.textContent=pageNo+" / "+pageTotal;
-  foot.appendChild(l); foot.appendChild(r);
-  sheet.appendChild(foot);
-  return sheet;
+  return makeSheet({deco:answerWords?"✔":"🔊", title:title,
+                    meta:answerWords ? META_GRADED : '이름 <span class="blank"></span><br>점수 <span class="score"></span> / '+(state.words.length||10),
+                    foot:"글씨방 · 받아쓰기 불러주기 & 시험지 생성기", pageNo:pageNo, pageTotal:pageTotal}, rows);
 }
 
 
@@ -566,12 +549,13 @@ document.getElementById("examClose").addEventListener("click",function(){
 
 /* ---------- share ---------- */
 function encodeState(){
-  return b64e(JSON.stringify([state.words.join("\n"),state.repeat,state.gap,state.rate,state.title,state.answers?1:0]));
+  return b64e(JSON.stringify([1,state.words.join("\n"),state.repeat,state.gap,state.rate,state.title,state.answers?1:0]));
 }
 function loadFromHash(){
   try{
     var m=location.hash.match(/s=([^&]+)/); if(!m) return false;
     var a=JSON.parse(b64d(decodeURIComponent(m[1])));
+    if(typeof a[0]==="number"){ if(a[0]!==1) return false; a=a.slice(1); }   /* v1 = 첫 칸 버전. 버전 없는 옛 링크는 그대로 */
     document.getElementById("words").value=a[0]||"";
     state.repeat=+a[1]||2; state.gap=+a[2]||12; state.rate=+a[3]||0.85;
     state.title=a[4]||""; state.answers=!!a[5];

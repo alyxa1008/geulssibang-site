@@ -333,29 +333,14 @@ function render(){
   var pages=paginate(rows, cfg);
   pages.forEach(function(pageRows, idx){
     var scale=el("div","sheet-scale");
-    scale.appendChild(makeSheet(pageRows, cfg, idx+1, pages.length));
+    scale.appendChild(makeTraceSheet(pageRows, cfg, idx+1, pages.length));
     container.appendChild(scale);
   });
   fitScale();
   document.getElementById("pageInfo").textContent="A4 · "+pages.length+"장";
 }
 
-function makeSheet(pageRows, cfg, pageNo, pageTotal){
-  var sheet=el("div","sheet "+state.font);
-  sheet.style.setProperty("--cell", cfg.cell+"mm");
-  sheet.style.setProperty("--rowgap", "4mm");
-  sheet.style.setProperty("--trace", traceColor(state.ink, state.fade));
-
-  var head=el("div","sheet-head");
-  var title=el("div","sheet-title");
-  var deco=el("span","deco"); deco.textContent="✎";
-  title.appendChild(deco);
-  title.appendChild(document.createTextNode(state.title || "한글 따라쓰기 연습"));
-  var meta=el("div","sheet-meta");
-  meta.innerHTML='이름 <span class="blank"></span><br>날짜 <span class="blank"></span>';
-  head.appendChild(title); head.appendChild(meta);
-  sheet.appendChild(head);
-
+function makeTraceSheet(pageRows, cfg, pageNo, pageTotal){
   var rowsBox=el("div","rows");
   pageRows.forEach(function(r){
     var row=el("div","row");
@@ -367,25 +352,24 @@ function makeSheet(pageRows, cfg, pageNo, pageTotal){
     });
     rowsBox.appendChild(row);
   });
-  sheet.appendChild(rowsBox);
-
-  var foot=el("div","sheet-foot");
-  var l=el("span"); l.textContent="글씨방 · 무료 한글 학습지 생성기";
-  var r=el("span"); r.textContent=pageNo+" / "+pageTotal;
-  foot.appendChild(l); foot.appendChild(r);
-  sheet.appendChild(foot);
+  var sheet=makeSheet({cls:state.font, deco:"✎", title:state.title || "한글 따라쓰기 연습", meta:META_NAME_DATE,
+                       foot:"글씨방 · 무료 한글 학습지 생성기", pageNo:pageNo, pageTotal:pageTotal}, rowsBox);
+  sheet.style.setProperty("--cell", cfg.cell+"mm");
+  sheet.style.setProperty("--rowgap", "4mm");
+  sheet.style.setProperty("--trace", traceColor(state.ink, state.fade));
   return sheet;
 }
 
 
 /* ---------- share url ---------- */
 function encodeState(){
-  return b64e(JSON.stringify([state.text,state.mode,state.font,state.size,state.emptyCells,state.traceRows,state.emptyRows,state.guide?1:0,state.title,state.fade,state.ink]));
+  return b64e(JSON.stringify([1,state.text,state.mode,state.font,state.size,state.emptyCells,state.traceRows,state.emptyRows,state.guide?1:0,state.title,state.fade,state.ink]));
 }
 function loadFromHash(){
   try{
     var m=location.hash.match(/s=([^&]+)/); if(!m) return false;
     var a=JSON.parse(b64d(decodeURIComponent(m[1])));
+    if(typeof a[0]==="number"){ if(a[0]!==1) return false; a=a.slice(1); }   /* v1 = 첫 칸 버전. 버전 없는 옛 링크는 그대로 */
     if(!SIZES[a[3]] || (a[1]!=="char" && a[1]!=="line")) return false;   /* 형식이 다른 해시는 무시 */
     state.text=a[0]; state.mode=a[1]; state.font=a[2]; state.size=a[3];
     state.emptyCells=+a[4]; state.traceRows=+a[5]; state.emptyRows=+a[6];
