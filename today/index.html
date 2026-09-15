@@ -14,7 +14,7 @@ gtag("js", new Date());
 gtag("config", "G-86X82MNHC8");
 </script>
 <title>오늘의 학습지 — 매일 새로 만드는 하루 한 장 무료 프린트 (유아·초등) | 글씨방</title>
-<meta name="description" content="학년만 고르면 오늘 날짜로 새 학습지 한 장이 만들어져요. 한글 따라쓰기·받아쓰기 5문제·수학 6문제·미로·상식 한 문제를 A4 한 장에, 정답은 아래에 뒤집어 인쇄. 5~6세부터 3학년까지, 매일 아침 한 장 뽑는 습관. 무료, 회원가입 없음.">
+<meta name="description" content="학년만 고르면 오늘 날짜로 새 학습지 한 장이 만들어져요. 한글 따라쓰기·받아쓰기 5문제·수학 8문제·미로·상식 한 문제를 A4 한 장에, 정답은 아래에 뒤집어 인쇄. 5~6세부터 3학년까지, 매일 아침 한 장 뽑는 습관. 무료, 회원가입 없음.">
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="오늘의 학습지 — 매일 새로 만드는 하루 한 장 | 글씨방">
 <meta property="og:description" content="한글·받아쓰기·수학·미로·상식을 A4 한 장에. 오늘 날짜로 매일 새로 만들어져요. 무료.">
@@ -41,8 +41,12 @@ input[type=date]{font-family:var(--kr)}
 .tlab small{font-family:var(--kr); font-size:3.1mm; color:var(--ink-soft); font-weight:400}
 .trows{display:flex; flex-direction:column; gap:3mm}
 .trow2{display:flex; gap:6mm; align-items:flex-start}
-.tmath{flex:1}
-.tmath ol{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:4mm 5mm}
+.tmath{flex:1; display:flex; flex-direction:column; min-height:92mm}   /* 미로(84mm)+라벨 높이에 맞춰 문제를 세로로 고르게 */
+.tmath ol{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:2mm 5mm; flex:1; align-content:space-between}
+.tfill{flex:1; display:flex; flex-direction:column}                   /* 남는 세로 공간을 채우는 블록 */
+.tfill .trows{flex:1; justify-content:space-evenly}
+.tfill .tdict{flex:1; display:flex; flex-direction:column}
+.tfill .tdict li{flex:1; height:auto; min-height:8mm}
 .tmath li{font-size:5.6mm; font-family:var(--disp); white-space:nowrap}
 .tmath li b{display:inline-block; width:6mm; font-size:3.4mm; color:var(--ink-soft); font-family:var(--kr); font-weight:400}
 .tbox{display:inline-block; width:14mm; height:8.5mm; border:1px solid var(--grid); border-radius:1mm; vertical-align:middle; margin-left:1mm}
@@ -70,7 +74,7 @@ input[type=date]{font-family:var(--kr)}
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="글씨방">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "오늘의 학습지", "url": "https://geulssibang.com/today/", "description": "학년을 고르면 오늘 날짜로 한글 따라쓰기·받아쓰기·수학·미로·상식이 담긴 학습지 한 장이 매일 새로 만들어집니다. A4 무료 인쇄.", "applicationCategory": "EducationalApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}, "inLanguage": "ko", "isAccessibleForFree": true, "publisher": {"@type": "Organization", "name": "글씨방", "url": "https://geulssibang.com/"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "정말 매일 다른 학습지가 나오나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 날짜를 기준으로 문제를 뽑기 때문에 날짜가 바뀌면 낱말·수학 문제·미로·상식 문제가 모두 새로 만들어집니다. 반대로 같은 날짜·같은 학년이면 누가 열어도 같은 학습지라, 형제나 친구와 같은 문제로 풀 수 있습니다."}}, {"@type": "Question", "name": "한 장에 무엇이 들어가나요?", "acceptedAnswer": {"@type": "Answer", "text": "1~3학년은 한글 따라쓰기 2줄, 수학 6문제, 미로 1개, 받아쓰기 5문제, 상식 1문제가 한 장에 들어갑니다. 5~6세는 받아쓰기 대신 자음·모음 따라쓰기와 숫자 따라쓰기, 수학 대신 수 세기가 들어갑니다. 정답은 학습지 아래쪽에 거꾸로 인쇄되어 채점할 때 종이를 뒤집어 보면 됩니다."}}, {"@type": "Question", "name": "미리 여러 날치를 뽑을 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 날짜 칸을 내일이나 주말 날짜로 바꾸면 그날의 학습지가 나옵니다. 일주일치를 한 번에 뽑아 두어도 됩니다."}}, {"@type": "Question", "name": "우리 아이 학년과 난이도가 안 맞으면요?", "acceptedAnswer": {"@type": "Answer", "text": "학년은 기준일 뿐이니 한 단계 위나 아래를 골라 보세요. 받아쓰기 낱말은 학기별 급수표에서, 수학은 그 학기 교과 범위에서 뽑히므로 2학기가 되면 같은 학년이라도 내용이 조금 올라갑니다."}}, {"@type": "Question", "name": "무료인가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 매일 만들어 인쇄해도 무료이고 회원가입도 없습니다. '인쇄 · PDF 저장' 버튼에서 PDF로 저장할 수도 있습니다."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "정말 매일 다른 학습지가 나오나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 날짜를 기준으로 문제를 뽑기 때문에 날짜가 바뀌면 낱말·수학 문제·미로·상식 문제가 모두 새로 만들어집니다. 반대로 같은 날짜·같은 학년이면 누가 열어도 같은 학습지라, 형제나 친구와 같은 문제로 풀 수 있습니다."}}, {"@type": "Question", "name": "한 장에 무엇이 들어가나요?", "acceptedAnswer": {"@type": "Answer", "text": "1~3학년은 한글 따라쓰기 2줄, 수학 8문제, 미로 1개, 받아쓰기 5문제, 상식 1문제가 한 장에 들어갑니다. 5~6세는 받아쓰기 대신 자음·모음 따라쓰기와 숫자 따라쓰기, 수학 대신 수 세기가 들어갑니다. 정답은 학습지 아래쪽에 거꾸로 인쇄되어 채점할 때 종이를 뒤집어 보면 됩니다."}}, {"@type": "Question", "name": "미리 여러 날치를 뽑을 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 날짜 칸을 내일이나 주말 날짜로 바꾸면 그날의 학습지가 나옵니다. 일주일치를 한 번에 뽑아 두어도 됩니다."}}, {"@type": "Question", "name": "우리 아이 학년과 난이도가 안 맞으면요?", "acceptedAnswer": {"@type": "Answer", "text": "학년은 기준일 뿐이니 한 단계 위나 아래를 골라 보세요. 받아쓰기 낱말은 학기별 급수표에서, 수학은 그 학기 교과 범위에서 뽑히므로 2학기가 되면 같은 학년이라도 내용이 조금 올라갑니다."}}, {"@type": "Question", "name": "무료인가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 매일 만들어 인쇄해도 무료이고 회원가입도 없습니다. '인쇄 · PDF 저장' 버튼에서 PDF로 저장할 수도 있습니다."}}]}</script>
 </head>
 <body>
 <div class="wrap">
@@ -146,9 +150,9 @@ input[type=date]{font-family:var(--kr)}
     <h2>한 장에 들어가는 것</h2>
     <ul class="rule">
       <li><strong>5~6세</strong> — 자음·모음 따라쓰기 2줄, 수 세기 3문제(그림 세고 숫자 쓰기), 유아 미로(요일마다 다른 동물), 숫자 따라쓰기 2줄, 상식 1문제(부모님이 읽어 주세요)</li>
-      <li><strong>1학년</strong> — 낱말 따라쓰기 2줄, 덧셈·뺄셈 6문제(1학기 받아올림 없음 → 2학기 받아올림), 쉬운 미로, 받아쓰기 5문제(1학년 급수표), 상식 1급수</li>
+      <li><strong>1학년</strong> — 낱말 따라쓰기 2줄, 덧셈·뺄셈 8문제(1학기 받아올림 없음 → 2학기 받아올림), 쉬운 미로, 받아쓰기 5문제(1학년 급수표), 상식 1급수</li>
       <li><strong>2학년</strong> — 낱말 따라쓰기, 두 자리 덧셈·뺄셈(2학기엔 구구단 포함), 보통 미로, 받아쓰기 5문제(2학년 급수표), 상식 2급수</li>
-      <li><strong>3학년</strong> — 낱말 따라쓰기, 곱셈·나눗셈 6문제, 보통 미로, 받아쓰기 5문제(맞춤법·속담 급수표), 상식 3급수</li>
+      <li><strong>3학년</strong> — 낱말 따라쓰기, 곱셈·나눗셈 8문제, 보통 미로, 받아쓰기 5문제(맞춤법·속담 급수표), 상식 3급수</li>
     </ul>
     <p>받아쓰기 낱말은 글씨방의 <a href="../badaseugi/geupsu/">학기별 받아쓰기 급수표</a>에서, 수학 문제는 <a href="../math/">수학 문제지 생성기</a>의 그 학기 범위에서, 미로는 <a href="../maze/">미로 찾기 도안</a>에서, 상식은 <a href="../quiz/">상식 퀴즈</a> 문제은행에서 뽑혀요. 어느 하나가 재미있으면 그 도구로 넘어가 더 풀면 됩니다.</p>
 
@@ -179,7 +183,7 @@ input[type=date]{font-family:var(--kr)}
       <dt>정말 매일 다른 학습지가 나오나요?</dt>
       <dd>네. 날짜를 기준으로 문제를 뽑기 때문에 날짜가 바뀌면 낱말·수학 문제·미로·상식 문제가 모두 새로 만들어져요. 반대로 같은 날짜·같은 학년이면 누가 열어도 같은 학습지라, 형제나 친구와 같은 문제로 풀 수 있습니다.</dd>
       <dt>한 장에 무엇이 들어가나요?</dt>
-      <dd>1~3학년은 한글 따라쓰기 2줄, 수학 6문제, 미로 1개, 받아쓰기 5문제, 상식 1문제. 5~6세는 받아쓰기 대신 자음·모음 따라쓰기와 숫자 따라쓰기, 수학 대신 수 세기가 들어가요. 정답은 학습지 아래쪽에 거꾸로 인쇄돼 있어 종이를 뒤집어 보면 됩니다.</dd>
+      <dd>1~3학년은 한글 따라쓰기 2줄, 수학 8문제, 미로 1개, 받아쓰기 5문제, 상식 1문제. 5~6세는 받아쓰기 대신 자음·모음 따라쓰기와 숫자 따라쓰기, 수학 대신 수 세기가 들어가요. 정답은 학습지 아래쪽에 거꾸로 인쇄돼 있어 종이를 뒤집어 보면 됩니다.</dd>
       <dt>미리 여러 날치를 뽑을 수 있나요?</dt>
       <dd>네. 날짜 칸을 내일이나 주말 날짜로 바꾸면 그날의 학습지가 나와요. 일주일치를 한 번에 뽑아 두어도 됩니다.</dd>
       <dt>우리 아이 학년과 난이도가 안 맞으면요?</dt>
@@ -332,13 +336,13 @@ function mathProblems(rnd,level,month){
   var seed=Math.floor(rnd()*1e9)+1, list=[];
   function add(topic,lv,opts,n){ genAll(seed+list.length*7,topic,lv,opts||{},n).forEach(function(p){ list.push(p); }); }
   if(level==="g1"){
-    if(semester(month)===1) add("addsub",0,{noCarry:true},6);
-    else { add("addsub",0,{noCarry:false},3); add("addsub",1,{noCarry:true},3); }
+    if(semester(month)===1) add("addsub",0,{noCarry:true},8);
+    else { add("addsub",0,{noCarry:false},4); add("addsub",1,{noCarry:true},4); }
   }else if(level==="g2"){
-    if(semester(month)===1) add("addsub",2,{noCarry:false},6);
-    else { add("addsub",2,{noCarry:false},3); add("gugudan",0,{dan:0},3); }
+    if(semester(month)===1) add("addsub",2,{noCarry:false},8);
+    else { add("addsub",2,{noCarry:false},4); add("gugudan",0,{dan:0},4); }
   }else{
-    add("mul",0,{},3); add("div",0,{},3);
+    add("mul",0,{},4); add("div",0,{},4);
   }
   return list;
 }
@@ -370,7 +374,7 @@ function build(){
     var tw=pickN(rnd,traceWords(pool,lv==="g3"?5:4),2);
     rowsHtml=tw.map(function(w){ return traceRow(w,guide); }).join("");
   }
-  h+='<div class="tblk"><p class="tlab">✎ '+(lv==="kids"?"자음·모음 따라쓰기":"낱말 따라쓰기")+'<small>진한 글자 보고 → 흐린 글자 따라 → 빈칸에 혼자</small></p><div class="trows">'+rowsHtml+'</div></div>';
+  h+='<div class="tblk"><p class="tlab">✎ '+(lv==="kids"?"자음·모음 따라쓰기":"낱말 따라쓰기")+'<small>진한 글자를 보고, 흐린 글자를 따라 쓰고, 빈칸에는 혼자 써 보세요</small></p><div class="trows">'+rowsHtml+'</div></div>';
 
   /* ② 수학 + 미로 */
   var mathHtml="";
@@ -390,16 +394,16 @@ function build(){
   var open=carve(g, Math.floor(rnd()*1e8)+1);
   var icons = (lv==="kids"||lv==="g1") ? KIDS_ICONS[dow] : null;
   var mazeSvg=gridSVG(g,open,null, icons ? {icons:icons, bold:lv==="kids"} : null);
-  h+='<div class="tblk trow2"><div class="tmath"><p class="tlab">✚ '+(lv==="kids"?"수 세기":"수학")+'<small>'+(lv==="kids"?"세어 보고 숫자로":"답을 칸에")+'</small></p>'+mathHtml+'</div>'
+  h+='<div class="tblk trow2"><div class="tmath"><p class="tlab">✚ '+(lv==="kids"?"수 세기":"수학")+'<small>'+(lv==="kids"?"몇 개인지 세어 보고 칸에 숫자를 쓰세요":"답을 칸에 쓰세요")+'</small></p>'+mathHtml+'</div>'
     +'<div class="tmaze"><p class="tlab">🌀 미로<small>'+(icons?icons.s+"→"+icons.e:"출발 → 도착")+'</small></p>'+mazeSvg+'</div></div>';
 
   /* ③ 받아쓰기 / 숫자 따라쓰기 */
   if(lv==="kids"){
     var nums=pickN(rnd,["1","2","3","4","5","6","7","8","9","10"],2);
-    h+='<div class="tblk"><p class="tlab">🔢 숫자 따라쓰기<small>오늘의 숫자 '+nums.join(" · ")+'</small></p><div class="trows">'+nums.map(function(n){ return traceRow(n,true); }).join("")+'</div></div>';
+    h+='<div class="tblk tfill"><p class="tlab">🔢 숫자 따라쓰기<small>오늘의 숫자 '+nums.join(" · ")+'</small></p><div class="trows">'+nums.map(function(n){ return traceRow(n,true); }).join("")+'</div></div>';
   }else{
     var dw=pickN(rnd,pool,5);
-    h+='<div class="tblk"><p class="tlab">🔊 받아쓰기<small>부모님이 불러 주세요 · 정답은 아래 뒤집힌 줄에</small></p><ol class="tdict">'+dw.map(function(w,i){ return '<li>'+(i+1)+'.</li>'; }).join("")+'</ol></div>';
+    h+='<div class="tblk tfill"><p class="tlab">🔊 받아쓰기<small>부모님이 불러 주시면 받아 쓰세요 · 정답은 맨 아래 뒤집힌 줄에 있어요</small></p><ol class="tdict">'+dw.map(function(w,i){ return '<li>'+(i+1)+'.</li>'; }).join("")+'</ol></div>';
     keys.push("받아쓰기: "+dw.map(function(w,i){ return (i+1)+" "+w; }).join("  "));
   }
 
@@ -407,7 +411,7 @@ function build(){
   var qi=QuizGen.pickQuestions(QUIZ_DATA,[],L.quiz,1,[],rnd)[0];
   var q=QUIZ_DATA[qi], ch=QuizGen.shuffle(q.o.slice(),rnd), ansIdx=ch.indexOf(q.o[0]);
   var circ=["①","②","③","④"];
-  h+='<div class="tblk tquiz"><p class="tlab">💡 오늘의 상식<small>'+(lv==="kids"?"부모님이 읽어 주세요":"하나만 골라 ○")+'</small></p><p>'+esc(q.q)+'</p><div class="ch">'+ch.map(function(c,i){ return '<span>'+circ[i]+' '+esc(c)+'</span>'; }).join("")+'</div></div>';
+  h+='<div class="tblk tquiz"><p class="tlab">💡 오늘의 상식<small>'+(lv==="kids"?"부모님이 읽어 주시면 맞는 답을 골라 보세요":"맞는 답에 ○ 하세요")+'</small></p><p>'+esc(q.q)+'</p><div class="ch">'+ch.map(function(c,i){ return '<span>'+circ[i]+' '+esc(c)+'</span>'; }).join("")+'</div></div>';
   keys.push("상식: "+circ[ansIdx]+" "+q.o[0]+" — "+q.e);
 
   /* 정답 (뒤집어 인쇄) + 꼬리 */
