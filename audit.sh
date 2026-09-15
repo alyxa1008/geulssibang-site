@@ -92,6 +92,14 @@ banned='수포자|뒤처지|뒤쳐지|낙오|망한다|골든타임|늦으면 �
 hits=$(grep -rnE "$banned" --include='*.html' --exclude-dir=node_modules . 2>/dev/null | grep -v '.git' | wc -l | tr -d ' ')
 if [ "$hits" -gt 0 ]; then echo "  ❌ ${hits}건 — 사실·응원 톤으로 교체할 것"; grep -rnE "$banned" --include='*.html' --exclude-dir=node_modules . | grep -v '.git' | head -5; FAIL=1; else echo "  ✅ 없음"; fi
 
+echo "━━━ 11. 인쇄 토글 인라인 복제 금지 (body 클래스 토글·afterprint는 common.js printWith만) ━━━"
+hits=$(grep -rlE 'addEventListener\("afterprint"|document\.body\.classList\.add\(' --include='*.html' --exclude-dir=node_modules . 2>/dev/null | grep -v '.git' | sed 's|^\./||' | tr '\n' ' ')
+if [ -n "$hits" ]; then echo "  ❌ 인라인 복제: $hits→ printWith(cls, ga, before)로 교체"; FAIL=1; else echo "  ✅ 0건"; fi
+
+echo "━━━ 12. 회귀 테스트 (tests/run-all.sh) ━━━"
+tlog=$(bash tests/run-all.sh 2>&1)
+if [ $? -eq 0 ]; then echo "  ✅ $(echo "$tlog" | grep -c '^✅')벌 통과"; else echo "  ❌ 실패 있음"; echo "$tlog" | grep -A6 '^❌' | head -20; FAIL=1; fi
+
 echo "━━━━━━━━━━━━━━━━━━━━━━━━"
 if [ "$FAIL" -eq 0 ]; then echo "🟢 전체 통과"; else echo "🔴 실패 항목 있음 — 위 로그 확인"; fi
 exit $FAIL

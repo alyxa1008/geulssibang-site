@@ -318,13 +318,7 @@ gtag("config", "G-86X82MNHC8");
 <script src="../../assets/common.js"></script>
 <script>
 /* 요약표 인쇄 — 인쇄 중에만 body.pposter로 요약표 외 요소 숨김 */
-document.getElementById("btnSummary").addEventListener("click", function(e){
-  e.preventDefault();
-  document.body.classList.add("pposter");
-  track("print_sheet", {tool: "matchum-poster"});
-  window.print();
-});
-window.addEventListener("afterprint", function(){ document.body.classList.remove("pposter"); });
+document.getElementById("btnSummary").addEventListener("click", function(e){ e.preventDefault(); printWith("pposter", {tool: "matchum-poster"}); });
 </script>
 </body>
 </html>

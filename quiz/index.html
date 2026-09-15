@@ -511,7 +511,7 @@ function printCert(g){
     +'<div class="cdate">'+d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일</div>'
     +'<div class="csign">글씨방 상식퀴즈 💡 geulssibang.com</div></div>';
   track("print_sheet",{tool:"quiz", kind:"cert"});
-  printOnly("pc-cert");
+  printWith("pc-cert");
 }
 /* 시험지 인쇄 — 문제지 1장 + 정답지 1장 */
 function printSheet(){
@@ -533,15 +533,8 @@ function printSheet(){
   document.getElementById("psheet").innerHTML=html;
   seenSave(ids);
   track("print_sheet",{tool:"quiz", kind:"sheet", level:state.level});
-  printOnly("pc-sheet");
+  printWith("pc-sheet");
 }
-function printOnly(cls){
-  document.body.classList.add(cls);
-  var done=function(){ document.body.classList.remove(cls); window.removeEventListener("afterprint",done); };
-  window.addEventListener("afterprint",done);
-  window.print();
-}
-
 /* ---------- share ---------- */
 function encodeState(){
   return b64e(JSON.stringify([1, state.cats.join(","), state.level, state.mode, state.think, state.voice?1:0]));

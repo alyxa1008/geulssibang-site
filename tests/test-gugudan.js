@@ -121,7 +121,7 @@ ok("깨진 해시 무시", loadFromHash()===false);
   const re=/(\d) × (\d) = (\d+)/g; let mm, cnt=0, wrong=0;
   while((mm=re.exec(pyo))){ cnt++; if(+mm[1]*+mm[2]!==+mm[3]) wrong++; }
   ok("구구단표 등식 72개 전부 정답", cnt===72 && wrong===0);
-  ok("구구단표 인쇄 배선 (btnPyo·ppyo·GA)", /btnPyo/.test(pyo) && /ppyo/.test(pyo) && /gugudan-pyo/.test(pyo) && /afterprint/.test(pyo));
+  ok("구구단표 인쇄 배선 (btnPyo·ppyo·GA)", /btnPyo/.test(pyo) && /ppyo/.test(pyo) && /gugudan-pyo/.test(pyo) && /printWith\("ppyo"/.test(pyo));
 }
 
 console.log(fail? "🔴 "+fail+"건 실패":"🟢 전체 통과");

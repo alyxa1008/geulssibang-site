@@ -288,7 +288,6 @@ var LINE_GAP=12;                          /* 줄 일기 줄 간격 mm */
 var W=186, X0=4, X1=190, Y0=4, Y1=270;    /* 그리는 영역(mm) — sheet 안쪽 8mm 여백 + 4mm */
 var INK="#2b3038", SOFT="#5b6470", LINE="#b9c0c7";
 
-function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 function txt(x,y,s,size,opt){
   opt=opt||{};
   return '<text x="'+x+'" y="'+y+'" font-family="\'Gowun Dodum\',sans-serif" font-size="'+size+'" fill="'+(opt.fill||INK)+'"'
@@ -318,11 +317,11 @@ function buildSVG(){
     var ty=y+7.5;
     s+=txt(X0,ty,"제목",4.2,{bold:true});
     s+=hline(X0+12,ty+0.8,state.name?X0+118:X1,SOFT,0.35);
-    if(state.name){ s+=txt(X0+124,ty,"이름",4.2,{bold:true})+txt(X0+136,ty,esc(state.name),4.4); }
+    if(state.name){ s+=txt(X0+124,ty,"이름",4.2,{bold:true})+txt(X0+136,ty,escHtml(state.name),4.4); }
     y+=11;
   }else if(state.name){
     var ny=y+7.5;
-    s+=txt(X1,ny,"이름  "+esc(state.name),4.4,{anchor:"end"});
+    s+=txt(X1,ny,"이름  "+escHtml(state.name),4.4,{anchor:"end"});
     y+=11;
   }
   /* 오늘 기분 */

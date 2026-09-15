@@ -325,6 +325,7 @@ function closeQuiz(){
 
 function showQuestion(){
   stopTimer();
+  quiz.locked=false;
   var q=quiz.qs[quiz.idx], body=document.getElementById("quizBody");
   var head='<div class="qno"><span>'+(quiz.idx+1)+'</span>번<small>'+(quiz.idx+1)+' / '+quiz.qs.length+'</small></div>'
           +(quiz.combo>=2 ? '<div class="combo">🔥 '+quiz.combo+'문제 연속 정답!</div>' : '')
@@ -430,6 +431,8 @@ function padTap(e){
   document.getElementById("typedView").textContent=quiz.typed||" ";
 }
 function mark(ok, delay){
+  if(quiz.locked) return;   /* 정답 공개 대기 중 확인·⭕❌ 연타로 결과가 두 번 쌓이지 않게 */
+  quiz.locked=true;
   stopTimer();
   var q=quiz.qs[quiz.idx];
   quiz.results.push({a:q.a, b:q.b, ans:q.ans, ok:ok});

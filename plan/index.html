@@ -296,7 +296,6 @@ var THEMES={
 };
 
 function fmt(i){ var h=Math.floor(i/2), m=i%2?"30":"00"; return (h<10?"0":"")+h+":"+m; }
-function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 function span(s,e){ return (e-s+48)%48; }
 
 /* ---------- SVG 계획표 ---------- */
@@ -317,7 +316,7 @@ function buildSVG(){
   var s='<svg id="planSvg" viewBox="0 0 1000 1414" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">';
   s+='<rect width="1000" height="1414" fill="'+th.bg+'"/>';
   s+=th.deco();
-  s+='<text x="500" y="100" text-anchor="middle" font-family="Jua,\'Gowun Dodum\',sans-serif" font-size="'+tfs+'" fill="#2b3038">⏰ '+esc(title)+'</text>';
+  s+='<text x="500" y="100" text-anchor="middle" font-family="Jua,\'Gowun Dodum\',sans-serif" font-size="'+tfs+'" fill="#2b3038">⏰ '+escHtml(title)+'</text>';
   s+='<line x1="80" y1="140" x2="920" y2="140" stroke="#2b3038" stroke-width="3"/>';
   /* 조각 */
   var items=state.items.filter(function(it){return span(it[0],it[1])>0;});
@@ -343,7 +342,7 @@ function buildSVG(){
     var lr=r*(2/3)*(Math.sin(half)/half);
     var mid=it[0]+sp/2, lp=polar(cx,cy,lr,mid);
     var fs=sp>=4?30:24;
-    s+='<text x="'+lp[0].toFixed(1)+'" y="'+lp[1].toFixed(1)+'" text-anchor="middle" font-family="\'Gowun Dodum\',sans-serif" font-size="'+fs+'" fill="#2b3038">'+esc(it[2])+'</text>';
+    s+='<text x="'+lp[0].toFixed(1)+'" y="'+lp[1].toFixed(1)+'" text-anchor="middle" font-family="\'Gowun Dodum\',sans-serif" font-size="'+fs+'" fill="#2b3038">'+escHtml(it[2])+'</text>';
   });
   /* 범례 (시작 시각 순) */
   var sorted=items.slice().sort(function(a,b){return a[0]-b[0];});
@@ -354,7 +353,7 @@ function buildSVG(){
     var x=col===0?lx0:lx1, y=ly+row*42;
     var ci=items.indexOf(it);
     s+='<rect x="'+x+'" y="'+(y-20)+'" width="26" height="26" rx="6" fill="'+th.pal[ci%th.pal.length]+'" stroke="#c9cdd2"/>';
-    s+='<text x="'+(x+38)+'" y="'+y+'" font-family="\'Gowun Dodum\',sans-serif" font-size="24" fill="#2b3038">'+fmt(it[0])+'~'+fmt(it[1])+'  '+esc(it[2])+'</text>';
+    s+='<text x="'+(x+38)+'" y="'+y+'" font-family="\'Gowun Dodum\',sans-serif" font-size="24" fill="#2b3038">'+fmt(it[0])+'~'+fmt(it[1])+'  '+escHtml(it[2])+'</text>';
   });
   s+='<text x="920" y="1395" text-anchor="end" font-family="\'Gowun Dodum\',sans-serif" font-size="20" fill="#9aa1a9">글씨방 · geulssibang.com</text>';
   s+='</svg>';
@@ -380,7 +379,7 @@ function renderRows(){
     return '<div class="prow" data-i="'+i+'">'+
       '<select data-k="0">'+timeOptions(it[0])+'</select><span class="tilde">~</span>'+
       '<select data-k="1">'+timeOptions(it[1])+'</select>'+
-      '<input data-k="2" type="text" maxlength="10" value="'+esc(it[2])+'">'+
+      '<input data-k="2" type="text" maxlength="10" value="'+escHtml(it[2])+'">'+
       '<button class="del" title="삭제">✕</button></div>';
   }).join("");
   document.getElementById("addRow").style.display = state.items.length>=MAXROWS ? "none" : "";

@@ -68,7 +68,7 @@ ok(/examRetry/.test(bSrc) && /exam\.list=sel/.test(bSrc) && /allClipsReady\(sel\
   "틀린 낱말 재시험 배선 (부분집합 + 목소리 재판정)");
 var gBad = ["1-1", "1-2", "2-1", "2-2", "3"].filter(function (g) {
   var gSrc = fs.readFileSync(path.join(ROOT, "badaseugi/geupsu/" + g + "/index.html"), "utf8");
-  return !(/btnGpyo/.test(gSrc) && /pgsp/.test(gSrc) && new RegExp('grade: "' + g + '"').test(gSrc) && /afterprint/.test(gSrc));
+  return !(/btnGpyo/.test(gSrc) && /pgsp/.test(gSrc) && new RegExp('grade: "' + g + '"').test(gSrc) && /printWith\("pgsp"/.test(gSrc));
 });
 ok(gBad.length === 0, "급수표 인쇄 배선 5페이지 (btnGpyo·pgsp·GA grade)" + (gBad.length ? " — 누락: " + gBad.join(", ") : ""));
 
