@@ -19,6 +19,7 @@
 | test-quiz.js | quiz/quiz-gen.js + quiz-data.js | 문제은행 무결성(275)·출제·채점·페이지 배선 |
 | test-badaseugi.js | badaseugi/badaseugi-gen.js | 낱말 파싱·페이지 배분 불변식·서수 읽기·클립 판정 |
 | test-badaseugi-voice.js | badaseugi/voice | 급수표 전 낱말 클립 존재·이름 규칙·급수표 인쇄 배선 |
+| test-class.js | badaseugi/class/ | 배선·시험 링크 payload = 받아쓰기 v1 칸·QR 라이브러리(20문장 한 장)·사이트 연결 |
 | test-plan.js | plan/plan-gen.js | 시간 칸 계산·부채꼴 경로·테마·SVG 결정성·이스케이프 |
 | test-share.js | 전 도구 encodeState/loadFromHash | 첫 칸 버전 규약, 페이지 밖 링크 생성자(common.js·card) 칸 수 대조 |
 | test-diary.js | diary/ | 배선·격자 줄 수 검산·사이트 연결 |

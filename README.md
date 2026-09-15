@@ -17,6 +17,7 @@ assets/common.js          공유 유틸 — el·escHtml·b64e/b64d·track(GA)·c
 index.html                    허브 홈 (도구 카드 + 칩, ⭐ 많이 찾는 학습지 고정 배너)
 assets/style.css              공통 디자인 (.sheet A4 틀, .panel, .seg, 인쇄 CSS)
 assets/common.js              공용 유틸 (위)
+assets/qrcode.js              QR 생성 라이브러리 (qrcode-generator 1.4.4, MIT — badaseugi/class/만 로드)
 
 hangul/index.html + hangul-gen.js    한글 따라쓰기 생성기
 hangul/{jamo,natmal,ireum,suja}/     따라쓰기 랜딩 (검색 유입 → 딥링크로 도구 연결)
@@ -25,6 +26,7 @@ hangul/chart/                        자음모음표·가나다 음절표 출력
 hangul/trace/                        화면 손글씨 (캔버스)
 hangul/pen/                          예쁜 글씨 연습 (성인)
 badaseugi/index.html + badaseugi-gen.js  받아쓰기 불러주기·시험지 (voice/ 자연 음성 292클립 + manifest.js; 파싱·페이지 배분·서수·클립 판정은 모듈)
+badaseugi/class/                     우리 반 받아쓰기 링크·QR — 급수표 단어 → 시험 딥링크 + QR(assets/qrcode.js, MIT) + 알림장 안내문 A4
 badaseugi/geupsu/{1-1,1-2,2-1,2-2,3} 학기별 급수표 (A4 인쇄, 딥링크 → 시험)
 badaseugi/{matchumbeop,howto,tips}   맞춤법 26(요약표 인쇄)·지도법·공부법
 math/index.html + generators.js      수학 연산 생성기 (토픽 등록부는 generators.js)
