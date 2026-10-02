@@ -28,7 +28,7 @@ ok(a.indexOf("&lt;b&gt;")>=0&&a.indexOf("<b>")<0&&a.indexOf("아침 &amp; 세수
 ok((a.match(/<path d="M500 690/g)||[]).length===3,"조각 3개");
 ok((a.match(/font-size="24" fill="#5b6470">\d+<\/text>/g)||[]).length===24,"시간 눈금 0~23");
 ok(a.indexOf('fill="'+THEMES.sea.bg+'"')>=0&&a.indexOf("#ffd166")>=0,"바다 테마 배경·해 장식");
-ok(buildSVG({title:"",items:[],theme:"없는테마"}).indexOf("나의 여름방학 생활계획표")>=0,"빈 제목·모르는 테마 폴백");
+ok(buildSVG({title:"",items:[],theme:"없는테마"}).indexOf("나의 하루 생활계획표")>=0,"빈 제목·모르는 테마 폴백 (시즌 없는 기본 제목)");
 ok(buildSVG({title:"가".repeat(40),items:[],theme:"basic"}).indexOf('font-size="20"')>=0,"긴 제목 글자 축소");
 
 ok.done();
