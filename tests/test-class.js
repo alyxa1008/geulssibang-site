@@ -11,6 +11,7 @@ const html=U.read("badaseugi/class/index.html");
 ok(/track\("share_link",\{tool:"class"/.test(html)&&/track\("print_sheet",\{tool:"class-notice"/.test(html)&&/track\("save_png",\{tool:"class-qr"/.test(html),"GA 이벤트 3종");
 ["../../assets/common.js","../../assets/qrcode.js","../badaseugi-gen.js"].forEach(s=>ok(html.includes('<script src="'+s+'">'),"스크립트 로드: "+s));
 ok(html.includes("makeSheet({")&&html.includes("parseWords(")&&html.includes("escHtml("),"공용 makeSheet·parseWords·escHtml 사용");
+ok(!/function copyText\(/.test(html)&&/navigator\.clipboard && navigator\.clipboard\.writeText/.test(U.read("assets/common.js")),"링크 복사는 common.js copyText(클립보드 API 없으면 prompt 대체)");
 ok(html.includes('<link rel="canonical" href="https://geulssibang.com/badaseugi/class/">'),"canonical");
 ok(html.includes("ca-pub-1834921044404408"),"광고 스크립트");
 ok(U.ldJson(html).some(o=>o["@type"]==="FAQPage"),"FAQ JSON-LD");

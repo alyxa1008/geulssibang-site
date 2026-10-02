@@ -3,8 +3,8 @@
    실행: node tools/gen-quiz-list.js   (문제은행을 고치면 다시 실행 — tests/test-quiz-list.js가 일치 여부 검사) */
 "use strict";
 const fs=require("fs"), path=require("path"), vm=require("vm");
-const root=path.join(__dirname,"..");
-const read=p=>fs.readFileSync(path.join(root,p),"utf8");
+const U=require("../tests/_util");
+const root=U.root, read=U.read;
 const PER_CELL=4;
 const CATS=[
   {id:"animal",  icon:"🐘", name:"동물",      lead:"생김새·분류·습성처럼 관찰과 분류로 답이 정해지는 동물 문제예요."},

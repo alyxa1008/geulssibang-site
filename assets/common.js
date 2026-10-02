@@ -67,14 +67,21 @@ function toolName(){
 }
 
 /* 현재 상태가 담긴 공유 링크를 클립보드에 복사 (실패 시 수동 복사 안내) */
+/* 클립보드 복사 — clipboard API가 없는 환경(인스타·카톡 인앱 브라우저, http)에서는 prompt로 대체 */
+function copyText(text, okMsg, onDone){
+  function fallback(){ prompt("이 링크를 복사하세요:", text); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){
+      if(onDone) onDone();
+      showToast(okMsg||"링크가 복사되었습니다");
+    }).catch(fallback);
+  } else fallback();
+}
 function copyShareLink(encoded){
   track("share_link", {tool: toolName()});
   var hash="s="+encodeURIComponent(encoded);
   var url=location.origin+location.pathname+"#"+hash;
-  navigator.clipboard.writeText(url).then(function(){
-    location.hash=hash;
-    showToast("링크가 복사되었습니다");
-  }).catch(function(){ prompt("이 링크를 복사하세요:",url); });
+  copyText(url, "링크가 복사되었습니다", function(){ location.hash=hash; });
 }
 
 /* ===== PNG 저장 (프린터 없는 모바일 사용자용) ===== */

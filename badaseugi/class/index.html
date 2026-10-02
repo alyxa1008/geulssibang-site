@@ -340,14 +340,10 @@ document.getElementById("words").addEventListener("input",render);
 document.getElementById("chipSample").addEventListener("click",function(){ state.words=SAMPLE.slice(); syncUI(); render(); });
 
 /* ---------- 만들기·공유 ---------- */
-function copyText(text, done){
-  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done, function(){ prompt("주소를 복사하세요", text); }); }
-  else prompt("주소를 복사하세요", text);
-}
 document.getElementById("btnCopy").addEventListener("click",function(){
   if(!state.words.length){ showToast("먼저 낱말을 넣어 주세요"); return; }
   track("share_link",{tool:"class", n:state.words.length});
-  copyText(render._url, function(){ showToast("우리 반 받아쓰기 링크 복사 ✓ 알림장·단톡방에 붙여 넣으세요"); });
+  copyText(render._url, "우리 반 받아쓰기 링크 복사 ✓ 알림장·단톡방에 붙여 넣으세요");
 });
 document.getElementById("btnQR").addEventListener("click",function(){
   if(!state.words.length){ showToast("먼저 낱말을 넣어 주세요"); return; }
