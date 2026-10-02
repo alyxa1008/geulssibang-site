@@ -38,6 +38,7 @@ maze/index.html + maze-gen.js        미로 찾기 (4모양·5난이도·테마�
 maze/{hangul,suja}/ + maze-word-gen.js  낱말 미로·숫자 미로
 maze/{kids,dino}/                    미로 랜딩
 quiz/ + quiz-gen.js + quiz-data.js   상식 퀴즈 (문제은행 275, 원본은 QUIZ-DRAFT.md)
+quiz/list/                           상식퀴즈 문제 모음 100 — 정적 HTML, tools/gen-quiz-list.js로 생성(문제은행 고치면 재실행)
 quiz/tips/                           가이드
 plan/ + plan-gen.js                  생활계획표 (원형 시간표 SVG — buildSVG(state)는 모듈)
 diary/                               그림일기·원고지 양식 (SVG mm)
@@ -75,7 +76,7 @@ rm -rf /tmp/gb-deploy && mkdir -p /tmp/gb-deploy && git archive main | tar -x -C
 - 급수표/낱말 페이지를 고쳤다 → `node tools/gen-today-data.js` (test-today가 원본과 대조해 어긋나면 실패)
 - 받아쓰기 낱말이 늘었다 → `GKEY=<Cloud TTS 키> node tools/gen-voice.js` (증분 생성, manifest 재작성)
 - 획순 그림 수정 → `python3 tools/gen-order-svg.py` 출력으로 order/index.html의 strokegrid 교체
-- 퀴즈 문항 → QUIZ-DRAFT.md 수정 후 quiz-data.js 재변환 (출제 원칙: 답이 사실 하나로 고정되는 문제만)
+- 퀴즈 문항 → QUIZ-DRAFT.md 수정 후 quiz-data.js 재변환, 이어서 `node tools/gen-quiz-list.js`(문제 모음 페이지 재생성) (출제 원칙: 답이 사실 하나로 고정되는 문제만)
 - 홈·about 스크린샷 → `node tools/capture-shots.js`
 
 ## 애드센스
