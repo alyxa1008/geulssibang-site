@@ -46,5 +46,6 @@ ok(pick(common,/var st=\[([\s\S]*?)\];\s*setDeepLink\(b, st\);\s*\}\);\s*\/\* �
 ok(pick(common,/var payload=\[([\s\S]*?)\];/)===enc["badaseugi/index.html"],"wireDeepLinks 받아쓰기 payload 칸 수 = badaseugi encodeState ("+enc["badaseugi/index.html"]+")");
 ok(pick(common,/var mp=\[([\s\S]*?)\];/)===enc["maze/hangul/index.html"],"wireDeepLinks 낱말미로 payload 칸 수 = maze/hangul encodeState ("+enc["maze/hangul/index.html"]+")");
 ok(pick(U.read("card/index.html"),/var payload=\[([\s\S]*?)\];/)===enc["hangul/index.html"],"card → hangul payload 칸 수 = hangul encodeState");
+ok(pick(U.read("badaseugi/index.html"),/var tp=\[([\s\S]*?)\];/)===enc["hangul/index.html"],"받아쓰기 틀린 낱말 → hangul payload 칸 수 = hangul encodeState");
 
 ok.done(Object.keys(TOOLS).length+"도구 포맷 확인");

@@ -52,7 +52,7 @@ gtag("config", "G-86X82MNHC8");
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="글씨방">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "받아쓰기 불러주기 & 시험지 생성기", "url": "https://geulssibang.com/badaseugi/", "description": "받아쓰기 단어를 입력하면 컴퓨터가 번호와 함께 또박또박 불러주고, 시험지와 정답지도 인쇄할 수 있는 무료 도구", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "목소리는 어떻게 나오는 건가요?", "acceptedAnswer": {"@type": "Answer", "text": "휴대폰과 컴퓨터에 내장된 한국어 음성을 사용합니다. 별도 설치나 비용 없이 바로 작동합니다."}}, {"@type": "Question", "name": "학교 급수표와 똑같은 문제가 들어있나요?", "acceptedAnswer": {"@type": "Answer", "text": "급수표는 학교와 교과서마다 달라서, 학교에서 받은 급수표의 단어를 직접 입력하는 방식입니다. 예시 버튼과 학기별 급수표는 1~3학년 수준 참고용입니다."}}, {"@type": "Question", "name": "휴대폰에서도 되나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 불러주기 시험은 휴대폰에서 특히 편리합니다. 무음 모드만 해제해 주세요."}}, {"@type": "Question", "name": "문장도 가능한가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 낱말과 문장 모두 가능합니다. 띄어쓰기 연습이 필요한 문장을 넣으면 더 효과적입니다."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "목소리는 어떻게 나오는 건가요?", "acceptedAnswer": {"@type": "Answer", "text": "휴대폰과 컴퓨터에 내장된 한국어 음성을 사용합니다. 별도 설치나 비용 없이 바로 작동합니다."}}, {"@type": "Question", "name": "학교 급수표와 똑같은 문제가 들어있나요?", "acceptedAnswer": {"@type": "Answer", "text": "급수표는 학교와 교과서마다 달라서, 학교에서 받은 급수표의 단어를 직접 입력하는 방식입니다. 예시 버튼과 학기별 급수표는 1~3학년 수준 참고용입니다."}}, {"@type": "Question", "name": "휴대폰에서도 되나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 불러주기 시험은 휴대폰에서 특히 편리합니다. 무음 모드만 해제해 주세요."}}, {"@type": "Question", "name": "문장도 가능한가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 낱말과 문장 모두 가능합니다. 띄어쓰기 연습이 필요한 문장을 넣으면 더 효과적입니다."}}, {"@type": "Question", "name": "틀린 낱말만 다시 연습할 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 시험이 끝나면 틀린 낱말을 골라 그 낱말만 다시 시험 볼 수 있고, '틀린 낱말 따라쓰기 학습지'를 누르면 그 낱말만 모은 따라쓰기 연습지가 바로 만들어집니다."}}]}</script>
 </head>
 <body>
 <div class="wrap">
@@ -170,7 +170,7 @@ gtag("config", "G-86X82MNHC8");
     <div id="examMark" hidden>
       <p>채점하고 <b>틀린 낱말</b>을 톡톡 골라 주세요</p>
       <div class="mkws" id="markWords"></div>
-      <div class="ctrl"><button class="main" id="examRetry">❌ 틀린 낱말만 다시 시험</button></div>
+      <div class="ctrl"><button class="main" id="examRetry">❌ 틀린 낱말만 다시 시험</button><button id="examTrace">✎ 틀린 낱말 따라쓰기 학습지</button></div>
     </div>
     <p class="tip">소리가 안 나오면 휴대폰 무음 모드를 해제해 주세요. 문제를 다 쓰면 '다음 문제'를 눌러 바로 넘어갈 수도 있어요.</p>
   </div>
@@ -203,6 +203,8 @@ gtag("config", "G-86X82MNHC8");
       <dd>네. 불러주기 시험은 휴대폰에서 특히 편리합니다. 무음 모드만 해제해 주세요. 시험지 인쇄는 휴대폰에서 'PDF로 저장' 후 출력하면 됩니다.</dd>
       <dt>문장도 가능한가요?</dt>
       <dd>네. 낱말과 문장 모두 가능합니다. 띄어쓰기 연습이 필요한 문장을 넣으면 더 효과적이에요.</dd>
+      <dt>틀린 낱말만 다시 연습할 수 있나요?</dt>
+      <dd>네. 시험이 끝나면 틀린 낱말을 골라 그 낱말만 다시 시험 볼 수 있고, '틀린 낱말 따라쓰기 학습지'를 누르면 그 낱말만 모은 따라쓰기 연습지가 바로 만들어집니다.</dd>
     </dl>
   </div>
 
@@ -454,10 +456,21 @@ function showMarkPanel(){
   });
   document.getElementById("examMark").hidden=false;
 }
-document.getElementById("examRetry").addEventListener("click",function(){
+function markedWords(){
   var sel=[];
   document.querySelectorAll("#markWords button.on").forEach(function(b){ sel.push(b.textContent); });
-  if(!sel.length){ showToast("틀린 낱말을 먼저 골라 주세요"); return; }
+  if(!sel.length) showToast("틀린 낱말을 먼저 골라 주세요");
+  return sel;
+}
+/* 틀린 낱말 → 한글 따라쓰기 학습지 (새 탭). 한글 도구 v1 포맷 — hangul/index.html encodeState와 같은 칸 */
+document.getElementById("examTrace").addEventListener("click",function(){
+  var sel=markedWords(); if(!sel.length) return;
+  var tp=[1, sel.join("\n"), "line", "f-gowun", "mid", 3, 2, 1, 1, "틀린 낱말 다시 쓰기", "mid", "gray"];
+  track("wrong_to_trace",{n:sel.length});
+  window.open("../hangul/#s="+encodeURIComponent(b64e(JSON.stringify(tp))), "_blank");
+});
+document.getElementById("examRetry").addEventListener("click",function(){
+  var sel=markedWords(); if(!sel.length) return;
   stopExam();
   exam.list=sel;
   exam.retry=true;
