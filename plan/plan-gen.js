@@ -70,7 +70,7 @@ function segPath(cx,cy,r,s,e){
 }
 function buildSVG(state){
   var cx=500, cy=690, r=390;
-  var title=state.title.trim() || "나의 여름방학 생활계획표";
+  var title=state.title.trim() || "나의 하루 생활계획표";
   /* 긴 제목은 폭(880px)에 맞게 글자 크기 자동 축소 */
   var tfs=Math.min(52, Math.floor(860/(title.length+1)));
   var th=THEMES[state.theme]||THEMES.basic;
