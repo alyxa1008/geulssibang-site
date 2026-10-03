@@ -21,7 +21,7 @@ if [ "$n" -gt 0 ]; then echo "  ❌ 인라인 딥링크 스크립트 ${n}개 페
 
 echo "━━━ 3. 미사용 CSS 클래스 ━━━"
 classes=$(grep -oE '\.[a-zA-Z][a-zA-Z0-9_-]*' assets/style.css | sort -u | sed 's/^\.//')
-all=$(find . -name '*.html' -not -path './.git/*' -not -path './node_modules/*' -exec cat {} + ; cat assets/*.js)
+all=$(find . -name '*.html' -not -path './.git/*' -not -path './node_modules/*' -exec cat {} + ; cat assets/*.js math/units.js)   # 마크업을 JS가 만드는 모듈도 포함
 un=0
 for c in $classes; do echo "$all" | grep -q "$c" || { echo "  ⚠️  미사용: .$c"; un=$((un+1)); }; done
 [ "$un" -eq 0 ] && echo "  ✅ 없음" || FAIL=1

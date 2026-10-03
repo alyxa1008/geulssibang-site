@@ -87,6 +87,9 @@ gtag("config", "G-86X82MNHC8");
     <a href="./plan/">생활계획표</a>
   </div>
 
+  <!-- 이번 주 진도 — 날짜로 지금쯤 배우는 수학 단원 + 맞춤 학습지 (math/units.js) -->
+  <div class="unow" id="unitNow"></div>
+
   <div class="tools">
     <div class="tool">
       <a class="tmain" href="./hangul/">
@@ -278,6 +281,7 @@ gtag("config", "G-86X82MNHC8");
       <a href="/math/fraction/">분수·소수</a>
       <a href="/math/word/">문장제</a>
       <a href="/math/roadmap/">연산 로드맵</a>
+      <a href="/math/unit/">학기별 단원 학습지</a>
       <a href="/gugudan/">구구단 외우기 시험</a>
       <a href="/gugudan/when/">구구단 시작 시기</a>
     </div>
@@ -302,6 +306,9 @@ gtag("config", "G-86X82MNHC8");
 </footer>
 </div>
 
+<script src="./assets/common.js"></script>
+<script src="./math/units.js"></script>
+<script>renderUnitNow(document.getElementById("unitNow"),{base:"."});</script>
 <script>
 /* 최근 사용 도구 표시 — common.js가 도구 페이지에서 기록한 localStorage를 읽는다 */
 (function(){

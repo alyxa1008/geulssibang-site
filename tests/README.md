@@ -17,6 +17,7 @@
 | test-maze-page.js | maze/index.html | 13조합 렌더·공유 라운드트립 |
 | test-maze-word.js | maze/maze-word-gen.js | 낱말·숫자 미로 성질(길 위 글자 순서·함정 배치) |
 | test-quiz.js | quiz/quiz-gen.js + quiz-data.js | 문제은행 무결성(275)·출제·채점·페이지 배선 |
+| test-units.js | math/units.js + tools/gen-math-units.js | 23단원 데이터 무결성·currentUnit 날짜 판정·도구 딥링크 칸 수·생성 결과 = 파일·홈/수학 코너·푸터·sitemap |
 | test-quiz-list.js | quiz/list/ + tools/gen-quiz-list.js | 생성 결과 = 파일 일치, 100문제가 문제은행과 동일(정답 포함), 칸마다 4문제, 퀴즈 딥링크 |
 | test-badaseugi.js | badaseugi/badaseugi-gen.js | 낱말 파싱·페이지 배분 불변식·서수 읽기·클립 판정 |
 | test-badaseugi-voice.js | badaseugi/voice | 급수표 전 낱말 클립 존재·이름 규칙·급수표 인쇄 배선 |

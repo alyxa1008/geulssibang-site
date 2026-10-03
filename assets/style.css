@@ -269,3 +269,14 @@ footer a:hover{color:var(--chalk)}
 figure.shotbox{background:#fff; border:2px solid var(--board-edge); border-radius:12px; padding:10px 10px 4px; margin:20px auto; max-width:430px; box-shadow:0 10px 26px rgba(0,0,0,.28)}
 figure.shotbox img{display:block; width:100%; height:auto; border-radius:6px; border:1px solid #edf0f2}
 figure.shotbox figcaption{font-size:12.5px; color:var(--ink-soft); text-align:center; padding:7px 4px 4px}
+
+/* '이번 주 진도' 카드 — 홈·수학 도구·단원 페이지 공용 (math/units.js renderUnitNow) */
+.unow{background:var(--paper); color:var(--ink); border-radius:12px; padding:12px 16px; margin:14px auto 6px; max-width:760px; box-shadow:0 8px 20px var(--paper-shadow); font-size:14.5px; line-height:1.6}
+.unow b{color:var(--redpen)}
+.unow small{color:var(--ink-soft); font-size:12px}
+.unow .gbtns{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+.unow .gbtns button{font:inherit; font-size:14px; padding:7px 14px; border-radius:999px; border:1.5px solid #c9cdd2; background:#fff; color:var(--ink); cursor:pointer}
+.unow .gbtns button.on{background:var(--redpen); border-color:var(--redpen); color:#fff}
+.unow strong, .content .unow strong{color:var(--ink)}
+.unow .gobtn, .content .unow .gobtn{display:inline-block; background:var(--redpen); color:#fff; border-radius:8px; padding:8px 14px; text-decoration:none; font-weight:700; font-size:13.5px; margin:0}
+.unow .gobtn:hover{background:var(--redpen-deep)}

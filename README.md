@@ -32,6 +32,7 @@ badaseugi/{matchumbeop,howto,tips}   맞춤법 26(요약표 인쇄)·지도법·
 math/index.html + generators.js      수학 연산 생성기 (토픽 등록부는 generators.js)
 math/word/ + wordgen.js              문장제 생성기
 math/{add-sub,gugudan,mul-div,fraction,roadmap,sense}  수학 랜딩·가이드 (gugudan은 벽에 붙이는 구구단표 인쇄)
+math/units.js + math/unit/{,1-1,1-2,2-1,2-2}/  학기별 단원 학습지 — 단원 데이터(단일 원천)+currentUnit(날짜→지금 단원)+renderUnitNow(홈·수학 '이번 주 진도' 코너); 페이지는 tools/gen-math-units.js로 생성
 gugudan/ + gugudan-gen.js            구구단 외우기 시험 (음성·키패드·고르기, 상장)
 gugudan/{tips,when}                  가이드
 maze/index.html + maze-gen.js        미로 찾기 (4모양·5난이도·테마·7일 챌린지)
@@ -49,8 +50,8 @@ about/ privacy/ terms/ 404.html      사이트 소개·개인정보·약관·404
 robots.txt  sitemap.xml  ads.txt  manifest.json
 
 audit.sh        사이트 감사 12항목 (누수·딥링크·CSS·링크·중복 meta·sitemap·푸터 md5·JSON-LD·애드센스·톤·인쇄토글·테스트)
-tests/          회귀 테스트 18벌 + run-all.sh + _util.js (tests/README.md)
-tools/          smoke-test.js(전 페이지 브라우저 검사)·gen-today-data.js·gen-quiz-list.js·gen-voice.js·gen-order-svg.py·capture-*.js·naver-rank.py(네이버 웹문서 순위 측정)
+tests/          회귀 테스트 19벌 + run-all.sh + _util.js (tests/README.md)
+tools/          smoke-test.js(전 페이지 브라우저 검사)·gen-today-data.js·gen-quiz-list.js·gen-math-units.js·gen-voice.js·gen-order-svg.py·capture-*.js·naver-rank.py(네이버 웹문서 순위 측정)
 *.md            운영 문서 (PLAYBOOK·QA·STUDY·CONCEPTS·GUGUDAN·MAZE·QUIZ-DRAFT) — .gitattributes export-ignore로 배포 제외
 ```
 
@@ -74,6 +75,7 @@ rm -rf /tmp/gb-deploy && mkdir -p /tmp/gb-deploy && git archive main | tar -x -C
 
 ## 데이터 다시 만들기
 - 급수표/낱말 페이지를 고쳤다 → `node tools/gen-today-data.js` (test-today가 원본과 대조해 어긋나면 실패)
+- 수학 단원 데이터(math/units.js)를 고쳤다 → `node tools/gen-math-units.js` (test-units가 생성 결과와 대조)
 - 받아쓰기 낱말이 늘었다 → `GKEY=<Cloud TTS 키> node tools/gen-voice.js` (증분 생성, manifest 재작성)
 - 획순 그림 수정 → `python3 tools/gen-order-svg.py` 출력으로 order/index.html의 strokegrid 교체
 - 퀴즈 문항 → QUIZ-DRAFT.md 수정 후 quiz-data.js 재변환, 이어서 `node tools/gen-quiz-list.js`(문제 모음 페이지 재생성) (출제 원칙: 답이 사실 하나로 고정되는 문제만)
