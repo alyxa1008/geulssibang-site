@@ -178,6 +178,7 @@ gtag("config", "G-86X82MNHC8");
 
   <!-- ============ SEO CONTENT ============ -->
   <div class="content no-print">
+    <div class="unow" id="unitNow"></div>
     <h2>연산 종류별로 골라 보세요</h2>
     <div class="guides">
       <a href="./add-sub/">✚ 덧셈 뺄셈 학습지</a>
@@ -248,6 +249,7 @@ gtag("config", "G-86X82MNHC8");
       <a href="/math/fraction/">분수·소수</a>
       <a href="/math/word/">문장제</a>
       <a href="/math/roadmap/">연산 로드맵</a>
+      <a href="/math/unit/">학기별 단원 학습지</a>
       <a href="/gugudan/">구구단 외우기 시험</a>
       <a href="/gugudan/when/">구구단 시작 시기</a>
     </div>
@@ -275,7 +277,9 @@ gtag("config", "G-86X82MNHC8");
 <div class="toast" id="toast">링크가 복사되었습니다</div>
 
 <script src="../assets/common.js"></script>
+<script src="./units.js"></script>
 <script src="./generators.js"></script>
+<script>renderUnitNow(document.getElementById("unitNow"),{base:".."});</script>
 <script>
 "use strict";
 /* 문제 생성 로직은 ./generators.js (유형 등록부)에 있다.
