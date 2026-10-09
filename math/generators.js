@@ -271,7 +271,15 @@ function circleProb(rnd, what, pi){
 var T_CIRCLE={id:"circle", name:"원", levels:[
   {label:"1단계 — 원의 둘레 (6-1, 원주율 3.14)", t:"원의 둘레 구하기", per:8, gen:function(rnd){ return circleProb(rnd,"둘레",3.14); }},
   {label:"2단계 — 원의 넓이 (6-1, 원주율 3.14)", t:"원의 넓이 구하기", per:8, gen:function(rnd){ return circleProb(rnd,"넓이",3.14); }},
-  {label:"3단계 — 둘레·넓이 섞어서 (원주율 3으로 어림)", t:"원의 둘레와 넓이", per:8, gen:function(rnd){ return circleProb(rnd, rnd()<0.5?"둘레":"넓이", 3); }}
+  {label:"3단계 — 둘레·넓이 섞어서 (원주율 3으로 어림)", t:"원의 둘레와 넓이", per:8, gen:function(rnd){ return circleProb(rnd, rnd()<0.5?"둘레":"넓이", 3); }},
+  {label:"4단계 — 거꾸로 구하기 (둘레→지름·반지름, 넓이→반지름, 원주율 구하기)", t:"원 거꾸로 구하기", per:8, gen:function(rnd){
+    var r=CIRCLE_R[ri(rnd,0,CIRCLE_R.length-1)], d=r*2, pi=3.14, kind=ri(rnd,0,3);
+    var C=round2(d*pi), A=round2(r*r*pi);
+    if(kind===0) return { q:[TX("둘레가 "+C+"cm인 원의 지름은? (원주율: 3.14)")], ans:[N(d),TX("cm")], txt:true, fig:{kind:"circle", show:"c", label:"둘레 "+C+"cm"}, chk:{inv:"d", r:r, pi:pi, ans:d} };
+    if(kind===1) return { q:[TX("둘레가 "+C+"cm인 원의 반지름은? (원주율: 3.14)")], ans:[N(r),TX("cm")], txt:true, fig:{kind:"circle", show:"c", label:"둘레 "+C+"cm"}, chk:{inv:"r", r:r, pi:pi, ans:r} };
+    if(kind===2) return { q:[TX("넓이가 "+A+"cm²인 원의 반지름은? (원주율: 3.14)")], ans:[N(r),TX("cm")], txt:true, fig:{kind:"circle", show:"a", label:"넓이 "+A+"cm²"}, chk:{inv:"ra", r:r, pi:pi, ans:r} };
+    return { q:[TX("지름이 "+d+"cm인 원의 둘레를 재었더니 "+C+"cm였습니다. (원의 둘레)÷(지름)은?")], ans:[N(pi)], txt:true, fig:{kind:"circle", show:"d", label:d+"cm"}, chk:{inv:"pi", r:r, pi:pi, ans:pi} };
+  }}
 ]};
 
 var T_RATIO={id:"ratio", name:"비와 비율", levels:[
@@ -288,6 +296,20 @@ var T_RATIO={id:"ratio", name:"비와 비율", levels:[
     var ps=[5,10,20,25,30,40,50,60,75,80], p=ps[ri(rnd,0,ps.length-1)], base=ri(rnd,1,20)*20;
     var ans=base*p/100;
     return { q:[TX(base+"의 "+p+"%는?")], ans:[N(ans)], txt:true, chk:{base:base,p:p,ans:ans} };
+  }},
+  {label:"4단계 — 비율을 소수로 (6-1)", t:"비와 비율 연습 ④", per:16, gen:function(rnd){
+    var bs=[2,4,5,10,20,25,50], b=bs[ri(rnd,0,bs.length-1)], a=ri(rnd,1,b*2); if(a===b) a=b+1;
+    var dec=Math.round(a/b*100)/100;
+    return { q:[TX("비 "+a+" : "+b+"의 비율을 소수로 나타내면?")], ans:[N(dec)], txt:true, chk:{a:a,b:b,dec2:dec} };
+  }},
+  {label:"5단계 — 백분율 문장제 (할인·전체의 몇 %·정답률)", t:"비와 비율 문장제", per:12, gen:function(rnd){
+    var k=ri(rnd,0,2);
+    if(k===0){ var ps=[10,20,25,30,40,50], p=ps[ri(rnd,0,ps.length-1)], price=ri(rnd,2,40)*500; var off=price*p/100;
+      return { q:[TX("정가가 "+price+"원인 물건을 "+p+"% 할인하면 할인 금액은 얼마일까요?")], ans:[N(off),TX("원")], txt:true, chk:{word:"disc", base:price, p:p, ans:off} }; }
+    if(k===1){ var ps2=[10,20,25,30,40,50,60,75], p2=ps2[ri(rnd,0,ps2.length-1)], all=ri(rnd,2,25)*20; var cnt=all*p2/100;
+      return { q:[TX("전교생 "+all+"명 중 "+p2+"%가 안경을 씁니다. 안경을 쓰는 학생은 몇 명일까요?")], ans:[N(cnt),TX("명")], txt:true, chk:{word:"part", base:all, p:p2, ans:cnt} }; }
+    var tot=[10,20,25,40,50][ri(rnd,0,4)], hit=ri(rnd,1,tot-1); while((hit*100)%tot!==0) hit=ri(rnd,1,tot-1);
+    return { q:[TX(tot+"문제 중 "+hit+"문제를 맞혔습니다. 정답률은 몇 %일까요?")], ans:[N(hit*100/tot),TX("%")], txt:true, chk:{word:"rate", tot:tot, hit:hit, ans:hit*100/tot} };
   }}
 ]};
 
@@ -304,6 +326,23 @@ var T_PROP={id:"prop", name:"비례식", levels:[
   {label:"3단계 — 간단한 자연수의 비로 나타내기 (6-2)", t:"비례식 연습 ②", per:16, gen:function(rnd){
     var a=ri(rnd,1,9), b=ri(rnd,1,9); if(a===b) b=a+1; var g0=gcd(a,b); a/=g0; b/=g0; var k=ri(rnd,2,12);
     return { q:[TX((a*k)+" : "+(b*k)+eulReul(b*k)+" 가장 간단한 자연수의 비로 나타내면?")], ans:[N(a),TX(":"),N(b)], txt:true, chk:{a:a,b:b,k:k} };
+  }},
+  {label:"4단계 — 소수·분수의 비를 자연수의 비로 (6-2)", t:"비례식 연습 ③", per:12, gen:function(rnd){
+    var a=ri(rnd,1,9), b=ri(rnd,1,9); if(a===b) b=a+1; var g0=gcd(a,b); a/=g0; b/=g0;
+    if(rnd()<0.5){ var k=ri(rnd,1,3); var da=a*k, db=b*k;   /* 소수 비: 0.(da) : 0.(db) — 양쪽에 10을 곱하면 자연수 비 */
+      if(da>9||db>9){ da=a; db=b; }
+      return { q:[TX("0."+da+" : 0."+db+eulReul(db)+" 가장 간단한 자연수의 비로 나타내면?")], ans:[N(a),TX(":"),N(b)], txt:true, chk:{a:a,b:b,decRatio:true} }; }
+    var d=ri(rnd,2,9);   /* 분수 비: a/d : b/d → a : b (분모 같음) */
+    return { q:[F(a,d),TX(" : "),F(b,d),TX(eulReul(b)+" 가장 간단한 자연수의 비로 나타내면?")], ans:[N(a),TX(":"),N(b)], txt:true, chk:{a:a,b:b,frac:true} };
+  }},
+  {label:"5단계 — 비례식·비례배분 문장제 (6-2)", t:"비례식 문장제", per:12, gen:function(rnd){
+    var k=ri(rnd,0,2);
+    if(k===0){ var n1=ri(rnd,2,5), unit=ri(rnd,2,8)*100, n2=n1+ri(rnd,1,6);   /* 연필 3자루에 1200원 → 7자루는? */
+      return { q:[TX("연필 "+n1+"자루에 "+(n1*unit)+"원입니다. 같은 연필 "+n2+"자루는 얼마일까요?")], ans:[N(n2*unit),TX("원")], txt:true, chk:{word:"unit", n1:n1, unit:unit, n2:n2, ans:n2*unit} }; }
+    if(k===1){ var a=ri(rnd,1,5), b=ri(rnd,1,5); if(a===b) b=a+1; var m=ri(rnd,2,6);   /* 밀가루 2컵 : 설탕 3컵 → 설탕 9컵이면 밀가루? */
+      return { q:[TX("밀가루와 설탕을 "+a+" : "+b+"로 섞습니다. 설탕을 "+(b*m)+"컵 넣으면 밀가루는 몇 컵 넣어야 할까요?")], ans:[N(a*m),TX("컵")], txt:true, chk:{word:"mix", a:a, b:b, m:m, ans:a*m} }; }
+    var a2=ri(rnd,1,5), b2=ri(rnd,1,5); if(a2===b2) b2=a2+1; var m2=ri(rnd,2,10), total=(a2+b2)*m2;   /* 사탕 30개를 3:2로 → 형은? */
+    return { q:[TX("사탕 "+total+"개를 형과 동생이 "+a2+" : "+b2+"로 나누어 가지면 형은 몇 개를 가질까요?")], ans:[N(a2*m2),TX("개")], txt:true, chk:{word:"share", a:a2, b:b2, total:total, ans:a2*m2} };
   }}
 ]};
 

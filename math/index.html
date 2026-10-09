@@ -317,8 +317,12 @@ function figSVG(f){
   if(f.kind!=="circle") return "";
   var s='<svg viewBox="0 0 64 50" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="25" r="21" fill="none" stroke="#2b3038" stroke-width="1.3"/>';
   if(f.show==="d") s+='<line x1="11" y1="25" x2="53" y2="25" stroke="#e4573d" stroke-width="1.3"/><circle cx="32" cy="25" r="1.3" fill="#2b3038"/>';
-  else s+='<line x1="32" y1="25" x2="53" y2="25" stroke="#e4573d" stroke-width="1.3"/><circle cx="32" cy="25" r="1.3" fill="#2b3038"/>';
-  s+='<text x="'+(f.show==="d"?32:42.5)+'" y="22" text-anchor="middle" font-size="5.2" font-family="sans-serif" fill="#e4573d">'+f.label+'</text></svg>';
+  else if(f.show==="r") s+='<line x1="32" y1="25" x2="53" y2="25" stroke="#e4573d" stroke-width="1.3"/><circle cx="32" cy="25" r="1.3" fill="#2b3038"/>';
+  if(f.show==="c"||f.show==="a"){   /* 거꾸로 구하기: 둘레/넓이를 원 안에 두 줄로 */
+    var parts=f.label.split(" ");
+    s+='<text x="32" y="23" text-anchor="middle" font-size="4.6" font-family="sans-serif" fill="#e4573d">'+parts[0]+'</text><text x="32" y="30" text-anchor="middle" font-size="4.6" font-family="sans-serif" fill="#e4573d">'+parts[1]+'</text>';
+  } else s+='<text x="'+(f.show==="d"?32:42.5)+'" y="22" text-anchor="middle" font-size="5.2" font-family="sans-serif" fill="#e4573d">'+f.label+'</text>';
+  s+='</svg>';
   return s;
 }
 
@@ -681,10 +685,16 @@ function drawMathPNG(probs, startIdx, isAnswer, pageNo, pageTotal, vertical){
         if(p.fig&&p.fig.kind==="circle"){
           var rr=9*PXMM, fcx=qx+rr+1*PXMM, fcy=cy+rowH*0.42;
           x.strokeStyle="#2b3038"; x.lineWidth=1.6; x.beginPath(); x.arc(fcx,fcy,rr,0,Math.PI*2); x.stroke();
-          x.strokeStyle="#e4573d"; x.beginPath(); x.moveTo(p.fig.show==="d"?fcx-rr:fcx,fcy); x.lineTo(fcx+rr,fcy); x.stroke();
-          x.fillStyle="#2b3038"; x.beginPath(); x.arc(fcx,fcy,1.4,0,Math.PI*2); x.fill();
-          x.fillStyle="#e4573d"; x.font='400 '+Math.round(3.2*PXMM)+'px "Gowun Dodum"'; x.textAlign="center"; x.textBaseline="alphabetic";
-          x.fillText(p.fig.label, p.fig.show==="d"?fcx:fcx+rr/2, fcy-2*PXMM);
+          if(p.fig.show==="d"||p.fig.show==="r"){
+            x.strokeStyle="#e4573d"; x.beginPath(); x.moveTo(p.fig.show==="d"?fcx-rr:fcx,fcy); x.lineTo(fcx+rr,fcy); x.stroke();
+            x.fillStyle="#2b3038"; x.beginPath(); x.arc(fcx,fcy,1.4,0,Math.PI*2); x.fill();
+            x.fillStyle="#e4573d"; x.font='400 '+Math.round(3.2*PXMM)+'px "Gowun Dodum"'; x.textAlign="center"; x.textBaseline="alphabetic";
+            x.fillText(p.fig.label, p.fig.show==="d"?fcx:fcx+rr/2, fcy-2*PXMM);
+          } else {   /* 둘레/넓이 값을 원 안에 두 줄로 */
+            var lp=p.fig.label.split(" ");
+            x.fillStyle="#e4573d"; x.font='400 '+Math.round(2.9*PXMM)+'px "Gowun Dodum"'; x.textAlign="center"; x.textBaseline="middle";
+            x.fillText(lp[0],fcx,fcy-1.8*PXMM); x.fillText(lp[1],fcx,fcy+2*PXMM);
+          }
           qx=fcx+rr+4*PXMM;
         }
         /* 글 문제는 칸 너비 안에서 줄바꿈 (분수는 n/d로 풀어 씀) */
