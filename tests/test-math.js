@@ -38,6 +38,11 @@ function checkText(tag,p){
   /* 조사 검사: 분수는 'd분의 n'으로 읽혀 끝소리가 분자 — 분수를 분자로 바꿔 마지막 숫자의 받침 규칙(0·1·3·6·7·8 → 을)을 본다 */
   const qr=p.q.map(tk=>tk.t==="f"?String(tk.n):tk.v).join("");
   ok(!/을\(를\)|[0-9]를 |[0-9]을 /.test(qr.replace(/[013678]을 /g,"").replace(/[2459]를 /g,"")),tag+" 조사 을/를: "+q);
+  if(c.inv){ const exp=c.inv==="d"?2*c.r:c.inv==="pi"?c.pi:c.r; ok(fval(p.ans[0])===exp&&c.ans===exp&&p.fig&&p.fig.kind==="circle",tag+" 원 거꾸로("+c.inv+") → "+exp); return; }
+  if(c.dec2!==undefined){ ok(Math.abs(fval(p.ans[0])-c.a/c.b)<1e-9&&/^\d+(\.\d{1,2})?$/.test(String(c.dec2)),tag+" 비→소수 "+c.a+":"+c.b+" = "+c.dec2); return; }
+  if(c.word){ const exp = c.word==="disc"||c.word==="part" ? c.base*c.p/100 : c.word==="rate" ? c.hit*100/c.tot : c.word==="unit" ? c.n2*c.unit : c.word==="mix" ? c.a*c.m : c.a*(c.total/(c.a+c.b));
+    ok(fval(p.ans[0])===exp&&Number.isInteger(exp)&&c.ans===exp,tag+" 문장제("+c.word+") → "+exp); return; }
+  if(c.decRatio||c.frac){ const g=(a,b)=>b?g(b,a%b):a; ok(g(c.a,c.b)===1&&fval(p.ans[0])===c.a&&fval(p.ans[2])===c.b,tag+" 소수·분수 비 → "+c.a+":"+c.b); return; }
   if(c.what){ const exp=Math.round((c.what==="둘레"?2*c.r*c.pi:c.r*c.r*c.pi)*100)/100; ok(fval(p.ans[0])===exp&&c.ans===exp&&p.fig&&p.fig.kind==="circle"&&/cm/.test(p.ans[1].v),tag+" 원 "+c.what+" r="+c.r+" pi="+c.pi+" → "+exp); return; }
   if(c.pct!==undefined){ ok(fval(p.ans[0])===c.pct&&p.ans[1].v==="%"&&Number.isInteger(c.pct)===(c.dec!==undefined||true),tag+" 백분율 "+c.pct); return; }
   if(c.base){ ok(fval(p.ans[0])===c.base*c.p/100&&Number.isInteger(c.base*c.p/100),tag+" 백분율 계산 "+c.base+"의 "+c.p+"%"); return; }
