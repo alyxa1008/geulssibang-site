@@ -72,7 +72,7 @@ gtag("config", "G-86X82MNHC8");
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="글씨방">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "수학 연산 학습지 생성기", "url": "https://geulssibang.com/math/", "description": "덧셈, 뺄셈, 구구단, 곱셈, 나눗셈, 분수, 소수, 혼합 계산 학습지를 학년·단계별로 무한 생성하고 정답지와 함께 인쇄할 수 있는 무료 도구", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "문제가 매번 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 새 문제로 섞기를 누를 때마다 무작위로 새 문제가 생성됩니다. 링크 복사로 만든 주소를 열면 그 순간의 문제가 그대로 복원됩니다."}}, {"@type": "Question", "name": "몇 학년용인가요?", "acceptedAnswer": {"@type": "Answer", "text": "2022 개정 교육과정 단원 기준으로 1~2학년 덧셈·뺄셈·구구단, 3~4학년 세 자리 덧셈·뺄셈과 곱셈·나눗셈·분수·소수, 5~6학년 혼합 계산과 분수·소수의 곱셈·나눗셈까지 초등 전 학년 과정을 다룹니다."}}, {"@type": "Question", "name": "뺄셈에서 답이 음수가 나오나요?", "acceptedAnswer": {"@type": "Answer", "text": "아니요. 모든 뺄셈 문제는 답이 0 이상이 되도록 만들어집니다."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "문제가 매번 다른가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 새 문제로 섞기를 누를 때마다 무작위로 새 문제가 생성됩니다. 링크 복사로 만든 주소를 열면 그 순간의 문제가 그대로 복원됩니다."}}, {"@type": "Question", "name": "몇 학년용인가요?", "acceptedAnswer": {"@type": "Answer", "text": "2022 개정 교육과정 단원 기준으로 1~2학년 덧셈·뺄셈·구구단, 3~4학년 세 자리 덧셈·뺄셈과 곱셈·나눗셈·분수·소수, 5~6학년 혼합 계산과 분수·소수의 곱셈·나눗셈, 원의 둘레와 넓이, 비와 비율, 비례식과 비례배분까지 초등 전 학년 과정을 다룹니다."}}, {"@type": "Question", "name": "뺄셈에서 답이 음수가 나오나요?", "acceptedAnswer": {"@type": "Answer", "text": "아니요. 모든 뺄셈 문제는 답이 0 이상이 되도록 만들어집니다."}}]}</script>
 </head>
 <body>
 <div class="wrap">
@@ -206,7 +206,7 @@ gtag("config", "G-86X82MNHC8");
       <dt>문제가 매번 다른가요?</dt>
       <dd>네. '새 문제로 섞기'를 누를 때마다 무작위로 새 문제가 생성됩니다. 단, '링크 복사'로 만든 주소를 열면 그 순간의 문제가 그대로 복원돼요.</dd>
       <dt>몇 학년용인가요?</dt>
-      <dd>2022 개정 교육과정 단원 기준으로 1~2학년 덧셈·뺄셈·구구단, 3~4학년 세 자리 덧셈·뺄셈과 곱셈·나눗셈·분수·소수, 5~6학년 혼합 계산과 분수·소수의 곱셈·나눗셈까지 초등 전 학년 과정을 다룹니다. 난이도 이름의 (3-1)은 3학년 1학기 단원이라는 뜻이에요.</dd>
+      <dd>2022 개정 교육과정 단원 기준으로 1~2학년 덧셈·뺄셈·구구단, 3~4학년 세 자리 덧셈·뺄셈과 곱셈·나눗셈·분수·소수, 5~6학년 혼합 계산과 분수·소수의 곱셈·나눗셈, 원의 둘레와 넓이, 비와 비율, 비례식과 비례배분까지 초등 전 학년 과정을 다룹니다. 난이도 이름의 (3-1)은 3학년 1학기 단원이라는 뜻이에요.</dd>
       <dt>뺄셈에서 답이 음수가 나오나요?</dt>
       <dd>아니요. 모든 뺄셈 문제는 답이 0 이상이 되도록 만들어집니다.</dd>
       <dt>PDF로 저장하려면?</dt>
@@ -312,6 +312,15 @@ function tokNode(tok){
   return s;
 }
 function renderToks(parent,toks){ toks.forEach(function(tk){ parent.appendChild(tokNode(tk)); }); }
+/* 그림 문제(원): 반지름 또는 지름을 선으로 표시 — 숫자는 생성기 값이라 안전 */
+function figSVG(f){
+  if(f.kind!=="circle") return "";
+  var s='<svg viewBox="0 0 64 50" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="25" r="21" fill="none" stroke="#2b3038" stroke-width="1.3"/>';
+  if(f.show==="d") s+='<line x1="11" y1="25" x2="53" y2="25" stroke="#e4573d" stroke-width="1.3"/><circle cx="32" cy="25" r="1.3" fill="#2b3038"/>';
+  else s+='<line x1="32" y1="25" x2="53" y2="25" stroke="#e4573d" stroke-width="1.3"/><circle cx="32" cy="25" r="1.3" fill="#2b3038"/>';
+  s+='<text x="'+(f.show==="d"?32:42.5)+'" y="22" text-anchor="middle" font-size="5.2" font-family="sans-serif" fill="#e4573d">'+f.label+'</text></svg>';
+  return s;
+}
 
 /* ---------- 개념 설명 시트 (교과서 지도 방식 — 근거: CONCEPTS.md) ---------- */
 /* 토픽별로 붙는 개념 시트. 없는 토픽은 체크박스 자체를 숨긴다 */
@@ -432,26 +441,34 @@ function makeProblemSheet(title, probs, startIdx, isAnswerKey, pageNo, pageTotal
       var vp=el("div","vp");
       var no=el("span","pno"); no.textContent=(startIdx+i+1);
       var calc=el("div","calc");
-      var top=el("div"); top.textContent=p.v.a;
-      var bot=el("div","bot");
-      var op=el("span","op"); op.textContent=p.v.op;
-      var bn=el("span"); bn.textContent=p.v.b;
-      bot.appendChild(op); bot.appendChild(bn);
-      var ans=el("div","answer");
-      calc.appendChild(top); calc.appendChild(bot); calc.appendChild(ans);
+      if(p.v.op==="÷"){
+        /* 나눗셈 세로셈(장제법): 몫 칸 / 나누는 수 ⟌ 나뉘는 수 / 계산 칸 */
+        calc.className="calc ldiv";
+        var quot=el("div","quot"); var dsor=el("span","dsor"); dsor.textContent=p.v.b;
+        var dend=el("span","dend"); dend.textContent=p.v.a; var work=el("div","work");
+        calc.appendChild(quot); calc.appendChild(dsor); calc.appendChild(dend); calc.appendChild(work);
+      } else {
+        var top=el("div"); top.textContent=p.v.a;
+        var bot=el("div","bot");
+        var op=el("span","op"); op.textContent=p.v.op;
+        var bn=el("span"); bn.textContent=p.v.b;
+        bot.appendChild(op); bot.appendChild(bn);
+        var ans=el("div","answer");
+        calc.appendChild(top); calc.appendChild(bot); calc.appendChild(ans);
+      }
       vp.appendChild(no); vp.appendChild(calc);
       body.appendChild(vp);
     });
   } else {
     body=el("div","probs-h");
     probs.forEach(function(p,i){
-      var hp=el("div","hp");
+      var hp=el("div","hp"+(p.txt?" txt":"")+(p.fig?" fig":""));
       var no=el("span","pno"); no.textContent=(startIdx+i+1)+")";
       hp.appendChild(no);
+      if(p.fig){ var fg=el("span","figbox"); fg.innerHTML=figSVG(p.fig); hp.appendChild(fg); }   /* 내부에서 만든 SVG만 */
       var q=el("span","qline");
       renderToks(q,p.q);
-      var eq=el("span"); eq.textContent="=";
-      q.appendChild(eq);
+      if(!p.txt){ var eq=el("span"); eq.textContent="="; q.appendChild(eq); }   /* 글 문제는 '=' 없이 답 칸만 */
       hp.appendChild(q);
       hp.appendChild(el("span","blankline"));
       body.appendChild(hp);
@@ -603,6 +620,19 @@ function tokensW(x,toks,size,gap){ var w=0; toks.forEach(function(t){ w+=tokW(x,
 function drawTokens(x,toks,left,midY,size,gap){
   var cur=left; toks.forEach(function(t){ drawTok(x,t,cur,midY,size); cur+=tokW(x,t,size)+gap; });
 }
+/* 캔버스 글 줄바꿈 — 띄어쓰기 단위로 채우고, 한 단어가 칸보다 길면 글자 단위로 자른다 */
+function wrapText(x,text,maxW){
+  var lines=[], cur="";
+  text.split(" ").forEach(function(w){
+    var t=cur?cur+" "+w:w;
+    if(x.measureText(t).width<=maxW){ cur=t; return; }
+    if(cur) lines.push(cur);
+    cur="";
+    Array.from(w).forEach(function(ch){ if(x.measureText(cur+ch).width>maxW&&cur){ lines.push(cur); cur=""; } cur+=ch; });
+  });
+  if(cur) lines.push(cur);
+  return lines;
+}
 function drawMathPNG(probs, startIdx, isAnswer, pageNo, pageTotal, vertical){
   var PXMM=PNG_MM, s=pngSheet(), x=s.x, W=s.W, H=s.H, L=14*PXMM, R=W-14*PXMM;
   var title=(state.title||autoTitle())+(isAnswer?" — 정답":"");
@@ -625,18 +655,48 @@ function drawMathPNG(probs, startIdx, isAnswer, pageNo, pageTotal, vertical){
       x.fillStyle="#5b6470"; x.font='400 '+Math.round(3.6*PXMM)+'px "Gowun Dodum"'; x.textAlign="left"; x.textBaseline="middle";
       x.fillText(""+no,cx,cy+rowH*0.30);
       x.fillStyle="#2b3038"; x.font='400 '+Math.round(size)+'px "Gowun Dodum"'; x.textBaseline="alphabetic";
+      if(p.v.op==="÷"){
+        /* 장제법: 나누는 수 ⟌ 나뉘는 수 — 위쪽은 몫 칸으로 비워 둔다 */
+        var yd=cy+rowH*0.50, dw=x.measureText(""+p.v.a).width, lx=rx-dw;
+        x.textAlign="right"; x.fillText(""+p.v.a,rx,yd);
+        x.fillText(""+p.v.b,lx-3*PXMM,yd);
+        x.strokeStyle="#2b3038"; x.lineWidth=2.4; x.beginPath();
+        x.moveTo(lx-1.5*PXMM,yd+1.5*PXMM); x.lineTo(lx-1.5*PXMM,yd-size*0.95); x.lineTo(rx+1.5*PXMM,yd-size*0.95); x.stroke();
+      } else {
       x.textAlign="right"; x.fillText(""+p.v.a,rx,y1);
       x.fillText(""+p.v.b,rx,y2);
       x.textAlign="left"; x.fillText(p.v.op,cx+colW-7*PXMM-x.measureText(""+p.v.b).width-5*PXMM,y2);
       x.strokeStyle="#2b3038"; x.lineWidth=2.2; x.beginPath();
       x.moveTo(rx-22*PXMM,y2+2.5*PXMM); x.lineTo(rx,y2+2.5*PXMM); x.stroke();
+      }
     } else {
-      /* 가로셈: 번호) q = 밑줄 */
-      var midY=cy+rowH/2, size=5.6*PXMM;
+      /* 가로셈: 번호) q = 밑줄 · 글 문제는 '=' 없이 아랫줄 답 칸 · 그림 문제는 원을 먼저 그림 */
+      var midY=cy+rowH/2, size=p.txt?4.4*PXMM:5.6*PXMM;
       x.fillStyle="#5b6470"; x.font='400 '+Math.round(3.6*PXMM)+'px "Gowun Dodum"'; x.textAlign="left"; x.textBaseline="middle";
-      x.fillText(no+")",cx,midY);
+      x.fillText(no+")",cx,p.txt?cy+rowH*0.35:midY);
       x.fillStyle="#2b3038";
-      var qx=cx+9*PXMM; drawTokens(x,p.q,qx,midY,size,1.4*PXMM);
+      var qx=cx+9*PXMM;
+      if(p.txt){
+        var ty=cy+rowH*0.35;
+        if(p.fig&&p.fig.kind==="circle"){
+          var rr=9*PXMM, fcx=qx+rr+1*PXMM, fcy=cy+rowH*0.42;
+          x.strokeStyle="#2b3038"; x.lineWidth=1.6; x.beginPath(); x.arc(fcx,fcy,rr,0,Math.PI*2); x.stroke();
+          x.strokeStyle="#e4573d"; x.beginPath(); x.moveTo(p.fig.show==="d"?fcx-rr:fcx,fcy); x.lineTo(fcx+rr,fcy); x.stroke();
+          x.fillStyle="#2b3038"; x.beginPath(); x.arc(fcx,fcy,1.4,0,Math.PI*2); x.fill();
+          x.fillStyle="#e4573d"; x.font='400 '+Math.round(3.2*PXMM)+'px "Gowun Dodum"'; x.textAlign="center"; x.textBaseline="alphabetic";
+          x.fillText(p.fig.label, p.fig.show==="d"?fcx:fcx+rr/2, fcy-2*PXMM);
+          qx=fcx+rr+4*PXMM;
+        }
+        /* 글 문제는 칸 너비 안에서 줄바꿈 (분수는 n/d로 풀어 씀) */
+        x.fillStyle="#2b3038"; x.textAlign="left"; x.textBaseline="middle"; x.font='400 '+Math.round(size)+'px "Gowun Dodum"';
+        var text=p.q.map(function(t){ return t.t==="f" ? (t.w?t.w+" ":"")+t.n+"/"+t.d : String(t.v); }).join("");
+        var lines=wrapText(x,text,cx+colW-4*PXMM-qx), lh=size*1.45;
+        lines.forEach(function(ln,li){ x.fillText(ln,qx,ty+li*lh); });
+        x.strokeStyle="#2b3038"; x.lineWidth=1.6;
+        x.beginPath(); x.moveTo(cx+colW-34*PXMM,cy+rowH*0.82); x.lineTo(cx+colW-4*PXMM,cy+rowH*0.82); x.stroke();
+        x.textBaseline="alphabetic";
+      } else {
+      drawTokens(x,p.q,qx,midY,size,1.4*PXMM);
       var qw=tokensW(x,p.q,size,1.4*PXMM);
       x.font='400 '+Math.round(size)+'px "Gowun Dodum"'; x.textAlign="left"; x.textBaseline="middle";
       x.fillText("=",qx+qw+2*PXMM,midY);
@@ -644,6 +704,7 @@ function drawMathPNG(probs, startIdx, isAnswer, pageNo, pageTotal, vertical){
       x.strokeStyle="#2b3038"; x.lineWidth=1.6;
       x.beginPath(); x.moveTo(qx+qw+2*PXMM+eqW+2*PXMM,midY+3*PXMM); x.lineTo(cx+colW-4*PXMM,midY+3*PXMM); x.stroke();
       x.textBaseline="alphabetic";
+      }
     }
   });
   pngFooter({x:x,L:L,R:R,H:H,left:"글씨방 · 무료 수학 학습지",pageNo:pageNo,pageTotal:pageTotal});

@@ -30,6 +30,24 @@ const digits=n=>String(n).split("").reverse().map(Number);
 function noCarryAdd(a,b){ const da=digits(a), db=digits(b); return da.every((d,i)=>d+(db[i]||0)<=9)&&db.every((d,i)=>d+(da[i]||0)<=9); }
 function noBorrowSub(a,b){ const da=digits(a), db=digits(b); return db.every((d,i)=>(da[i]||0)>=d); }
 
+
+/* 글 문제 검산 — 원(둘레·넓이), 비와 비율, 비례식·비례배분 */
+const fval=tk=>tk.t==="f"?(tk.w||0)+tk.n/tk.d:+tk.v;
+function checkText(tag,p){
+  const c=p.chk, q=p.q.map(tk=>tk.t==="f"?tk.n+"/"+tk.d:tk.v).join("");
+  /* 조사 검사: 분수는 'd분의 n'으로 읽혀 끝소리가 분자 — 분수를 분자로 바꿔 마지막 숫자의 받침 규칙(0·1·3·6·7·8 → 을)을 본다 */
+  const qr=p.q.map(tk=>tk.t==="f"?String(tk.n):tk.v).join("");
+  ok(!/을\(를\)|[0-9]를 |[0-9]을 /.test(qr.replace(/[013678]을 /g,"").replace(/[2459]를 /g,"")),tag+" 조사 을/를: "+q);
+  if(c.what){ const exp=Math.round((c.what==="둘레"?2*c.r*c.pi:c.r*c.r*c.pi)*100)/100; ok(fval(p.ans[0])===exp&&c.ans===exp&&p.fig&&p.fig.kind==="circle"&&/cm/.test(p.ans[1].v),tag+" 원 "+c.what+" r="+c.r+" pi="+c.pi+" → "+exp); return; }
+  if(c.pct!==undefined){ ok(fval(p.ans[0])===c.pct&&p.ans[1].v==="%"&&Number.isInteger(c.pct)===(c.dec!==undefined||true),tag+" 백분율 "+c.pct); return; }
+  if(c.base){ ok(fval(p.ans[0])===c.base*c.p/100&&Number.isInteger(c.base*c.p/100),tag+" 백분율 계산 "+c.base+"의 "+c.p+"%"); return; }
+  if(c.total){ const x=fval(p.ans[0]), y=fval(p.ans[2]); ok(x+y===c.total&&x*c.b===y*c.a&&Number.isInteger(x)&&Number.isInteger(y),tag+" 비례배분 "+c.total+" → "+x+","+y); return; }
+  if(c.k&&c.pos!==undefined){ ok(fval(p.ans[0])===(c.pos===0?c.b*c.k:c.a*c.k),tag+" 비례식 □"); return; }
+  if(c.k){ const g=(a,b)=>b?g(b,a%b):a; ok(g(c.a,c.b)===1&&fval(p.ans[0])===c.a&&fval(p.ans[2])===c.b,tag+" 간단한 비 "+c.a+":"+c.b); return; }
+  if(c.b){ ok(Math.abs(fval(p.ans[0])-c.a/c.b)<1e-9,tag+" 비→분수 "+c.a+":"+c.b); return; }
+  ok(false,tag+" 알 수 없는 글 문제: "+q);
+}
+
 let total=0;
 MATH_GRADES.forEach(g=>g.topics.forEach(t=>t.levels.forEach((lv,li)=>{
   const tag=t.id+"["+li+"]";
@@ -37,6 +55,7 @@ MATH_GRADES.forEach(g=>g.topics.forEach(t=>t.levels.forEach((lv,li)=>{
   ok(ps.length===40,tag+" 40문제 생성");
   ps.forEach(p=>{
     total++;
+    if(p.txt){ checkText(tag,p); return; }   /* 6학년 글 문제: 생성기가 남긴 chk로 검산 */
     const a=ansVal(p.ans);
     const v=evalQ(p.q);
     if(a.r!==undefined){
@@ -72,4 +91,5 @@ ok(s1===s2,"같은 시드 = 같은 문제");
 ok(s1!==s3,"다른 시드 = 다른 문제");
 ok(ctx.findTopic("없는유형").topic.id==="add","모르는 유형은 덧셈으로 폴백");
 
+ok(MATH_GRADES[2].topics.map(t=>t.id).join()==="mixed,fracdiff,decmd,circle,ratio,prop","5~6학년 탭에 원·비와 비율·비례식");
 ok.done("토픽 "+MATH_GRADES.reduce((n,g)=>n+g.topics.length,0)+"종, 문제 "+total+"개 검산");
