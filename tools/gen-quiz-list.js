@@ -94,6 +94,7 @@ function build(){
   });
   c+='    <h2>이렇게 내 주면 더 재미있어요</h2>\n';
   c+='    <p><strong>① 맞히면 다음 급수로.</strong> 1급수에서 시작해 네 문제를 다 맞히면 2급수로 올라가는 규칙만 정해도 게임이 됩니다. <strong>② 틀린 문제는 해설을 소리 내어 읽기.</strong> "문어의 피는 파란색"처럼 의외의 사실일수록 한 번 소리 내어 읽으면 오래 남아요. <strong>③ 아이가 출제자 되기.</strong> 이 목록에서 아이가 문제를 골라 부모님께 내게 해 보세요 — 문제를 고르려고 읽는 동안 이미 스무 문제를 공부한 셈이 됩니다. 더 많은 문제를 매번 새로 풀고 싶다면 <a href="../">상식퀴즈 도구</a>가 '+data.length+'문제 중에서 골라 내 주고, 다 풀면 상장도 인쇄할 수 있어요.</p>\n\n';
+  c+='    <!-- 광고 자리: common.js mountAds()가 채움 (페이지당 1개) -->\n    <div class="adslot no-print"></div>\n';
   c+='    <h2>함께 보면 좋은 페이지</h2>\n    <div class="guides">\n      <a href="../">💡 상식퀴즈 풀기 (객관식·주관식, 상장 인쇄)</a>\n      <a href="../tips/">📖 아이 상식 넓혀주는 법</a>\n      <a href="../../gugudan/">✖ 구구단 외우기 시험</a>\n      <a href="../../today/">📅 오늘의 학습지 (상식 한 문제 포함)</a>\n    </div>\n\n';
   c+='    <h2>자주 묻는 질문</h2>\n    <dl class="faq">\n'+FAQ.map(f=>'      <dt>'+esc(f[0])+'</dt>\n      <dd>'+esc(f[1])+'</dd>').join("\n")+'\n    </dl>\n  </div>\n\n';
   const a=h.indexOf('  <div class="content">'), b=h.indexOf('  <footer');

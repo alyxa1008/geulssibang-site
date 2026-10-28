@@ -261,3 +261,32 @@ wireDeepLinks();
     localStorage.setItem("gb_recent", JSON.stringify(list.slice(0,3)));
   }catch(e){}
 })();
+
+/* ===== 광고 자리 (애드핏) =====
+ * 페이지당 .adslot 1개. 화면 폭에 맞는 광고 단위 하나만 요청한다(PC 728×90 / 모바일 320×100).
+ * ID를 비워 두면 자리 자체가 숨겨진다. 광고가 없거나 요청이 실패해도(onfail) 자리를 접어 빈 칸을 남기지 않는다.
+ * 시험·퀴즈 창(#exam/#quiz .show)이 열려 아이가 화면을 누르는 동안엔 광고를 치운다(오클릭 방지).
+ * 애드핏 코드 자체(ins 속성·스크립트 주소)는 공식 형식 그대로이며 수정하지 않는다. */
+var ADFIT_UNITS={ pc:"", mobile:"" };  // 애드핏 광고단위 ID(DAN-…) — 승인 후 여기만 채우면 전 페이지에 켜진다
+function gbAdFail(ins){ var s=ins&&ins.closest? ins.closest(".adslot"):null; if(s){ s.dataset.failed="1"; s.hidden=true; } }
+function mountAds(){
+  var slot=document.querySelector(".adslot"); if(!slot) return;
+  var pc=window.matchMedia("(min-width:768px)").matches;
+  var unit=pc? ADFIT_UNITS.pc : ADFIT_UNITS.mobile;
+  if(!unit){ slot.hidden=true; return; }
+  var ins=document.createElement("ins");
+  ins.className="kakao_ad_area"; ins.style.cssText="display:none;width:100%;";
+  ins.setAttribute("data-ad-unit", unit);
+  ins.setAttribute("data-ad-width", pc? "728":"320");
+  ins.setAttribute("data-ad-height", pc? "90":"100");
+  ins.setAttribute("data-ad-onfail", "gbAdFail");
+  slot.appendChild(ins);
+  var s=document.createElement("script"); s.async=true; s.type="text/javascript";
+  s.src="//t1.kakaocdn.net/kas/static/ba.min.js"; document.body.appendChild(s);
+  var live=document.getElementById("exam")||document.getElementById("quiz");
+  if(live && window.MutationObserver){
+    new MutationObserver(function(){ slot.hidden = live.classList.contains("show") || slot.dataset.failed==="1"; })
+      .observe(live,{attributes:true, attributeFilter:["class"]});
+  }
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", mountAds); else mountAds();

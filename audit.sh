@@ -96,7 +96,17 @@ echo "━━━ 11. 인쇄 토글 인라인 복제 금지 (body 클래스 토글
 hits=$(grep -rlE 'addEventListener\("afterprint"|document\.body\.classList\.add\(' --include='*.html' --exclude-dir=node_modules . 2>/dev/null | grep -v '.git' | sed 's|^\./||' | tr '\n' ' ')
 if [ -n "$hits" ]; then echo "  ❌ 인라인 복제: $hits→ printWith(cls, ga, before)로 교체"; FAIL=1; else echo "  ✅ 0건"; fi
 
-echo "━━━ 12. 회귀 테스트 (tests/run-all.sh) ━━━"
+echo "━━━ 12. 광고 자리 — 페이지당 .adslot 정확히 1개, 빈 div (제외: 404·privacy·terms·about·hangul/trace) ━━━"
+bad=""
+for f in $(find . -name index.html -not -path './node_modules/*' | sed 's|^\./||' | sort); do
+  n=$(grep -c 'class="adslot' "$f")
+  case "$f" in privacy/*|terms/*|about/*|hangul/trace/*) want=0;; *) want=1;; esac
+  [ "$n" -ne "$want" ] && bad="$bad $f($n)"
+  grep -q '<div class="adslot[^"]*"[^>]*>[^<]' "$f" && bad="$bad $f(내용있음)"
+done
+if [ -n "$bad" ]; then echo "  ❌ $bad"; FAIL=1; else echo "  ✅ 정상"; fi
+
+echo "━━━ 13. 회귀 테스트 (tests/run-all.sh) ━━━"
 tlog=$(bash tests/run-all.sh 2>&1)
 if [ $? -eq 0 ]; then echo "  ✅ $(echo "$tlog" | grep -c '^✅')벌 통과"; else echo "  ❌ 실패 있음"; echo "$tlog" | grep -A6 '^❌' | head -20; FAIL=1; fi
 
