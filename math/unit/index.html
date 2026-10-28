@@ -205,7 +205,7 @@ gtag("config", "G-86X82MNHC8");
 /* 지금쯤 배우는 단원 표시 (math/units.js currentUnit) */
 (function(){
   var box=document.getElementById("unitNow"); if(!box) return;
-  renderUnitNow(box, {grade:null, base:"../..", scrollTo:false});
+  renderUnitNow(box, {grade:null, base:"../.."});
 })();
 document.querySelector(".content").addEventListener("click",function(e){
   var a=e.target.closest(".unit a.gobtn[data-unit]"); if(!a) return;

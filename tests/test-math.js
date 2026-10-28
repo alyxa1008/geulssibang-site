@@ -39,17 +39,19 @@ function checkText(tag,p){
   const qr=p.q.map(tk=>tk.t==="f"?String(tk.n):tk.v).join("");
   ok(!/을\(를\)|[0-9]를 |[0-9]을 /.test(qr.replace(/[013678]을 /g,"").replace(/[2459]를 /g,"")),tag+" 조사 을/를: "+q);
   if(c.inv){ const exp=c.inv==="d"?2*c.r:c.inv==="pi"?c.pi:c.r; ok(fval(p.ans[0])===exp&&c.ans===exp&&p.fig&&p.fig.kind==="circle",tag+" 원 거꾸로("+c.inv+") → "+exp); return; }
-  if(c.dec2!==undefined){ ok(Math.abs(fval(p.ans[0])-c.a/c.b)<1e-9&&/^\d+(\.\d{1,2})?$/.test(String(c.dec2)),tag+" 비→소수 "+c.a+":"+c.b+" = "+c.dec2); return; }
+  if(c.dec2!==undefined){ ok(Math.abs(fval(p.ans[0])-c.a/c.b)<1e-9&&/^\d+(\.\d{1,2})?$/.test(String(c.dec2))&&!Number.isInteger(c.dec2),tag+" 비→소수 "+c.a+":"+c.b+" = "+c.dec2+" (정수 금지)"); return; }
   if(c.word){ const exp = c.word==="disc"||c.word==="part" ? c.base*c.p/100 : c.word==="rate" ? c.hit*100/c.tot : c.word==="unit" ? c.n2*c.unit : c.word==="mix" ? c.a*c.m : c.a*(c.total/(c.a+c.b));
     ok(fval(p.ans[0])===exp&&Number.isInteger(exp)&&c.ans===exp,tag+" 문장제("+c.word+") → "+exp); return; }
-  if(c.decRatio||c.frac){ const g=(a,b)=>b?g(b,a%b):a; ok(g(c.a,c.b)===1&&fval(p.ans[0])===c.a&&fval(p.ans[2])===c.b,tag+" 소수·분수 비 → "+c.a+":"+c.b); return; }
+  if(c.decRatio||c.frac){ const g=(a,b)=>b?g(b,a%b):a; ok(g(c.a,c.b)===1&&fval(p.ans[0])===c.a&&fval(p.ans[2])===c.b,tag+" 소수·분수 비 → "+c.a+":"+c.b);
+    p.q.filter(tk=>tk.t==="f").forEach(tk=>ok(tk.n<tk.d&&!(tk.w)&&g(tk.n,tk.d)===1,tag+" 분수 비 표기 진분수·기약: "+tk.n+"/"+tk.d)); return; }
   if(c.what){ const exp=Math.round((c.what==="둘레"?2*c.r*c.pi:c.r*c.r*c.pi)*100)/100; ok(fval(p.ans[0])===exp&&c.ans===exp&&p.fig&&p.fig.kind==="circle"&&/cm/.test(p.ans[1].v),tag+" 원 "+c.what+" r="+c.r+" pi="+c.pi+" → "+exp); return; }
-  if(c.pct!==undefined){ ok(fval(p.ans[0])===c.pct&&p.ans[1].v==="%"&&Number.isInteger(c.pct)===(c.dec!==undefined||true),tag+" 백분율 "+c.pct); return; }
+  if(c.pct!==undefined){ ok(fval(p.ans[0])===c.pct&&p.ans[1].v==="%"&&Number.isInteger(c.pct)===(c.dec!==undefined||true),tag+" 백분율 "+c.pct);
+    if(c.dec!==undefined) ok(!/\d0[을를]/.test(q),tag+" 소수 끝자리 0 표기 금지: "+q); else { const g=(a,b)=>b?g(b,a%b):a; ok(g(c.n,c.d)===1&&c.n<c.d,tag+" 비율 분수 기약·진분수: "+c.n+"/"+c.d); } return; }
   if(c.base){ ok(fval(p.ans[0])===c.base*c.p/100&&Number.isInteger(c.base*c.p/100),tag+" 백분율 계산 "+c.base+"의 "+c.p+"%"); return; }
   if(c.total){ const x=fval(p.ans[0]), y=fval(p.ans[2]); ok(x+y===c.total&&x*c.b===y*c.a&&Number.isInteger(x)&&Number.isInteger(y),tag+" 비례배분 "+c.total+" → "+x+","+y); return; }
   if(c.k&&c.pos!==undefined){ ok(fval(p.ans[0])===(c.pos===0?c.b*c.k:c.a*c.k),tag+" 비례식 □"); return; }
   if(c.k){ const g=(a,b)=>b?g(b,a%b):a; ok(g(c.a,c.b)===1&&fval(p.ans[0])===c.a&&fval(p.ans[2])===c.b,tag+" 간단한 비 "+c.a+":"+c.b); return; }
-  if(c.b){ ok(Math.abs(fval(p.ans[0])-c.a/c.b)<1e-9,tag+" 비→분수 "+c.a+":"+c.b); return; }
+  if(c.b){ ok(Math.abs(fval(p.ans[0])-c.a/c.b)<1e-9&&p.ans[0].t==="f"&&c.a%c.b!==0,tag+" 비→분수 "+c.a+":"+c.b+" (정수 답 금지)"); return; }
   ok(false,tag+" 알 수 없는 글 문제: "+q);
 }
 
@@ -66,6 +68,7 @@ MATH_GRADES.forEach(g=>g.topics.forEach(t=>t.levels.forEach((lv,li)=>{
     if(a.r!==undefined){
       const div=tokVal(p.q[2]);
       ok(tokVal(p.q[0])===div*a.q+a.r&&a.r<div&&a.r>0,tag+" 나머지 검산: "+JSON.stringify(p.q));
+      if(/두·세 자리/.test(lv.label)) ok(tokVal(p.q[0])<=999,tag+" 피제수 세 자리 이내: "+tokVal(p.q[0]));
     }else{
       ok(Math.abs(v-a.q)<1e-9,tag+" 식≠정답: "+JSON.stringify(p.q)+" → "+a.q+" (계산 "+v+")");
     }

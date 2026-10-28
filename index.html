@@ -316,7 +316,8 @@ gtag("config", "G-86X82MNHC8");
 /* 최근 사용 도구 표시 — common.js가 도구 페이지에서 기록한 localStorage를 읽는다 */
 (function(){
   var NAMES={"/hangul/":"✎ 한글 따라쓰기","/badaseugi/":"🔊 받아쓰기","/math/":"✚ 수학 연산",
-             "/maze/":"🌀 미로 찾기","/card/":"🎨 이름 카드","/plan/":"⏰ 생활계획표","/gugudan/":"✖ 구구단 시험"};
+             "/maze/":"🌀 미로 찾기","/card/":"🎨 이름 카드","/plan/":"⏰ 생활계획표","/gugudan/":"✖ 구구단 시험",
+             "/quiz/":"💡 상식 퀴즈","/diary/":"📓 그림일기·원고지","/hangul/chart/":"🔤 자음모음표","/today/":"📅 오늘의 학습지","/badaseugi/class/":"🔗 우리 반 받아쓰기"};
   try{
     var list=JSON.parse(localStorage.getItem("gb_recent")||"[]").filter(function(p){ return NAMES[p]; });
     if(!list.length) return;

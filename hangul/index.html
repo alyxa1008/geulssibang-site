@@ -485,7 +485,7 @@ document.getElementById("btnImage").addEventListener("click",function(){
   if(document.fonts && document.fonts.load){
     document.fonts.load('400 80px "'+fam+'"').then(function(){
       return document.fonts.load('400 60px "Jua"');
-    }).then(fin).catch(fin);
+    }).catch(function(){}).then(fin);
   } else fin();
 });
 document.getElementById("btnReset").addEventListener("click",function(){

@@ -49,7 +49,7 @@ banghak/ {gaehak,routine}            여름방학 학습지·가이드
 about/ privacy/ terms/ 404.html      사이트 소개·개인정보·약관·404
 robots.txt  sitemap.xml  ads.txt  manifest.json
 
-audit.sh        사이트 감사 12항목 (누수·딥링크·CSS·링크·중복 meta·sitemap·푸터 md5·JSON-LD·애드센스·톤·인쇄토글·테스트)
+audit.sh        사이트 감사 13항목 (누수·딥링크·CSS·링크·중복 meta·sitemap·푸터 md5·JSON-LD·애드센스·톤·인쇄토글·광고 자리 1개·테스트)
 tests/          회귀 테스트 19벌 + run-all.sh + _util.js (tests/README.md)
 tools/          smoke-test.js(전 페이지 브라우저 검사)·gen-today-data.js·gen-quiz-list.js·gen-math-units.js·gen-voice.js·gen-order-svg.py·capture-*.js·naver-rank.py(네이버 웹문서 순위 측정)
 *.md            운영 문서 (PLAYBOOK·QA·STUDY·CONCEPTS·GUGUDAN·MAZE·QUIZ-DRAFT) — .gitattributes export-ignore로 배포 제외

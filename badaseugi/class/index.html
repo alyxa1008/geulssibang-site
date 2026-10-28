@@ -91,8 +91,8 @@ gtag("config", "G-86X82MNHC8");
             <input type="text" id="cls" maxlength="12" placeholder="1학년 3반">
           </div>
           <div class="field">
-            <label for="exam">시험 이름</label>
-            <input type="text" id="exam" maxlength="18" placeholder="9월 셋째 주 · 5급">
+            <label for="examName">시험 이름</label>
+            <input type="text" id="examName" maxlength="18" placeholder="9월 셋째 주 · 5급">
           </div>
         </div>
 
@@ -327,7 +327,7 @@ function render(){
 /* ---------- UI ---------- */
 function syncUI(){
   document.getElementById("cls").value=state.cls;
-  document.getElementById("exam").value=state.exam;
+  document.getElementById("examName").value=state.exam;
   document.getElementById("words").value=state.words.join("\n");
   document.getElementById("repeat").value=String(state.repeat);
   document.getElementById("gap").value=String(state.gap);
@@ -335,7 +335,7 @@ function syncUI(){
   document.getElementById("showWords").checked=state.showWords;
 }
 document.getElementById("cls").addEventListener("input",function(e){ state.cls=e.target.value.slice(0,12); render(); });
-document.getElementById("exam").addEventListener("input",function(e){ state.exam=e.target.value.slice(0,18); render(); });
+document.getElementById("examName").addEventListener("input",function(e){ state.exam=e.target.value.slice(0,18); render(); });
 document.getElementById("words").addEventListener("input",render);
 ["repeat","gap"].forEach(function(id){ document.getElementById(id).addEventListener("change",function(e){ state[id]=+e.target.value; render(); }); });
 ["answers","showWords"].forEach(function(id){ document.getElementById(id).addEventListener("change",function(e){ state[id]=e.target.checked; render(); }); });

@@ -282,8 +282,9 @@ function mountAds(){
   ins.setAttribute("data-ad-onfail", "gbAdFail");
   slot.appendChild(ins);
   var s=document.createElement("script"); s.async=true; s.type="text/javascript";
-  s.src="//t1.kakaocdn.net/kas/static/ba.min.js"; document.body.appendChild(s);
-  var live=document.getElementById("exam")||document.getElementById("quiz");
+  s.src="//t1.kakaocdn.net/kas/static/ba.min.js"; s.onerror=function(){ gbAdFail(ins); };   /* 광고차단기 등으로 스크립트 자체가 안 오면 자리를 접는다 */
+  document.body.appendChild(s);
+  var live=document.querySelector(".exam");   /* 받아쓰기·구구단·퀴즈 시험 창(공통 class) */
   if(live && window.MutationObserver){
     new MutationObserver(function(){ slot.hidden = live.classList.contains("show") || slot.dataset.failed==="1"; })
       .observe(live,{attributes:true, attributeFilter:["class"]});

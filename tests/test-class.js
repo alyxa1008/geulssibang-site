@@ -7,7 +7,7 @@ const ok=U.makeOk("test-class");
 const html=U.read("badaseugi/class/index.html");
 
 /* 1) 배선 */
-["cls","exam","words","repeat","gap","answers","showWords","chipSample","btnCopy","btnPrint","btnQR","btnShare","btnReset","sheets","classHint","pageLabel"].forEach(id=>ok(html.includes('id="'+id+'"'),"id 누락: "+id));
+["cls","examName","words","repeat","gap","answers","showWords","chipSample","btnCopy","btnPrint","btnQR","btnShare","btnReset","sheets","classHint","pageLabel"].forEach(id=>ok(html.includes('id="'+id+'"'),"id 누락: "+id));
 ok(/track\("share_link",\{tool:"class"/.test(html)&&/track\("print_sheet",\{tool:"class-notice"/.test(html)&&/track\("save_png",\{tool:"class-qr"/.test(html),"GA 이벤트 3종");
 ["../../assets/common.js","../../assets/qrcode.js","../badaseugi-gen.js"].forEach(s=>ok(html.includes('<script src="'+s+'">'),"스크립트 로드: "+s));
 ok(html.includes("makeSheet({")&&html.includes("parseWords(")&&html.includes("escHtml("),"공용 makeSheet·parseWords·escHtml 사용");

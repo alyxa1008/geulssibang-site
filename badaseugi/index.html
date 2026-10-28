@@ -626,7 +626,7 @@ document.getElementById("btnImage").addEventListener("click",function(){
     showToast("이미지 "+sheets.length+"장 저장 ✓ 복사집에서 출력할 수 있어요");
   };
   if(document.fonts && document.fonts.load){
-    document.fonts.load('400 60px "Jua"').then(fin).catch(fin);
+    document.fonts.load('400 60px "Jua"').catch(function(){}).then(fin);
   } else fin();
 });
 document.getElementById("btnPreview").addEventListener("click",function(){

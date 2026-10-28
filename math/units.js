@@ -133,7 +133,7 @@ function unitToolHref(t, base){
 }
 if(typeof module!=="undefined") module.exports={ MATH_UNITS:MATH_UNITS, SEMESTERS:SEMESTERS, currentUnit:currentUnit, unitToolHref:unitToolHref };
 
-/* '이번 주 진도' 코너 렌더 — 홈·수학 도구·단원 페이지 공용. opts={grade:고정 학년|null, base:사이트 루트까지 상대경로, scrollTo:단원 섹션으로 이동 링크}
+/* '이번 주 진도' 코너 렌더 — 홈·수학 도구·단원 페이지 공용. opts={grade:고정 학년|null, base:사이트 루트까지 상대경로}
    학년은 localStorage gb_grade에 기억 */
 function renderUnitNow(box, opts){
   opts=opts||{}; var base=opts.base||"";

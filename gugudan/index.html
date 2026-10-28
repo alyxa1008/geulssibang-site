@@ -61,12 +61,12 @@ gtag("config", "G-86X82MNHC8");
 /* 연속 정답 배지 */
 .combo{font-family:var(--disp); color:#ffd9a8; font-size:17px; animation:comboPop .35s ease}
 @keyframes comboPop{from{transform:scale(.5); opacity:0} to{transform:scale(1); opacity:1}}
-/* 상장 — 평소엔 숨기고 인쇄할 때만 이것만 보이게 */
+/* 상장 — 평소엔 숨기고, 상장 인쇄(body.pc-cert) 때만 이것만 보이게. 일반 인쇄는 페이지 그대로 */
 #cert{display:none}
 @media print{
-  body *{visibility:hidden}
-  #cert, #cert *{visibility:visible}
-  #cert{display:block; position:absolute; left:0; top:0; width:100%}
+  body.pc-cert *{visibility:hidden}
+  body.pc-cert #cert, body.pc-cert #cert *{visibility:visible}
+  body.pc-cert #cert{display:block; position:absolute; left:0; top:0; width:100%}
 }
 #cert .cframe{border:4px double #2b3038; outline:2px solid #2b3038; outline-offset:3px; margin:12mm; padding:20mm 14mm; text-align:center; font-family:var(--disp); color:#2b3038}
 #cert .cmedal{font-size:72px; line-height:1}
@@ -492,7 +492,7 @@ function printCert(g){
     +'<div class="cdate">'+d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일</div>'
     +'<div class="csign">글씨방 구구단 시험 ✖ geulssibang.com</div></div>';
   track("print_sheet",{tool:"gugudan", kind:"cert"});
-  window.print();
+  printWith("pc-cert");
 }
 
 /* ---------- share ---------- */

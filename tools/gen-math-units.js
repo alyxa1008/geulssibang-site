@@ -58,7 +58,7 @@ const unitNowScript=(grade)=>`"use strict";
 /* 지금쯤 배우는 단원 표시 (math/units.js currentUnit) */
 (function(){
   var box=document.getElementById("unitNow"); if(!box) return;
-  renderUnitNow(box, {grade:${grade||"null"}, base:"${grade?"../../..":"../.."}", scrollTo:${grade?"true":"false"}});
+  renderUnitNow(box, {grade:${grade||"null"}, base:"${grade?"../../..":"../.."}"});
 })();
 document.querySelector(".content").addEventListener("click",function(e){
   var a=e.target.closest(".unit a.gobtn[data-unit]"); if(!a) return;
